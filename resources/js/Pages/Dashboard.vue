@@ -1,27 +1,22 @@
+<script setup>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Head } from '@inertiajs/vue3';
+</script>
 
 <template>
-    <SiteTitle>マイページ</SiteTitle>
+    <Head title="Dashboard" />
 
-    <Button slug="/">ボタン</Button>
+    <AuthenticatedLayout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+        </template>
 
-<div class="">
-    <div class="text-center my-4">
-        <router-link to="/dashboard/bookmark" class="mr-4 border border-black p-0.5">ブックマークした求人</router-link>
-        <router-link to="/dashboard/applied" class="border border-black p-0.5">応募済み求人</router-link>
-    </div>
-    <hr>
-    <div class="">
-        ここに「ブックマークした求人」や「応募済み求人」の一覧を表示をしたい
-    </div>
-    <hr>
-
-    <div class="">
-        
-    </div>
-</div>
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">You're logged in!</div>
+                </div>
+            </div>
+        </div>
+    </AuthenticatedLayout>
 </template>
-
-<script setup>
-import SiteTitle from '../Components/SiteTitle.vue';
-import Button from '../Components/Button/Button.vue';
-</script>
