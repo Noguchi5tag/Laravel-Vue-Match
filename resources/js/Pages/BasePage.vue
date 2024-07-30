@@ -3,7 +3,7 @@
         <div class="max-w-sm m-auto bg-white">
             <HeaderComponent/>
 
-                <router-view></router-view>
+                <slot />
             
             <FooterComponent />
         </div>

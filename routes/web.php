@@ -5,6 +5,16 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+Route::get('/top', function () {
+    return Inertia::render('TopPage');
+});
+Route::get('/search', function () {
+    return Inertia::render('SearchPage');
+});
+Route::get('/job-detail', function () {
+    return Inertia::render('JobDetailPage');
+});
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),

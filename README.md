@@ -1,6 +1,6 @@
 
 ##開発環境
-Laravel Sail + Vue3 + Inertia(Breeze)
+Laravel 11 Sail + Vue3 + Inertia(Breeze)
 
 ##立ち上げ
 sail up -d
