@@ -1,11 +1,35 @@
 
-##開発環境
+## 開発環境
 Laravel 11 Sail + Vue3 + Inertia(Breeze)
 
-##立ち上げ
+## 立ち上げ
 sail up -d
 
 sail npm run dev
+
+------------------------------------------------------
+
+## 変数名の定義
+companyName : 会社名
+WantedTitles : 募集タイトル
+Occupation : 職種
+companyAddress : 会社の住所
+companyPay : 給料
+dutyStation : 勤務地
+workDescription : 仕事内容
+payDescription : 給与詳細
+travelExpenses : 交通費
+Welfare : 福利厚生
+startWork : 勤務開始時間
+endWork : 勤務終了時間
+workDays : 出勤日
+freeDays : 休日
+NearestStation : 最寄り駅
+workOther : その他
+
+
+
+------------------------------------------------------
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>

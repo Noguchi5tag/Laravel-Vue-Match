@@ -4,7 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\JobController;
 
+//エンドユーザー向け
 Route::get('/top', function () {
     return Inertia::render('TopPage');
 });
@@ -14,6 +16,13 @@ Route::get('/search', function () {
 Route::get('/job-detail', function () {
     return Inertia::render('JobDetailPage');
 });
+
+//企業向け
+Route::get('/company/index', [JobController::class,'index'])->name('company.index');
+
+Route::get('/company/show/{InertiaJob}', [JobController::class,'show'])->name('company.show');
+
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

@@ -1,15 +1,12 @@
 <template>
     <BasePage>
-        <SiteTitle>トップページ</SiteTitle>
+        <SiteTitle>注目の企業</SiteTitle>
 
-        <div class="">
-            <div class="flex">
-                <img class="w-6" src="../../../public/images/company.png" alt="">
-                <h2 class="">{{ companyName }}</h2>
-            </div>
+        <div class="border border-gray-400">
+            <h2 class="text-center my-2 ">{{ companyName }}</h2>
             <!-- スライダー画像 -->
-            <div class="">
-                <img src="../../../public/images/company_img.jpg" alt="">
+            <div class="h-80 w-full">
+                <img class="w-full h-full object-cover" src="../../../public/images/company_img.jpg" alt="">
             </div>
             <div class="">
                 <span></span> <!-- いいね機能 -->
@@ -32,6 +29,7 @@
                 </div>
             </div>
         </div>
+        
     </BasePage>
 </template>
 

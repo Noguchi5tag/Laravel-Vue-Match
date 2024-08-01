@@ -11,7 +11,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-black">
+        <div class="bg-black mb-14">
             <p class="text-center text-white">© 2024 FIVE TAG PLUS</p>
         </div>
     </div>
