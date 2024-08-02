@@ -1,15 +1,24 @@
 <script setup>
+import { router, Link } from '@inertiajs/vue3';
+
 const props = defineProps({
     id: String,
     inertiaJob: Object,
 })
 
 console.log('inertiaJob:', props.inertiaJob)
+
+const deleteFunction = id => {
+    console.log('id:', id)
+    router.delete(`/company/delete/${id}`, {
+        onBefore: () => confirm('削除しますか？')
+    },)
+}
 </script>
 
 <template>
-    {{ props.id }}
     <div v-if="props.inertiaJob">
+        {{ props.inertiaJob.id }}
         <h1>会社名：{{ props.inertiaJob.companyName }}</h1>
         <p>募集タイトル：{{ props.inertiaJob.WantedTitles }}</p>
         <p>職種：{{ props.inertiaJob.Occupation }}</p>
@@ -29,4 +38,11 @@ console.log('inertiaJob:', props.inertiaJob)
     <div v-else>
         <p>データが見つかりません。</p>
     </div>
+
+    <button @click="deleteFunction(props.inertiaJob.id)" class="bg-red-400">削除</button>
+
+    <Link as="button" :href="route('company.edit', { inertiaJob: props.inertiaJob.id })" class="bg-green-200">編集する</Link>
+
+    <Link href="/company/index">戻る</Link>
+
 </template>

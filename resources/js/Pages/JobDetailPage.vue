@@ -1,3 +1,27 @@
+<script setup>
+
+import BasePage from './BasePage.vue';
+import SiteTitle from '../Components/SiteTitle.vue';
+import Button from '../Components/Button/Button.vue';
+
+const companyName = '株式会社ファイブタッグプラス';
+const Occupation = "情報技術"
+const WantedTitle = 'パソコンを使ったデータ入力';
+const companyAddress = '長崎県長崎市万屋町12-1';
+const companyPay = '160.000';
+const dutyStation = '長崎県長崎市';
+const workDescription = 'ここに具体的な仕事内容が入ります。ここに具体的な仕事内容が入ります。ここに具体的な仕事内容が入ります。ここに具体的な仕事内容が入ります。';
+const payDescription = '時間外手当、賞与2回、交通費規定支給（上限20,000円まで';
+const travelExpenses = '規定支給（20,000円まで）';
+const Welfares = '社会保険 賞与あり 資格取得支援制度';
+const workHours = '9:00～18:00（休憩60分）';
+const workDays = '土日祝日休み';
+const NearestStation = '眼鏡橋駅';
+const workOther = '経験者優遇';
+
+</script>
+
+
 
 <template>
     <BasePage>
@@ -87,25 +111,3 @@
     </BasePage>
 </template>
 
-<script setup>
-
-import BasePage from './BasePage.vue';
-import SiteTitle from '../Components/SiteTitle.vue';
-import Button from '../Components/Button/Button.vue';
-
-const companyName = '株式会社ファイブタッグプラス';
-const Occupation = "情報技術"
-const WantedTitle = 'パソコンを使ったデータ入力';
-const companyAddress = '長崎県長崎市万屋町12-1';
-const companyPay = '160.000';
-const dutyStation = '長崎県長崎市';
-const workDescription = 'ここに具体的な仕事内容が入ります。ここに具体的な仕事内容が入ります。ここに具体的な仕事内容が入ります。ここに具体的な仕事内容が入ります。';
-const payDescription = '時間外手当、賞与2回、交通費規定支給（上限20,000円まで';
-const travelExpenses = '規定支給（20,000円まで）';
-const Welfares = '社会保険 賞与あり 資格取得支援制度';
-const workHours = '9:00～18:00（休憩60分）';
-const workDays = '土日祝日休み';
-const NearestStation = '眼鏡橋駅';
-const workOther = '経験者優遇';
-
-</script>

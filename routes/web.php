@@ -19,11 +19,15 @@ Route::get('/job-detail', function () {
 
 //企業向け
 Route::get('/company/index', [JobController::class,'index'])->name('company.index');
+Route::get('/company/create', [JobController::class,'create'])->name('company.create');
+Route::post('/company/job', [JobController::class,'store'])->name('company.store');
+Route::get('/company/{inertiaJob}/edit', [JobController::class,'edit'])->name('company.edit');
+Route::get('/company/show/{inertiaJob}', [JobController::class,'show'])->name('company.show');
+Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('inertiaJob.update');
+Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
 
-Route::get('/company/show/{InertiaJob}', [JobController::class,'show'])->name('company.show');
 
-
-
+//default部分
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),

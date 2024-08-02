@@ -7,7 +7,14 @@ defineProps({
 </script>
 
 <template>
-    企業様向けIndexページ
+    企業様向けIndexページ<br>
+
+    <!-- フラッシュメッセージ -->
+    <div v-if="$page.props.flash.message" class="bg-blue-300">
+        {{ $page.props.flash.message }}
+    </div>
+
+    <Link :href="route('company.create')" class="bg-sky-200">新規登録</Link>
 
     <div v-if="inertiaJobs">
         <div v-for="n in inertiaJobs" :key="n.id">
