@@ -1,50 +1,60 @@
-<template>
-    <BasePage>
-        <SiteTitle>注目の企業</SiteTitle>
-
-        <div class="border border-gray-400">
-            <h2 class="text-center my-2 ">{{ companyName }}</h2>
-            <!-- スライダー画像 -->
-            <div class="h-80 w-full">
-                <img class="w-full h-full object-cover" src="../../../public/images/company_img.jpg" alt="">
-            </div>
-            <div class="">
-                <span></span> <!-- いいね機能 -->
-                <span></span> <!-- ブックマーク -->
-                <Button slug="/job-detail">詳しく見る</Button>
-            </div>
-            <div class="">
-                <h3>{{ WantedTitles }}</h3>
-                <div class="flex">
-                    <img class="w-6" src="../../../public/images/company.png" alt="">
-                    <p>{{ companyAddress }}</p>
-                </div>
-                <div class="flex">
-                    <img class="w-6" src="../../../public/images/company.png" alt="">
-                    <p>月給：{{ companyPay }}～</p>
-                </div>
-                <div class="flex">
-                    <img class="w-6" src="../../../public/images/company.png" alt="">
-                    <p>{{ dutyStation }}</p>
-                </div>
-            </div>
-        </div>
-        
-    </BasePage>
-</template>
-
-
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 import BasePage from './BasePage.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
-import Button from '../Components/Button/Button.vue';
 
-const companyName = '株式会社ファイブタッグプラス';
-const WantedTitles = 'パソコンを使ったデータ入力';
-const companyAddress = 'パソコンを使ったデータ入力';
-const companyPay = '160.000';
-const dutyStation = '長崎県長崎市万屋町12-1';
-
+defineProps({
+    canLogin: {
+        type: Boolean,
+    },
+    canRegister: {
+        type: Boolean,
+    },
+    laravelVersion: {
+        type: String,
+        required: true,
+    },
+    phpVersion: {
+        type: String,
+        required: true,
+    },
+});
 </script>
+
+<template>
+    <Head title="Welcome" />
+
+    <BasePage>
+        <SiteTitle>Welcome</SiteTitle>
+
+        <div class="my-10 text-center">
+            <nav v-if="canLogin" class="">
+                <Link
+                    v-if="$page.props.auth.user"
+                    :href="route('dashboard')"
+                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                >
+                    ダッシュボードへ
+                </Link>
+
+                <template v-else>
+                    <Link
+                        :href="route('login')"
+                        class="bg-[#FF2D20] rounded-md px-3 py-2 mr-2 text-white"
+                    >
+                        ログイン
+                    </Link>
+                    <Link
+                        v-if="canRegister"
+                        :href="route('register')"
+                        class="bg-[#31adff] rounded-md px-3 py-2 text-white"
+                    >
+                        新規登録
+                    </Link>
+                </template>
+            </nav>
+        </div>
+
+    </BasePage>
+</template>

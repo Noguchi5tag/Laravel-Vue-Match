@@ -64,6 +64,13 @@ class JobController extends Controller
             'inertiaJob' => $inertiaJob,
         ]);
     }
+    public function view(InertiaJob $inertiaJob)
+    {
+        // dd($inertiaJob);
+        return Inertia::render('JobDetailPage', [
+            'inertiaJob' => $inertiaJob,
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.

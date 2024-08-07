@@ -7,9 +7,6 @@ use Inertia\Inertia;
 use App\Http\Controllers\JobController;
 
 //エンドユーザー向け
-Route::get('/top', function () {
-    return Inertia::render('TopPage');
-});
 Route::get('/search', function () {
     return Inertia::render('SearchPage');
 });
@@ -17,25 +14,38 @@ Route::get('/job-detail', function () {
     return Inertia::render('JobDetailPage');
 });
 
-//企業向け
-Route::get('/company/index', [JobController::class,'index'])->name('company.index');
+
+Route::get('/jobs', [JobController::class,'index'])->name('company.index');
 Route::get('/company/create', [JobController::class,'create'])->name('company.create');
 Route::post('/company/job', [JobController::class,'store'])->name('company.store');
-Route::get('/company/{inertiaJob}/edit', [JobController::class,'edit'])->name('company.edit');
-Route::get('/company/show/{inertiaJob}', [JobController::class,'show'])->name('company.show');
+Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->name('company.edit');
+Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show'); //管理者
+Route::get('/jobs/{inertiaJob}', [JobController::class,'view'])->name('company.view'); //一般ユーザー
 Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('inertiaJob.update');
 Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
 
-
-//default部分
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+    return Inertia::render('TopPage', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/top', function () {
+    return Inertia::render('TopPage');
+})->name('top');
+
+//default部分
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
