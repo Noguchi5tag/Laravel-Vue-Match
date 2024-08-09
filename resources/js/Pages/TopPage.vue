@@ -48,9 +48,16 @@ defineProps({
                     <Link
                         v-if="canRegister"
                         :href="route('register')"
-                        class="bg-[#31adff] rounded-md px-3 py-2 text-white"
+                        class="bg-[#31adff] rounded-md px-3 py-2 mr-2 text-white"
                     >
                         新規登録
+                    </Link>
+                    <Link
+                        v-if="canRegister"
+                        :href="route('admin.login')"
+                        class="bg-[#232] rounded-md px-3 py-2 text-white"
+                    >
+                        管理者ページ
                     </Link>
                 </template>
             </nav>

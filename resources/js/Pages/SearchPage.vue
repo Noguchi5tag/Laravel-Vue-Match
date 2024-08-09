@@ -1,4 +1,5 @@
 <script setup>
+import { Head, Link } from '@inertiajs/vue3';
 import BasePage from './BasePage.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
 import CheckBox from '../Components/Checkbox.vue';
@@ -7,6 +8,7 @@ import { Value } from 'sass';
 </script>
 
 <template>
+    <Head title="求人検索" />
     <BasePage>
         <SiteTitle>求人検索</SiteTitle>
         <section class="text-gray-600 body-font relative">

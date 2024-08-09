@@ -19,6 +19,9 @@ Route::get('/', function () {
 Route::get('/search', function () {
     return Inertia::render('SearchPage');
 })->name('search');
+Route::get('/rules', function () {
+    return Inertia::render('RulesPage');
+})->name('RulesPage');
 
 
 Route::get('/jobs', [JobController::class,'index'])->name('company.index');
@@ -31,20 +34,10 @@ Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->na
 Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
 
 
-
 Route::get('/top', function () {
     return Inertia::render('TopPage');
 })->name('top');
 
-//default部分
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

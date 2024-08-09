@@ -13,6 +13,8 @@ use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use Illuminate\Support\Facades\Log;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -45,7 +47,8 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::guard('admin')->login($user);
+        Log::info('管理者登録成功');
 
-        return redirect(route('admin/dashboard', absolute: false));
+        return redirect(route('admin.dashboard')); //登録後のリダイレクト先
     }
 }

@@ -40,7 +40,7 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <h1>管理者登録</h1>
+                <h1>管理者ログイン</h1>
                 <InputLabel for="email" value="メールアドレス" />
 
                 <TextInput
@@ -95,8 +95,8 @@ const submit = () => {
                     パスワードをわすれた
                 </Link>
             </DangerButton>
-            <Link as="button" :href="route('register')" class="rounded-md px-3 py-2 ml-2 text-white bg-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                新規会員登録
+            <Link as="button" :href="route('admin.register')" class="rounded-md px-3 py-2 ml-2 text-white bg-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                新規管理者登録
             </Link>
         </div>
     </GuestLayout>
