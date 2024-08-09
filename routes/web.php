@@ -7,23 +7,6 @@ use Inertia\Inertia;
 use App\Http\Controllers\JobController;
 
 //エンドユーザー向け
-Route::get('/search', function () {
-    return Inertia::render('SearchPage');
-});
-Route::get('/job-detail', function () {
-    return Inertia::render('JobDetailPage');
-});
-
-
-Route::get('/jobs', [JobController::class,'index'])->name('company.index');
-Route::get('/company/create', [JobController::class,'create'])->name('company.create');
-Route::post('/company/job', [JobController::class,'store'])->name('company.store');
-Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->name('company.edit');
-Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show'); //管理者
-Route::get('/jobs/{inertiaJob}', [JobController::class,'view'])->name('company.view'); //一般ユーザー
-Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('inertiaJob.update');
-Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
-
 Route::get('/', function () {
     return Inertia::render('TopPage', [
         'canLogin' => Route::has('login'),
@@ -32,6 +15,22 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/search', function () {
+    return Inertia::render('SearchPage');
+})->name('search');
+
+
+Route::get('/jobs', [JobController::class,'index'])->name('company.index');
+Route::get('/company/create', [JobController::class,'create'])->name('company.create');
+Route::post('/company/job', [JobController::class,'store'])->name('company.store'); //登録
+Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->name('company.edit');
+Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show'); //管理者
+// Route::get('/jobs/{inertiaJob}', [JobController::class,'view'])->name('company.view'); //一般ユーザー
+Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('inertiaJob.update');
+Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
+
+
 
 Route::get('/top', function () {
     return Inertia::render('TopPage');
@@ -58,3 +57,12 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('Admin/Dashboard');
+    })->middleware(['auth:admin', 'verified'])->name('dashboard');
+
+    require __DIR__.'/admin.php';
+});

@@ -1,7 +1,7 @@
 
 <script setup>
 import { reactive } from 'vue';
-import { router, Link  } from '@inertiajs/vue3';
+import { Link  } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 
 import BasePage from '../BasePage.vue';
@@ -30,15 +30,25 @@ const form = reactive({
     workDays: props.inertiaJob.workDays,
     freeDays: props.inertiaJob.freeDays,
     NearestStation: props.inertiaJob.NearestStation,
-    workOther: props.inertiaJob.workOther
+    workOther: props.inertiaJob.workOther,
+
+    image1: null,
+    registerd_image1: props.inertiaJob.image1,
 });
 
 // console.log(form);
 
-const updateFunction = async id => {
-    await Inertia.put(route('inertiaJob.update', { inertiaJob: id }), form);
+const updateFunction = async (id) => {
+      // フォームデータに画像の変数を含める
+    const formData = new FormData();
+    for (const key in form.value) {
+        formData.append(key, form.value[key]);
+    }
+
+    await Inertia.put(route('inertiaJob.update', { inertiaJob: id }), formData);
     Inertia.get(route('company.show', { inertiaJob: id }));
 }
+
 </script>
 
 <template>
@@ -162,6 +172,17 @@ const updateFunction = async id => {
                                             <textarea name="workOther" id="workOther" v-model="form.workOther" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                                         </div>
                                     </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="image1" class="leading-7 text-sm text-gray-600">画像１</label>
+                                            <div class="">
+                                                <img :src="`/${form.registerd_image1}`" alt="">
+                                            </div>
+                                            <input type="file" name="" id="image1" @input="form.image1 = $event.target.files[0]" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        </div>
+                                    </div>
+                                    
                                     <div class="p-2 w-full">
                                         <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
                                     </div>

@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('inertia_jobs', function (Blueprint $table) {
-            $table->string('freeDays')->after('workDays'); // 休日
+            if (!Schema::hasColumn('inertia_jobs', 'freeDays')) {
+                $table->string('freeDays')->after('workDays')->notNull();
+            }
         });
     }
 
@@ -22,7 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('inertia_jobs', function (Blueprint $table) {
-            $table->dropColumn('freeDays');
+            if (Schema::hasColumn('inertia_jobs', 'freeDays')) {
+                $table->dropColumn('freeDays');
+            }
         });
     }
 };

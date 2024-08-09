@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('inertia_jobs', function (Blueprint $table) {
-            if (Schema::hasColumn('inertia_jobs', 'workHours')) {
-                $table->integer('workHours')->default(0)->change(); // デフォルト値を設定
-            }
+            $table->string('image1')->nullable();
+            $table->string('image2')->nullable();
+            $table->string('image3')->nullable();
+            $table->string('image4')->nullable();
+            $table->string('image5')->nullable();
         });
     }
 
@@ -24,9 +26,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('inertia_jobs', function (Blueprint $table) {
-            if (Schema::hasColumn('inertia_jobs', 'workHours')) {
-                $table->integer('workHours')->change(); // デフォルト値を削除
-            }
+            $table->dropColumn('image1');
+            $table->dropColumn('image2');
+            $table->dropColumn('image3');
+            $table->dropColumn('image4');
+            $table->dropColumn('image5');
         });
     }
 };

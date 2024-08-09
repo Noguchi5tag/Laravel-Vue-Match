@@ -1,5 +1,10 @@
 <script setup>
-import { router, Link } from '@inertiajs/vue3';
+import { Head, router, Link, usePage } from '@inertiajs/vue3';
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+//ログインしているかどうかの処理
+const { props: pageProps } = usePage();
+const isLoggedIn = pageProps.auth.user !== null;
 
 import BasePage from '../BasePage.vue';
 
@@ -16,9 +21,20 @@ const deleteFunction = id => {
         onBefore: () => confirm('削除しますか？')
     },)
 }
+
+const imageCount = (job) => {
+    let count = 0;
+    for (let i = 1; i <= 5; i++) {
+        if (job[`image${i}`]) {
+            count++;
+        }
+    }
+    return count;
+}
 </script>
 
 <template>
+    <Head title="求人詳細" />
     <BasePage>
 
         <div v-if="props.inertiaJob">
@@ -30,9 +46,17 @@ const deleteFunction = id => {
                                 {{ props.inertiaJob.companyName }}
                             </h1>
                         </div>
-                        <div class="h-80 w-full mb-12">
-                            <img class="w-full h-full object-cover" src="../../../../public/images/company_img.jpg" alt="">
-                        </div>
+                        <carousel :items-to-show="1.5">
+                            <slide v-for="slide in imageCount(props.inertiaJob)" :key="slide">
+                                <div v-if="props.inertiaJob[`image${slide}`]" class="carousel__item">
+                                    <img :src="`/images/${props.inertiaJob[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
+                                </div>
+                            </slide>
+                            <template #addons>
+                                <navigation />
+                                <pagination />
+                            </template>
+                        </carousel>
                         <div class="mx-auto">
                             <div class="flex flex-wrap -m-2">
                                 <div class="p-1 w-full">
@@ -160,11 +184,14 @@ const deleteFunction = id => {
                                 </div>
                             </div>
                     
-                            <div class="p-2 w-full">
-                                <Link as="button" :href="route('company.edit', { inertiaJob: props.inertiaJob.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</Link>
-                            </div>
-                            <div class="p-2 w-full">
-                                <button @click="deleteFunction(props.inertiaJob.id)" class="flex mx-auto text-white bg-red-400 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">削除</button>
+                            <!-- ここで条件分岐 -->
+                            <div v-if="!isLoggedIn" class="p-2 w-full">
+                                <div class="p-2">
+                                    <Link as="button" :href="route('company.edit', { inertiaJob: props.inertiaJob.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</Link>
+                                </div>
+                                <div class="p-2">
+                                    <button @click="deleteFunction(props.inertiaJob.id)" class="flex mx-auto text-white bg-red-400 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">削除</button>
+                                </div>
                             </div>
                             <div class="p-2 w-full">
                                 <Link as="button" href="/jobs" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
@@ -179,3 +206,24 @@ const deleteFunction = id => {
         </div>
     </BasePage>
 </template>
+
+<style>
+.carousel__item {
+    min-height: 200px;
+    width: 100%;
+    background-color: var(--vc-clr-primary);
+    color: var(--vc-clr-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .carousel__slide {
+    padding: 2px;
+    }
+
+    .carousel__prev,
+    .carousel__next {
+    color: white;
+    }
+</style>

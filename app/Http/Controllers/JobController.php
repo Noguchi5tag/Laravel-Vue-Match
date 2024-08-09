@@ -32,24 +32,39 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        InertiaJob::create($request->validate([
-            'companyName' => ['required', 'max:100'],
-            'WantedTitles' => ['required',],
-            'Occupation' => ['required',],
-            'companyAddress' => ['required',],
-            'companyPay' => ['required',],
-            'dutyStation' => ['required',],
-            'workDescription' => ['required',],
-            'payDescription' => ['required',],
-            'travelExpenses' => ['required',],
-            'Welfare' => ['required',],
-            'startWork' => ['required',],
-            'endWork' => ['required',],
-            'workDays' => ['required',],
-            'freeDays' => ['required',],
-            'NearestStation' => ['required',],
-            'workOther' => ['nullable'],
-        ]));
+        $validatedData = $request->validate([
+            'companyName' => ['nullable', 'max:100'],
+            'WantedTitles' => ['nullable',],
+            'Occupation' => ['nullable',],
+            'companyAddress' => ['nullable',],
+            'companyPay' => ['nullable',],
+            'dutyStation' => ['nullable',],
+            'workDescription' => ['nullable',],
+            'payDescription' => ['nullable',],
+            'travelExpenses' => ['nullable',],
+            'Welfare' => ['nullable',],
+            'startWork' => ['nullable',],
+            'endWork' => ['nullable',],
+            'workDays' => ['nullable',],
+            'freeDays' => ['nullable',],
+            'NearestStation' => ['nullable',],
+            'workOther' => ['nullable',],
+            'image1' => ['nullable', 'image', 'max:5120'],
+        ],[
+            'image1.max' => '画像ファイルのサイズは5MB以下にしてください。',
+        ]);
+
+        $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
+        foreach ($images as $image) {
+            if ($request->hasFile($image)) {
+                $originalName = $request->file($image)->getClientOriginalName();
+                $path = $request->file($image)->storeAs('public/storages', $originalName);
+                $request->file($image)->move(public_path('images'), $originalName);
+                $validatedData[$image] = basename($path); // データベースに保存するパスを設定
+            }
+        }
+        
+        InertiaJob::create($validatedData);
 
         return to_route('company.index')->with(['message' => '登録しました。']);
     }

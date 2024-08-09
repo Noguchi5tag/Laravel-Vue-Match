@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('inertia_jobs', function (Blueprint $table) {
-            $table->integer('startWork')->after('Welfare');
-            $table->integer('endWork')->after('startWork');
+            if (!Schema::hasColumn('inertia_jobs', 'startWork')) {
+                $table->integer('startWork')->after('Welfare')->notNull();
+            }
+            if (!Schema::hasColumn('inertia_jobs', 'endWork')) {
+                $table->integer('endWork')->after('startWork')->notNull();
+            }
         });
     }
 
@@ -23,8 +27,12 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('inertia_jobs', function (Blueprint $table) {
-            $table->dropColumn('startWork');
-            $table->dropColumn('endWork');
+            if (Schema::hasColumn('inertia_jobs', 'startWork')) {
+                $table->dropColumn('startWork');
+            }
+            if (Schema::hasColumn('inertia_jobs', 'endWork')) {
+                $table->dropColumn('endWork');
+            }
         });
     }
 };
