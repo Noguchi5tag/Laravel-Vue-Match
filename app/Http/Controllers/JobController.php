@@ -107,14 +107,20 @@ class JobController extends Controller
     public function update(Request $request, InertiaJob $inertiaJob)
     {
             // デバッグ用に全ての入力データを取得
-            // $inputData = $request->all();
-            // $fileData = $request->file('file');
+            $inputData = $request->all();
+            $fileData = [
+                'image1' => $request->file('image1'),
+                'image2' => $request->file('image2'),
+                'image3' => $request->file('image3'),
+                'image4' => $request->file('image4'),
+                'image5' => $request->file('image5'),
+            ];
 
             // デバッグ出力
-            // dd([
-            //     'inputData' => $inputData,
-            //     'fileData' => $fileData,
-            // ]);
+            dd([
+                'inputData' => $inputData,
+                'fileData' => $fileData,
+            ]);
             
         try {
             $validatedData = $request->validate([

@@ -15,34 +15,34 @@ const props = defineProps({
 // console.log('inertiaJob:', props.inertiaJob)
 
 const form = reactive({
-    id: props.inertiaJob.id || '',
-    companyName: props.inertiaJob.companyName || '',
-    WantedTitles: props.inertiaJob.WantedTitles || '',
-    Occupation: props.inertiaJob.Occupation || '',
-    companyAddress: props.inertiaJob.companyAddress || '',
-    companyPay: props.inertiaJob.companyPay || '',
-    dutyStation: props.inertiaJob.dutyStation || '',
-    workDescription: props.inertiaJob.workDescription || '',
-    payDescription: props.inertiaJob.payDescription || '',
-    travelExpenses: props.inertiaJob.travelExpenses || '',
-    Welfare: props.inertiaJob.Welfare || '',
-    startWork: props.inertiaJob.startWork || '',
-    endWork: props.inertiaJob.endWork || '',
-    workDays: props.inertiaJob.workDays || '',
-    freeDays: props.inertiaJob.freeDays || '',
-    NearestStation: props.inertiaJob.NearestStation || '',
-    workOther: props.inertiaJob.workOther || '',
+    id: props.inertiaJob.id,
+    companyName: props.inertiaJob.companyName,
+    WantedTitles: props.inertiaJob.WantedTitles,
+    Occupation: props.inertiaJob.Occupation,
+    companyAddress: props.inertiaJob.companyAddress,
+    companyPay: props.inertiaJob.companyPay,
+    dutyStation: props.inertiaJob.dutyStation,
+    workDescription: props.inertiaJob.workDescription,
+    payDescription: props.inertiaJob.payDescription,
+    travelExpenses: props.inertiaJob.travelExpenses,
+    Welfare: props.inertiaJob.Welfare,
+    startWork: props.inertiaJob.startWork,
+    endWork: props.inertiaJob.endWork,
+    workDays: props.inertiaJob.workDays,
+    freeDays: props.inertiaJob.freeDays,
+    NearestStation: props.inertiaJob.NearestStation,
+    workOther: props.inertiaJob.workOther,
 
     image1: null,
-    registerd_image1: props.inertiaJob.image1 || '',
+    registerd_image1: props.inertiaJob.image1,
     image2: null,
-    registerd_image2: props.inertiaJob.image2 || '',
+    registerd_image2: props.inertiaJob.image2,
     image3: null,
-    registerd_image3: props.inertiaJob.image3 || '',
+    registerd_image3: props.inertiaJob.image3,
     image4: null,
-    registerd_image4: props.inertiaJob.image4 || '',
+    registerd_image4: props.inertiaJob.image4,
     image5: null,
-    registerd_image5: props.inertiaJob.image5 || '',
+    registerd_image5: props.inertiaJob.image5,
 });
 
 // console.log(form);
@@ -53,17 +53,24 @@ const updateFunction = async (id) => {
     const formData = new FormData();
 
     for (const key in form) {
-        if (form[key] !== null) { // null を除外してフォームデータに追加
+        if (form[key] !== null && form[key] !== undefined) { // nullを除外してフォームデータに追加
             formData.append(key, form[key]);
         }
     }
+    
+    // 画像ファイルを追加
+    if (form.image1) formData.append('image1', form.image1);
+    if (form.image2) formData.append('image2', form.image2);
+    if (form.image3) formData.append('image3', form.image3);
+    if (form.image4) formData.append('image4', form.image4);
+    if (form.image5) formData.append('image5', form.image5);
 
-    console.log(...formData);
-    await Inertia.put(route('company.update', { inertiaJob: id }), formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    });
+    // デバッグ用にFormDataの内容を出力
+    for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
+
+    await Inertia.put(route('company.update', { inertiaJob: id }), formData);
     // Inertia.get(route('company.show', { inertiaJob: id }));
 }
 
