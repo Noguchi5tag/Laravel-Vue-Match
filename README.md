@@ -1,8 +1,13 @@
 ## 開発環境
+
 PHP 8.2.21
+
 Laravel 11.14.0（Sail使用）
+
 Breeze（認証機能）
+
 Vue3（compositionAPI）
+
 Inertia.js
 
 ## クローン後の初期設定
@@ -14,54 +19,85 @@ docker run --rm \
     laravelsail/php80-composer:latest \
     composer install --ignore-platform-reqs
 
+
 DB 初期化
+
 sail artisan migrate
 
 ストレージへのパスを公開する
+
 sail artisan storage:link
 
 .envファイル作成（環境により変更を行うこと）
 
 Package.jsonのインストール
+
 npm install
 
 ## 立ち上げ
+
 sail up -d
 
 開発時フロントエンドのホットリロード
+
 sail npm run dev
 
 フロントエンドのビルド
+
 sail npm run build
 
 ## 終了
+
 sail down
 ------------------------------------------------------
 
 ## 変数名の定義
+
 //仕事
+
 companyName : 会社名
+
 WantedTitles : 募集タイトル
+
 Occupation : 職種
+
 companyAddress : 会社の住所
+
 companyPay : 給料
+
 dutyStation : 勤務地
+
 workDescription : 仕事内容
+
 payDescription : 給与詳細
+
 travelExpenses : 交通費
+
 Welfare : 福利厚生
+
 startWork : 勤務開始時間
+
 endWork : 勤務終了時間
+
 workDays : 出勤日
+
 freeDays : 休日
+
 NearestStation : 最寄り駅
+
 workOther : その他
 
+
 'image1', // 画像1
+
 'image2', // 画像2
+
 'image3', // 画像3
+
 'image4', // 画像4
+
 'image5', // 画像5
+
 
 //登録情報
 name : 名前
@@ -76,17 +112,22 @@ password : パスワード
 
 ------------------------------------------------------
 ## 権限
+
 エンドユーザー
+
 閲覧のみ
 
 登録した企業
+
 閲覧、登録した情報の編集
 
 管理者
+
 閲覧、登録、編集、削除
 
 ------------------------------------------------------
 ## データベース
+
 http://localhost:8080
 
 ------------------------------------------------------
