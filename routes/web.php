@@ -71,7 +71,7 @@ Route::post('/company/job', [JobController::class,'store'])->name('company.store
 Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->name('company.edit');
 Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show'); //管理者
 // Route::get('/jobs/{inertiaJob}', [JobController::class,'view'])->name('company.view'); //一般ユーザー
-Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('inertiaJob.update');
+Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('company.update');
 Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
 
 

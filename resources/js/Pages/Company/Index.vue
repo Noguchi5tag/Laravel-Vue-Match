@@ -30,9 +30,9 @@ const imageCount = (job) => {
     <BasePage>
 
     <!-- フラッシュメッセージ -->
-    <!-- <div v-if="$page.props.flash.message" class="bg-blue-300">
+    <div v-if="$page.props.flash.message" class="bg-blue-300">
         {{ $page.props.flash.message }}
-    </div> -->
+    </div>
 
         <section class="text-gray-600 body-font relative">
             <div class="container px-4 py-24 mx-auto">
@@ -47,9 +47,9 @@ const imageCount = (job) => {
                         </Link>
                     </div>
 
-                    <div v-if="inertiaJobs" class="-m-2 rounded-lg bg-gray-100">
-                        <div v-for="job in inertiaJobs" :key="job.id" class="">
-                            <div class="flex flex-col text-center w-full mb-6 pt-6">
+                    <div v-if="inertiaJobs" class="-m-2">
+                        <div v-for="job in inertiaJobs" :key="job.id" class="rounded-lg bg-gray-100 my-6 py-6 ">
+                            <div class="flex flex-col text-center w-full mb-6">
                                 <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
                                     {{ job.companyName }}
                                 </h1>
