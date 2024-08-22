@@ -1,3 +1,9 @@
+<script setup>
+import { Link } from '@inertiajs/vue3';
+import FooterMenu from '../Components/Button/FotterMenu.vue';
+
+</script>
+
 <template>
     <div>
         <FooterMenu />
@@ -5,9 +11,10 @@
             <div class="py-1">
                 <h1 class="text-2xl text-center">ここにロゴ</h1>
                 <div class="py-4 text-center flex flex-col items-center">
-                    <router-link to="/rules">利用規約</router-link>
-                    <router-link to="/privacy">プライバシーポリシー</router-link>
-                    <router-link to="/contact">お問い合わせ</router-link>
+                    <Link as="button" href="/rules">利用規約</Link>
+                    <Link as="button" href="/privacy">プライバシーポリシー</Link>
+                    <Link as="button" href="/questions">よくある質問</Link>
+                    <Link as="button" href="/contact">お問い合わせ</Link>
                 </div>
             </div>
         </div>
@@ -16,8 +23,3 @@
         </div>
     </div>
 </template>
-
-<script setup>
-import FooterMenu from '../Components/Button/FotterMenu.vue';
-
-</script>

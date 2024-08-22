@@ -37,6 +37,14 @@ const submitFunction = () => {
     }
     Inertia.post('/company/job', formData);
 }
+
+const Occupations = [
+    { value: '営業', label: '営業' },
+    { value: '事務', label: '事務' },
+    { value: 'エンジニア', label: 'エンジニア' },
+    { value: 'デザイナー', label: 'デザイナー' },
+    { value: 'その他', label: 'その他' },
+];
 </script>
 
 <template>
@@ -68,7 +76,11 @@ const submitFunction = () => {
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="Occupation" class="leading-7 text-sm text-gray-600">職種</label>
-                                        <input type="text" name="Occupation" id="Occupation" v-model="form.Occupation" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <select name="Occupation" id="Occupation" v-model="form.Occupation">
+                                            <option v-for="occupation in Occupations" :value="occupation.value" :key="occupation.value">
+                                                {{ occupation.label }}
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
 

@@ -1,8 +1,19 @@
+<script setup>
+import { Head, Link } from '@inertiajs/vue3';
+import BasePage from './BasePage.vue';
+import SiteTitle from '@/Components/SiteTitle.vue';
+</script>
 
 <template>
-    <h1>ブックマークのコンテンツ</h1>
+    <Head title="ブックマーク" />
+    
+    <BasePage>
+
+        <SiteTitle>ブックマークリスト</SiteTitle>
+
+        <section>
+            ここにコンテンツ
+        </section>
+    </BasePage>
+
 </template>
-
-<script setup>
-
-</script>

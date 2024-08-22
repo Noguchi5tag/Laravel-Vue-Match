@@ -1,7 +1,7 @@
 
 <script setup>
 import { reactive } from 'vue';
-import { Link  } from '@inertiajs/vue3';
+import { Link, Head  } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 
 import BasePage from '../BasePage.vue';
@@ -49,12 +49,20 @@ const updateFunction = async (id) => {
     Inertia.get(route('company.show', { inertiaJob: id }));
 }
 
+const Occupations = [
+    { value: '営業', label: '営業' },
+    { value: '事務', label: '事務' },
+    { value: 'エンジニア', label: 'エンジニア' },
+    { value: 'デザイナー', label: 'デザイナー' },
+    { value: 'その他', label: 'その他' },
+];
 </script>
 
 <template>
+    <Head title="編集フォーム" />
     <BasePage>
         <div class="py-6">
-            <form @submit.prevent="updateFunction(form.id)">
+            <form @submit.prevent="updateFunction(form.id)" enctype="multipart/form-data">
                     <section class="text-gray-600 body-font relative">
                         <div class="container px-4 py-24 mx-auto">
                             <div class="flex flex-col text-center w-full mb-12">
@@ -79,7 +87,11 @@ const updateFunction = async (id) => {
                                     <div class="p-2 w-full">
                                         <div class="relative">
                                             <label for="Occupation" class="leading-7 text-sm text-gray-600">職種</label>
-                                            <input type="text" name="Occupation" id="Occupation" v-model="form.Occupation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            <select name="Occupation" id="Occupation" v-model="form.Occupation">
+                                            <option v-for="occupation in Occupations" :value="occupation.value" :key="occupation.value">
+                                                {{ occupation.label }}
+                                            </option>
+                                        </select>
                                         </div>
                                     </div>
 
@@ -135,14 +147,14 @@ const updateFunction = async (id) => {
                                     <div class="p-2 w-full">
                                         <div class="relative">
                                             <label for="startWork" class="leading-7 text-sm text-gray-600">勤務開始時間</label>
-                                            <input type="number" name="startWork" id="startWork" v-model="form.startWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            <input type="time" name="startWork" id="startWork" v-model="form.startWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
                                             <label for="endWork" class="leading-7 text-sm text-gray-600">勤務終了時間</label>
-                                            <input type="number" name="endWork" id="endWork" v-model="form.endWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            <input type="time" name="endWork" id="endWork" v-model="form.endWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
 
@@ -168,18 +180,22 @@ const updateFunction = async (id) => {
                                     </div>
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="message" class="leading-7 text-sm text-gray-600">その他</label>
+                                            <label for="workOther" class="leading-7 text-sm text-gray-600">その他</label>
                                             <textarea name="workOther" id="workOther" v-model="form.workOther" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="image1" class="leading-7 text-sm text-gray-600">画像１</label>
-                                            <div class="">
-                                                <img :src="`/${form.registerd_image1}`" alt="">
-                                            </div>
-                                            <input type="file" name="" id="image1" @input="form.image1 = $event.target.files[0]" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            <label for="image1" class="leading-7 text-sm text-gray-600">サムネ画像１</label>
+                                            <template v-if="image_file1">
+                                                <div class="mb-2">
+                                                    <p>現在設定しているサムネイル画像1</p>
+                                                    <img :src="'/images/' + form.registerd_image1">
+                                                    <input type="hidden" v-model="form.registerd_image1">
+                                                </div>
+                                            </template>
+                                            <input type="file" name="image1" id="image1" @input="form.image1 = $event.target.files[0]" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                         </div>
                                     </div>
                                     

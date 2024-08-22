@@ -50,6 +50,10 @@ class JobController extends Controller
             'NearestStation' => ['nullable',],
             'workOther' => ['nullable',],
             'image1' => ['nullable', 'image', 'max:5120'],
+            'image2' => ['nullable', 'image', 'max:5120'],
+            'image3' => ['nullable', 'image', 'max:5120'],
+            'image4' => ['nullable', 'image', 'max:5120'],
+            'image5' => ['nullable', 'image', 'max:5120'],
         ],[
             'image1.max' => '画像ファイルのサイズは5MB以下にしてください。',
         ]);
@@ -119,9 +123,28 @@ class JobController extends Controller
             'freeDays' => ['nullable'],
             'NearestStation' => ['nullable'],
             'workOther' => ['nullable'],
+            'image1' => ['nullable', 'image', 'max:5120'],
+            'image2' => ['nullable', 'image', 'max:5120'],
+            'image3' => ['nullable', 'image', 'max:5120'],
+            'image4' => ['nullable', 'image', 'max:5120'],
+            'image5' => ['nullable', 'image', 'max:5120'],
+        ],[
+            'image1.max' => '画像ファイルのサイズは5MB以下にしてください。',
         ]));
     
-        return to_route('company.show')->with(['message' => '更新しました。']);
+        $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
+        foreach ($images as $image) {
+            if ($request->hasFile($image)) {
+                $originalName = $request->file($image)->getClientOriginalName();
+                $path = $request->file($image)->storeAs('public/storages', $originalName);
+                $request->file($image)->move(public_path('images'), $originalName);
+                $validatedData[$image] = basename($path); // データベースに保存するパスを設定
+            }
+        }
+
+    $inertiaJob->update($validatedData);
+
+    return to_route('company.show')->with(['message' => '更新しました。']);
     }
 
     public function delete($id)

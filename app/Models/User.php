@@ -20,6 +20,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'tel',         // 追加
+        'sex',         // 追加
+        'birth',       // 追加
+        'postal',      // 追加
+        'prefectures', // 追加
+        'city',        // 追加
     ];
 
     /**
@@ -42,6 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'birth' => 'date', //追加
         ];
     }
 }

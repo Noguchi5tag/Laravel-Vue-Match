@@ -61,7 +61,7 @@ const imageCount = (job) => {
                             <div class="flex flex-wrap -m-2">
                                 <div class="p-1 w-full">
                                     <div class="relative">
-                                    <label for="name" class="leading-7 text-sm text-gray-600">募集タイトル</label>
+                                    <label for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</label>
                                     <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                         {{ props.inertiaJob.WantedTitles }}
                                     </div>
@@ -69,7 +69,7 @@ const imageCount = (job) => {
                             </div>
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="occupation" class="leading-7 text-sm text-gray-600">職種</label>
+                                    <label for="Occupation" class="leading-7 text-sm text-gray-600">職種</label>
                                     <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.Occupation }}
                                     </div>
@@ -184,8 +184,8 @@ const imageCount = (job) => {
                                 </div>
                             </div>
                     
-                            <!-- ここで条件分岐 -->
-                            <div v-if="!isLoggedIn" class="p-2 w-full">
+                            <!-- ここで管理者かどうかの条件分岐 -->
+                            <div v-if="isLoggedIn" class="p-2 w-full">
                                 <div class="p-2">
                                     <Link as="button" :href="route('company.edit', { inertiaJob: props.inertiaJob.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</Link>
                                 </div>

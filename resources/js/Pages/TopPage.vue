@@ -11,32 +11,51 @@ defineProps({
     canRegister: {
         type: Boolean,
     },
-    laravelVersion: {
-        type: String,
-        required: true,
-    },
-    phpVersion: {
-        type: String,
-        required: true,
-    },
 });
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="Home" />
 
     <BasePage>
-        <SiteTitle>Welcome</SiteTitle>
+        <SiteTitle>ホーム</SiteTitle>
 
         <div class="my-10 text-center">
             <nav v-if="canLogin" class="">
-                <Link
+                <div
                     v-if="$page.props.auth.user"
-                    :href="route('dashboard')"
-                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                    class=""
                 >
-                    ダッシュボードへ
-                </Link>
+                    <div class="">
+                    <!-- ここにおすすめの企業を表示 -->
+                    </div>
+
+                    <!-- お知らせ一覧 -->
+                    <section class="text-gray-600 body-font">
+                        <div class="container px-5 py-6 mx-auto">
+                            <h2 class="text-gray-900 text-lg title-font font-medium">お知らせ</h2>
+                            <div class="flex flex-col flex-wrap py-6 text-left">
+                                <div class="flex flex-col mb-10 lg:items-start items-center">
+                                    <div class="flex-grow">
+                                        <Link href="/news">
+                                            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">新機能「スキップマッチング」登場！</h2>
+                                        </Link>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col mb-10 lg:items-start items-center">
+                                    <div class="flex-grow">
+                                        <Link href="/news">
+                                            <h2 class="text-gray-900 text-lg title-font font-medium mb-3"> オンラインキャリア相談会「あなたのキャリアを一緒に考えよう！」</h2>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pt-8 w-full flex justify-center">
+                                <Link href="/news" class="inline-flex text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">お知らせ一覧</Link>
+                            </div>
+                        </div>
+                    </section>
+                </div>
 
                 <template v-else>
                     <Link

@@ -1,15 +1,45 @@
-
 ## 開発環境
-Laravel 11 Sail + Vue3 + Inertia(Breeze)
+PHP 8.2.21
+Laravel 11.14.0（Sail使用）
+Breeze（認証機能）
+Vue3（compositionAPI）
+Inertia.js
+
+## クローン後の初期設定
+sail をインストール
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php80-composer:latest \
+    composer install --ignore-platform-reqs
+
+DB 初期化
+sail artisan migrate
+
+ストレージへのパスを公開する
+sail artisan storage:link
+
+.envファイル作成（環境により変更を行うこと）
+
+Package.jsonのインストール
+npm install
 
 ## 立ち上げ
 sail up -d
 
+開発時フロントエンドのホットリロード
 sail npm run dev
 
+フロントエンドのビルド
+sail npm run build
+
+## 終了
+sail down
 ------------------------------------------------------
 
 ## 変数名の定義
+//仕事
 companyName : 会社名
 WantedTitles : 募集タイトル
 Occupation : 職種
@@ -33,10 +63,31 @@ workOther : その他
 'image4', // 画像4
 'image5', // 画像5
 
+//登録情報
+name : 名前
+email：メールアドレス
+tel : 電話番号
+sex : 性別（男・女・どちらでもない）
+birth : 生年月日
+postal : 郵便番号
+prefectures : 都道府県
+city : 市町村
+password : パスワード
+
+------------------------------------------------------
+## 権限
+エンドユーザー
+閲覧のみ
+
+登録した企業
+閲覧、登録した情報の編集
+
+管理者
+閲覧、登録、編集、削除
+
 ------------------------------------------------------
 ## データベース
 http://localhost:8080
-
 
 ------------------------------------------------------
 
