@@ -85,7 +85,7 @@ const prefectures = [
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <div v-if="mustVerifyEmail && user.email_verified_at === null">
+            <!-- <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p class="text-sm mt-2 text-gray-800">
                     メールアドレスが未認証です。
                     <Link
@@ -104,7 +104,7 @@ const prefectures = [
                 >
                     登録したメールアドレスに新しい認証リンクが送信されました。
                 </div>
-            </div>
+            </div> -->
 
             <!-- 追記 -->
             <div>
