@@ -13,10 +13,14 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
+            // \App\Http\Middleware\RedirectIfAuthenticated::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        //
+        //追記・要確認！
+        $middleware->redirectGuestsTo(function ($request) {
+            return $request->is('admin/*') ? route('admin.login') : route('login');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
