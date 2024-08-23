@@ -112,12 +112,14 @@ const prefectures = [
 
                 <TextInput
                     id="tel"
-                    type="number"
+                    type="text"
                     class="mt-1 block w-full"
                     v-model="form.tel"
                     required
                     autofocus
                     autocomplete="tel"
+                    pattern="\d*"
+                    maxlength="11"
                 />
 
                 <InputError class="mt-2" :message="form.errors.tel" />

@@ -147,6 +147,7 @@ class JobController extends Controller
                     }
                 }
 
+                // 画像の名前を取得ししのまま保存
                 $originalName = $request->file($image)->getClientOriginalName();
                 // 画像を保存し、パスを取得
                 $path = $request->file($image)->storeAs('public/storages', $originalName);

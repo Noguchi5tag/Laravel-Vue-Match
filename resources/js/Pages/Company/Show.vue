@@ -36,6 +36,10 @@ const imageCount = (job) => {
 <template>
     <Head title="求人詳細" />
     <BasePage>
+        <!-- フラッシュメッセージ -->
+        <div v-if="$page.props.flash.message" class="bg-blue-300">
+            {{ $page.props.flash.message }}
+        </div>
 
         <div v-if="props.inertiaJob">
             <!-- {{ props.inertiaJob.id }} -->
