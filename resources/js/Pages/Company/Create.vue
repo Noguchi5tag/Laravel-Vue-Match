@@ -22,6 +22,7 @@ const form = reactive({
     freeDays: '',
     NearestStation: '',
     workOther: '',
+    status: '',
     image1: '',
     image2: '',
     image3: '',
@@ -174,6 +175,22 @@ const Occupations = [
                                         <textarea name="workOther" id="workOther" v-model="form.workOther" required class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                                     </div>
                                 </div>
+
+                                <div class="p-2 w-full">
+                                    <div class="relative">
+                                        <label for="status" class="leading-7 text-sm text-gray-600">ステータス</label>
+                                        <div class="">
+                                            <label class="">
+                                                <input type="radio" name="status" id="status" value="0" v-model="form.status" required>非公開
+                                            </label>
+                                            <label class="">
+                                                <input type="radio" name="status" id="status" value="1" v-model="form.status" required>公開
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
 
                                 <!-- 画像登録 -->
                                 <div class="p-2 w-full">

@@ -30,6 +30,7 @@ const form = useForm({
     freeDays: props.inertiaJob.freeDays,
     NearestStation: props.inertiaJob.NearestStation,
     workOther: props.inertiaJob.workOther,
+    status: props.inertiaJob.status,
 
     image1: null,
     registerd_image1: props.inertiaJob.image1,
@@ -77,6 +78,7 @@ const updateFunction = () => {
         freeDays: form.freeDays,
         NearestStation: form.NearestStation,
         workOther: form.workOther,
+        status: form.status,
 
         image1: form.image1,
         registerd_image1: form.registerd_image1,
@@ -226,6 +228,20 @@ const Occupations = [
                                     <div class="relative">
                                         <label for="workOther" class="leading-7 text-sm text-gray-600">その他</label>
                                         <textarea name="workOther" id="workOther" v-model="form.workOther" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="p-2 w-full">
+                                    <div class="relative">
+                                        <label for="status" class="leading-7 text-sm text-gray-600">ステータス</label>
+                                        <div class="">
+                                            <label class="">
+                                                <input type="radio" name="status" id="status" value="0" v-model="form.status" required>非公開
+                                            </label>
+                                            <label class="">
+                                                <input type="radio" name="status" id="status" value="1" v-model="form.status" required>公開
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
 

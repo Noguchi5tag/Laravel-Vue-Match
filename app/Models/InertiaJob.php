@@ -26,6 +26,7 @@ class InertiaJob extends Model
         'freeDays', // 休日
         'NearestStation', // 最寄り駅
         'workOther', // その他
+        'status', // 公開か非公開か
 
         'image1', // 画像1
         'image2', // 画像2

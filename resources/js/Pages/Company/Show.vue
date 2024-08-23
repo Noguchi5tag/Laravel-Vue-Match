@@ -187,6 +187,18 @@ const imageCount = (job) => {
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="p-2 w-full">
+                                <div class="relative">
+                                    <label for="status" class="leading-7 text-sm text-gray-600">ステータス</label>
+                                    <div class="">
+                                        <p>現在のステータス: 
+                                            <span v-if="props.inertiaJob.status === 0">非公開</span>
+                                            <span v-else>公開</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                     
                             <!-- ここで管理者かどうかの条件分岐 -->
                             <div v-if="isLoggedIn" class="p-2 w-full">

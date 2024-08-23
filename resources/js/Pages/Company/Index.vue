@@ -47,55 +47,59 @@ const imageCount = (job) => {
                         </Link>
                     </div>
 
+                    
+
                     <div v-if="inertiaJobs" class="-m-2">
-                        <div v-for="job in inertiaJobs" :key="job.id" class="rounded-lg bg-gray-100 my-6 py-6 ">
-                            <div class="flex flex-col text-center w-full mb-6">
-                                <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
-                                    {{ job.companyName }}
-                                </h1>
-                            </div>
-
-                            <carousel :items-to-show="1.5">
-                                <slide v-for="slide in imageCount(job)" :key="slide">
-                                    <div v-if="job[`image${slide}`]" class="carousel__item">
-                                        <img :src="`/images/${job[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
+                        <template v-for="job in inertiaJobs" :key="job.id">
+                            <div class="rounded-lg bg-gray-100 my-6 py-6 " v-if="job.status === 1">
+                                <div class="flex flex-col text-center w-full mb-6">
+                                    <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
+                                        {{ job.companyName }}
+                                    </h1>
+                                </div>
+    
+                                <carousel :items-to-show="1.5">
+                                    <slide v-for="slide in imageCount(job)" :key="slide">
+                                        <div v-if="job[`image${slide}`]" class="carousel__item">
+                                            <img :src="`/images/${job[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
+                                        </div>
+                                    </slide>
+                                    <template #addons>
+                                    <navigation />
+                                    <pagination />
+                                    </template>
+                                </carousel>
+    
+                                <div class="p-2 w-full">
+                                    <div class="relative">
+                                        <label for="companyName" class="leading-7 text-sm text-gray-600">会社名</label>
+                                        <div type="text" id="companyName" name="companyName" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyName }}</div>
                                     </div>
-                                </slide>
-                                <template #addons>
-                                <navigation />
-                                <pagination />
-                                </template>
-                            </carousel>
-
-                            <div class="p-2 w-full">
-                                <div class="relative">
-                                    <label for="companyName" class="leading-7 text-sm text-gray-600">会社名</label>
-                                    <div type="text" id="companyName" name="companyName" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyName }}</div>
+                                </div>
+                                <div class="p-2 w-full">
+                                    <div class="relative">
+                                        <label for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</label>
+                                        <div type="text" id="WantedTitles" name="WantedTitles" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.WantedTitles }}</div>
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full">
+                                    <div class="relative">
+                                        <label for="Occupation" class="leading-7 text-sm text-gray-600">職種</label>
+                                        <div type="text" id="Occupation" name="Occupation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full">
+                                    <div class="relative">
+                                        <label for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</label>
+                                        <div type="text" id="companyAddress" name="companyAddress" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full">
+                                    <!-- 管理者か一般ユーザーで、"view"か"show"かルートを分ける -->
+                                    <Link as="button" :href="route('company.show', { id: job.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">詳細へ</Link>
                                 </div>
                             </div>
-                            <div class="p-2 w-full">
-                                <div class="relative">
-                                    <label for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</label>
-                                    <div type="text" id="WantedTitles" name="WantedTitles" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.WantedTitles }}</div>
-                                </div>
-                            </div>
-                            <div class="p-2 w-full">
-                                <div class="relative">
-                                    <label for="Occupation" class="leading-7 text-sm text-gray-600">職種</label>
-                                    <div type="text" id="Occupation" name="Occupation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
-                                </div>
-                            </div>
-                            <div class="p-2 w-full">
-                                <div class="relative">
-                                    <label for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</label>
-                                    <div type="text" id="companyAddress" name="companyAddress" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
-                                </div>
-                            </div>
-                            <div class="p-2 w-full">
-                                <!-- 管理者か一般ユーザーで、"view"か"show"かルートを分ける -->
-                                <Link as="button" :href="route('company.show', { id: job.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">詳細へ</Link>
-                            </div>
-                        </div>
+                        </template>
                     </div>
                 </div>
             </div>
