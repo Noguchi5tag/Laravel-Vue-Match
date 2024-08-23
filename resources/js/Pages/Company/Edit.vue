@@ -41,7 +41,20 @@ const form = useForm({
     registerd_image4: props.inertiaJob.image4,
     image5: null,
     registerd_image5: props.inertiaJob.image5,
+
+    imageDeleteFlag: {
+        image1: false,
+        image2: false,
+        image3: false,
+        image4: false,
+        image5: false,
+    },
 });
+
+const deleteImage = (imageKey) => {
+    form[imageKey] = null;
+    form.imageDeleteFlag[imageKey] = true;
+}
 
 const updateFunction = () => {
     console.log(form);
@@ -75,6 +88,8 @@ const updateFunction = () => {
         registerd_image4: form.registerd_image4,
         image5: form.image5,
         registerd_image5: form.registerd_image5,
+
+        imageDeleteFlag: form.imageDeleteFlag,
     });
 }
 
@@ -215,72 +230,28 @@ const Occupations = [
                                 </div>
 
                                 <!-- 画像の変更など -->
-                                <div class="p-2 w-full">
+                                <div v-for="index in 5" :key="`image${index}`" class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="image1" class="leading-7 text-sm text-gray-600">サムネ画像１</label>
-                                        <template v-if="form.registerd_image1">
+                                        <label :for="`image${index}`" class="leading-7 text-sm text-gray-600">サムネ画像{{ index }}</label>
+                                        
+                                        <template v-if="form[`registerd_image${index}`]">
                                             <div class="mb-2">
                                                 <div class="flex justify-between items-center p-2">
-                                                    <p>現在設定しているサムネイル画像1</p>
-                                                    <!-- <DangerButton @click="imageDelete">削 除</DangerButton> -->
+                                                    <p>現在設定しているサムネイル画像{{ index }}</p>
+                                                    <!-- index が 1 でない場合のみ削除ボタンを表示 -->
+                                                    <DangerButton v-if="index !== 1" @click="deleteImage(`image${index}`)">削 除</DangerButton>
                                                 </div>
-                                                <img :src="'/images/' + form.registerd_image1">
-                                                <input type="hidden" v-model="form.registerd_image1">
+                                                <img :src="`/images/` + form[`registerd_image${index}`]">
+                                                <input type="hidden" v-model="form[`registerd_image${index}`]">
                                             </div>
                                         </template>
-                                        <input type="file" name="image1" id="image1" @input="form.image1 = $event.target.files[0]" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                    </div>
-                                </div>
-                                <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <label for="image2" class="leading-7 text-sm text-gray-600">サムネ画像2</label>
-                                        <template v-if="form.registerd_image2">
-                                            <div class="mb-2">
-                                                <p>現在設定しているサムネイル画像2</p>
-                                                <img :src="'/images/' + form.registerd_image2">
-                                                <input type="hidden" v-model="form.registerd_image2">
-                                            </div>
-                                        </template>
-                                        <input type="file" name="image2" id="image2" @input="form.image2 = $event.target.files[0]" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                    </div>
-                                </div>
-                                <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <label for="image3" class="leading-7 text-sm text-gray-600">サムネ画像3</label>
-                                        <template v-if="form.registerd_image3">
-                                            <div class="mb-2">
-                                                <p>現在設定しているサムネイル画像3</p>
-                                                <img :src="'/images/' + form.registerd_image3">
-                                                <input type="hidden" v-model="form.registerd_image3">
-                                            </div>
-                                        </template>
-                                        <input type="file" name="image3" id="image3" @input="form.image3 = $event.target.files[0]" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                    </div>
-                                </div>
-                                <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <label for="image4" class="leading-7 text-sm text-gray-600">サムネ画像4</label>
-                                        <template v-if="form.registerd_image4">
-                                            <div class="mb-2">
-                                                <p>現在設定しているサムネイル画像4</p>
-                                                <img :src="'/images/' + form.registerd_image4">
-                                                <input type="hidden" v-model="form.registerd_image4">
-                                            </div>
-                                        </template>
-                                        <input type="file" name="image4" id="image4" @input="form.image4 = $event.target.files[0]" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                    </div>
-                                </div>
-                                <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <label for="image5" class="leading-7 text-sm text-gray-600">サムネ画像5</label>
-                                        <template v-if="form.registerd_image5">
-                                            <div class="mb-2">
-                                                <p>現在設定しているサムネイル画像5</p>
-                                                <img :src="'/images/' + form.registerd_image5">
-                                                <input type="hidden" v-model="form.registerd_image5">
-                                            </div>
-                                        </template>
-                                        <input type="file" name="image5" id="image5" @input="form.image5 = $event.target.files[0]" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        
+                                        <input 
+                                            type="file" 
+                                            :name="`image${index}`" 
+                                            :id="`image${index}`" 
+                                            @input="form[`image${index}`] = $event.target.files[0]" 
+                                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 

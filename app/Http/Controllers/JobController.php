@@ -136,8 +136,21 @@ class JobController extends Controller
         ]);
     
         $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
+        $imageDeleted = false; // 画像が削除されたかどうかを追跡するフラグ
         foreach ($images as $image) {
-            if ($request->hasFile($image)) {
+            // 画像が削除フラグされているかチェック
+            if ($request->input("imageDeleteFlag.$image") === true) {
+                // 古い画像が存在する場合は削除
+                if ($inertiaJob->{$image}) {
+                    Storage::delete('public/storages/' . $inertiaJob->{$image});
+                    if (file_exists(public_path('images/' . $inertiaJob->{$image}))) {
+                        unlink(public_path('images/' . $inertiaJob->{$image}));
+                    }
+                }
+                $validatedData[$image] = null;// データベースからも画像パスを削除
+                $imageDeleted = true; // 画像が削除されたことを記録
+
+            } elseif ($request->hasFile($image)) {
                 // 古い画像が存在する場合は削除
                 if ($inertiaJob->{$image}) {
                     Storage::delete('public/storages/' . $inertiaJob->{$image});
@@ -160,8 +173,9 @@ class JobController extends Controller
         }
 
         $inertiaJob->update($validatedData);
-    
-        return to_route('company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => '更新しました。']);
+
+        $message = $imageDeleted ? '画像を削除しました。' : '更新しました。';
+        return to_route('company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
     }
 
     public function delete($id)
