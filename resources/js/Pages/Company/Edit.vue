@@ -1,7 +1,7 @@
 
 <script setup>
 import { reactive } from 'vue';
-import { Link, Head  } from '@inertiajs/vue3';
+import { Link, Head, useForm, router  } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 import DangerButton from '@/Components/DangerButton.vue';
 
@@ -12,9 +12,7 @@ const props = defineProps({
     inertiaJob: Object,
 })
 
-// console.log('inertiaJob:', props.inertiaJob)
-
-const form = reactive({
+const form = useForm({
     id: props.inertiaJob.id,
     companyName: props.inertiaJob.companyName,
     WantedTitles: props.inertiaJob.WantedTitles,
@@ -45,40 +43,40 @@ const form = reactive({
     registerd_image5: props.inertiaJob.image5,
 });
 
-// console.log(form);
+const updateFunction = () => {
+    console.log(form);
 
-//Controllerに情報を送る
-const updateFunction = async (id) => {
-      // フォームデータに画像の変数を含める
-    const formData = new FormData();
+    router.post(route('company.update', props.inertiaJob.id), {
+        _method: 'put',
+        companyName: form.companyName,
+        WantedTitles: form.WantedTitles,
+        Occupation: form.Occupation,
+        companyAddress: form.companyAddress,
+        companyPay: form.companyPay,
+        dutyStation: form.dutyStation,
+        workDescription: form.workDescription,
+        payDescription: form.payDescription,
+        travelExpenses: form.travelExpenses,
+        Welfare: form.Welfare,
+        startWork: form.startWork,
+        endWork: form.endWork,
+        workDays: form.workDays,
+        freeDays: form.freeDays,
+        NearestStation: form.NearestStation,
+        workOther: form.workOther,
 
-    for (const key in form) {
-        if (form[key] !== null && form[key] !== undefined) { // nullを除外してフォームデータに追加
-            formData.append(key, form[key]);
-        }
-    }
-    
-    // 画像ファイルを追加
-    if (form.image1) formData.append('image1', form.image1);
-    if (form.image2) formData.append('image2', form.image2);
-    if (form.image3) formData.append('image3', form.image3);
-    if (form.image4) formData.append('image4', form.image4);
-    if (form.image5) formData.append('image5', form.image5);
-
-    // デバッグ用にFormDataの内容を出力
-    for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-    }
-
-    await Inertia.put(route('company.update', { inertiaJob: id }), formData);
-    // Inertia.get(route('company.show', { inertiaJob: id }));
+        image1: form.image1,
+        registerd_image1: form.registerd_image1,
+        image2: form.image2,
+        registerd_image2: form.registerd_image2,
+        image3: form.image3,
+        registerd_image3: form.registerd_image3,
+        image4: form.image4,
+        registerd_image4: form.registerd_image4,
+        image5: form.image5,
+        registerd_image5: form.registerd_image5,
+    });
 }
-
-//登録画像の削除処理をしたい
-// const imageDelete = () => {
-//     form.image1 = null;
-//     form.registerd_image1 = null;
-// }
 
 const Occupations = [
     { value: '営業', label: '営業' },
@@ -219,7 +217,7 @@ const Occupations = [
                                 <!-- 画像の変更など -->
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="registerd_image1" class="leading-7 text-sm text-gray-600">サムネ画像１</label>
+                                        <label for="image1" class="leading-7 text-sm text-gray-600">サムネ画像１</label>
                                         <template v-if="form.registerd_image1">
                                             <div class="mb-2">
                                                 <div class="flex justify-between items-center p-2">

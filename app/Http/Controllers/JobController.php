@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use Inertia\Inertia;
 
+use function Laravel\Prompts\alert;
+
 class JobController extends Controller
 {
     /**
@@ -106,68 +108,49 @@ class JobController extends Controller
      */
     public function update(Request $request, InertiaJob $inertiaJob)
     {
-            // デバッグ用に全ての入力データを取得
-            $inputData = $request->all();
-            $fileData = [
-                'image1' => $request->file('image1'),
-                'image2' => $request->file('image2'),
-                'image3' => $request->file('image3'),
-                'image4' => $request->file('image4'),
-                'image5' => $request->file('image5'),
-            ];
-
-            // デバッグ出力
-            dd([
-                'inputData' => $inputData,
-                'fileData' => $fileData,
-            ]);
-            
-        try {
-            $validatedData = $request->validate([
-                'companyName' => ['nullable', 'max:100'],
-                'WantedTitles' => ['nullable'],
-                'Occupation' => ['nullable'],
-                'companyAddress' => ['nullable'],
-                'companyPay' => ['nullable'],
-                'dutyStation' => ['nullable'],
-                'workDescription' => ['nullable'],
-                'payDescription' => ['nullable'],
-                'travelExpenses' => ['nullable'],
-                'Welfare' => ['nullable'],
-                'startWork' => ['nullable'],
-                'endWork' => ['nullable'],
-                'workDays' => ['nullable'],
-                'freeDays' => ['nullable'],
-                'NearestStation' => ['nullable'],
-                'workOther' => ['nullable'],
-                'image4' => ['nullable', 'image'],
-                'image1' => ['nullable', 'image'],
-                'image2' => ['nullable', 'image'],
-                'image3' => ['nullable', 'image'],
-                'image5' => ['nullable', 'image'],
-            ],[
-                'image1.max' => '画像ファイルのサイズは5MB以下にしてください。',
-            ]);
+        // dd($request->all());
         
-            $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
-            foreach ($images as $image) {
-                if ($request->hasFile($image)) {
-                    $originalName = $request->file($image)->getClientOriginalName();
-                    //画像を保存し、パスを取得
-                    $path = $request->file($image)->storeAs('public/storages', $originalName);
-                    $request->file($image)->move(public_path('images'), $originalName);
-                    $validatedData[$image] = basename($path); // データベースに保存するパスを設定
-                }
-            }
+        $validatedData = $request->validate([
+            'companyName' => ['nullable', 'max:100'],
+            'WantedTitles' => ['nullable'],
+            'Occupation' => ['nullable'],
+            'companyAddress' => ['nullable'],
+            'companyPay' => ['nullable'],
+            'dutyStation' => ['nullable'],
+            'workDescription' => ['nullable'],
+            'payDescription' => ['nullable'],
+            'travelExpenses' => ['nullable'],
+            'Welfare' => ['nullable'],
+            'startWork' => ['nullable'],
+            'endWork' => ['nullable'],
+            'workDays' => ['nullable'],
+            'freeDays' => ['nullable'],
+            'NearestStation' => ['nullable'],
+            'workOther' => ['nullable'],
+            'image1' => ['nullable', 'image', 'max:5120'],
+            'image2' => ['nullable', 'image', 'max:5120'],
+            'image3' => ['nullable', 'image', 'max:5120'],
+            'image4' => ['nullable', 'image', 'max:5120'],
+            'image5' => ['nullable', 'image', 'max:5120'],
+        ]);
     
-            $inertiaJob->update($validatedData);
-        
-            // return to_route('company.show')->with(['message' => '更新しました。']);
-            return response()->json(['message' => '更新しました。']); //デバック用
-
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'エラーが発生しました。'], 500);
+        $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
+        foreach ($images as $image) {
+            if ($request->hasFile($image)) {
+                $originalName = $request->file($image)->getClientOriginalName();
+                // 画像を保存し、パスを取得
+                $path = $request->file($image)->storeAs('public/storages', $originalName);
+                $request->file($image)->move(public_path('images'), $originalName);
+                $validatedData[$image] = basename($path); // データベースに保存するパスを設定
+            } else {
+                // 現在の画像パスを保持
+                $validatedData[$image] = $inertiaJob->{$image};
+            }
         }
+
+        $inertiaJob->update($validatedData);
+    
+        return to_route('company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => '更新しました。']);
     }
 
     public function delete($id)
