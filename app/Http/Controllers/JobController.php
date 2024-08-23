@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 use function Laravel\Prompts\alert;
+use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
 {
@@ -137,6 +138,15 @@ class JobController extends Controller
         $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
         foreach ($images as $image) {
             if ($request->hasFile($image)) {
+                // 古い画像が存在する場合は削除
+                if ($inertiaJob->{$image}) {
+                    Storage::delete('public/storages/' . $inertiaJob->{$image});
+                    // 公開ディレクトリからも削除
+                    if (file_exists(public_path('images/' . $inertiaJob->{$image}))) {
+                        unlink(public_path('images/' . $inertiaJob->{$image}));
+                    }
+                }
+
                 $originalName = $request->file($image)->getClientOriginalName();
                 // 画像を保存し、パスを取得
                 $path = $request->file($image)->storeAs('public/storages', $originalName);
