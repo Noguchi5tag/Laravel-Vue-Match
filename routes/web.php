@@ -65,10 +65,9 @@ Route::middleware('auth')->group(function () {
     //Company
     Route::get('/jobs', [JobController::class,'index'])->name('company.index');
     Route::get('/jobs/{inertiaJob}', [JobController::class,'view'])->name('company.view');
-    });
-require __DIR__.'/auth.php';
-
-
+});
+    
+    
 Route::get('/company/create', [JobController::class,'create'])->name('company.create');
 Route::post('/company/job', [JobController::class,'store'])->name('company.store'); //登録
 Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->name('company.edit');
@@ -77,13 +76,7 @@ Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.s
 Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('company.update');
 Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
 
+require __DIR__.'/auth.php';
 
 //管理者ページ
-Route::prefix('admin')->name('admin.')->group(function(){
-
-    Route::get('/dashboard', function () {
-        return Inertia::render('Admin/Dashboard');
-    })->middleware(['auth:admin', 'verified'])->name('dashboard');
-
-    require __DIR__.'/admin.php';
-});
+require __DIR__.'/admin.php';

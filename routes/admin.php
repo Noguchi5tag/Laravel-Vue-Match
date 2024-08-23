@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
+use Inertia\Inertia;
+
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->middleware('guest:admin');
@@ -43,7 +45,12 @@ Route::middleware('guest')->group(function () {
                 ->name('password.store');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:admin')->group(function () {
+
+    Route::get('dashboard', function () {
+        return Inertia::render('Admin/Dashboard');
+    })->name('dashboard');
+
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->middleware('auth:admin')
                 ->name('verification.notice');
