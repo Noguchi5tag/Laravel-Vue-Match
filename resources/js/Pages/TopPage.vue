@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import NavLink from '@/Components/NavLink.vue';
 
 import BasePage from './BasePage.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
@@ -37,16 +38,16 @@ defineProps({
                             <div class="flex flex-col flex-wrap py-6 text-left">
                                 <div class="flex flex-col mb-10 lg:items-start items-center">
                                     <div class="flex-grow">
-                                        <Link href="/news">
+                                        <NavLink href="/news">
                                             <h2 class="text-gray-900 text-lg title-font font-medium mb-3">新機能「スキップマッチング」登場！</h2>
-                                        </Link>
+                                        </NavLink>
                                     </div>
                                 </div>
                                 <div class="flex flex-col mb-10 lg:items-start items-center">
                                     <div class="flex-grow">
-                                        <Link href="/news">
+                                        <NavLink href="/news">
                                             <h2 class="text-gray-900 text-lg title-font font-medium mb-3"> オンラインキャリア相談会「あなたのキャリアを一緒に考えよう！」</h2>
-                                        </Link>
+                                        </NavLink>
                                     </div>
                                 </div>
                             </div>
