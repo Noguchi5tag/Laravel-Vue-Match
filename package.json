@@ -25,7 +25,7 @@
     "dependencies": {
         "@inertiajs/inertia": "^0.11.1",
         "flowbite-vue": "^0.1.5",
-        "vue-router": "^4.0.13",
+        "vue-router": "^4.4.3",
         "vue3-carousel": "^0.3.3",
         "vuejs-paginate-next": "^1.0.2",
         "ziggy-js": "^2.3.0"

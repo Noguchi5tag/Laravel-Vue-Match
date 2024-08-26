@@ -34,4 +34,26 @@ class InertiaJob extends Model
         'image4', // 画像4
         'image5', // 画像5
     ];
+
+    public function scopeSearchInertiaJobs($query, $search = null, $dutyStation = null, $Occupation = null)
+    {
+        if (!empty($search)) {
+            $query->where(function($q) use ($search) {
+                $q->where('WantedTitles', 'like', '%' . $search . '%')
+                    ->orWhere('workDescription', 'like', '%' . $search . '%')
+                    ->orWhere('Welfare', 'like', '%' . $search . '%')
+                    ->orWhere('workOther', 'like', '%' . $search . '%');
+            });
+        }
+    
+        if (!empty($dutyStation)) {
+            $query->where('dutyStation', $dutyStation);
+        }
+    
+        if (!empty($Occupation)) {
+            $query->where('Occupation', $Occupation);
+        }
+    
+        return $query;
+    }
 }

@@ -18,13 +18,13 @@ defineProps({
 });
 
 const form = useForm({
-    login_name: '',
+    email: '',
     password: '',
     remember: false,
 });
 
 const submit = () => {
-    form.post(route('admin.login'), {
+    form.post(route('admin.login.submit'), {
         onFinish: () => form.reset('password'),
     });
 };
@@ -41,19 +41,19 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div>
                 <h1>管理者ログイン</h1>
-                <InputLabel for="login_name" value="ログインネーム" />
+                <InputLabel for="email" value="メールアドレス" />
 
                 <TextInput
-                    id="login_name"
+                    id="email"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.login_name"
+                    v-model="form.email"
                     required
                     autofocus
                     autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.login_name" />
+                <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <div class="mt-4">

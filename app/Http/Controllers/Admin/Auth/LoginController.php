@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+
 
 class LoginController extends Controller
 {
@@ -27,6 +29,11 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/admin/dashboard';
 
+    protected function guard()
+    {
+        return Auth::guard('admin');
+    }
+
     /**
      * Create a new controller instance.
      *
@@ -36,5 +43,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest:admin')->except('logout');
         $this->middleware('auth:admin')->only('logout');
+    }
+
+    // このメソッドを追加または確認
+    public function username()
+    {
+        return 'email'; // もしくは 'login_name'
     }
 }

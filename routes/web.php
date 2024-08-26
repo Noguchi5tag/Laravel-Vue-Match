@@ -21,6 +21,9 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/jobs', [JobController::class,'index'])->name('company.index');
+Route::get('/jobs/{inertiaJob}', [JobController::class,'view'])->name('company.view');
+
 //ダッシュボード
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -80,5 +83,9 @@ require __DIR__.'/auth.php';
 
 //管理者ページ
 Route::prefix('admin')->name('admin.')->group(function(){
+    Route::get('/dashboard', function () {
+        return Inertia::render('Admin/Dashboard');
+    })->middleware(['auth:admin', 'verified'])->name('dashboard');
+
     require __DIR__.'/admin.php';
 });

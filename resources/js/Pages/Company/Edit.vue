@@ -102,6 +102,21 @@ const Occupations = [
     { value: 'デザイナー', label: 'デザイナー' },
     { value: 'その他', label: 'その他' },
 ];
+
+const dutyStations = [
+    { value: '長崎市', label: '長崎市' },
+    { value: '島原市', label: '島原市' },
+    { value: '雲仙市', label: '雲仙市' },
+    { value: '南島原市', label: '南島原市' },
+    { value: '諫早市', label: '諫早市' },
+    { value: '西海市', label: '西海市' },
+    { value: '五島市', label: '五島市' },
+    { value: '平戸市', label: '平戸市' },
+    { value: '壱岐市', label: '壱岐市' },
+    { value: '対馬市', label: '対馬市' },
+    { value: '松浦市', label: '松浦市' },
+    { value: '新上五島市', label: '新上五島市' },
+];
 </script>
 
 <template>
@@ -158,7 +173,11 @@ const Occupations = [
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地</label>
-                                        <input type="text" name="dutyStation" id="dutyStation" v-model="form.dutyStation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <select name="dutyStation" id="dutyStation" v-model="form.dutyStation">
+                                            <option v-for="dutyStation in dutyStations" :value="dutyStation.value" :key="dutyStation.value">
+                                                {{ dutyStation.label }}
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
 

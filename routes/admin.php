@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 
 use Inertia\Inertia;
 
-Route::middleware('guest')->group(function () {
+Route::middleware('guest:admin')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
-                ->middleware('guest:admin');
+                ->middleware('guest:admin')
+                ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest:admin')
@@ -26,7 +27,8 @@ Route::middleware('guest')->group(function () {
                 ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store'])
-                ->middleware('guest:admin');
+                ->middleware('guest:admin')
+                ->name('login.submit');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest:admin')
@@ -46,10 +48,6 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth:admin')->group(function () {
-
-    Route::get('dashboard', function () {
-        return Inertia::render('Admin/Dashboard');
-    })->name('admin.dashboard');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->middleware('auth:admin')

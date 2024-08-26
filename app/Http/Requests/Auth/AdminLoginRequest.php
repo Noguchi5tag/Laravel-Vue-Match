@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
 
 class AdminLoginRequest extends FormRequest
 {
@@ -27,10 +28,7 @@ class AdminLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'email' => ['required', 'string', 'email'],
-            // 'password' => ['required', 'string'],
-
-            'login_name' => ['required', 'string'],
+            'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
         ];
     }
@@ -44,12 +42,19 @@ class AdminLoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
+        // メールアドレスとパスワードをログに記録
+        Log::info('Attempting login with:', [
+            'email' => $this->input('email'),
+            'password' => $this->input('password'), // パスワードのログはセキュリティ上避けるべきです
+            // 'password_hash' => bcrypt($this->input('password')) // ハッシュ化されたパスワードを記録する場合
+        ]);
+
         //Guardをチェックするのを追加して、emailをlogin_nameに変える
-        if (! Auth::guard('admin')->attempt($this->only('login_name', 'password'), $this->boolean('remember'))) {
+        if (! Auth::guard('admin')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'login_name' => trans('auth.failed'),
+                'email' => trans('auth.failed'),
             ]);
         }
 

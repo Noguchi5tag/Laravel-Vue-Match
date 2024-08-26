@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\InertiaJob;
 use Illuminate\Http\Request;
-
 use Inertia\Inertia;
-
-use function Laravel\Prompts\alert;
 use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
@@ -15,10 +12,18 @@ class JobController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
+        $dutyStation = $request->input('dutyStation');
+        $Occupation = $request->input('Occupation');
+
+        $inertiaJobs = InertiaJob::where('status', 1)
+        ->searchInertiaJobs($search, $dutyStation, $Occupation)
+        ->paginate(1);
+        // dd($inertiaJobs);
         return Inertia::render('Company/Index', [
-            'inertiaJobs' => InertiaJob::all(),
+            'inertiaJobs' => $inertiaJobs,
         ]);
     }
 
