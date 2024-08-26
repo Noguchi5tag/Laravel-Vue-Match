@@ -28,8 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         //追記
-        //MiddlewareのAuthenticate.phpは未認証の遷移先。
-        //MiddlewareのRedirectIfAuthenticatedは認証後の遷移ページ。
+        //MiddlewareのAuthenticate.phpは未認証の遷移先。 MiddlewareのRedirectIfAuthenticatedは認証後の遷移ページ。
         //MiddlewareのAuthenticate.phpに書いてたもの
         $middleware->redirectGuestsTo(function (Request $request) {
             $request->is('admin*') ? route('admin.login') : route('login');
