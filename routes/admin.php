@@ -49,7 +49,7 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::get('dashboard', function () {
         return Inertia::render('Admin/Dashboard');
-    })->name('dashboard');
+    })->name('admin.dashboard');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->middleware('auth:admin')

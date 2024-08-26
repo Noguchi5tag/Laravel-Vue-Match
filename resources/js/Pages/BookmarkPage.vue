@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import BasePage from './BasePage.vue';
 import SiteTitle from '@/Components/SiteTitle.vue';
 </script>

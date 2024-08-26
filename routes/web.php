@@ -79,4 +79,6 @@ Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->
 require __DIR__.'/auth.php';
 
 //管理者ページ
-require __DIR__.'/admin.php';
+Route::prefix('admin')->name('admin.')->group(function(){
+    require __DIR__.'/admin.php';
+});

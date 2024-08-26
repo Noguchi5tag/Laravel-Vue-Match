@@ -1,7 +1,8 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import BasePage from './BasePage.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
+import NavLink from '@/Components/NavLink.vue';
 
 </script>
 
@@ -49,7 +50,7 @@ import SiteTitle from '../Components/SiteTitle.vue';
                     </div>
                 </div>
                 <div class="pt-8 w-full flex justify-center">
-                    <Link href="/contact" class="inline-flex text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">お問い合わせ</Link>
+                    <NavLink href="/contact" class="inline-flex text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">お問い合わせ</NavLink>
                 </div>
             </div>
         </section>

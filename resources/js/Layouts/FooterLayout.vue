@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import FooterMenu from '../Components/Button/FotterMenu.vue';
+import NavLink from '@/Components/NavLink.vue';
 
 </script>
 
@@ -10,10 +11,10 @@ import FooterMenu from '../Components/Button/FotterMenu.vue';
             <div class="py-1">
                 <h1 class="text-2xl text-center">ここにロゴ</h1>
                 <div class="py-4 text-center flex flex-col items-center">
-                    <Link as="button" href="/rules">利用規約</Link>
-                    <Link as="button" href="/privacy">プライバシーポリシー</Link>
-                    <Link as="button" href="/questions">よくある質問</Link>
-                    <Link as="button" href="/contact">お問い合わせ</Link>
+                    <NavLink as="button" href="/rules">利用規約</NavLink>
+                    <NavLink as="button" href="/privacy">プライバシーポリシー</NavLink>
+                    <NavLink as="button" href="/questions">よくある質問</NavLink>
+                    <NavLink as="button" href="/contact">お問い合わせ</NavLink>
                 </div>
             </div>
         </div>
