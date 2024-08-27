@@ -44,10 +44,4 @@ class LoginController extends Controller
         $this->middleware('guest:admin')->except('logout');
         $this->middleware('auth:admin')->only('logout');
     }
-
-    // このメソッドを追加または確認
-    public function username()
-    {
-        return 'email'; // もしくは 'login_name'
-    }
 }

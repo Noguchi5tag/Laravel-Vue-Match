@@ -42,21 +42,24 @@ class AdminLoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        // メールアドレスとパスワードをログに記録
-        Log::info('Attempting login with:', [
-            'email' => $this->input('email'),
-            'password' => $this->input('password'), // パスワードのログはセキュリティ上避けるべきです
-            // 'password_hash' => bcrypt($this->input('password')) // ハッシュ化されたパスワードを記録する場合
-        ]);
+            // デバッグログを追加
+    Log::info('Attempting admin login', [
+        'email' => $this->input('email'),
+        'password' => $this->input('password'), // これは実運用ではログに残さないように注意
+    ]);
 
         //Guardをチェックするのを追加して、emailをlogin_nameに変える
-        if (! Auth::guard('admin')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (!Auth::guard('admin')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
         }
+
+        Log::info('Admin login successful', [
+            'email' => $this->input('email'),
+        ]);
 
         RateLimiter::clear($this->throttleKey());
     }
