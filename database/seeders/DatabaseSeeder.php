@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\InertiaJob;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
+        InertiaJob::factory(10)->create();
 
         // $this->call(UsersTableSeeder::class);
 
@@ -21,5 +23,8 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        // InertiaJobsTableSeederを呼び出す
+        $this->call(InertiaJobsTableSeeder::class);
     }
 }

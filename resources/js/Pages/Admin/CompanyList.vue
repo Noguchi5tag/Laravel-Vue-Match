@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import BasePage from '../BasePage.vue';
+import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted } from 'vue'
@@ -39,7 +39,7 @@ const dutyStation = ref('')
 const Occupation = ref('')
 const companyPay = ref('')
 const searchCustomers = () => {
-    Inertia.get(route('company.index'), {
+    Inertia.get(route('admin.companylist.index'), {
         search: search.value,
         dutyStation: dutyStation.value,
         Occupation: Occupation.value,
@@ -62,7 +62,7 @@ const imageCount = (job) => {
 
 <template>
     <Head title="求人一覧" />
-    <BasePage>
+    <AuthenticatedLayout>
 
     <!-- フラッシュメッセージ -->
     <div v-if="$page.props.flash.message" class="bg-blue-300">
@@ -197,7 +197,7 @@ const imageCount = (job) => {
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
-                                    <Link as="button" :href="route('company.show', { id: job.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">詳細へ</Link>
+                                    <Link as="button" :href="route('admin.company.show', { id: job.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">詳細へ</Link>
                                 </div>
                             </div>
                         </template>
@@ -238,7 +238,7 @@ const imageCount = (job) => {
                 </div>
             </div>
         </section>
-    </BasePage>
+    </AuthenticatedLayout>
 </template>
 
 <style>

@@ -2,7 +2,7 @@
 import { reactive } from 'vue';
 import { Link, Head  } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
-import BasePage from '../BasePage.vue';
+import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
 import { dutyStations } from '@/data';
 import { Occupations } from '@/data';
 
@@ -37,14 +37,13 @@ const submitFunction = () => {
     for (const key in form) {
         formData.append(key, form[key]);
     }
-    Inertia.post('/company/job', formData);
+    Inertia.post('/admin/company/job', formData);
 }
-
 </script>
 
 <template>
 <Head title="新規登録" />
-    <BasePage>
+    <AuthenticatedLayout>
         <div class="py-6">
             <form @submit.prevent="submitFunction" enctype="multipart/form-data">
                 <section class="text-gray-600 body-font relative">
@@ -234,5 +233,5 @@ const submitFunction = () => {
                 </section>
             </form>
         </div>
-    </BasePage>
+    </AuthenticatedLayout>
 </template>

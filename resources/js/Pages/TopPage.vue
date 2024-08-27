@@ -1,9 +1,16 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import NavLink from '@/Components/NavLink.vue';
-
 import BasePage from './BasePage.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
+import { ref, onMounted } from 'vue';
+
+//ログインしているかどうかの処理
+const isAdmin = ref(false);
+onMounted(() => {
+    const currentUrl = window.location.pathname;
+    isAdmin.value = currentUrl.includes('/admin/');
+});
 
 defineProps({
     canLogin: {
@@ -22,7 +29,7 @@ defineProps({
         <SiteTitle>ホーム</SiteTitle>
 
         <div class="my-10 text-center">
-            <nav v-if="canLogin" class="">
+            <nav v-if="canLogin || !isAdmin" class="">
                 <div
                     v-if="$page.props.auth.user"
                     class=""

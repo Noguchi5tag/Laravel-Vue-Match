@@ -1,8 +1,17 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+
 //ログインしているかどうかの処理
 const { props } = usePage();
 const isLoggedIn = props.auth.user !== null;
+
+//Adminでログインしているかどうかの処理
+const isAdmin = ref(false);
+onMounted(() => {
+    const currentUrl = window.location.pathname;
+    isAdmin.value = currentUrl.includes('/admin/');
+});
 
 </script>
 
@@ -21,14 +30,22 @@ const isLoggedIn = props.auth.user !== null;
                 <img class="w-6" src="../../../../public/images/search-logo.png" alt="">
                 <p>検索</p>
             </Link>
-            <Link v-if="!isLoggedIn" as="button" href="/login" class="flex flex-col items-center">
-                <img class="w-6" src="../../../../public/images/home.png" alt="">
-                <p>ログイン</p>
-            </Link>
-            <Link v-else as="button" href="/profile" class="flex flex-col items-center">
+            <template v-if="isAdmin">
+                <Link as="button" href="/admin/dashboard" class="flex flex-col items-center">
                 <img class="w-6" src="../../../../public/images/address.png" alt="">
-                <p>マイページ</p>
+                <p>ダッシュボード</p>
             </Link>
+            </template>
+            <template v-else>
+                <Link v-if="!isLoggedIn" as="button" href="/login" class="flex flex-col items-center">
+                    <img class="w-6" src="../../../../public/images/home.png" alt="">
+                    <p>ログイン</p>
+                </Link>
+                <Link v-else as="button" href="/profile" class="flex flex-col items-center">
+                    <img class="w-6" src="../../../../public/images/address.png" alt="">
+                    <p>マイページ</p>
+                </Link>
+            </template>
         </div>
     </div>
 </template>

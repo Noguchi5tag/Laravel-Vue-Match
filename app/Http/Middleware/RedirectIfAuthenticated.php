@@ -16,22 +16,16 @@ class RedirectIfAuthenticated
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, ...$guards)
+    public function handle(Request $request, Closure $next, $guard = null)
     {
-        $guards = empty($guards) ? [null] : $guards;
-        var_dump($guards);
+        if (Auth::guard($guard)->check()) {
+            if ($guard === 'admin') {
+                $currentPath = trim($request->path(), '/');
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                // 管理者用のリダイレクト
-                if ($guard === 'admin') {
-                    if ($request->is('admin/login') || $request->is('admin/register')) {
-                        return redirect()->route('admin.dashboard');
-                    }
+                // /admin/login または /admin/register にアクセスした場合のみリダイレクト
+                if ($currentPath === 'admin/login' || $currentPath === 'admin/register') {
+                    return redirect()->route('admin.dashboard');
                 }
-
-                // 通常ユーザー用のリダイレクト
-                return redirect()->route('top');
             }
         }
 

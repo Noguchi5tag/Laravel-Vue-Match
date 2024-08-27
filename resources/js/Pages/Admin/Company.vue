@@ -2,7 +2,7 @@
 import { Head, router, Link } from '@inertiajs/vue3';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-import BasePage from '../BasePage.vue';
+import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
 import { ref, onMounted } from 'vue';
 
 //ログインしているかどうかの処理
@@ -20,7 +20,7 @@ const props = defineProps({
 
 const deleteFunction = id => {
     console.log('id:', id)
-    router.delete(`/company/delete/${id}`, {
+    router.delete(route('admin.company.delete', { inertiaJob: id }), {
         onBefore: () => confirm('削除しますか？')
     },)
 }
@@ -38,7 +38,7 @@ const imageCount = (job) => {
 
 <template>
     <Head title="求人詳細" />
-    <BasePage>
+    <AuthenticatedLayout>
         <!-- フラッシュメッセージ -->
         <div v-if="$page.props.flash.message" class="bg-blue-300">
             {{ $page.props.flash.message }}
@@ -190,9 +190,30 @@ const imageCount = (job) => {
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="p-2 w-full">
+                                <div class="relative">
+                                    <label for="status" class="leading-7 text-sm text-gray-600">ステータス</label>
+                                    <div class="">
+                                        <p>現在のステータス: 
+                                            <span v-if="props.inertiaJob.status === 0">非公開</span>
+                                            <span v-else>公開</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="p-2 w-full">
+                                <div class="p-2">
+                                    <Link as="button" :href="route('admin.company.edit', { inertiaJob: props.inertiaJob.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</Link>
+                                </div>
+                                <div class="p-2">
+                                    <button @click="deleteFunction(props.inertiaJob.id)" class="flex mx-auto text-white bg-red-400 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">削除</button>
+                                </div>
+                            </div>
                             
                             <div class="p-2 w-full">
-                                <Link as="button" href="/jobs" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
+                                <Link as="button" href="/admin/companylist" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
                             </div>
                         </div>
                     </div>
@@ -202,7 +223,7 @@ const imageCount = (job) => {
         <div v-else>
             <p>データが見つかりません。</p>
         </div>
-    </BasePage>
+    </AuthenticatedLayout>
 </template>
 
 <style>

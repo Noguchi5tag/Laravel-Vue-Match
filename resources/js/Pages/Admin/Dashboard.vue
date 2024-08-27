@@ -11,6 +11,11 @@ import { Head } from '@inertiajs/vue3';
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">管理者情報</h2>
         </template>
 
+        <!-- フラッシュメッセージ -->
+        <div v-if="$page.props.flash.message" class="bg-blue-300">
+            {{ $page.props.flash.message }}
+        </div>
+
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

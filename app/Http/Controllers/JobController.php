@@ -25,6 +25,14 @@ class JobController extends Controller
         ->searchInertiaJobs($search, $dutyStation, $Occupation, $companyPay)
         ->paginate(1);
         // dd($inertiaJobs);
+
+        // URLやリクエストパラメータに基づいてビューを切り替える
+        if ($request->is('admin/*')) {
+            return Inertia::render('Admin/CompanyList', [
+                'inertiaJobs' => $inertiaJobs,
+            ]);
+        }
+        
         return Inertia::render('Company/Index', [
             'inertiaJobs' => $inertiaJobs,
         ]);
@@ -82,15 +90,21 @@ class JobController extends Controller
         
         InertiaJob::create($validatedData);
 
-        return to_route('company.index')->with(['message' => '登録しました。']);
+        return to_route('admin.dashboard')->with(['message' => '登録しました。']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(InertiaJob $inertiaJob)
+    public function show(InertiaJob $inertiaJob, Request $request)
     {
-        // dd($inertiaJob);
+        // URLやリクエストパラメータに基づいてビューを切り替える
+        if ($request->is('admin/*')) {
+            return Inertia::render('Admin/Company', [
+                'inertiaJob' => $inertiaJob,
+            ]);
+        }
+
         return Inertia::render('Company/Show', [
             'inertiaJob' => $inertiaJob,
         ]);
@@ -106,8 +120,15 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(InertiaJob $inertiaJob)
+    public function edit(InertiaJob $inertiaJob, Request $request)
     {
+        // URLやリクエストパラメータに基づいてビューを切り替える
+        if ($request->is('admin/*')) {
+            return Inertia::render('Admin/CompanyEdit', [
+                'inertiaJob' => $inertiaJob,
+            ]);
+        }
+
         return Inertia::render('Company/Edit', [
             'inertiaJob' => $inertiaJob,
         ]);
@@ -185,7 +206,7 @@ class JobController extends Controller
         $inertiaJob->update($validatedData);
 
         $message = $imageDeleted ? '画像を削除しました。' : '更新しました。';
-        return to_route('company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
+        return to_route('admin.company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
     }
 
     public function delete($id)
@@ -193,7 +214,7 @@ class JobController extends Controller
         $book = InertiaJob::findOrFail($id);
         $book->delete();
 
-        return to_route('company.index')->with(['message' => '削除しました。']);
+        return to_route('admin.companylist.index')->with(['message' => '削除しました。']);
     }
 
     /**
