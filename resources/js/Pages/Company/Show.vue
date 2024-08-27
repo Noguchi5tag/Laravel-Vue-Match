@@ -2,18 +2,17 @@
 import { Head, router, Link, usePage } from '@inertiajs/vue3';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import BasePage from '../BasePage.vue';
+
 //ログインしているかどうかの処理
 const { props: pageProps } = usePage();
 const isLoggedIn = pageProps.auth.user !== null;
-
-import BasePage from '../BasePage.vue';
 
 const props = defineProps({
     id: String,
     inertiaJob: Object,
 })
-
-console.log('inertiaJob:', props.inertiaJob)
+// console.log('inertiaJob:', props.inertiaJob)
 
 const deleteFunction = id => {
     console.log('id:', id)

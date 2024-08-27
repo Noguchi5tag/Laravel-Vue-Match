@@ -2,8 +2,9 @@
 import { reactive } from 'vue';
 import { Link, Head  } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
-
 import BasePage from '../BasePage.vue';
+import { dutyStations } from '@/data';
+import { Occupations } from '@/data';
 
 const form = reactive({
     companyName: '',
@@ -39,28 +40,6 @@ const submitFunction = () => {
     Inertia.post('/company/job', formData);
 }
 
-const dutyStations = [
-    { value: '長崎市', label: '長崎市' },
-    { value: '島原市', label: '島原市' },
-    { value: '雲仙市', label: '雲仙市' },
-    { value: '南島原市', label: '南島原市' },
-    { value: '諫早市', label: '諫早市' },
-    { value: '西海市', label: '西海市' },
-    { value: '五島市', label: '五島市' },
-    { value: '平戸市', label: '平戸市' },
-    { value: '壱岐市', label: '壱岐市' },
-    { value: '対馬市', label: '対馬市' },
-    { value: '松浦市', label: '松浦市' },
-    { value: '新上五島市', label: '新上五島市' },
-];
-
-const Occupations = [
-    { value: '営業', label: '営業' },
-    { value: '事務', label: '事務' },
-    { value: 'エンジニア', label: 'エンジニア' },
-    { value: 'デザイナー', label: 'デザイナー' },
-    { value: 'その他', label: 'その他' },
-];
 </script>
 
 <template>
