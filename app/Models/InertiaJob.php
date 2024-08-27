@@ -35,7 +35,13 @@ class InertiaJob extends Model
         'image5', // 画像5
     ];
 
-    public function scopeSearchInertiaJobs($query, $search = null, $dutyStation = null, $Occupation = null)
+    public function scopeSearchInertiaJobs(
+        $query,
+        $search = null, 
+        $dutyStation = null, 
+        $Occupation = null,
+        $companyPay = null
+    )
     {
         if (!empty($search)) {
             $query->where(function($q) use ($search) {
@@ -52,6 +58,26 @@ class InertiaJob extends Model
     
         if (!empty($Occupation)) {
             $query->where('Occupation', $Occupation);
+        }
+
+        if (!empty($companyPay)) {
+            switch ($companyPay) {
+                case '150000':
+                    $query->where('companyPay', '<=', 150000);
+                    break;
+                case '200000':
+                    $query->whereBetween('companyPay', [150001, 200000]);
+                    break;
+                case '250000':
+                    $query->whereBetween('companyPay', [200001, 250000]);
+                    break;
+                case '300000':
+                    $query->whereBetween('companyPay', [250001, 300000]);
+                    break;
+                case '300001':
+                    $query->where('companyPay', '>', 300001);
+                    break;
+            }
         }
     
         return $query;

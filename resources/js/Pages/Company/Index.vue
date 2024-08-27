@@ -6,48 +6,6 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 
-const props = defineProps({
-    inertiaJobs: Object,
-    Carousel: Carousel,
-    Slide: Slide,
-    Pagination: Pagination,
-    Navigation: Navigation
-})
-
-//クエリパラメータを取得
-const searchKeyword = ref('');
-const dutyStationKeyword = ref('');
-const occupationKeyword = ref('');
-onMounted(() => {
-    const params = new URLSearchParams(window.location.search);
-    searchKeyword.value = params.get('search') || '';
-    dutyStationKeyword.value = params.get('dutyStation') || '';
-    occupationKeyword.value = params.get('Occupation') || '';
-});
-
-//検索項目をControllerに送信
-const search = ref('')
-const dutyStation = ref('')
-const Occupation = ref('')
-const searchCustomers = () => {
-    Inertia.get(route('company.index'), {
-        search: search.value,
-        dutyStation: dutyStation.value,
-        Occupation: Occupation.value,
-    });
-}
-
-//画像を取得して表示
-const imageCount = (job) => {
-    let count = 0;
-        for (let i = 1; i <= 5; i++) {
-            if (job[`image${i}`]) {
-                count++;
-            }
-        }
-    return count;
-}
-
 const dutyStations = [
     { value: '長崎市', label: '長崎市' },
     { value: '島原市', label: '島原市' },
@@ -70,6 +28,62 @@ const Occupations = [
     { value: 'デザイナー', label: 'デザイナー' },
     { value: 'その他', label: 'その他' },
 ];
+
+const companyPays = [
+    { value: '150000', label: '150,000円以下' },
+    { value: '200000', label: '150,001円~200,000円' },
+    { value: '250000', label: '200,001円~250,000円' },
+    { value: '300000', label: '250,001円~300,000円' },
+    { value: '300001', label: '300,001円以上' },
+]
+
+const props = defineProps({
+    inertiaJobs: Object,
+    Carousel: Carousel,
+    Slide: Slide,
+    Pagination: Pagination,
+    Navigation: Navigation
+})
+
+//クエリパラメータを取得
+const searchKeyword = ref('');
+const searchDutyStation = ref('');
+const searchOccupation = ref('');
+const searchCompanyPay = ref('');
+
+onMounted(() => {
+    const params = new URLSearchParams(window.location.search);
+    searchKeyword.value = params.get('search') || '';
+    searchDutyStation.value = params.get('dutyStation') || '';
+    searchOccupation.value = params.get('Occupation') || '';
+    searchCompanyPay.value = params.get('companyPay') || '';
+});
+
+//検索項目をControllerに送信
+const search = ref('')
+const dutyStation = ref('')
+const Occupation = ref('')
+const companyPay = ref('')
+const searchCustomers = () => {
+    Inertia.get(route('company.index'), {
+        search: search.value,
+        dutyStation: dutyStation.value,
+        Occupation: Occupation.value,
+        companyPay: companyPay.value,
+    });
+}
+
+//画像を取得して表示
+const imageCount = (job) => {
+    let count = 0;
+        for (let i = 1; i <= 5; i++) {
+            if (job[`image${i}`]) {
+                count++;
+            }
+        }
+    return count;
+}
+
 </script>
 
 <template>
@@ -120,8 +134,12 @@ const Occupations = [
                                     </div>
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="email" class="leading-7 text-sm text-gray-600">給料からさがす</label>
-                                            <input type="email" id="email" name="email" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            <label for="companyPay" class="leading-7 text-sm text-gray-600">給料からさがす</label>
+                                            <select name="companyPay" id="companyPay" v-model="companyPay">
+                                                <option v-for="companyPay in companyPays" :value="companyPay.value" :key="companyPay.value">
+                                                    {{ companyPay.label }}
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="p-2 w-full">
@@ -137,19 +155,30 @@ const Occupations = [
                         </div>
                     </section>
 
-                    <div class="">
-                        <template v-if="dutyStationKeyword">
-                            <p>勤務地：{{ dutyStationKeyword }}</p>
-                        </template>
-                        <template v-if="occupationKeyword">
-                            <p>職種：{{ occupationKeyword }}</p>
-                        </template>
-                        <template v-if="dutyStationKeyword">
-                            <p>給料：</p>
-                        </template>
-                        <template v-if="searchKeyword">
-                            <p>キーワード：{{ searchKeyword }}</p>
-                        </template>
+                    <div class="pb-6">
+                        <h1>選択した検索条件</h1>
+                        <ul>
+                            <li>
+                                <template v-if="searchDutyStation">
+                                    勤務地：{{ searchDutyStation }}
+                                </template>
+                            </li>
+                            <li>
+                                <template v-if="searchOccupation">
+                                    職種：{{ searchOccupation }}
+                                </template>
+                            </li>
+                            <li>
+                                <template v-if="searchCompanyPay">
+                                    給料：{{ companyPays.find(pay => pay.value === searchCompanyPay)?.label || '該当なし' }}
+                                </template>
+                            </li>
+                            <li>
+                                <template v-if="searchKeyword">
+                                    キーワード：{{ searchKeyword }}
+                                </template>
+                            </li>
+                        </ul>
                     </div>
 
                     <div v-if="inertiaJobs.data.length" class="-m-2">

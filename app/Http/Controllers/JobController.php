@@ -17,9 +17,12 @@ class JobController extends Controller
         $search = $request->input('search');
         $dutyStation = $request->input('dutyStation');
         $Occupation = $request->input('Occupation');
+        $companyPay = $request->input('companyPay');
 
-        $inertiaJobs = InertiaJob::where('status', 1)
-        ->searchInertiaJobs($search, $dutyStation, $Occupation)
+        // dd($search, $dutyStation, $Occupation, $companyPay);
+
+        $inertiaJobs = InertiaJob::where('status', 1) // 公開中のみ表示
+        ->searchInertiaJobs($search, $dutyStation, $Occupation, $companyPay)
         ->paginate(1);
         // dd($inertiaJobs);
         return Inertia::render('Company/Index', [
