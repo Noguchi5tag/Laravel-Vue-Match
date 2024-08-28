@@ -111,14 +111,14 @@ const updateFunction = () => {
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="companyName" class="leading-7 text-sm text-gray-600">会社名</label>
-                                        <input type="text" name="companyName" id="companyName" v-model="form.companyName" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="companyName" id="companyName" v-model="form.companyName" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</label>
-                                        <input type="text" name="WantedTitles" id="WantedTitles" v-model="form.WantedTitles" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="WantedTitles" id="WantedTitles" v-model="form.WantedTitles" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
@@ -136,14 +136,14 @@ const updateFunction = () => {
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</label>
-                                        <input type="text" name="companyAddress" id="companyAddress" v-model="form.companyAddress" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="companyAddress" id="companyAddress" v-model="form.companyAddress" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="companyPay" class="leading-7 text-sm text-gray-600">給料</label>
-                                        <input type="number" name="companyPay" id="companyPay" v-model="form.companyPay" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="number" name="companyPay" id="companyPay" v-model="form.companyPay" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
@@ -161,69 +161,69 @@ const updateFunction = () => {
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="workDescription" class="leading-7 text-sm text-gray-600">仕事内容</label>
-                                        <input type="text" name="workDescription" id="workDescription" v-model="form.workDescription" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="workDescription" id="workDescription" v-model="form.workDescription" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="payDescription" class="leading-7 text-sm text-gray-600">給与詳細</label>
-                                        <input type="text" name="payDescription" id="payDescription" v-model="form.payDescription" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="payDescription" id="payDescription" v-model="form.payDescription" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="travelExpenses" class="leading-7 text-sm text-gray-600">交通費</label>
-                                        <input type="number" name="travelExpenses" id="travelExpenses" v-model="form.travelExpenses" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="number" name="travelExpenses" id="travelExpenses" v-model="form.travelExpenses" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="Welfare" class="leading-7 text-sm text-gray-600">福利厚生</label>
-                                        <input type="text" name="Welfare" id="Welfare" v-model="form.Welfare" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="Welfare" id="Welfare" v-model="form.Welfare" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="startWork" class="leading-7 text-sm text-gray-600">勤務開始時間</label>
-                                        <input type="time" name="startWork" id="startWork" v-model="form.startWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="time" name="startWork" id="startWork" v-model="form.startWork" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="endWork" class="leading-7 text-sm text-gray-600">勤務終了時間</label>
-                                        <input type="time" name="endWork" id="endWork" v-model="form.endWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="time" name="endWork" id="endWork" v-model="form.endWork" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="workDays" class="leading-7 text-sm text-gray-600">出勤日</label>
-                                        <input type="text" name="workDays" id="workDays" v-model="form.workDays" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="workDays" id="workDays" v-model="form.workDays" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="freeDays" class="leading-7 text-sm text-gray-600">休日</label>
-                                        <input type="text" name="freeDays" id="freeDays" v-model="form.freeDays" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="freeDays" id="freeDays" v-model="form.freeDays" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="NearestStation" class="leading-7 text-sm text-gray-600">最寄り駅</label>
-                                        <input type="text" name="NearestStation" id="NearestStation" v-model="form.NearestStation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="NearestStation" id="NearestStation" v-model="form.NearestStation" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="workOther" class="leading-7 text-sm text-gray-600">その他</label>
-                                        <textarea name="workOther" id="workOther" v-model="form.workOther" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                                        <textarea name="workOther" id="workOther" v-model="form.workOther" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                                     </div>
                                 </div>
 
@@ -263,7 +263,7 @@ const updateFunction = () => {
                                             :name="`image${index}`" 
                                             :id="`image${index}`" 
                                             @input="form[`image${index}`] = $event.target.files[0]" 
-                                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 
