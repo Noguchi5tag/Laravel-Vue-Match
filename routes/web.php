@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\NewsController;
 
 //テスト用
 Route::get('/test', function () {
@@ -68,6 +69,9 @@ Route::middleware('auth')->group(function () {
     //Company
     Route::get('/jobs', [JobController::class,'index'])->name('company.index');
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show');
+
+    //News
+    Route::get('/news', [NewsController::class,'index'])->name('news.index');
 });
 
 require __DIR__.'/auth.php';
@@ -87,6 +91,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //Company
     Route::get('/companylist', [JobController::class,'index'])->middleware(['auth:admin', 'verified'])->name('companylist.index');
     Route::get('/company/create', [JobController::class,'create'])->middleware(['auth:admin', 'verified'])->name('company.create');
     Route::post('/company/job', [JobController::class,'store'])->name('company.store'); //登録
@@ -94,6 +99,12 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->middleware(['auth:admin', 'verified'])->name('company.show');
     Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('company.update');
     Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
+
+    //News
+    Route::get('/news', [NewsController::class, 'index'])->middleware('auth:admin')->name('newslist.index');
+    Route::get('/news/create', [NewsController::class, 'create'])->middleware('auth:admin')->name('news.create');
+    Route::post('/news/store', [NewsController::class, 'store'])->name('news.store');
+    Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
 
     require __DIR__.'/admin.php';
 });

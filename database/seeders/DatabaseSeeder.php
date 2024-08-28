@@ -14,17 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-        InertiaJob::factory(10)->create();
-
-        // $this->call(UsersTableSeeder::class);
-
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
 
-        // InertiaJobsTableSeederを呼び出す
-        $this->call(InertiaJobsTableSeeder::class);
+        $this->call([
+            UsersTableSeeder::class,
+            InertiaJobsTableSeeder::class,
+            NewsSeeder::class,
+        ]);
     }
 }

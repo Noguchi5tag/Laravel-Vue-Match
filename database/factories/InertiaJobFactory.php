@@ -12,12 +12,12 @@ class InertiaJobFactory extends Factory
     public function definition(): array
     {
         $companyNames = [];
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 99; $i++) {
             $companyNames[] = "株式会社テスト" . str_pad($i, 2, '0', STR_PAD_LEFT);
         }
     
         return [
-            'companyName' => $this->faker->unique()->randomElement($companyNames),
+            'companyName' => $this->faker->randomElement($companyNames),
             'WantedTitles' => $this->faker->randomElement(['営業マネージャー', '事務スタッフ', 'システムエンジニア', 'デザイナー', 'カスタマーサポート']),
             'Occupation' => $this->faker->randomElement(['営業', '事務', 'エンジニア', 'デザイナー', 'その他']),
             'companyAddress' => $this->faker->address,

@@ -23,8 +23,8 @@ return new class extends Migration
             $table->text('payDescription')->nullable(); // 給与詳細
             $table->integer('travelExpenses')->nullable(); // 交通費
             $table->text('Welfare')->nullable(); // 福利厚生
-            $table->integer('startWork')->nullable(); // 勤務開始時間
-            $table->integer('endWork')->nullable(); // 勤務終了時間
+            $table->time('startWork')->nullable(); // 勤務開始時間
+            $table->time('endWork')->nullable(); // 勤務終了時間
             $table->string('workDays')->nullable(); // 出勤日
             $table->string('freeDays')->nullable(); // 休日
             $table->string('NearestStation')->nullable(); // 最寄り駅

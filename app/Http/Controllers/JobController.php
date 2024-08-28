@@ -23,7 +23,7 @@ class JobController extends Controller
 
         $inertiaJobs = InertiaJob::where('status', 1) // 公開中のみ表示
         ->searchInertiaJobs($search, $dutyStation, $Occupation, $companyPay)
-        ->paginate(1);
+        ->paginate(3);
         // dd($inertiaJobs);
 
         // URLやリクエストパラメータに基づいてビューを切り替える
@@ -211,8 +211,8 @@ class JobController extends Controller
 
     public function delete($id)
     {
-        $book = InertiaJob::findOrFail($id);
-        $book->delete();
+        $job = InertiaJob::findOrFail($id);
+        $job->delete();
 
         return to_route('admin.companylist.index')->with(['message' => '削除しました。']);
     }
