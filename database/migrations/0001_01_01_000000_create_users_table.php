@@ -17,6 +17,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('tel');
+            $table->integer('sex'); // 性別を数値で管理
+            $table->date('birth')->nullable();
+            $table->string('postal');
+            $table->string('prefectures');
+            $table->string('city');
+            $table->integer('status');
             $table->rememberToken();
             $table->timestamps();
         });
