@@ -54,10 +54,8 @@ sail down
 
 //仕事
 
-companyName : 会社名
-
+companyName : 会社名<br>
 WantedTitles : 募集タイトル
-
 Occupation : 職種
 
 companyAddress : 会社の住所
