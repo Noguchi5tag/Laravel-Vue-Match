@@ -14,8 +14,8 @@ class NewsFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence,        // 日本語のタイトルを生成
-            'content' => $this->faker->paragraph(5),  // 日本語のコンテンツを生成
+            'title' => $this->faker->realText(10),
+            'content' => $this->faker->realText(100),
         ];
     }
 }

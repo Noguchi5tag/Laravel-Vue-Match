@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\InertiaJob;
+use App\Models\News;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,10 +20,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call([
-            UsersTableSeeder::class,
-            InertiaJobsTableSeeder::class,
-            NewsSeeder::class,
-        ]);
+        User::factory(1)->create();
+        InertiaJob::factory(10)->create();
+        News::factory(3)->create();
+
     }
 }

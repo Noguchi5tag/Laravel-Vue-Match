@@ -10,6 +10,6 @@ class InertiaJobsTableSeeder extends Seeder
 {
     public function run(): void
     {
-        InertiaJob::factory(10)->create();
+        // 
     }
 }

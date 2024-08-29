@@ -44,11 +44,14 @@ sail down
 
 ## テストデータの追加
 
-テストユーザー<br>
-sail artisan db:seed --class=UsersTableSeeder
+sail artisan migrate:fresh --seed<br>
+デフォルトログインユーザー<br>
+求人<br>
+お知らせ
 
-求人のテストデータ（日本語化のやり方をまだ見つけれていない）<br>
-sail artisan db:seed --class=InertiaJobsTableSeeder
+デフォルトログイン<br>
+test@test.com<br>
+password
 
 ## 変数名の定義
 
