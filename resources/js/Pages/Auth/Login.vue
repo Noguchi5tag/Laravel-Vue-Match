@@ -6,7 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import BasePage from '../BasePage.vue';
+import BasePage from '../../Layouts/BaseLayouts.vue';
 
 defineProps({
     canResetPassword: {

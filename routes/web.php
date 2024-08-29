@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\NewsController;
+use App\Models\InertiaJob;
+use App\Models\News;
 
 //テスト用
 Route::get('/test', function () {
@@ -15,11 +17,18 @@ Route::get('/test', function () {
 
 //エンドユーザー向け
 Route::get('/', function () {
+    //データを取得
+    $inertiaJobs = InertiaJob::where('status', 1)
+    ->paginate(3);
+    $news = News::paginate(3);
+
     return Inertia::render('TopPage', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'inertiaJob' => $inertiaJobs,
+        'news' => $news,
     ]);
 });
 
@@ -28,6 +37,27 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+//利用規約ページ
+Route::get('/rules', function () {
+    return Inertia::render('RulesPage');
+})->name('rules');
+//プライバシーポリシーページ
+Route::get('/privacy', function () {
+    return Inertia::render('PrivacyPage');
+})->name('Privacy');
+//お問い合わせページ
+Route::get('/contact', function () {
+    return Inertia::render('ContactPage');
+})->name('Contact');
+//よくある質問ページ
+Route::get('/questions', function () {
+    return Inertia::render('QuestionsPage');
+})->name('Questions');
+//お知らせページ
+Route::get('/news', function () {
+    return Inertia::render('NewsPage');
+})->name('News');
 
 //default
 Route::middleware('auth')->group(function () {
@@ -41,26 +71,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', function () {
         return Inertia::render('SearchPage');
     })->name('search');
-    //利用規約ページ
-    Route::get('/rules', function () {
-        return Inertia::render('RulesPage');
-    })->name('RulesPage');
-    //プライバシーポリシーページ
-    Route::get('/privacy', function () {
-        return Inertia::render('PrivacyPage');
-    })->name('Privacy');
-    //お問い合わせページ
-    Route::get('/contact', function () {
-        return Inertia::render('ContactPage');
-    })->name('Contact');
-    //よくある質問ページ
-    Route::get('/questions', function () {
-        return Inertia::render('QuestionsPage');
-    })->name('Questions');
-    //お知らせページ
-    Route::get('/news', function () {
-        return Inertia::render('NewsPage');
-    })->name('News');
     //ブックマークページ
     Route::get('/bookmark', function () {
         return Inertia::render('BookmarkPage');

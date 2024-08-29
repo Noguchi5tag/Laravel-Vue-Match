@@ -1,5 +1,5 @@
 <script setup>
-import BasePage from './BasePage.vue';
+import BasePage from '../Layouts/BaseLayouts.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
 import LoginForm from './Auth/Login.vue';
 

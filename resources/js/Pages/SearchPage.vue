@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import BasePage from './BasePage.vue';
+import BasePage from '../Layouts/BaseLayouts.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
 import CheckBox from '../Components/Checkbox.vue';
 import { Value } from 'sass';

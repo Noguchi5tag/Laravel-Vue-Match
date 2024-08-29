@@ -19,6 +19,8 @@ const props = defineProps({
     Navigation: Navigation
 })
 
+// console.log('inertiaJobs:', props.inertiaJobs)
+
 //クエリパラメータを取得
 const searchKeyword = ref('');
 const searchDutyStation = ref('');
@@ -63,18 +65,16 @@ const imageCount = (job) => {
 <template>
     <Head title="求人一覧" />
     <AuthenticatedLayout>
-
+        <template #header>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">求人一覧</h2>
+    </template>
     <!-- フラッシュメッセージ -->
     <div v-if="$page.props.flash.message" class="bg-blue-300">
         {{ $page.props.flash.message }}
     </div>
 
         <section class="text-gray-600 body-font relative">
-            <div class="container px-4 py-24 mx-auto">
-                <div class="flex flex-col text-center w-full mb-12">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">求人一覧</h1>
-                </div>
-                
+            <div class="container px-4 py-10 mx-auto">
                 <div class="mx-auto">
                     <section class="text-gray-600 body-font relative">
                         <div class="container px-5 pb-24 mx-auto">

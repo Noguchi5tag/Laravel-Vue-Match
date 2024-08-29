@@ -1,13 +1,15 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
 import FooterMenu from '../Components/Button/FotterMenu.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 
+const { props } = usePage();
+const isLoggedIn = props.auth.user !== null;
 </script>
 
 <template>
-    <div class="pb-12">
+    <div class="">
         <div class="bg-sky-50">
             <div class="py-1">
                 <div class="flex justify-center">
@@ -21,9 +23,12 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
                 </div>
             </div>
         </div>
-        <div class="bg-black">
+        <div class="bg-black ">
             <p class="text-center text-white">© 2024 FIVE TAG PLUS</p>
         </div>
     </div>
+    <template v-if="isLoggedIn">
+        <div class="pb-12"></div>
+    </template>
     <FooterMenu />
 </template>

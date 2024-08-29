@@ -21,6 +21,10 @@ class NewsController extends Controller
             return Inertia::render('Admin/News/Index', [
                 'news' => $news,
             ]);
+        } elseif ($request->pass('/')) {
+            return Inertia::render('TopPage', [
+                'news' => $news,
+            ]);
         }
 
         return Inertia::render('NewsPage', [
@@ -51,7 +55,7 @@ class NewsController extends Controller
         $news->content = $validatedData['content'];
         $news->save();
 
-        return to_route('admin.dashboard')->with('success', 'ニュースを作成しました。');
+        return to_route('admin.newslist.index')->with('success', 'ニュースを作成しました。');
     }
 
     /**

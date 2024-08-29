@@ -42,15 +42,20 @@ const submitFunction = () => {
 </script>
 
 <template>
-<Head title="新規登録" />
+<Head title="求人登録" />
     <AuthenticatedLayout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">求人登録</h2>
+        </template>
+
+        <!-- フラッシュメッセージ -->
+        <div v-if="$page.props.flash.message" class="bg-blue-300">
+            {{ $page.props.flash.message }}
+        </div>
         <div class="py-6">
             <form @submit.prevent="submitFunction" enctype="multipart/form-data">
                 <section class="text-gray-600 body-font relative">
-                    <div class="container px-4 py-24 mx-auto">
-                        <div class="flex flex-col text-center w-full mb-12">
-                            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">新規登録</h1>
-                        </div>
+                    <div class="container px-4 py-10 mx-auto">
                         <div class="mx-auto">
                             <div class="-m-2">
                                 <div class="p-2 w-full">
@@ -223,9 +228,6 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">登録する</button>
-                                </div>
-                                <div class="p-2 w-full">
-                                    <Link as="button" href="/jobs" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
                                 </div>
                             </div>
                         </div>

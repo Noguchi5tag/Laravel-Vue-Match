@@ -23,8 +23,8 @@ const form = useForm({
     remember: false,
 });
 
-const submit = () => {
-    form.post(route('admin.login.submit'), {
+const adminSubmit = () => {
+    form.post(route('admin.login.adminSubmit'), {
         onFinish: () => form.reset('password'),
     });
 };
@@ -32,13 +32,13 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="ログイン" />
+        <Head title="管理者ログイン" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="adminSubmit">
             <div>
                 <h1>管理者ログイン</h1>
                 <InputLabel for="email" value="メールアドレス" />

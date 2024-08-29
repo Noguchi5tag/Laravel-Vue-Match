@@ -48,7 +48,6 @@ class AdminLoginRequest extends FormRequest
         'password' => $this->input('password'), // これは実運用ではログに残さないように注意
     ]);
 
-        //Guardをチェックするのを追加して、emailをlogin_nameに変える
         if (!Auth::guard('admin')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 

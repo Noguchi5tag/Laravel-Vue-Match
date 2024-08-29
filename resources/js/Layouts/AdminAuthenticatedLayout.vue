@@ -53,7 +53,6 @@ const showingNavigationDropdown = ref(false);
                                     お知らせ一覧
                                 </NavLink>
                             </div>
-
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -85,9 +84,9 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('admin.profile.edit')"> Profile </DropdownLink>
+                                        <DropdownLink :href="route('admin.profile.edit')"> プロフィール </DropdownLink>
                                         <DropdownLink :href="route('admin.logout')" method="post" as="button">
-                                            Log Out
+                                            ログアウト
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -168,9 +167,9 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('admin.profile.edit')"> Profile </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('admin.profile.edit')"> プロフィール </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('admin.logout')" method="post" as="button">
-                                Log Out
+                                ログアウト
                             </ResponsiveNavLink>
                         </div>
                     </div>

@@ -103,9 +103,9 @@ class JobController extends Controller
             return Inertia::render('Admin/Company', [
                 'inertiaJob' => $inertiaJob,
             ]);
-        }
+        } 
 
-        return Inertia::render('Company/Show', [
+        return Inertia::render('TopPage', [
             'inertiaJob' => $inertiaJob,
         ]);
     }

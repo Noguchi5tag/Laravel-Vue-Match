@@ -6,7 +6,7 @@ import UpdateProfileInformationForm from './Partials/UpdateProfileInformationFor
 import NavLink from '@/Components/NavLink.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
-import BasePage from '../BasePage.vue';
+import BasePage from '../../Layouts/BaseLayouts.vue';
 
 defineProps({
     mustVerifyEmail: {

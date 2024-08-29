@@ -2,7 +2,7 @@
 import { Head, router, Link } from '@inertiajs/vue3';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-import BasePage from '../BasePage.vue';
+import BasePage from '../../Layouts/BaseLayouts.vue';
 import { ref, onMounted } from 'vue';
 
 //ログインしているかどうかの処理

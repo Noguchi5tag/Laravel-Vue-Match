@@ -2,7 +2,7 @@
 <script setup>
 import { Link, Head, useForm, router  } from '@inertiajs/vue3';
 import DangerButton from '@/Components/DangerButton.vue';
-import BasePage from '../BasePage.vue';
+import BasePage from '../../Layouts/BaseLayouts.vue';
 import { dutyStations } from '@/data';
 import { Occupations } from '@/data';
 

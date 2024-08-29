@@ -1,13 +1,12 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import SiteTitle from '@/Components/SiteTitle.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-
-import BasePage from '../BasePage.vue';
+import { prefectures } from '@/data';
+import BasePage from '../../Layouts/BaseLayouts.vue';
 
 const form = useForm({
     name: '',
@@ -27,24 +26,14 @@ const submit = () => {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
-
-const prefectures = [
-    '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
-    '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県',
-    '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県',
-    '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県',
-    '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県',
-    '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県',
-    '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県',
-];
 </script>
 
 <template>
     <BasePage>
-        <Head title="新規登録" />
+        <Head title="会員登録" />
 
         <form @submit.prevent="submit">
-            <SiteTitle>新規登録</SiteTitle>
+            <SiteTitle>会員登録</SiteTitle>
             <div class="max-w-7xl mx-auto my-12 px-6 space-y-6">
                 <div>
                     <InputLabel for="name" value="名前" />

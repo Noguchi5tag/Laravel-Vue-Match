@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('postal');
             $table->string('prefectures');
             $table->string('city');
-            $table->integer('status');
+            $table->integer('status')->default(2);
             $table->rememberToken();
             $table->timestamps();
         });
