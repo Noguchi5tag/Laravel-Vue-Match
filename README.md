@@ -8,43 +8,57 @@ Inertia.js
 
 ## クローン後の初期設定
 sail をインストール<br>
+```
 docker run --rm \
     -u "$(id -u):$(id -g)" \
     -v "$(pwd):/var/www/html" \
     -w /var/www/html \
     laravelsail/php80-composer:latest \
     composer install --ignore-platform-reqs
-
+```
 
 ## DB 初期化
 
+```bash
 sail artisan migrate
+```
 
 ストレージへのパスを公開する<br>
+```bash
 sail artisan storage:link
+```
 
-.envファイル作成（環境により変更を行うこと）
+.envファイル作成（環境により変更を行う）
 
 Package.jsonのインストール<br>
+```bash
 npm install
+```
 
 ## 立ち上げ
-
+```bash
 sail up -d
+```
 
 開発時フロントエンドのホットリロード<br>
+```bash
 sail npm run dev
+```
 
 フロントエンドのビルド<br>
+```bash
 sail npm run build
+```
 
 ## 終了
-
+```bash
 sail down
+```
 
 ## テストデータの追加
-
+```bash
 sail artisan migrate:fresh --seed<br>
+```
 
 テストデータが作成される項目<br>
 デフォルトログインユーザー<br>
@@ -80,7 +94,6 @@ freeDays : 休日<br>
 NearestStation : 最寄り駅<br>
 workOther : その他<br>
 status : 公開か非公開か<br>
-
 
 'image1', // 画像1<br>
 'image2', // 画像2<br>
@@ -122,6 +135,9 @@ http://localhost:8080
 ## よくあるエラー
 
 - **[@inertiajs_inertia.js?v=27e72e94:1558 Uncaught (in promise) TypeError: this.resolveComponent is not a function]** <br>
-→sail npm run buildして、立ち上げ直したらOK
+```bash
+sail npm run build
+```
+して、立ち上げ直したらOK
 
 ------------------------------------------------------
