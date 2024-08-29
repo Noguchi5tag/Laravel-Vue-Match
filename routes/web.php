@@ -97,16 +97,16 @@ Route::prefix('admin')->name('admin.')->group(function(){
         return Inertia::render('Admin/Dashboard');
     })->middleware(['auth:admin', 'verified'])->name('dashboard');
 
-    Route::get('/profile', [AdminProfileController::class, 'edit'])->middleware(['auth:admin', 'verified'])->name('profile.edit');
+    Route::get('/profile', [AdminProfileController::class, 'edit'])->middleware('auth:admin')->name('profile.edit');
     Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Company
-    Route::get('/companylist', [JobController::class,'index'])->middleware(['auth:admin', 'verified'])->name('companylist.index');
-    Route::get('/company/create', [JobController::class,'create'])->middleware(['auth:admin', 'verified'])->name('company.create');
+    Route::get('/companylist', [JobController::class,'index'])->middleware('auth:admin')->name('companylist.index');
+    Route::get('/company/create', [JobController::class,'create'])->middleware('auth:admin')->name('company.create');
     Route::post('/company/job', [JobController::class,'store'])->name('company.store'); //登録
-    Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->middleware(['auth:admin', 'verified'])->name('company.edit');
-    Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->middleware(['auth:admin', 'verified'])->name('company.show');
+    Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->middleware('auth:admin')->name('company.edit');
+    Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->middleware('auth:admin')->name('company.show');
     Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('company.update');
     Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
 
