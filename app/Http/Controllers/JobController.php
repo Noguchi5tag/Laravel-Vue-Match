@@ -103,16 +103,13 @@ class JobController extends Controller
             return Inertia::render('Admin/Company', [
                 'inertiaJob' => $inertiaJob,
             ]);
-        } 
+        } elseif ($request->is('/')) {
+            return Inertia::render('TopPage', [
+                'inertiaJob' => $inertiaJob,
+            ]);
+        }
 
-        return Inertia::render('TopPage', [
-            'inertiaJob' => $inertiaJob,
-        ]);
-    }
-    public function view(InertiaJob $inertiaJob)
-    {
-        // dd($inertiaJob);
-        return Inertia::render('JobDetailPage', [
+        return Inertia::render('Company/Show', [
             'inertiaJob' => $inertiaJob,
         ]);
     }

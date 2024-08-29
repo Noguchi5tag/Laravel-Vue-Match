@@ -45,12 +45,19 @@ sail down
 ## テストデータの追加
 
 sail artisan migrate:fresh --seed<br>
+
+テストデータが作成される項目<br>
 デフォルトログインユーザー<br>
+管理者（Admin）<br>
 求人<br>
 お知らせ
 
 デフォルトログイン<br>
 test@test.com<br>
+password
+
+管理者ログイン<br>
+admin@admin.com<br>
 password
 
 ## 変数名の定義

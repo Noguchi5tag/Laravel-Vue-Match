@@ -23,23 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
-            // \App\Http\Middleware\RedirectIfAuthenticated::class, //ミドルウェアの追加
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+            // \App\Http\Middleware\RedirectIfAuthenticated::class, //ミドルウェアの追加
         ]);
-
-        //追記
-        //MiddlewareのAuthenticate.phpは未認証の遷移先。 MiddlewareのRedirectIfAuthenticatedは認証後の遷移ページ。
-        //MiddlewareのAuthenticate.phpに書いてたもの
-        $middleware->redirectGuestsTo(function (Request $request) {
-            $request->is('admin*') ? route('admin.login') : route('login');
-        });
-
-        //MiddlewareのRedirectIfAuthenticatedに書いてたもの
-        // if (Auth::guard('admin')->check()) {
-        //     return route('admin.dashboard');
-        // }
-        // return route('dashboard');
-
     })
 
     ->withExceptions(function (Exceptions $exceptions) {

@@ -26,9 +26,9 @@ onMounted(() => {
                 <img class="w-6" src="../../../../public/images/list-logo.png" alt="">
                 <p>求人一覧</p>
             </Link>
-            <Link as="button" href="/search" class="flex flex-col items-center">
-                <img class="w-6" src="../../../../public/images/search-logo.png" alt="">
-                <p>検索</p>
+            <Link as="button" href="/bookmark" class="flex flex-col items-center">
+                <img class="w-6" src="../../../../public/images/address.png" alt="">
+                <p>保存</p>
             </Link>
             <template v-if="isAdmin">
                 <Link as="button" href="/admin/dashboard" class="flex flex-col items-center">

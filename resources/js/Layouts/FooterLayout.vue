@@ -11,16 +11,14 @@ const isLoggedIn = props.auth.user !== null;
 <template>
     <div class="">
         <div class="bg-sky-50">
-            <div class="py-1">
-                <div class="flex justify-center">
-                    <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800"/>
-                </div>
-                <div class="py-4 text-center flex flex-col items-center">
-                    <NavLink as="button" href="/rules">利用規約</NavLink>
-                    <NavLink as="button" href="/privacy">プライバシーポリシー</NavLink>
-                    <NavLink as="button" href="/questions">よくある質問</NavLink>
-                    <NavLink as="button" href="/contact">お問い合わせ</NavLink>
-                </div>
+            <div class="flex justify-center pt-3">
+                <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800"/>
+            </div>
+            <div class="py-4 text-center flex flex-col items-center">
+                <NavLink as="button" href="/rules">利用規約</NavLink>
+                <NavLink as="button" href="/privacy">プライバシーポリシー</NavLink>
+                <NavLink as="button" href="/questions">よくある質問</NavLink>
+                <NavLink as="button" href="/contact">お問い合わせ</NavLink>
             </div>
         </div>
         <div class="bg-black ">
