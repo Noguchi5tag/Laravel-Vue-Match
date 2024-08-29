@@ -192,6 +192,12 @@ const imageCount = (job) => {
                             </div>
                             
                             <div class="p-2 w-full">
+                                <Link as="button" href="#" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">問い合わせする</Link>
+                            </div>
+                            <div class="p-2 w-full">
+                                <Link as="button" href="#" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">とりあえず保存</Link>
+                            </div>
+                            <div class="p-2 w-full">
                                 <Link as="button" href="/jobs" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
                             </div>
                         </div>
