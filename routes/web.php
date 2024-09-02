@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SkillController;
 use App\Models\InertiaJob;
 use App\Models\News;
 
@@ -66,6 +67,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    //スキル
+    Route::get('/skill/{skill}', [SkillController::class, 'show'])->name('skill.show');
+    Route::put('/skill', [SkillController::class, 'update'])->name('skill.update');
 
     //検索ページ
     Route::get('/search', function () {
@@ -79,6 +84,11 @@ Route::middleware('auth')->group(function () {
     //Company
     Route::get('/jobs', [JobController::class,'index'])->name('company.index');
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show');
+
+    //簡単応募ページ
+    Route::get('/job-contact', function () {
+        return Inertia::render('EasyContact');
+    })->name('easycontact');
 
     //News
     Route::get('/news', [NewsController::class,'index'])->name('news.index');

@@ -117,8 +117,19 @@ const submit = () => {
                 
                 <form @submit.prevent="submit">
                     <div class="max-w-7xl mx-auto my-12 px-6 space-y-6">
+                        <div class="mt-6 text-center">
+                            <Link
+                                :href="route('login')"
+                                as:button
+                                class="relative z-0 h-12 rounded-full bg-blue-500 p-4 text-neutral-50 after:absolute after:left-0 after:top-0 after:-z-10 after:h-full after:w-full after:rounded-full after:bg-blue-500 hover:after:scale-x-125 hover:after:scale-y-150 hover:after:opacity-0 hover:after:transition hover:after:duration-500">すでにアカウントをお持ちですか？
+                            </Link>
+                        </div>
+
                         <div>
-                            <InputLabel for="name" value="名前" />
+                            <div class="flex items-center">
+                                <InputLabel for="name" value="名前" />
+                                <span class="bg-red-500 text-white text-sm px-1 py-0.5 rounded ml-2">必須</span>
+                            </div>
             
                             <TextInput
                                 id="name"
@@ -134,7 +145,10 @@ const submit = () => {
                         </div>
             
                         <div class="mt-4">
-                            <InputLabel for="email" value="メールアドレス" />
+                            <div class="flex items-center">
+                                <InputLabel for="email" value="メールアドレス" />
+                                <span class="bg-red-500 text-white text-sm px-1 py-0.5 rounded ml-2">必須</span>
+                            </div>
             
                             <TextInput
                                 id="email"
@@ -150,7 +164,10 @@ const submit = () => {
 
                         <!-- ここに追加 -->
                         <div>
-                            <InputLabel for="tel" value="電話番号（ハイフンなし）" />
+                            <div class="flex items-center">
+                                <InputLabel for="tel" value="電話番号（ハイフンなし）" />
+                                <span class="bg-red-500 text-white text-sm px-1 py-0.5 rounded ml-2">必須</span>
+                            </div>
 
                             <TextInput
                                 id="tel"
@@ -168,7 +185,10 @@ const submit = () => {
                         </div>
 
                         <div>
-                            <InputLabel for="sex" value="性別" />
+                            <div class="flex items-center">
+                                <InputLabel for="sex" value="性別" />
+                                <span class="bg-red-500 text-white text-sm px-1 py-0.5 rounded ml-2">必須</span>
+                            </div>
 
                             <div class="mt-1">
                                 <label class="">
@@ -207,7 +227,10 @@ const submit = () => {
                         </div>
 
                         <div>
-                            <InputLabel for="birth" value="生年月日" />
+                            <div class="flex items-center">
+                                <InputLabel for="birth" value="生年月日" />
+                                <span class="bg-red-500 text-white text-sm px-1 py-0.5 rounded ml-2">必須</span>
+                            </div>
 
                             <TextInput
                                 id="birth"
@@ -226,7 +249,10 @@ const submit = () => {
                             <InputLabel value="住所" />
                         </div>
                         <div>
-                            <InputLabel for="postal" value="郵便番号（ハイフンなし）" />
+                            <div class="flex items-center">
+                                <InputLabel for="postal" value="郵便番号（ハイフンなし）" />
+                                <span class="bg-red-500 text-white text-sm px-1 py-0.5 rounded ml-2">必須</span>
+                            </div>
 
                             <TextInput
                                 id="postal"
@@ -243,7 +269,10 @@ const submit = () => {
                         </div>
 
                         <div>
-                            <InputLabel for="prefectures" value="都道府県" />
+                            <div class="flex items-center">
+                                <InputLabel for="prefectures" value="都道府県" />
+                                <span class="bg-red-500 text-white text-sm px-1 py-0.5 rounded ml-2">必須</span>
+                            </div>
 
                             <select
                                 id="prefectures"
@@ -264,7 +293,10 @@ const submit = () => {
                         </div>
 
                         <div>
-                            <InputLabel for="city" value="市町村" />
+                            <div class="flex items-center">
+                                <InputLabel for="city" value="市町村" />
+                                <span class="bg-red-500 text-white text-sm px-1 py-0.5 rounded ml-2">必須</span>
+                            </div>
 
                             <TextInput
                                 id="city"
@@ -281,7 +313,10 @@ const submit = () => {
                         </div>
             
                         <div class="mt-4">
-                            <InputLabel for="password" value="パスワード" />
+                            <div class="flex items-center">
+                                <InputLabel for="password" value="パスワード" />
+                                <span class="bg-red-500 text-white text-sm px-1 py-0.5 rounded ml-2">必須</span>
+                            </div>
             
                             <TextInput
                                 id="password"
@@ -296,7 +331,10 @@ const submit = () => {
                         </div>
             
                         <div class="mt-4">
-                            <InputLabel for="password_confirmation" value="パスワードを再入力" />
+                            <div class="flex items-center">
+                                <InputLabel for="password_confirmation" value="パスワードを再入力" />
+                                <span class="bg-red-500 text-white text-sm px-1 py-0.5 rounded ml-2">必須</span>
+                            </div>
             
                             <TextInput
                                 id="password_confirmation"
@@ -328,14 +366,6 @@ const submit = () => {
                             <PrimaryButton class="my-1 ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                 同意して登録
                             </PrimaryButton>
-                            <div class="mt-6">
-                                <Link
-                                    :href="route('login')"
-                                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                    すでにアカウントをお持ちですか？
-                                </Link>
-                            </div>
                         </div>
                     </div>
                 </form>

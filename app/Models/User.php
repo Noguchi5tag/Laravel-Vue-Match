@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Skill;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -50,5 +51,10 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
             'birth' => 'date', //追加
         ];
+    }
+
+    public function skills()
+    {
+        return $this->belongsTo(Skill::class);
     }
 }

@@ -60,6 +60,12 @@ const imageCount = (job) => {
     return count;
 }
 
+const jobs = ref(props.inertiaJobs.data);
+console.log(jobs);
+const toggleDetails = (job) => {
+    job.showDetails = !job.showDetails;
+};
+
 </script>
 
 <template>
@@ -114,7 +120,7 @@ const imageCount = (job) => {
                                     </div>
                                     <div class="p-2 w-full">
                                         <label for="search" class="leading-7 text-sm text-gray-600">キーワード検索</label>
-                                        <input type="text" name="search" id="search" v-model="search" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="search" id="search" v-model="search" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                     <div class="text-center flex">
                                         <button @click="searchCustomers" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">検索する</button>
@@ -155,51 +161,161 @@ const imageCount = (job) => {
 
                     <div v-if="inertiaJobs.data.length" class="-m-2">
                         <template v-for="job in inertiaJobs.data" :key="job.id">
-                            <div class="rounded-lg bg-gray-100 my-6 py-6 " v-if="job.status === 1">
-                                <div class="flex flex-col text-center w-full mb-6">
-                                    <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
+                            <div class="my-2 py-2 border-t border-gray-300" v-if="job.status === 1">
+                                <div class="flex flex-col text-center w-full mb-1">
+                                    <h1 class="text-xl font-medium title-font text-gray-900">
                                         {{ job.companyName }}
                                     </h1>
                                 </div>
     
-                                <carousel :items-to-show="1.5">
-                                    <slide v-for="slide in imageCount(job)" :key="slide">
-                                        <div v-if="job[`image${slide}`]" class="carousel__item">
-                                            <img :src="`/images/${job[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
+                                <carousel :items-to-show="1">
+                                    <slide v-for="slide in imageCount(job)" :key="slide" class="!w-full">
+                                        <div v-if="job[`image${slide}`]" class="carousel__item  w-full">
+                                            <img :src="`/images/${job[`image${slide}`]}`" alt="" class="w-full h-auto object-cover">
                                         </div>
                                     </slide>
                                     <template #addons>
-                                    <navigation />
-                                    <pagination />
+                                        <navigation />
+                                        <pagination />
                                     </template>
                                 </carousel>
-    
-                                <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <label for="companyName" class="leading-7 text-sm text-gray-600">会社名</label>
-                                        <div type="text" id="companyName" name="companyName" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyName }}</div>
+
+                                <div class="flex justify-between items-center">
+                                    <div id="bookmark" class="">
+                                        <img class="w-8" src="../../../../public/images/address.png" alt="">
+                                        <label for="bookmark" class="text-sm">保存</label>
+                                    </div>
+                                    <div id="job-contact">
+                                        <Link as:button href="/job-contact">簡単応募</Link>
                                     </div>
                                 </div>
+
                                 <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <label for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</label>
-                                        <div type="text" id="WantedTitles" name="WantedTitles" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.WantedTitles }}</div>
+                                    <div class="relative flex items-center">
+                                        <label for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル：</label>
+                                        <p>{{ job.WantedTitles }}</p>
                                     </div>
                                 </div>
-                                <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <label for="Occupation" class="leading-7 text-sm text-gray-600">職種</label>
-                                        <div type="text" id="Occupation" name="Occupation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
+
+                                <button v-if="!job.showDetails" @click="toggleDetails(job)" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">もっと見る</button>
+                                <div v-show="job.showDetails">
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="Occupation" class="leading-7 text-sm text-gray-600">職種</label>
+                                            <div type="text" id="Occupation" name="Occupation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <label for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</label>
-                                        <div type="text" id="companyAddress" name="companyAddress" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</label>
+                                            <div type="text" id="companyAddress" name="companyAddress" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="p-2 w-full">
-                                    <Link as="button" :href="route('company.show', { id: job.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">詳細へ</Link>
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="companyPay" class="leading-7 text-sm text-gray-600">給料</label>
+                                            <div type="text" id="companyPay" name="companyPay" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyPay }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地</label>
+                                            <div type="text" id="dutyStation" name="dutyStation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.dutyStation }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="workDescription" class="leading-7 text-sm text-gray-600">仕事内容</label>
+                                            <div type="text" id="workDescription" name="workDescription" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.workDescription }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="payDescription" class="leading-7 text-sm text-gray-600">給与詳細</label>
+                                            <div type="text" id="payDescription" name="payDescription" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.payDescription }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="travelExpenses" class="leading-7 text-sm text-gray-600">交通費</label>
+                                            <div type="text" id="travelExpenses" name="travelExpenses" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.travelExpenses }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="Welfare" class="leading-7 text-sm text-gray-600">福利厚生</label>
+                                            <div type="text" id="Welfare" name="Welfare" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.Welfare }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="startWork" class="leading-7 text-sm text-gray-600">勤務開始時間</label>
+                                            <div type="text" id="startWork" name="startWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.startWork }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="endWork" class="leading-7 text-sm text-gray-600">勤務終了時間</label>
+                                            <div type="text" id="endWork" name="endWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.endWork }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="workDays" class="leading-7 text-sm text-gray-600">出勤日</label>
+                                            <div type="text" id="workDays" name="workDays" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.workDays }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="freeDays" class="leading-7 text-sm text-gray-600">休日</label>
+                                            <div type="text" id="freeDays" name="freeDays" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.freeDays }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="NearestStation" class="leading-7 text-sm text-gray-600">最寄り駅</label>
+                                            <div type="text" id="NearestStation" name="NearestStation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.NearestStation }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2 w-full">
+                                        <div class="relative">
+                                            <label for="workOther" class="leading-7 text-sm text-gray-600">その他</label>
+                                            <div type="text" id="workOther" name="workOther" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            {{ job.workOther }}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </template>

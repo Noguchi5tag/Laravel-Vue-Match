@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('Company.Index'));
+        return redirect()->intended(route('company.index'));
     }
 
     /**
