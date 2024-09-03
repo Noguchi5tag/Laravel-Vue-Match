@@ -6,8 +6,9 @@ import BaseLayouts from '../../../Layouts/BaseLayouts.vue';
 
 const props = defineProps({
     user: Object,
+    hasSkill: Boolean,
 })
-// console.log(props.user);
+console.log(props);
 
 const form = reactive({
     skill_name: null,
