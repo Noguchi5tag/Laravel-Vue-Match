@@ -15,9 +15,14 @@ class SkillController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Skill $skill, Request $request)
     {
-        //
+        $userId = Auth::id();
+        $skills = Skill::where('user_id', $userId)->get();
+
+        return Inertia::render('Profile/Skill/Index', [
+            'skills' => $skills,  // 複数のスキルを渡す
+        ]);
     }
 
     /**
@@ -36,17 +41,6 @@ class SkillController extends Controller
             'user' => $user,
             'hasSkill' => $hasSkill,
         ]);
-
-        // if ($request->path() === 'profile') {
-        //     return Inertia::render('Profile/Edit', [
-        //         'user' => $user,
-        //         'hasSkill' => $hasSkill,
-        //     ]);
-        // } else {
-        //     return Inertia::render('Profile/Skill/Create',[
-        //         'user' => $user,
-        //     ]);
-        // }
     }
 
     /**
@@ -79,7 +73,9 @@ class SkillController extends Controller
      */
     public function edit(Skill $skill)
     {
+        $user = Auth::user();
         return Inertia::render('Profile/Skill/Update', [
+            'user' => $user,
             'skill' => $skill,
         ]);
     }
@@ -92,7 +88,7 @@ class SkillController extends Controller
         // dd($request->all());
         $validated = $request->validated();
         $skill->update($validated);
-        return redirect()->route('profile.edit');
+        return to_route('profile.edit')->with('success', 'スキルを更新しました');
     }
 
     /**
@@ -100,6 +96,7 @@ class SkillController extends Controller
      */
     public function destroy(Skill $skill)
     {
-        //
+        $skill->delete();
+        return to_route('profile.edit')->with('success', '削除しました');
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -18,9 +19,18 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        $userAuth = Auth::user();
+        $userId = Auth::id();
+        $user = User::with('skills')->findOrFail($userId);
+
+        // ユーザーがスキルを持っているかどうかを判定
+        $hasSkill = $user->skills->isNotEmpty();
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'hasSkill' => $hasSkill,
+            'userAuth' => $userAuth,
         ]);
     }
 

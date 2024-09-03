@@ -6,9 +6,8 @@ import BaseLayouts from '../../../Layouts/BaseLayouts.vue';
 
 const props = defineProps({
     user: Object,
-    hasSkill: Boolean,
 })
-console.log(props);
+// console.log(props.user);
 
 const form = reactive({
     skill_name: null,
@@ -56,7 +55,7 @@ const submitFunction = () => {
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <label for="skill_experience" class="leading-7 text-sm text-gray-600">経験年数</label>
-                                        <input type="text" name="skill_experience" id="skill_experience" v-model="form.skill_experience" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="number" name="skill_experience" id="skill_experience" v-model="form.skill_experience" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
 

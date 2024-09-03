@@ -19,8 +19,6 @@ const props = defineProps({
     Navigation: Navigation
 })
 
-console.log(props.inertiaJobs);
-
 //クエリパラメータを取得
 const searchKeyword = ref('');
 const searchDutyStation = ref('');
