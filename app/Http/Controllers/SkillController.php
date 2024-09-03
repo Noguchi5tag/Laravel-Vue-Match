@@ -39,9 +39,7 @@ class SkillController extends Controller
      */
     public function show(Skill $skill)
     {
-        return Inertia::render('Profile/Skill', [
-            'skill' => $skill,
-        ]);
+        //
     }
 
     /**
@@ -49,7 +47,9 @@ class SkillController extends Controller
      */
     public function edit(Skill $skill)
     {
-        //
+        return Inertia::render('Profile/Skill', [
+            'skill' => $skill,
+        ]);
     }
 
     /**
@@ -57,7 +57,10 @@ class SkillController extends Controller
      */
     public function update(UpdateSkillRequest $request, Skill $skill)
     {
-        dd($request->all());
+        // dd($request->all());
+        $validated = $request->validated();
+        $skill->update($validated);
+        return redirect()->route('profile.edit');
     }
 
     /**

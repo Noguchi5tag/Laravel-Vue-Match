@@ -69,8 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     //スキル
-    Route::get('/skill/{skill}', [SkillController::class, 'show'])->name('skill.show');
-    Route::put('/skill', [SkillController::class, 'update'])->name('skill.update');
+    Route::resource('skill', SkillController::class);
 
     //検索ページ
     Route::get('/search', function () {

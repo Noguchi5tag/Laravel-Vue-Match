@@ -17,7 +17,7 @@ console.log(form.id);
 
 //登録処理
 const submitFunction = () => {
-    router.put(route('', props.skill.id));
+    form.put(route('skill.update',  { skill: props.skill.id }));
 }
 </script>
 
@@ -29,7 +29,7 @@ const submitFunction = () => {
         </template>
 
         <div class="py-6">
-            <form @submit.prevent="submitFunction(form.id)">
+            <form @submit.prevent="submitFunction">
                 <section class="text-gray-600 body-font relative">
                     <div class="container px-4 py-10 mx-auto">
                         <div class="mx-auto">
@@ -49,7 +49,7 @@ const submitFunction = () => {
                                 </div>
 
                                 <div class="p-2 w-full">
-                                    <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
+                                    <button type="submit" :disabled="form.processing" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
                                 </div>
                             </div>
                         </div>
