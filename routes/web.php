@@ -8,6 +8,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\AcademicBgController;
+use App\Models\Academic_Bg;
 use App\Models\InertiaJob;
 use App\Models\News;
 
@@ -70,6 +72,8 @@ Route::middleware('auth')->group(function () {
     
     //スキル
     Route::resource('skill', SkillController::class);
+    //学歴
+    Route::resource('academic', AcademicBgController::class);
 
     //検索ページ
     Route::get('/search', function () {

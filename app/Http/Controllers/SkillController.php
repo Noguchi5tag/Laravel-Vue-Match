@@ -33,13 +33,8 @@ class SkillController extends Controller
         $userId = Auth::id();
         $user = User::with('skills')->findOrFail($userId);
 
-        // ユーザーがスキルを持っているかどうかを判定
-        $hasSkill = $user->skills->isNotEmpty();
-        // dd($hasSkill);
-
         return Inertia::render('Profile/Skill/Create',[
             'user' => $user,
-            'hasSkill' => $hasSkill,
         ]);
     }
 

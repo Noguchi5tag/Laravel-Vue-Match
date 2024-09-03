@@ -5,6 +5,8 @@ import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import SkillCreate from './Partials/SkillCreate.vue';
 import SkillUpdate from './Partials/SkillUpdate.vue';
+import AcademicCreate from './Partials/AcademicCreate.vue';
+import AcademicUpdate from './Partials/AcademicUpdate.vue';
 import NavLink from '@/Components/NavLink.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
@@ -22,6 +24,9 @@ const props = defineProps({
     },
     userAuth: {
         type: Object,
+    },
+    hasAcademicBg: {
+        type: Boolean,
     },
 });
 console.log(props);
@@ -54,7 +59,16 @@ console.log(props);
                     </div>
                 </template>
 
-                
+                <template v-if="props.hasAcademicBg === false">
+                    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                        <AcademicCreate class="max-w-xl" />
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                        <AcademicUpdate class="max-w-xl" />
+                    </div>
+                </template>
 
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <UpdateProfileInformationForm

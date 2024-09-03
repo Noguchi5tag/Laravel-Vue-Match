@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Skill;
+use App\Models\Academic_Bg;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -56,5 +57,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function skills()
     {
         return $this->hasMany(Skill::class, 'user_id');
+    }
+    public function academic_bg()
+    {
+        return $this->hasOne(Academic_Bg::class, 'user_id');
     }
 }
