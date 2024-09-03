@@ -11,12 +11,13 @@ class Skill extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'skill_name',
         'skill_experience',
     ];
 
     public function user()
     {
-        $this->hasMany(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateSkillRequest;
 use App\Models\Skill;
 use App\Models\User;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class SkillController extends Controller
 {
@@ -21,9 +23,30 @@ class SkillController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $userId = Auth::id();
+        $user = User::with('skills')->findOrFail($userId);
+
+        // ユーザーがスキルを持っているかどうかを判定
+        $hasSkill = $user->skills->isNotEmpty();
+        // dd($hasSkill);
+
+        return Inertia::render('Profile/Skill/Create',[
+            'user' => $user,
+            'hasSkill' => $hasSkill,
+        ]);
+
+        // if ($request->path() === 'profile') {
+        //     return Inertia::render('Profile/Edit', [
+        //         'user' => $user,
+        //         'hasSkill' => $hasSkill,
+        //     ]);
+        // } else {
+        //     return Inertia::render('Profile/Skill/Create',[
+        //         'user' => $user,
+        //     ]);
+        // }
     }
 
     /**
@@ -31,7 +54,16 @@ class SkillController extends Controller
      */
     public function store(StoreSkillRequest $request)
     {
-        //
+        // dd($request->all());
+        $validated = $request->validated();
+
+        Skill::create([
+            'skill_name' => $validated['skill_name'],
+            'skill_experience' => $validated['skill_experience'],
+            'user_id' => $validated['user_id'],
+        ]);
+
+        return redirect()->route('profile.edit')->with('success', 'スキルを登録しました');
     }
 
     /**
@@ -47,7 +79,7 @@ class SkillController extends Controller
      */
     public function edit(Skill $skill)
     {
-        return Inertia::render('Profile/Skill', [
+        return Inertia::render('Profile/Skill/Update', [
             'skill' => $skill,
         ]);
     }

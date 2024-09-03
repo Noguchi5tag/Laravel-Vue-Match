@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade');
             $table->string('skill_name');
-            $table->integer('skill_experience');
+            $table->integer('skill_experience')->nullable();
             $table->timestamps();
         });
     }
