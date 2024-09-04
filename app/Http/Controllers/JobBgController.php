@@ -30,7 +30,12 @@ class JobBgController extends Controller
      */
     public function create()
     {
-        //
+        $userId = Auth::id();
+        $user = User::with('job_bg')->findOrFail($userId);
+
+        return Inertia::render('Profile/Jobs/Create',[
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -38,7 +43,18 @@ class JobBgController extends Controller
      */
     public function store(StoreJobBgRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        JobBg::create([
+            'user_id' => $validated['user_id'],
+            'job_title' => $validated['job_title'],
+            'company_name' => $validated['company_name'],
+            'start_enrollment' => $validated['start_enrollment'],
+            'end_enrollment' => $validated['end_enrollment'],
+            'currently_working' => $validated['currently_working'],
+        ]);
+
+        return to_route('profile.edit')->with('success', '職歴を追加しました');
     }
 
     /**
