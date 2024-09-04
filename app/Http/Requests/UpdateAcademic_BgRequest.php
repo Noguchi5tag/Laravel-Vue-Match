@@ -22,12 +22,12 @@ class UpdateAcademic_BgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'school_classification' => 'nullable|string|max:255',
-            // 'school_name' => 'nullable|string|max:255',
-            // 'department' => 'nullable|string|max:255',
-            // 'matriculation' => 'nullable|date',
-            // 'graduation' => 'nullable|date',
-            // 'undergraduate' => 'nullable|string|max:255',
+            'school_classification' => 'nullable|string|max:255',
+            'school_name' => 'nullable|string|max:255',
+            'department' => 'nullable|string|max:255',
+            'matriculation' => 'nullable|date',
+            'graduation' => 'nullable|date',
+            'undergraduate' => 'nullable|boolean',
         ];
     }
 }

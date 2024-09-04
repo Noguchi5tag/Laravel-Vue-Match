@@ -29,7 +29,6 @@ const props = defineProps({
         type: Boolean,
     },
 });
-console.log(props);
 </script>
 
 <template>

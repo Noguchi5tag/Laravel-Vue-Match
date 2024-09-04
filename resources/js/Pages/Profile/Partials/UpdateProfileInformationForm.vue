@@ -56,7 +56,7 @@ const form = useForm({
                     v-model="form.name"
                     required
                     autofocus
-                    autocomplete="name"
+                    autocomplete="username"
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
@@ -104,13 +104,12 @@ const form = useForm({
 
                 <TextInput
                     id="tel"
-                    type="text"
+                    type="tel"
                     class="mt-1 block w-full"
                     v-model="form.tel"
                     required
                     autofocus
                     autocomplete="tel"
-                    pattern="\d*"
                     maxlength="11"
                 />
 
@@ -198,12 +197,11 @@ const form = useForm({
 
                 <select
                     id="prefectures"
-                    type="text"
                     class="mt-1 block w-full"
                     v-model="form.prefectures"
                     required
                     autofocus
-                    autocomplete="prefectures"
+                    autocomplete="address-level1"
                 >
                     <option value="" disabled>都道府県を選択してください</option>
                     <option v-for="prefecture in prefectures" :key="prefecture" :value="prefecture">
@@ -224,7 +222,7 @@ const form = useForm({
                     v-model="form.city"
                     required
                     autofocus
-                    autocomplete="city"
+                    autocomplete="address-level2"
                     placeholder="長崎市万屋町12-2"
                 />
 

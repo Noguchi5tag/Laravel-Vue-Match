@@ -7,6 +7,7 @@ import BaseLayouts from '../../../Layouts/BaseLayouts.vue';
 const props = defineProps({
     skills: Array,
 })
+console.log(props);
 
 const updateSkill = (skill) => {
     const form = useForm({

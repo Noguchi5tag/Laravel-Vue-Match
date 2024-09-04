@@ -8,15 +8,21 @@ use App\Models\Academic_Bg;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 class AcademicBgController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Academic_Bg $academic_bgs, Request $request)
     {
-        //
+        $userId = Auth::id();
+        $academic_bgs = Academic_Bg::where('user_id', $userId)->get();
+
+        return Inertia::render('Profile/Academic/Index', [
+            'academic_bgs' => $academic_bgs,
+        ]);
     }
 
     /**
@@ -74,9 +80,12 @@ class AcademicBgController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAcademic_BgRequest $request, Academic_Bg $academic_Bg)
+    public function update(UpdateAcademic_BgRequest $request, Academic_Bg $academic)
     {
-        //
+        $validated = $request->validated();
+        $validated['undergraduate'] = $request->has('undergraduate') ? $request->input('undergraduate') : false;
+        $academic->update($validated);
+        return to_route('profile.edit')->with('success', '学歴を更新しました');
     }
 
     /**
