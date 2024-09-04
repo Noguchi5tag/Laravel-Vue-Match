@@ -29,6 +29,7 @@ const form = useForm({
     freeDays: props.inertiaJob.freeDays,
     NearestStation: props.inertiaJob.NearestStation,
     workOther: props.inertiaJob.workOther,
+    search_keywords: props.inertiaJob.search_keywords,
     status: props.inertiaJob.status,
 
     image1: null,
@@ -77,6 +78,7 @@ const updateFunction = () => {
         freeDays: form.freeDays,
         NearestStation: form.NearestStation,
         workOther: form.workOther,
+        search_keywords: form.search_keywords,
         status: form.status,
 
         image1: form.image1,
@@ -224,6 +226,12 @@ const updateFunction = () => {
                                     <div class="relative">
                                         <label for="workOther" class="leading-7 text-sm text-gray-600">その他</label>
                                         <textarea name="workOther" id="workOther" v-model="form.workOther" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                                    </div>
+                                </div>
+                                <div class="p-2 w-full">
+                                    <div class="relative">
+                                        <label for="search_keywords" class="leading-7 text-sm text-gray-600">検索キーワード（カンマ区切り）</label>
+                                        <textarea name="search_keywords" id="search_keywords" v-model="form.search_keywords" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                                     </div>
                                 </div>
 

@@ -64,10 +64,16 @@ const toggleDetails = (job) => {
     job.showDetails = !job.showDetails;
 };
 
+const showSearch = ref(false);
+
+const search_button = () => {
+    showSearch.value = !showSearch.value;
+}
+
 </script>
 
 <template>
-    <Head title="求人一覧" />
+    <Head title="ホーム" />
     <BasePage>
 
     <!-- フラッシュメッセージ -->
@@ -76,58 +82,57 @@ const toggleDetails = (job) => {
     </div>
 
         <section class="text-gray-600 body-font relative">
-            <div class="container px-4 py-24 mx-auto">
-                <div class="flex flex-col text-center w-full mb-12">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">求人一覧</h1>
-                </div>
-                
+            <div class="container px-4 py-12 mx-auto">
                 <div class="mx-auto">
-                    <section class="text-gray-600 body-font relative">
-                        <div class="container px-5 pb-24 mx-auto">
-                            <div class="mx-auto">
-                                <div class="-m-2">
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <label for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地からさがす</label>
-                                            <select name="dutyStation" id="dutyStation" v-model="dutyStation">
-                                                <option v-for="dutyStation in dutyStations" :value="dutyStation.value" :key="dutyStation.value">
-                                                    {{ dutyStation.label }}
-                                                </option>
-                                            </select>
+                    <button @click="search_button" class="flex mx-auto text-white bg-indigo-500 border-0 mb-4 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">絞り込み検索</button>
+                    <transition name="fade-slide" mode="out-in">
+                        <section v-if="showSearch" class="text-gray-600 body-font relative">
+                            <div class="container px-5 pb-12 mx-auto">
+                                <div class="mx-auto">
+                                    <div class="-m-2">
+                                        <div class="p-2 w-full">
+                                            <div class="relative">
+                                                <label for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地からさがす</label>
+                                                <select name="dutyStation" id="dutyStation" v-model="dutyStation">
+                                                    <option v-for="dutyStation in dutyStations" :value="dutyStation.value" :key="dutyStation.value">
+                                                        {{ dutyStation.label }}
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <label for="Occupation" class="leading-7 text-sm text-gray-600">職種からさがす</label>
-                                            <select name="Occupation" id="Occupation" v-model="Occupation">
-                                                <option v-for="occupation in Occupations" :value="occupation.value" :key="occupation.value">
-                                                    {{ occupation.label }}
-                                                </option>
-                                            </select>
+                                        <div class="p-2 w-full">
+                                            <div class="relative">
+                                                <label for="Occupation" class="leading-7 text-sm text-gray-600">職種からさがす</label>
+                                                <select name="Occupation" id="Occupation" v-model="Occupation">
+                                                    <option v-for="occupation in Occupations" :value="occupation.value" :key="occupation.value">
+                                                        {{ occupation.label }}
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <label for="companyPay" class="leading-7 text-sm text-gray-600">給料からさがす</label>
-                                            <select name="companyPay" id="companyPay" v-model="companyPay">
-                                                <option v-for="companyPay in companyPays" :value="companyPay.value" :key="companyPay.value">
-                                                    {{ companyPay.label }}
-                                                </option>
-                                            </select>
+                                        <div class="p-2 w-full">
+                                            <div class="relative">
+                                                <label for="companyPay" class="leading-7 text-sm text-gray-600">給料からさがす</label>
+                                                <select name="companyPay" id="companyPay" v-model="companyPay">
+                                                    <option v-for="companyPay in companyPays" :value="companyPay.value" :key="companyPay.value">
+                                                        {{ companyPay.label }}
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="p-2 w-full">
-                                        <label for="search" class="leading-7 text-sm text-gray-600">キーワード検索</label>
-                                        <input type="text" name="search" id="search" v-model="search" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                    </div>
-                                    <div class="text-center flex">
-                                        <button @click="searchCustomers" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">検索する</button>
-                                        <Link as:button href="/jobs" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">条件のリセット</Link>
+                                        <div class="p-2 w-full">
+                                            <label for="search" class="leading-7 text-sm text-gray-600">キーワード検索</label>
+                                            <input type="text" name="search" id="search" v-model="search" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        </div>
+                                        <div class="text-center flex">
+                                            <button @click="searchCustomers" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">検索する</button>
+                                            <Link as:button href="/jobs" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">条件のリセット</Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
+                        </section>
+                    </transition>
 
                     <div class="pb-6">
                         <template v-if="searchDutyStation || searchOccupation || searchCompanyPay || searchKeyword">
@@ -366,14 +371,23 @@ const toggleDetails = (job) => {
     display: flex;
     justify-content: center;
     align-items: center;
-    }
+}
 
-    .carousel__slide {
+.carousel__slide {
     padding: 2px;
-    }
+}
 
-    .carousel__prev,
-    .carousel__next {
+.carousel__prev,
+.carousel__next {
     color: white;
-    }
+}
+
+.fade-slide-enter-active, .fade-slide-leave-active {
+    transition: all 0.5s ease;
+}
+
+.fade-slide-enter-from, .fade-slide-leave-to {
+    opacity: 0;
+    transform: translateY(-20px);
+}
 </style>

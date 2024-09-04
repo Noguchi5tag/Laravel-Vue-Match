@@ -68,6 +68,7 @@ class JobController extends Controller
             'freeDays' => ['nullable',],
             'NearestStation' => ['nullable',],
             'workOther' => ['nullable',],
+            'search_keywords' => ['nullable|array'],
             'status' => ['nullable',],
             'image1' => ['nullable', 'image', 'max:5120'],
             'image2' => ['nullable', 'image', 'max:5120'],

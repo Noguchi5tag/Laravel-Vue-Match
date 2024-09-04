@@ -16,7 +16,6 @@ const props = defineProps({
     id: String,
     inertiaJob: Object,
 })
-// console.log('inertiaJob:', props.inertiaJob)
 
 const deleteFunction = id => {
     console.log('id:', id)
@@ -187,6 +186,14 @@ const imageCount = (job) => {
                                     <label for="workOther" class="leading-7 text-sm text-gray-600">その他</label>
                                     <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.workOther }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-1 w-full">
+                                <div class="relative">
+                                    <label for="search_keywords" class="leading-7 text-sm text-gray-600">検索キーワード</label>
+                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    {{ props.inertiaJob.search_keywords.join(', ') }}
                                     </div>
                                 </div>
                             </div>

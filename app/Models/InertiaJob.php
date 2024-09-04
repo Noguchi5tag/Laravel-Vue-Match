@@ -26,6 +26,7 @@ class InertiaJob extends Model
         'freeDays', // 休日
         'NearestStation', // 最寄り駅
         'workOther', // その他
+        'search_keywords', // 検索キーワード
         'status', // 公開か非公開か
 
         'image1', // 画像1
@@ -34,6 +35,23 @@ class InertiaJob extends Model
         'image4', // 画像4
         'image5', // 画像5
     ];
+
+    
+    /**
+     * search_keywordsを配列として取得するためのアクセサ
+     */
+    public function getSearchKeywordsAttribute($value)
+    {
+        return explode(',', $value); // カンマ区切りで配列に変換
+    }
+
+    /**
+     * search_keywordsをカンマ区切りの文字列として保存するためのミューテタ
+     */
+    public function setSearchKeywordsAttribute($value)
+    {
+        $this->attributes['search_keywords'] = implode(',', $value); // 配列をカンマ区切りの文字列に変換
+    }
 
     public function scopeSearchInertiaJobs(
         $query,
@@ -45,10 +63,7 @@ class InertiaJob extends Model
     {
         if (!empty($search)) {
             $query->where(function($q) use ($search) {
-                $q->where('WantedTitles', 'like', '%' . $search . '%')
-                    ->orWhere('workDescription', 'like', '%' . $search . '%')
-                    ->orWhere('Welfare', 'like', '%' . $search . '%')
-                    ->orWhere('workOther', 'like', '%' . $search . '%');
+                $q->where('search_keywords', 'like', '%' . $search . '%');
             });
         }
     

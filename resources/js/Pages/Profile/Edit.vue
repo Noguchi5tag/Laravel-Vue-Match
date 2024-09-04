@@ -10,7 +10,6 @@ import AcademicUpdate from './Partials/AcademicUpdate.vue';
 import JobBgCreate from './Partials/JobBgCreate.vue';
 import JobBgUpdate from './Partials/JobBgUpdate.vue';
 import { Head, Link } from '@inertiajs/vue3';
-
 import BasePage from '../../Layouts/BaseLayouts.vue';
 
 const props = defineProps({
@@ -33,7 +32,6 @@ const props = defineProps({
         type: Boolean,
     },
 });
-console.log(props.hasJobBg);
 </script>
 
 <template>

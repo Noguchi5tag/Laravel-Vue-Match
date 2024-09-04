@@ -23,6 +23,7 @@ const form = reactive({
     freeDays: '',
     NearestStation: '',
     workOther: '',
+    search_keywords: '',
     status: '',
     image1: '',
     image2: '',
@@ -173,8 +174,15 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="message" class="leading-7 text-sm text-gray-600">その他</label>
+                                        <label for="search_keyword" class="leading-7 text-sm text-gray-600">その他</label>
                                         <textarea name="workOther" id="workOther" v-model="form.workOther" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="p-2 w-full">
+                                    <div class="relative">
+                                        <label for="search_keywords" class="leading-7 text-sm text-gray-600">検索キーワード（カンマ区切り）</label>
+                                        <textarea name="search_keywords" id="search_keywords" v-model="form.search_keywords" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                                     </div>
                                 </div>
 
