@@ -28,12 +28,6 @@ const updateFunction = () => {
     }
     form.put(route('academic.update', form.id));
 };
-
-const deleteFunction = () => {
-    if (confirm('本当に削除しますか？')) {
-        Inertia.delete(route('academic.destroy', form.id));
-    }
-};
 </script>
 
 <template>
@@ -88,9 +82,8 @@ const deleteFunction = () => {
                         </div>
                     </div>
                 </section>
-                <div class="p-2 w-full mb-2 flex justify-between">
+                <div class="p-2 w-full mb-2 flex justify-center">
                     <button  @click.prevent="updateFunction" class="flex text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
-                    <button @click.prevent="deleteFunction" class="flex text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">削除する</button>
                 </div>
             </div>
         </section>
