@@ -1,7 +1,5 @@
 <script setup>
-import { reactive } from 'vue';
-import { Link, Head, useForm  } from '@inertiajs/vue3';
-import { Inertia } from '@inertiajs/inertia';
+import { Head, useForm  } from '@inertiajs/vue3';
 import BaseLayouts from '../../../Layouts/BaseLayouts.vue';
 import dayjs from 'dayjs';
 

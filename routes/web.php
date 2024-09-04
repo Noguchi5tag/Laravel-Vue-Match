@@ -9,9 +9,10 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\AcademicBgController;
-use App\Models\Academic_Bg;
+use App\Http\Controllers\JobBgController;
 use App\Models\InertiaJob;
 use App\Models\News;
+
 
 //テスト用
 Route::get('/test', function () {
@@ -74,6 +75,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('skill', SkillController::class);
     //学歴
     Route::resource('academic', AcademicBgController::class);
+    //職務履歴
+    Route::resource('jobbg', JobBgController::class);
 
     //検索ページ
     Route::get('/search', function () {

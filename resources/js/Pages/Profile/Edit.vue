@@ -7,7 +7,8 @@ import SkillCreate from './Partials/SkillCreate.vue';
 import SkillUpdate from './Partials/SkillUpdate.vue';
 import AcademicCreate from './Partials/AcademicCreate.vue';
 import AcademicUpdate from './Partials/AcademicUpdate.vue';
-import NavLink from '@/Components/NavLink.vue';
+import JobBgCreate from './Partials/JobBgCreate.vue';
+import JobBgUpdate from './Partials/JobBgUpdate.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 import BasePage from '../../Layouts/BaseLayouts.vue';
@@ -28,7 +29,11 @@ const props = defineProps({
     hasAcademicBg: {
         type: Boolean,
     },
+    hasJobBg: {
+        type: Boolean,
+    },
 });
+console.log(props.hasJobBg);
 </script>
 
 <template>
@@ -66,6 +71,17 @@ const props = defineProps({
                 <template v-else>
                     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                         <AcademicUpdate class="max-w-xl" />
+                    </div>
+                </template>
+
+                <template v-if="props.hasJobBg === false">
+                    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                        <JobBgCreate class="max-w-xl" />
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                        <JobBgUpdate class="max-w-xl" />
                     </div>
                 </template>
 

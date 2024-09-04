@@ -26,7 +26,7 @@ class ProfileController extends Controller
         // ユーザーがスキルを持っているかどうかを判定
         $hasSkill = $user->skills->isNotEmpty();
         $hasAcademicBg = $user->academic_bg !== null;
-        // dd($hasAcademicBg);
+        $hasJobBg = $user->job_bg !== null;
 
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
@@ -34,6 +34,7 @@ class ProfileController extends Controller
             'hasSkill' => $hasSkill,
             'userAuth' => $userAuth,
             'hasAcademicBg' => $hasAcademicBg,
+            'hasJobBg' => $hasJobBg,
         ]);
     }
 

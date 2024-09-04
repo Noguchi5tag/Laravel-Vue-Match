@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Skill;
 use App\Models\Academic_Bg;
+use App\Models\JobBg;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -61,5 +62,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function academic_bg()
     {
         return $this->hasOne(Academic_Bg::class, 'user_id');
+    }
+    public function job_bg()
+    {
+        return $this->hasOne(JobBg::class, 'user_id');
     }
 }
