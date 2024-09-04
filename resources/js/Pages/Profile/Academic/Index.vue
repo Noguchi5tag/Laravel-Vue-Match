@@ -92,8 +92,6 @@ const deleteFunction = () => {
                     <button  @click.prevent="updateFunction" class="flex text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
                     <button @click.prevent="deleteFunction" class="flex text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">削除する</button>
                 </div>
-                <hr>
-                <Link as="button" :href="route('academic.create')" class="flex mx-auto my-2 text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-lg">新しく追加する</Link>
             </div>
         </section>
     </BaseLayouts>
