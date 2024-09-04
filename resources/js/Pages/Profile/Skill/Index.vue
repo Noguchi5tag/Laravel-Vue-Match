@@ -20,7 +20,7 @@ const updateSkill = (skill) => {
 };
 
 const deleteSkill = (skillId) => {
-    if (confirm('本当にこのスキルを削除しますか？')) {
+    if (confirm('本当に削除しますか？')) {
         Inertia.delete(route('skill.destroy', { skill: skillId }), {
             onSuccess: () => {
                 console.log('Skill deleted successfully');

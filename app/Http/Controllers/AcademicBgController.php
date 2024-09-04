@@ -91,8 +91,9 @@ class AcademicBgController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Academic_Bg $academic_Bg)
+    public function destroy(Academic_Bg $academic)
     {
-        //
+        $academic->delete();
+        return to_route('profile.edit')->with('success', '削除しました');
     }
 }
