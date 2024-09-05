@@ -28,6 +28,15 @@ class ProfileController extends Controller
         $hasAcademicBg = $user->academic_bg !== null;
         $hasJobBg = $user->job_bg !== null;
 
+        if ($request->is('job-contact')) {
+            return Inertia::render('EasyContact', [
+                'hasSkill' => $hasSkill,
+                'hasAcademicBg' => $hasAcademicBg,
+                'hasJobBg' => $hasJobBg,
+                'userAuth' => $userAuth,
+            ]);
+        }
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),

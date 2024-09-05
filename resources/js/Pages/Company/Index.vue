@@ -5,7 +5,9 @@ import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
-
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
+import Dropdown from '@/Components/Dropdown.vue';
 import { dutyStations } from '@/data';
 import { Occupations } from '@/data';
 import { companyPays } from '@/data';
@@ -59,7 +61,6 @@ const imageCount = (job) => {
 }
 
 const jobs = ref(props.inertiaJobs.data);
-console.log(jobs);
 const toggleDetails = (job) => {
     job.showDetails = !job.showDetails;
 };
@@ -92,7 +93,7 @@ const search_button = () => {
                                     <div class="-m-2">
                                         <div class="p-2 w-full">
                                             <div class="relative">
-                                                <label for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地からさがす</label>
+                                                <InputLabel for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地からさがす</InputLabel>
                                                 <select name="dutyStation" id="dutyStation" v-model="dutyStation">
                                                     <option v-for="dutyStation in dutyStations" :value="dutyStation.value" :key="dutyStation.value">
                                                         {{ dutyStation.label }}
@@ -102,7 +103,7 @@ const search_button = () => {
                                         </div>
                                         <div class="p-2 w-full">
                                             <div class="relative">
-                                                <label for="Occupation" class="leading-7 text-sm text-gray-600">職種からさがす</label>
+                                                <InputLabel for="Occupation" class="leading-7 text-sm text-gray-600">職種からさがす</InputLabel>
                                                 <select name="Occupation" id="Occupation" v-model="Occupation">
                                                     <option v-for="occupation in Occupations" :value="occupation.value" :key="occupation.value">
                                                         {{ occupation.label }}
@@ -112,7 +113,7 @@ const search_button = () => {
                                         </div>
                                         <div class="p-2 w-full">
                                             <div class="relative">
-                                                <label for="companyPay" class="leading-7 text-sm text-gray-600">給料からさがす</label>
+                                                <InputLabel for="companyPay" class="leading-7 text-sm text-gray-600">給料からさがす</InputLabel>
                                                 <select name="companyPay" id="companyPay" v-model="companyPay">
                                                     <option v-for="companyPay in companyPays" :value="companyPay.value" :key="companyPay.value">
                                                         {{ companyPay.label }}
@@ -121,8 +122,8 @@ const search_button = () => {
                                             </div>
                                         </div>
                                         <div class="p-2 w-full">
-                                            <label for="search" class="leading-7 text-sm text-gray-600">キーワード検索</label>
-                                            <input type="text" name="search" id="search" v-model="search" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            <InputLabel for="search" class="leading-7 text-sm text-gray-600">キーワード検索</InputLabel>
+                                            <TextInput type="text" name="search" id="search" v-model="search" class="w-full" />
                                         </div>
                                         <div class="text-center flex">
                                             <button @click="searchCustomers" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">検索する</button>
@@ -186,16 +187,16 @@ const search_button = () => {
                                 <div class="flex justify-between items-center">
                                     <div id="bookmark" class="">
                                         <img class="w-8" src="../../../../public/images/address.png" alt="">
-                                        <label for="bookmark" class="text-sm">保存</label>
+                                        <InputLabel for="bookmark" class="text-sm">保存</InputLabel>
                                     </div>
                                     <div id="job-contact">
-                                        <Link as:button href="/job-contact">簡単応募</Link>
+                                        <Link as:button :href="`/job-contact?companyName=${job.companyName}`" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">簡単応募</Link>
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative flex items-center">
-                                        <label for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル：</label>
+                                        <InputLabel for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル：</InputLabel>
                                         <p>{{ job.WantedTitles }}</p>
                                     </div>
                                 </div>
@@ -204,26 +205,26 @@ const search_button = () => {
                                 <div v-show="job.showDetails">
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="Occupation" class="leading-7 text-sm text-gray-600">職種</label>
+                                            <InputLabel for="Occupation" class="leading-7 text-sm text-gray-600">職種</InputLabel>
                                             <div type="text" id="Occupation" name="Occupation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
                                         </div>
                                     </div>
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</label>
+                                            <InputLabel for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</InputLabel>
                                             <div type="text" id="companyAddress" name="companyAddress" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
                                         </div>
                                     </div>
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="companyPay" class="leading-7 text-sm text-gray-600">給料</label>
+                                            <InputLabel for="companyPay" class="leading-7 text-sm text-gray-600">給料</InputLabel>
                                             <div type="text" id="companyPay" name="companyPay" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyPay }}</div>
                                         </div>
                                     </div>
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地</label>
+                                            <InputLabel for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地</InputLabel>
                                             <div type="text" id="dutyStation" name="dutyStation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.dutyStation }}
                                             </div>
@@ -232,7 +233,7 @@ const search_button = () => {
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="workDescription" class="leading-7 text-sm text-gray-600">仕事内容</label>
+                                            <InputLabel for="workDescription" class="leading-7 text-sm text-gray-600">仕事内容</InputLabel>
                                             <div type="text" id="workDescription" name="workDescription" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.workDescription }}
                                             </div>
@@ -241,7 +242,7 @@ const search_button = () => {
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="payDescription" class="leading-7 text-sm text-gray-600">給与詳細</label>
+                                            <InputLabel for="payDescription" class="leading-7 text-sm text-gray-600">給与詳細</InputLabel>
                                             <div type="text" id="payDescription" name="payDescription" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.payDescription }}
                                             </div>
@@ -250,7 +251,7 @@ const search_button = () => {
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="travelExpenses" class="leading-7 text-sm text-gray-600">交通費</label>
+                                            <InputLabel for="travelExpenses" class="leading-7 text-sm text-gray-600">交通費</InputLabel>
                                             <div type="text" id="travelExpenses" name="travelExpenses" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.travelExpenses }}
                                             </div>
@@ -259,7 +260,7 @@ const search_button = () => {
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="Welfare" class="leading-7 text-sm text-gray-600">福利厚生</label>
+                                            <InputLabel for="Welfare" class="leading-7 text-sm text-gray-600">福利厚生</InputLabel>
                                             <div type="text" id="Welfare" name="Welfare" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.Welfare }}
                                             </div>
@@ -268,7 +269,7 @@ const search_button = () => {
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="startWork" class="leading-7 text-sm text-gray-600">勤務開始時間</label>
+                                            <InputLabel for="startWork" class="leading-7 text-sm text-gray-600">勤務開始時間</InputLabel>
                                             <div type="text" id="startWork" name="startWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.startWork }}
                                             </div>
@@ -277,7 +278,7 @@ const search_button = () => {
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="endWork" class="leading-7 text-sm text-gray-600">勤務終了時間</label>
+                                            <InputLabel for="endWork" class="leading-7 text-sm text-gray-600">勤務終了時間</InputLabel>
                                             <div type="text" id="endWork" name="endWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.endWork }}
                                             </div>
@@ -286,7 +287,7 @@ const search_button = () => {
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="workDays" class="leading-7 text-sm text-gray-600">出勤日</label>
+                                            <InputLabel for="workDays" class="leading-7 text-sm text-gray-600">出勤日</InputLabel>
                                             <div type="text" id="workDays" name="workDays" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.workDays }}
                                             </div>
@@ -295,7 +296,7 @@ const search_button = () => {
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="freeDays" class="leading-7 text-sm text-gray-600">休日</label>
+                                            <InputLabel for="freeDays" class="leading-7 text-sm text-gray-600">休日</InputLabel>
                                             <div type="text" id="freeDays" name="freeDays" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.freeDays }}
                                             </div>
@@ -304,7 +305,7 @@ const search_button = () => {
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="NearestStation" class="leading-7 text-sm text-gray-600">最寄り駅</label>
+                                            <InputLabel for="NearestStation" class="leading-7 text-sm text-gray-600">最寄り駅</InputLabel>
                                             <div type="text" id="NearestStation" name="NearestStation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.NearestStation }}
                                             </div>
@@ -313,7 +314,7 @@ const search_button = () => {
 
                                     <div class="p-2 w-full">
                                         <div class="relative">
-                                            <label for="workOther" class="leading-7 text-sm text-gray-600">その他</label>
+                                            <InputLabel for="workOther" class="leading-7 text-sm text-gray-600">その他</InputLabel>
                                             <div type="text" id="workOther" name="workOther" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.workOther }}
                                             </div>

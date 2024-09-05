@@ -12,7 +12,7 @@ defineProps({
         type: Boolean,
     },
     status: {
-        type: String,
+        type: Boolean,
     },
 });
 </script>

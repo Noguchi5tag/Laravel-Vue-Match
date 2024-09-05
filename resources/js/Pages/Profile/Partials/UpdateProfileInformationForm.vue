@@ -3,15 +3,20 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import NavLink from '@/Components/NavLink.vue';
+import { useForm, usePage, Link } from '@inertiajs/vue3';
 import { prefectures } from '@/data';
+import { Inertia } from '@inertiajs/inertia';
 
-defineProps({
-    mustVerifyEmail: {
+const props = defineProps({
+    hasSkill: {
         type: Boolean,
     },
-    status: {
-        type: String,
+    hasAcademicBg: {
+        type: Boolean,
+    },
+    hasJobBg: {
+        type: Boolean,
     },
 });
 
@@ -36,7 +41,6 @@ const form = useForm({
     prefectures: user.prefectures,
     city: user.city,
 });
-
 </script>
 
 <template>
@@ -45,7 +49,7 @@ const form = useForm({
             <h2 class="text-lg font-medium text-gray-900">登録情報</h2>
         </header>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+        <form class="mt-6 space-y-6">
             <div>
                 <InputLabel for="name" value="名前" />
 
@@ -77,28 +81,6 @@ const form = useForm({
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <!-- <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                <p class="text-sm mt-2 text-gray-800">
-                    メールアドレスが未認証です。
-                    <Link
-                        :href="route('verification.send')"
-                        method="post"
-                        as="button"
-                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        こちらをクリックして認証メールを再送信してください。
-                    </Link>
-                </p>
-
-                <div
-                    v-show="status === 'verification-link-sent'"
-                    class="mt-2 font-medium text-sm text-green-600"
-                >
-                    登録したメールアドレスに新しい認証リンクが送信されました。
-                </div>
-            </div> -->
-
-            <!-- 追記 -->
             <div>
                 <InputLabel for="tel" value="電話番号（ハイフンなし）" />
 
@@ -225,13 +207,12 @@ const form = useForm({
                     autocomplete="address-level2"
                     placeholder="長崎市万屋町12-2"
                 />
-
                 
                 <InputError class="mt-2" :message="form.errors.city" />
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">保 存</PrimaryButton>
+                <PrimaryButton @click="profileUpdate" :disabled="form.processing">保 存</PrimaryButton>
 
                 <Transition
                     enter-active-class="transition ease-in-out"

@@ -17,7 +17,7 @@ const props = defineProps({
         type: Boolean,
     },
     status: {
-        type: String,
+        type: Boolean,
     },
     hasSkill: {
         type: Boolean,
@@ -32,6 +32,7 @@ const props = defineProps({
         type: Boolean,
     },
 });
+console.log(props);
 </script>
 
 <template>
@@ -87,6 +88,9 @@ const props = defineProps({
                     <UpdateProfileInformationForm
                         :must-verify-email="mustVerifyEmail"
                         :status="status"
+                        :hasAcademicBg="hasAcademicBg"
+                        :hasJobBg="hasJobBg"
+                        :hasSkill="hasSkill"
                         class="max-w-xl"
                     />
                 </div>

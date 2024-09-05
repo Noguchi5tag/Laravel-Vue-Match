@@ -92,9 +92,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show');
 
     //簡単応募ページ
-    Route::get('/job-contact', function () {
-        return Inertia::render('EasyContact');
-    })->name('easycontact');
+    Route::get('/job-contact', [ProfileController::class,'edit'])->name('easycontact');
 
     //News
     Route::get('/news', [NewsController::class,'index'])->name('news.index');

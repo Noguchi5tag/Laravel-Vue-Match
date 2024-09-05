@@ -64,9 +64,14 @@ class AcademicBgController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Academic_Bg $academic_Bg)
+    public function show(Academic_Bg $academic_Bg ,Request $request)    
     {
-        //
+        $user = $request->user();
+        $academic_bgs = $user->academicBgs()->get(); // 学歴データを取得する例
+    
+        return Inertia::render('EasyContact', [
+            'academic_bgs' => $academic_bgs,
+        ]);
     }
 
     /**
