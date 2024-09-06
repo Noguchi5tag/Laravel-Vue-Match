@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AdminProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -10,8 +9,6 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\AcademicBgController;
 use App\Http\Controllers\JobBgController;
-use App\Models\InertiaJob;
-use App\Models\News;
 
 
 //テスト用
@@ -102,33 +99,5 @@ require __DIR__.'/auth.php';
 
 //管理者ページ
 Route::prefix('admin')->name('admin.')->group(function(){
-    
-    Route::get('/', function () {
-        return Inertia::render('TopPage');
-    })->middleware(['auth:admin', 'verified'])->name('top');
-
-    Route::get('/dashboard', function () {
-        return Inertia::render('Admin/Dashboard');
-    })->middleware(['auth:admin', 'verified'])->name('dashboard');
-
-    Route::get('/profile', [AdminProfileController::class, 'edit'])->middleware('auth:admin')->name('profile.edit');
-    Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
-
-    //Company
-    Route::get('/companylist', [JobController::class,'index'])->middleware('auth:admin')->name('companylist.index');
-    Route::get('/company/create', [JobController::class,'create'])->middleware('auth:admin')->name('company.create');
-    Route::post('/company/job', [JobController::class,'store'])->name('company.store'); //登録
-    Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->middleware('auth:admin')->name('company.edit');
-    Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->middleware('auth:admin')->name('company.show');
-    Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('company.update');
-    Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
-
-    //News
-    Route::get('/news', [NewsController::class, 'index'])->middleware('auth:admin')->name('newslist.index');
-    Route::get('/news/create', [NewsController::class, 'create'])->middleware('auth:admin')->name('news.create');
-    Route::post('/news/store', [NewsController::class, 'store'])->name('news.store');
-    Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
-
     require __DIR__.'/admin.php';
 });
