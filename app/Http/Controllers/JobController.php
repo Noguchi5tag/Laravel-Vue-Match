@@ -14,20 +14,24 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($request->all());
         $search = $request->input('search');
+        $companySearch = $request->input('companySearch');
         $dutyStation = $request->input('dutyStation');
         $Occupation = $request->input('Occupation');
         $companyPay = $request->input('companyPay');
 
-        // dd($search, $dutyStation, $Occupation, $companyPay);
-
         $inertiaJobs = InertiaJob::where('status', 1) // 公開中のみ表示
         ->searchInertiaJobs($search, $dutyStation, $Occupation, $companyPay)
+        ->orderBy('updated_at', 'desc')
         ->paginate(3);
         // dd($inertiaJobs);
 
         // URLやリクエストパラメータに基づいてビューを切り替える
         if ($request->is('admin/*')) {
+            $inertiaJobs = InertiaJob::searchInertiaJobs($search, $companySearch)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(3);
             return Inertia::render('Admin/CompanyList', [
                 'inertiaJobs' => $inertiaJobs,
             ]);
@@ -137,7 +141,12 @@ class JobController extends Controller
      */
     public function update(Request $request, InertiaJob $inertiaJob)
     {
-        // dd($request->all());
+        // 検索キーワードを配列に変換
+        if ($request->has('search_keywords') && is_string($request->search_keywords)) {
+            $request->merge([
+                'search_keywords' => explode(',', $request->search_keywords),
+            ]);
+        }
         
         $validatedData = $request->validate([
             'companyName' => ['nullable', 'max:100'],
@@ -156,6 +165,7 @@ class JobController extends Controller
             'freeDays' => ['nullable'],
             'NearestStation' => ['nullable'],
             'workOther' => ['nullable'],
+            'search_keywords' => ['nullable','array'],
             'status' => ['nullable'],
             'image1' => ['nullable', 'image', 'max:5120'],
             'image2' => ['nullable', 'image', 'max:5120'],
@@ -163,6 +173,7 @@ class JobController extends Controller
             'image4' => ['nullable', 'image', 'max:5120'],
             'image5' => ['nullable', 'image', 'max:5120'],
         ]);
+        // dd($validatedData);
     
         $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
         $imageDeleted = false; // 画像が削除されたかどうかを追跡するフラグ
@@ -200,6 +211,8 @@ class JobController extends Controller
                 $validatedData[$image] = $inertiaJob->{$image};
             }
         }
+
+        // dd($validatedData);
 
         $inertiaJob->update($validatedData);
 

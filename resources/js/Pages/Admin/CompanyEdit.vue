@@ -51,6 +51,7 @@ const form = useForm({
         image5: false,
     },
 });
+console.log(form.startWork.split(':').slice(0, 2).join(':'));
 
 const deleteImage = (imageKey) => {
     form[imageKey] = null;

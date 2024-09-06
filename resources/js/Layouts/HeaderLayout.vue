@@ -5,13 +5,13 @@ function goBack() {
 </script>
 
 <template>
-    <div class="bg-gray-200 p-4">
+    <div class="bg-black p-4">
         <!-- <div class="flex">
             <div class="cursor-pointer" @click="goBack">＜</div>
             <p class="">仕事マッチングサイト</p>
         </div> -->
         <div class="text-center">
-            <h3>仕事マッチングサイト</h3>
+            <h3 class="text-white">仕事マッチングサイト</h3>
         </div>
     </div>
 

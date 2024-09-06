@@ -20,21 +20,21 @@ Route::get('/test', function () {
 })->name('top');
 
 //エンドユーザー向け
-Route::get('/', function () {
-    //データを取得
-    $inertiaJobs = InertiaJob::where('status', 1)
-    ->paginate(3);
-    $news = News::paginate(3);
+// Route::get('/', function () {
+//     //データを取得
+//     $inertiaJobs = InertiaJob::where('status', 1)
+//     ->paginate(3);
+//     $news = News::paginate(3);
 
-    return Inertia::render('TopPage', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-        'inertiaJob' => $inertiaJobs,
-        'news' => $news,
-    ]);
-});
+//     return Inertia::render('TopPage', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//         'inertiaJob' => $inertiaJobs,
+//         'news' => $news,
+//     ]);
+// });
 
 //ダッシュボード
 Route::get('/dashboard', function () {
@@ -88,7 +88,7 @@ Route::middleware('auth')->group(function () {
     })->name('Bookmark');
 
     //Company
-    Route::get('/jobs', [JobController::class,'index'])->name('company.index');
+    Route::get('/', [JobController::class,'index'])->name('company.index');
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show');
 
     //簡単応募ページ

@@ -5,7 +5,8 @@ import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
-
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
 import { dutyStations } from '@/data';
 import { Occupations } from '@/data';
 import { companyPays } from '@/data';
@@ -23,29 +24,21 @@ const props = defineProps({
 
 //クエリパラメータを取得
 const searchKeyword = ref('');
-const searchDutyStation = ref('');
-const searchOccupation = ref('');
-const searchCompanyPay = ref('');
+const company_Search = ref('');
 
 onMounted(() => {
     const params = new URLSearchParams(window.location.search);
     searchKeyword.value = params.get('search') || '';
-    searchDutyStation.value = params.get('dutyStation') || '';
-    searchOccupation.value = params.get('Occupation') || '';
-    searchCompanyPay.value = params.get('companyPay') || '';
+    company_Search.value = params.get('companySearch') || '';
 });
 
 //検索項目をControllerに送信
 const search = ref('')
-const dutyStation = ref('')
-const Occupation = ref('')
-const companyPay = ref('')
+const companySearch = ref('')
 const searchCustomers = () => {
     Inertia.get(route('admin.companylist.index'), {
         search: search.value,
-        dutyStation: dutyStation.value,
-        Occupation: Occupation.value,
-        companyPay: companyPay.value,
+        companySearch: companySearch.value,
     });
 }
 
@@ -81,42 +74,16 @@ const imageCount = (job) => {
                             <div class="mx-auto">
                                 <div class="-m-2">
                                     <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <label for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地からさがす</label>
-                                            <select name="dutyStation" id="dutyStation" v-model="dutyStation">
-                                                <option v-for="dutyStation in dutyStations" :value="dutyStation.value" :key="dutyStation.value">
-                                                    {{ dutyStation.label }}
-                                                </option>
-                                            </select>
-                                        </div>
+                                        <InputLabel for="search" class="leading-7 text-sm text-gray-600">キーワード検索</InputLabel>
+                                        <TextInput type="text" name="search" id="search" v-model="search" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                     </div>
                                     <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <label for="Occupation" class="leading-7 text-sm text-gray-600">職種からさがす</label>
-                                            <select name="Occupation" id="Occupation" v-model="Occupation">
-                                                <option v-for="occupation in Occupations" :value="occupation.value" :key="occupation.value">
-                                                    {{ occupation.label }}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <label for="companyPay" class="leading-7 text-sm text-gray-600">給料からさがす</label>
-                                            <select name="companyPay" id="companyPay" v-model="companyPay">
-                                                <option v-for="companyPay in companyPays" :value="companyPay.value" :key="companyPay.value">
-                                                    {{ companyPay.label }}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="p-2 w-full">
-                                        <label for="search" class="leading-7 text-sm text-gray-600">キーワード検索</label>
-                                        <input type="text" name="search" id="search" v-model="search" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <InputLabel for="companySearch" class="leading-7 text-sm text-gray-600">会社名で検索</InputLabel>
+                                        <TextInput type="text" name="companySearch" id="companySearch" v-model="companySearch" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                     </div>
                                     <div class="text-center flex">
                                         <button @click="searchCustomers" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">検索する</button>
-                                        <Link as:button href="/jobs" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">条件のリセット</Link>
+                                        <Link as:button href="/admin/companylist" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">条件のリセット</Link>
                                     </div>
                                 </div>
                             </div>
@@ -124,23 +91,13 @@ const imageCount = (job) => {
                     </section>
 
                     <div class="pb-6">
-                        <template v-if="searchDutyStation || searchOccupation || searchCompanyPay || searchKeyword">
+                        <template v-if="searchKeyword || company_Search">
                             <h1>選択した検索条件</h1>
                         </template>
                         <ul>
                             <li>
-                                <template v-if="searchDutyStation">
-                                    勤務地：{{ searchDutyStation }}
-                                </template>
-                            </li>
-                            <li>
-                                <template v-if="searchOccupation">
-                                    職種：{{ searchOccupation }}
-                                </template>
-                            </li>
-                            <li>
-                                <template v-if="searchCompanyPay">
-                                    給料：{{ companyPays.find(pay => pay.value === searchCompanyPay)?.label || '該当なし' }}
+                                <template v-if="company_Search">
+                                    会社名：{{ company_Search }}
                                 </template>
                             </li>
                             <li>
@@ -153,7 +110,7 @@ const imageCount = (job) => {
 
                     <div v-if="inertiaJobs.data.length" class="-m-2">
                         <template v-for="job in inertiaJobs.data" :key="job.id">
-                            <div class="rounded-lg bg-gray-100 my-6 py-6 " v-if="job.status === 1">
+                            <div class="rounded-lg bg-gray-100 my-6 py-6 ">
                                 <div class="flex flex-col text-center w-full mb-6">
                                     <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
                                         {{ job.companyName }}

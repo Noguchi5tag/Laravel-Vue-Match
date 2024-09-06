@@ -4,7 +4,7 @@
 </script>
 
 <template>
-    <div class="bg-green-100">
+    <div class="bg-gray-200">
         <div class="max-w-sm m-auto bg-white">
             <HeaderComponent/>
 

@@ -16,6 +16,9 @@ const props = defineProps({
     id: String,
     inertiaJob: Object,
 })
+console.log(props.inertiaJob);
+
+const keyWords = props.inertiaJob.search_keywords.join(', ') || 'キーワード';
 
 const deleteFunction = id => {
     console.log('id:', id)
@@ -149,7 +152,7 @@ const imageCount = (job) => {
                                 <div class="relative">
                                     <label for="workHours" class="leading-7 text-sm text-gray-600">勤務時間</label>
                                     <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.startWork }}～{{ props.inertiaJob.endWork }}
+                                    {{ props.inertiaJob.startWork.split(':').slice(0, 2).join(':') }}～{{ props.inertiaJob.endWork.split(':').slice(0, 2).join(':') }}
                                     </div>
                                 </div>
                             </div>
@@ -191,9 +194,9 @@ const imageCount = (job) => {
                             </div>
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="search_keywords" class="leading-7 text-sm text-gray-600">検索キーワード</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.search_keywords.join(', ') }}
+                                    <label for="search_keywords" class="leading-7 text-sm">検索キーワード</label>
+                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                        {{ keyWords }}
                                     </div>
                                 </div>
                             </div>

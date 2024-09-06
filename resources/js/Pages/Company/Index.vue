@@ -85,7 +85,11 @@ const search_button = () => {
         <section class="text-gray-600 body-font relative">
             <div class="container px-4 py-12 mx-auto">
                 <div class="mx-auto">
-                    <button @click="search_button" class="flex mx-auto text-white bg-indigo-500 border-0 mb-4 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">絞り込み検索</button>
+                    <button 
+                        @click="search_button" 
+                        class="absolute top-3 right-2 text-white bg-indigo-500 border-0 mb-2 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">
+                        絞り込み<br>検索
+                    </button>
                     <transition name="fade-slide" mode="out-in">
                         <section v-if="showSearch" class="text-gray-600 body-font relative">
                             <div class="container px-5 pb-12 mx-auto">
@@ -127,7 +131,7 @@ const search_button = () => {
                                         </div>
                                         <div class="text-center flex">
                                             <button @click="searchCustomers" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">検索する</button>
-                                            <Link as:button href="/jobs" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">条件のリセット</Link>
+                                            <Link as:button href="/" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">条件のリセット</Link>
                                         </div>
                                     </div>
                                 </div>
@@ -271,7 +275,7 @@ const search_button = () => {
                                         <div class="relative">
                                             <InputLabel for="startWork" class="leading-7 text-sm text-gray-600">勤務開始時間</InputLabel>
                                             <div type="text" id="startWork" name="startWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.startWork }}
+                                            {{ job.startWork.split(':').slice(0, 2).join(':') }}
                                             </div>
                                         </div>
                                     </div>
@@ -280,7 +284,7 @@ const search_button = () => {
                                         <div class="relative">
                                             <InputLabel for="endWork" class="leading-7 text-sm text-gray-600">勤務終了時間</InputLabel>
                                             <div type="text" id="endWork" name="endWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.endWork }}
+                                            {{ job.endWork.split(':').slice(0, 2).join(':') }}
                                             </div>
                                         </div>
                                     </div>

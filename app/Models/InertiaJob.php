@@ -56,6 +56,7 @@ class InertiaJob extends Model
     public function scopeSearchInertiaJobs(
         $query,
         $search = null, 
+        $companySearch = null,
         $dutyStation = null, 
         $Occupation = null,
         $companyPay = null
@@ -64,6 +65,12 @@ class InertiaJob extends Model
         if (!empty($search)) {
             $query->where(function($q) use ($search) {
                 $q->where('search_keywords', 'like', '%' . $search . '%');
+            });
+        }
+
+        if (!empty($companySearch)) {
+            $query->where(function($q) use ($companySearch) {
+                $q->where('companyName', 'like', '%' . $companySearch . '%');
             });
         }
     
