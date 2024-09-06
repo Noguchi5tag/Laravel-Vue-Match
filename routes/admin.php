@@ -65,6 +65,7 @@ Route::middleware('auth:admin')->group(function () {
 
     //Company
     Route::get('/companylist', [JobController::class,'index'])->middleware('auth:admin')->name('companylist.index');
+    Route::get('/new/companylist', [JobController::class,'index'])->middleware('auth:admin')->name('new.companylist.index');
     Route::get('/company/create', [JobController::class,'create'])->middleware('auth:admin')->name('company.create');
     Route::post('/company/job', [JobController::class,'store'])->name('company.store'); //登録
     Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->middleware('auth:admin')->name('company.edit');

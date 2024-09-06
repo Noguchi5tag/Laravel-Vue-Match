@@ -31,6 +31,8 @@ const form = useForm({
     workOther: props.inertiaJob.workOther,
     search_keywords: props.inertiaJob.search_keywords,
     status: props.inertiaJob.status,
+    registrant: props.inertiaJob.registrant,
+    is_checked: props.inertiaJob.is_checked,
 
     image1: null,
     registerd_image1: props.inertiaJob.image1,
@@ -81,6 +83,7 @@ const updateFunction = () => {
         workOther: form.workOther,
         search_keywords: form.search_keywords,
         status: form.status,
+        is_checked: form.is_checked,
 
         image1: form.image1,
         registerd_image1: form.registerd_image1,
@@ -250,6 +253,17 @@ const updateFunction = () => {
                                     </div>
                                 </div>
 
+                                <div class="p-2 w-full">
+                                    <label for="is_checked" class="leading-7 text-sm text-gray-600">求人の確認</label>
+                                    <input 
+                                        type="checkbox" 
+                                        id="is_checked" 
+                                        v-model="form.is_checked" 
+                                        :true-value="1"
+                                        :false-value="0"
+                                    />
+                                </div>
+
                                 <!-- 画像の変更など -->
                                 <div v-for="index in 5" :key="`image${index}`" class="p-2 w-full">
                                     <div class="relative">
@@ -280,7 +294,7 @@ const updateFunction = () => {
                                     <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
                                 </div>
                                 <div class="p-2 w-full">
-                                    <Link as="button" href="/jobs" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
+                                    <Link as="button" href="/admin/companylist" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
                                 </div>
                             </div>
                         </div>

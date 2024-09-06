@@ -27,7 +27,14 @@ class JobController extends Controller
         ->orderBy('updated_at', 'desc')
         ->paginate(3);
 
-        if ($request->is('admin/*')) {
+        if ($request->is('admin/new/companylist')) {
+            $inertiaJobs = InertiaJob::where('is_checked', 0)
+            ->paginate(3);
+            // dd($inertiaJobs);
+            return Inertia::render('Admin/NewCompany', [
+                'inertiaJobs' => $inertiaJobs,
+            ]);
+        } elseif ($request->is('admin/*')) {
             $inertiaJobs = InertiaJob::searchInertiaJobs($search, $companySearch)
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
@@ -97,6 +104,7 @@ class JobController extends Controller
             'search_keywords' => ['nullable','array'],
             'status' => ['nullable',],
             'registrant' => ['nullable'],
+            'is_checked' => ['nullable'],
             'image1' => ['nullable', 'image', 'max:5120'],
             'image2' => ['nullable', 'image', 'max:5120'],
             'image3' => ['nullable', 'image', 'max:5120'],
@@ -173,6 +181,8 @@ class JobController extends Controller
      */
     public function update(Request $request, InertiaJob $inertiaJob)
     {
+        // dd($request->all());
+
         // 検索キーワードを配列に変換
         if ($request->has('search_keywords') && is_string($request->search_keywords)) {
             $request->merge([
@@ -199,6 +209,7 @@ class JobController extends Controller
             'workOther' => ['nullable'],
             'search_keywords' => ['nullable','array'],
             'status' => ['nullable'],
+            'is_checked' => ['nullable'],
             'image1' => ['nullable', 'image', 'max:5120'],
             'image2' => ['nullable', 'image', 'max:5120'],
             'image3' => ['nullable', 'image', 'max:5120'],

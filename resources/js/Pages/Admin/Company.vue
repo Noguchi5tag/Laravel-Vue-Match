@@ -212,6 +212,18 @@ const imageCount = (job) => {
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="w-full">
+                                <div class="relative">
+                                    <InputLabel for="is_checked" class="leading-7 text-sm text-gray-600">求人確認の可否</InputLabel>
+                                    <div class="">
+                                        <p class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                            <span v-if="props.inertiaJob.is_checked === 0">未読</span>
+                                            <span v-else>確認済み</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                     
                             <div class="p-2 w-full">
                                 <div class="p-2">

@@ -29,6 +29,7 @@ class InertiaJob extends Model
         'search_keywords', // 検索キーワード
         'status', // 公開か非公開か
         'registrant',
+        'is_checked',
 
         'image1', // 画像1
         'image2', // 画像2

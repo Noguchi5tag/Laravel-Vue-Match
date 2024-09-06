@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import AdminAuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
+import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted } from 'vue'
@@ -53,18 +53,19 @@ const imageCount = (job) => {
     return count;
 }
 
+const newJobs = props.inertiaJobs.data.length || 0;
 </script>
 
 <template>
-    <Head title="求人一覧" />
-    <AdminAuthenticatedLayout>
+    <Head title="新着求人" />
+    <AuthenticatedLayout :newJobs="newJobs">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">求人一覧</h2>
-        </template>
-        <!-- フラッシュメッセージ -->
-        <div v-if="$page.props.flash.message" class="bg-blue-300">
-            {{ $page.props.flash.message }}
-        </div>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">新着求人：{{ newJobs }}件</h2>
+    </template>
+    <!-- フラッシュメッセージ -->
+    <div v-if="$page.props.flash.message" class="bg-blue-300">
+        {{ $page.props.flash.message }}
+    </div>
 
         <section class="text-gray-600 body-font relative max-w-screen-md mx-auto">
             <div class="container px-4 py-10 mx-auto">
@@ -139,25 +140,7 @@ const imageCount = (job) => {
 
                     <div v-if="inertiaJobs.data.length" class="-m-2">
                         <template v-for="job in inertiaJobs.data" :key="job.id">
-                            <div class="rounded-lg bg-gray-100 my-6 py-6 ">
-                                <div class="flex flex-col text-center w-full mb-6">
-                                    <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
-                                        {{ job.companyName }}
-                                    </h1>
-                                </div>
-    
-                                <carousel :items-to-show="1.5">
-                                    <slide v-for="slide in imageCount(job)" :key="slide">
-                                        <div v-if="job[`image${slide}`]" class="carousel__item">
-                                            <img :src="`/images/${job[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
-                                        </div>
-                                    </slide>
-                                    <template #addons>
-                                    <navigation />
-                                    <pagination />
-                                    </template>
-                                </carousel>
-    
+                            <div class="rounded-lg bg-white my-6 py-6 ">
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <InputLabel for="companyName" class="leading-7 text-sm text-gray-600">会社名</InputLabel>
@@ -168,12 +151,6 @@ const imageCount = (job) => {
                                     <div class="relative">
                                         <InputLabel for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</InputLabel>
                                         <div type="text" id="WantedTitles" name="WantedTitles" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.WantedTitles }}</div>
-                                    </div>
-                                </div>
-                                <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel for="Occupation" class="leading-7 text-sm text-gray-600">職種</InputLabel>
-                                        <div type="text" id="Occupation" name="Occupation" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
@@ -224,7 +201,7 @@ const imageCount = (job) => {
                 </div>
             </div>
         </section>
-    </AdminAuthenticatedLayout>
+    </AuthenticatedLayout>
 </template>
 
 <style>

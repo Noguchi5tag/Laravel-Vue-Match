@@ -26,6 +26,7 @@ const form = reactive({
     search_keywords: '',
     status: '',
     registrant: '',
+    is_checked: 1,
     image1: '',
     image2: '',
     image3: '',

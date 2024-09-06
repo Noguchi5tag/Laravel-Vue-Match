@@ -44,6 +44,11 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('admin.new.companylist.index')" :active="route().current('admin.new.companylist.index')">
+                                    新着求人
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('admin.news.create')" :active="route().current('admin.news.create')">
                                     お知らせ登録
                                 </NavLink>
@@ -144,6 +149,11 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('admin.companylist.index')" :active="route().current('admin.companylist.index')">
                             求人一覧
+                        </ResponsiveNavLink>
+                    </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('admin.new.companylist.index')" :active="route().current('admin.new.companylist.index')">
+                            新着求人
                         </ResponsiveNavLink>
                     </div>
                     <div class="pt-2 pb-3 space-y-1">
