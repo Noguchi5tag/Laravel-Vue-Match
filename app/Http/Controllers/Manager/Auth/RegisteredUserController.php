@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Manager\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Manager;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +13,8 @@ use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use Illuminate\Support\Facades\Log;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -20,7 +22,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Manager/Auth/Register');
     }
 
     /**
@@ -32,32 +34,23 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'login_name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.Manager::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'tel' => 'required|string',
-            'sex' => 'required|integer|in:0,1,2',
-            'birth' => 'required|date',
-            'postal' => 'required|integer',
-            'prefectures' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
         ]);
 
-        $user = User::create([
+        $user = Manager::create([
             'name' => $request->name,
+            'login_name' => $request->login_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'tel' => $request->tel,
-            'sex' => $request->sex,
-            'birth' => $request->birth,
-            'postal' => $request->postal,
-            'prefectures' => $request->prefectures,
-            'city' => $request->city,
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
+        Auth::guard('manager')->login($user);
+        Log::info('マネージャー登録成功');
 
-        return redirect(route('company.index', absolute: false));
+        return redirect(route('manager.dashboard')); //登録後のリダイレクト先
     }
 }

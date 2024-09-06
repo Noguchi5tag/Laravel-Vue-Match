@@ -5,6 +5,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import DangerButton from '@/Components/DangerButton.vue';
+import NavLink from '@/Components/NavLink.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import BasePage from '../../Layouts/BaseLayouts.vue';
 
@@ -86,18 +87,21 @@ const submit = () => {
                 </div>
             </form>
             
-            <div class="my-6">
+            <div class="my-6 flex justify-center">
                 <!-- v-if="canResetPassword" -->
-                <DangerButton>
-                    <Link
+                <NavLink
+                    as="button" 
                     :href="route('password.request')"
-                    class="underline text-sm text-white hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                >
                     パスワードをわすれた
-                </Link>
-                </DangerButton>
-                <Link as="button" :href="route('register')" class="rounded-md px-3 py-2 ml-2 text-white bg-sky-600 ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                </NavLink>
+                <NavLink 
+                    as="button" 
+                    :href="route('register')"
+                    class="ml-4"
+                >
                     新規会員登録
-                </Link>
+                </NavLink>
             </div>
         </div>
     </BasePage>

@@ -2,16 +2,17 @@
 import { Head, router, Link } from '@inertiajs/vue3';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
+import AuthenticatedLayout from '@/Layouts/ManagerAuthenticatedLayout.vue';
 import { ref, onMounted } from 'vue';
 import InputLabel from '@/Components/InputLabel.vue';
 
 //ログインしているかどうかの処理
-const isAdmin = ref(false);
+const isManager = ref(false);
 onMounted(() => {
     const currentUrl = window.location.pathname;
-    isAdmin.value = currentUrl.includes('/admin/');
+    isManager.value = currentUrl.includes('/manager/');
 });
+console.log(isManager);
 
 const props = defineProps({
     id: String,
@@ -19,13 +20,6 @@ const props = defineProps({
 })
 
 const keyWords = props.inertiaJob.search_keywords.join(', ') || 'キーワード';
-
-const deleteFunction = id => {
-    console.log('id:', id)
-    router.delete(route('admin.company.delete', { inertiaJob: id }), {
-        onBefore: () => confirm('削除しますか？')
-    },)
-}
 
 const imageCount = (job) => {
     let count = 0;
@@ -215,15 +209,12 @@ const imageCount = (job) => {
                     
                             <div class="p-2 w-full">
                                 <div class="p-2">
-                                    <Link as="button" :href="route('admin.company.edit', { inertiaJob: props.inertiaJob.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</Link>
-                                </div>
-                                <div class="p-2">
-                                    <button @click="deleteFunction(props.inertiaJob.id)" class="flex mx-auto text-white bg-red-400 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">削除</button>
+                                    <Link as="button" :href="route('manager.company.edit', { inertiaJob: props.inertiaJob.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</Link>
                                 </div>
                             </div>
                             
                             <div class="p-2 w-full">
-                                <Link as="button" href="/admin/companylist" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
+                                <Link as="button" href="/manager/companylist" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
                             </div>
                         </div>
                     </div>

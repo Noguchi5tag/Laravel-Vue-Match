@@ -6,6 +6,7 @@ use App\Models\InertiaJob;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class JobController extends Controller
 {
@@ -25,14 +26,22 @@ class JobController extends Controller
         ->searchInertiaJobs($search, $dutyStation, $Occupation, $companyPay)
         ->orderBy('updated_at', 'desc')
         ->paginate(3);
-        // dd($inertiaJobs);
 
-        // URLやリクエストパラメータに基づいてビューを切り替える
         if ($request->is('admin/*')) {
             $inertiaJobs = InertiaJob::searchInertiaJobs($search, $companySearch)
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
             return Inertia::render('Admin/CompanyList', [
+                'inertiaJobs' => $inertiaJobs,
+            ]);
+        } elseif ($request->is('manager/*')) {
+            $manager = Auth::user();
+
+            $inertiaJobs = InertiaJob::where('registrant', $manager->name)
+            ->searchInertiaJobs($search, $companySearch)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(3);
+            return Inertia::render('Manager/CompanyList', [
                 'inertiaJobs' => $inertiaJobs,
             ]);
         }
@@ -45,9 +54,16 @@ class JobController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return Inertia::render('Company/Create');
+        $manager = Auth::user(); // ログイン中のManagerユーザーを取得
+
+        if ($request->is('manager/*')) {
+            return Inertia::render('Manager/CompanyCreate', [
+                'managerName' => $manager->name, // nameをフロントに渡す
+            ]);
+        }
+        return Inertia::render('Admin/CompanyCreate');
     }
 
     /**
@@ -55,6 +71,12 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        // 検索キーワードを配列に変換
+        if ($request->has('search_keywords') && is_string($request->search_keywords)) {
+            $request->merge([
+                'search_keywords' => explode(',', $request->search_keywords),
+            ]);
+        }
         $validatedData = $request->validate([
             'companyName' => ['nullable', 'max:100'],
             'WantedTitles' => ['nullable',],
@@ -72,8 +94,9 @@ class JobController extends Controller
             'freeDays' => ['nullable',],
             'NearestStation' => ['nullable',],
             'workOther' => ['nullable',],
-            'search_keywords' => ['nullable|array'],
+            'search_keywords' => ['nullable','array'],
             'status' => ['nullable',],
+            'registrant' => ['nullable'],
             'image1' => ['nullable', 'image', 'max:5120'],
             'image2' => ['nullable', 'image', 'max:5120'],
             'image3' => ['nullable', 'image', 'max:5120'],
@@ -95,7 +118,12 @@ class JobController extends Controller
         
         InertiaJob::create($validatedData);
 
+        if ($request->is('manager/*')) {
+            return to_route('manager.dashboard')->with(['message' => '登録しました。']);
+        }
         return to_route('admin.dashboard')->with(['message' => '登録しました。']);
+
+
     }
 
     /**
@@ -108,13 +136,13 @@ class JobController extends Controller
             return Inertia::render('Admin/Company', [
                 'inertiaJob' => $inertiaJob,
             ]);
-        } elseif ($request->is('/')) {
-            return Inertia::render('TopPage', [
+        } elseif ($request->is('manager/*')) {
+            return Inertia::render('Manager/Company', [
                 'inertiaJob' => $inertiaJob,
             ]);
-        }
+        } 
 
-        return Inertia::render('Company/Show', [
+        return Inertia::render('Company/Index', [
             'inertiaJob' => $inertiaJob,
         ]);
     }
@@ -127,6 +155,10 @@ class JobController extends Controller
         // URLやリクエストパラメータに基づいてビューを切り替える
         if ($request->is('admin/*')) {
             return Inertia::render('Admin/CompanyEdit', [
+                'inertiaJob' => $inertiaJob,
+            ]);
+        } elseif ($request->is('manager/*')) {
+            return Inertia::render('Manager/CompanyEdit', [
                 'inertiaJob' => $inertiaJob,
             ]);
         }
@@ -217,14 +249,21 @@ class JobController extends Controller
         $inertiaJob->update($validatedData);
 
         $message = $imageDeleted ? '画像を削除しました。' : '更新しました。';
+
+        if ($request->is('manager/*')) {
+            return to_route('manager.company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
+        }
         return to_route('admin.company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         $job = InertiaJob::findOrFail($id);
         $job->delete();
 
+        if ($request->is('manager/*')) {
+            return to_route('manager.companylist.index')->with(['message' => '削除しました。']);
+        }
         return to_route('admin.companylist.index')->with(['message' => '削除しました。']);
     }
 

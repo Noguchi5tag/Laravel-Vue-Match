@@ -101,3 +101,8 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->name('admin.')->group(function(){
     require __DIR__.'/admin.php';
 });
+
+//企業管理者ページ
+Route::prefix('manager')->name('manager.')->group(function(){
+    require __DIR__.'/manager.php';
+});

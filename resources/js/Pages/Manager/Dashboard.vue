@@ -1,5 +1,5 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
+import AuthenticatedLayout from '@/Layouts/ManagerAuthenticatedLayout.vue';
 import { Head, usePage, useForm } from '@inertiajs/vue3';
 
 const user = usePage().props.auth.user;
@@ -11,7 +11,7 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="管理者情報" />
+    <Head title="マネージャー情報" />
 
     <AuthenticatedLayout>
         <template #header>
@@ -26,7 +26,7 @@ const form = useForm({
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">管理者でログイン</div>
+                    <div class="p-6 text-gray-900">マネージャーでログイン</div>
                 </div>
             </div>
         </div>

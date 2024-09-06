@@ -28,6 +28,7 @@ class InertiaJob extends Model
         'workOther', // その他
         'search_keywords', // 検索キーワード
         'status', // 公開か非公開か
+        'registrant',
 
         'image1', // 画像1
         'image2', // 画像2

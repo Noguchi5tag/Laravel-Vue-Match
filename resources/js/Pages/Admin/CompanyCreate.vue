@@ -25,6 +25,7 @@ const form = reactive({
     workOther: '',
     search_keywords: '',
     status: '',
+    registrant: '',
     image1: '',
     image2: '',
     image3: '',
