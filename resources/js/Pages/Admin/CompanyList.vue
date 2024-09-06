@@ -66,7 +66,7 @@ const imageCount = (job) => {
         {{ $page.props.flash.message }}
     </div>
 
-        <section class="text-gray-600 body-font relative">
+        <section class="text-gray-600 body-font relative max-w-screen-md mx-auto">
             <div class="container px-4 py-10 mx-auto">
                 <div class="mx-auto">
                     <section class="text-gray-600 body-font relative">
@@ -108,6 +108,35 @@ const imageCount = (job) => {
                         </ul>
                     </div>
 
+                    <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="mt-6 flex justify-center">
+                        <ul class="pagination flex">
+                            <li v-for="(link, index) in inertiaJobs.links" :key="link.label" :class="{ 'active': link.active }">
+                                <!-- "前"のリンクを表示しない（インデックスが0かつリンクが存在しない場合） -->
+                                <template v-if="index !== 0 || link.url">
+                                    <!-- "次"のリンクを表示しない（最終ページでかつリンクが存在しない場合） -->
+                                    <template v-if="index !== inertiaJobs.links.length - 1 || link.url">
+                                        <Link
+                                            v-if="link.url"
+                                            :href="link.url"
+                                            v-html="link.label"
+                                            :class="{ 
+                                                'bg-indigo-500 text-white p-2 mx-2': link.active,
+                                                'bg-gray-200 text-black p-2 mx-2': !link.active
+                                            }">
+                                        </Link>
+                                        <span 
+                                            v-else v-html="link.label" 
+                                            :class="{ 
+                                                'bg-indigo-500 text-white p-2': link.active ,
+                                                'bg-gray-200 text-black': !link.active
+                                                }">
+                                        </span>
+                                    </template>
+                                </template>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div v-if="inertiaJobs.data.length" class="-m-2">
                         <template v-for="job in inertiaJobs.data" :key="job.id">
                             <div class="rounded-lg bg-gray-100 my-6 py-6 ">
@@ -131,26 +160,26 @@ const imageCount = (job) => {
     
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="companyName" class="leading-7 text-sm text-gray-600">会社名</label>
-                                        <div type="text" id="companyName" name="companyName" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyName }}</div>
+                                        <InputLabel for="companyName" class="leading-7 text-sm text-gray-600">会社名</InputLabel>
+                                        <div type="text" id="companyName" name="companyName" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyName }}</div>
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</label>
-                                        <div type="text" id="WantedTitles" name="WantedTitles" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.WantedTitles }}</div>
+                                        <InputLabel for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</InputLabel>
+                                        <div type="text" id="WantedTitles" name="WantedTitles" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.WantedTitles }}</div>
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="Occupation" class="leading-7 text-sm text-gray-600">職種</label>
-                                        <div type="text" id="Occupation" name="Occupation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
+                                        <InputLabel for="Occupation" class="leading-7 text-sm text-gray-600">職種</InputLabel>
+                                        <div type="text" id="Occupation" name="Occupation" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</label>
-                                        <div type="text" id="companyAddress" name="companyAddress" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
+                                        <InputLabel for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</InputLabel>
+                                        <div type="text" id="companyAddress" name="companyAddress" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">

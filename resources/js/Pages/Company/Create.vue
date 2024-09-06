@@ -53,7 +53,7 @@ const submitFunction = () => {
         <div v-if="$page.props.flash.message" class="bg-blue-300">
             {{ $page.props.flash.message }}
         </div>
-        <div class="py-6">
+        <div class="py-6 max-w-screen-md mx-auto">
             <form @submit.prevent="submitFunction" enctype="multipart/form-data">
                 <section class="text-gray-600 body-font relative">
                     <div class="container px-4 py-10 mx-auto">

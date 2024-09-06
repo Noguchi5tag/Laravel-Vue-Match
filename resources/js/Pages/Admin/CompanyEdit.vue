@@ -102,7 +102,7 @@ const updateFunction = () => {
 <template>
     <Head title="編集フォーム" />
     <AuthenticatedLayout>
-        <div class="py-6">
+        <div class="py-6 max-w-screen-md mx-auto">
             <form @submit.prevent="updateFunction(form.id)" enctype="multipart/form-data">
                 <section class="text-gray-600 body-font relative">
                     <div class="container px-4 py-24 mx-auto">

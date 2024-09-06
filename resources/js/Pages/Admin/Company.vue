@@ -4,6 +4,7 @@ import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
 import { ref, onMounted } from 'vue';
+import InputLabel from '@/Components/InputLabel.vue';
 
 //ログインしているかどうかの処理
 const isAdmin = ref(false);
@@ -46,40 +47,40 @@ const imageCount = (job) => {
             {{ $page.props.flash.message }}
         </div>
 
-        <div v-if="props.inertiaJob">
+        <div v-if="props.inertiaJob" class=" max-w-screen-md mx-auto">
             <!-- {{ props.inertiaJob.id }} -->
             <section class="text-gray-600 body-font relative">
-                    <div class="container px-4 py-24 mx-auto">
-                        <div class="flex flex-col text-center w-full mb-12">
-                            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-                                {{ props.inertiaJob.companyName }}
-                            </h1>
-                        </div>
-                        <carousel :items-to-show="1.5">
-                            <slide v-for="slide in imageCount(props.inertiaJob)" :key="slide">
-                                <div v-if="props.inertiaJob[`image${slide}`]" class="carousel__item">
-                                    <img :src="`/images/${props.inertiaJob[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
-                                </div>
-                            </slide>
-                            <template #addons>
-                                <navigation />
-                                <pagination />
-                            </template>
-                        </carousel>
-                        <div class="mx-auto">
-                            <div class="flex flex-wrap -m-2">
-                                <div class="p-1 w-full">
-                                    <div class="relative">
-                                    <label for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                <div class="container px-4 py-24 mx-auto">
+                    <div class="flex flex-col text-center w-full mb-12">
+                        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+                            {{ props.inertiaJob.companyName }}
+                        </h1>
+                    </div>
+                    <carousel :items-to-show="1.5">
+                        <slide v-for="slide in imageCount(props.inertiaJob)" :key="slide">
+                            <div v-if="props.inertiaJob[`image${slide}`]" class="carousel__item">
+                                <img :src="`/images/${props.inertiaJob[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
+                            </div>
+                        </slide>
+                        <template #addons>
+                            <navigation />
+                            <pagination />
+                        </template>
+                    </carousel>
+                    <div class="mx-auto">
+                        <div class="flex flex-wrap -m-2">
+                            <div class="p-1 w-full">
+                                <div class="relative">
+                                    <InputLabel for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                         {{ props.inertiaJob.WantedTitles }}
                                     </div>
                                 </div>
                             </div>
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="Occupation" class="leading-7 text-sm text-gray-600">職種</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="Occupation" class="leading-7 text-sm text-gray-600">職種</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.Occupation }}
                                     </div>
                                 </div>
@@ -87,8 +88,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.companyAddress }}
                                     </div>
                                 </div>
@@ -96,8 +97,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="companyPay" class="leading-7 text-sm text-gray-600">給料</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="companyPay" class="leading-7 text-sm text-gray-600">給料</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.companyPay }}円～
                                     </div>
                                 </div>
@@ -105,8 +106,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.dutyStation }}
                                     </div>
                                 </div>
@@ -114,8 +115,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="workDescription" class="leading-7 text-sm text-gray-600">仕事内容</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="workDescription" class="leading-7 text-sm text-gray-600">仕事内容</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.workDescription }}
                                     </div>
                                 </div>
@@ -123,8 +124,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="payDescription" class="leading-7 text-sm text-gray-600">給与詳細</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="payDescription" class="leading-7 text-sm text-gray-600">給与詳細</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.payDescription }}
                                     </div>
                                 </div>
@@ -132,8 +133,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="travelExpenses" class="leading-7 text-sm text-gray-600">交通費</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="travelExpenses" class="leading-7 text-sm text-gray-600">交通費</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.travelExpenses }}
                                     </div>
                                 </div>
@@ -141,8 +142,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="Welfare" class="leading-7 text-sm text-gray-600">福利厚生</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="Welfare" class="leading-7 text-sm text-gray-600">福利厚生</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.Welfare }}
                                     </div>
                                 </div>
@@ -150,8 +151,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="workHours" class="leading-7 text-sm text-gray-600">勤務時間</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="workHours" class="leading-7 text-sm text-gray-600">勤務時間</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.startWork.split(':').slice(0, 2).join(':') }}～{{ props.inertiaJob.endWork.split(':').slice(0, 2).join(':') }}
                                     </div>
                                 </div>
@@ -159,8 +160,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="workDays" class="leading-7 text-sm text-gray-600">出勤日</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="workDays" class="leading-7 text-sm text-gray-600">出勤日</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.workDays }}
                                     </div>
                                 </div>
@@ -168,8 +169,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="freeDays" class="leading-7 text-sm text-gray-600">休日</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="freeDays" class="leading-7 text-sm text-gray-600">休日</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.freeDays }}
                                     </div>
                                 </div>
@@ -177,8 +178,8 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="NearestStation" class="leading-7 text-sm text-gray-600">最寄り駅</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="NearestStation" class="leading-7 text-sm text-gray-600">最寄り駅</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.NearestStation }}
                                     </div>
                                 </div>
@@ -186,26 +187,26 @@ const imageCount = (job) => {
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="workOther" class="leading-7 text-sm text-gray-600">その他</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="workOther" class="leading-7 text-sm text-gray-600">その他</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ props.inertiaJob.workOther }}
                                     </div>
                                 </div>
                             </div>
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <label for="search_keywords" class="leading-7 text-sm">検索キーワード</label>
-                                    <div class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <InputLabel for="search_keywords" class="leading-7 text-sm">検索キーワード</InputLabel>
+                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
                                         {{ keyWords }}
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="p-2 w-full">
+                            <div class="w-full">
                                 <div class="relative">
-                                    <label for="status" class="leading-7 text-sm text-gray-600">ステータス</label>
+                                    <InputLabel for="status" class="leading-7 text-sm text-gray-600">ステータス</InputLabel>
                                     <div class="">
-                                        <p>現在のステータス: 
+                                        <p class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">現在のステータス: 
                                             <span v-if="props.inertiaJob.status === 0">非公開</span>
                                             <span v-else>公開</span>
                                         </p>

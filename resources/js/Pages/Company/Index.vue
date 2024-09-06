@@ -167,6 +167,35 @@ const search_button = () => {
                         </ul>
                     </div>
 
+                    <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="my-6 flex justify-center">
+                        <ul class="pagination flex">
+                            <li v-for="(link, index) in inertiaJobs.links" :key="link.label" :class="{ 'active': link.active }">
+                                <!-- "前"のリンクを表示しない（インデックスが0かつリンクが存在しない場合） -->
+                                <template v-if="index !== 0 || link.url">
+                                    <!-- "次"のリンクを表示しない（最終ページでかつリンクが存在しない場合） -->
+                                    <template v-if="index !== inertiaJobs.links.length - 1 || link.url">
+                                        <Link
+                                            v-if="link.url"
+                                            :href="link.url"
+                                            v-html="link.label"
+                                            :class="{ 
+                                                'bg-indigo-500 text-white p-2 mx-2': link.active,
+                                                'bg-gray-200 text-black p-2 mx-2': !link.active
+                                            }">
+                                        </Link>
+                                        <span 
+                                            v-else v-html="link.label" 
+                                            :class="{ 
+                                                'bg-indigo-500 text-white p-2': link.active ,
+                                                'bg-gray-200 text-black': !link.active
+                                                }">
+                                        </span>
+                                    </template>
+                                </template>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div v-if="inertiaJobs.data.length" class="-m-2">
                         <template v-for="job in inertiaJobs.data" :key="job.id">
                             <div class="my-2 py-2 border-t border-gray-300" v-if="job.status === 1">
