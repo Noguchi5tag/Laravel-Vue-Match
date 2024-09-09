@@ -5,9 +5,12 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+
+const { props } = usePage();
+const totalNewJobs = props.totalNewJobs || 0;
 </script>
 
 <template>
@@ -45,7 +48,12 @@ const showingNavigationDropdown = ref(false);
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('admin.new.companylist.index')" :active="route().current('admin.new.companylist.index')">
-                                    新着求人
+                                    <template v-if="totalNewJobs">
+                                        <p>新着求人<span class="text-white py-0.5 px-2 rounded-full text-lg bg-red-500">{{ totalNewJobs }}</span></p>
+                                    </template>
+                                    <template v-else>
+                                        <p>新着求人なし</p>
+                                    </template>
                                 </NavLink>
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">

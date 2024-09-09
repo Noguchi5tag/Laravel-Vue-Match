@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
+use App\Models\InertiaJob;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Inertia::share([
+            'totalNewJobs' => function () {
+                return InertiaJob::where('is_checked', 0)->count(); // 新着求人数をカウント
+            },
+        ]);
     }
 }
