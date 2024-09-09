@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Admin;
 
 class RedirectIfAuthenticated
 {
@@ -18,9 +17,11 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.dashboard');
-        } elseif (Auth::guard('web')->check()) {
+        if ($request->is('admin/*') && Auth::guard('admin')->check()) {
+            if ($request->route()->getName() === 'admin.login' || $request->route()->getName() === 'admin.register') {
+                return redirect()->route('admin.dashboard');
+            }
+        } elseif (($request->is('login') || $request->is('register')) && Auth::guard('web')->check()) {
             return redirect()->route('profile.edit');
         }
 

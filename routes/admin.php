@@ -13,24 +13,26 @@ use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use Inertia\Inertia;
 
 Route::middleware('guest:admin')->group(function () {
     
     Route::get('register', [RegisteredUserController::class, 'create'])
-                ->middleware('guest:admin');
+    ->middleware(['guest:admin', RedirectIfAuthenticated::class])
+    ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store'])
-                ->middleware('guest:admin')
-                ->name('register');
+        ->middleware(['guest:admin', RedirectIfAuthenticated::class])
+        ->name('register');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->middleware('guest:admin')
-                ->name('login');
+        ->middleware(['guest:admin', RedirectIfAuthenticated::class])
+        ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store'])
-                ->middleware('guest:admin')
-                ->name('login.adminSubmit');
+        ->middleware(['guest:admin', RedirectIfAuthenticated::class])
+        ->name('login.adminSubmit');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest:admin')
@@ -53,34 +55,33 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::get('/', function () {
         return Inertia::render('TopPage');
-    })->middleware(['auth:admin', 'verified'])->name('top');
+    })->name('top');
 
     Route::get('/dashboard', function () {
         return Inertia::render('Admin/Dashboard');
-    })->middleware(['auth:admin', 'verified'])->name('dashboard');
+    })->name('dashboard');
 
-    Route::get('/profile', [AdminProfileController::class, 'edit'])->middleware('auth:admin')->name('profile.edit');
+    Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Company
-    Route::get('/companylist', [JobController::class,'index'])->middleware('auth:admin')->name('companylist.index');
-    Route::get('/new/companylist', [JobController::class,'index'])->middleware('auth:admin')->name('new.companylist.index');
-    Route::get('/company/create', [JobController::class,'create'])->middleware('auth:admin')->name('company.create');
+    Route::get('/companylist', [JobController::class,'index'])->name('companylist.index');
+    Route::get('/new/companylist', [JobController::class,'index'])->name('new.companylist.index');
+    Route::get('/company/create', [JobController::class,'create'])->name('company.create');
     Route::post('/company/job', [JobController::class,'store'])->name('company.store'); //登録
-    Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->middleware('auth:admin')->name('company.edit');
-    Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->middleware('auth:admin')->name('company.show');
+    Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->name('company.edit');
+    Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show');
     Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('company.update');
     Route::delete('/company/delete/{inertiaJob}', [JobController::class,'delete'])->name('company.delete');
 
     //News
-    Route::get('/news', [NewsController::class, 'index'])->middleware('auth:admin')->name('newslist.index');
-    Route::get('/news/create', [NewsController::class, 'create'])->middleware('auth:admin')->name('news.create');
+    Route::get('/news', [NewsController::class, 'index'])->name('newslist.index');
+    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
     Route::post('/news/store', [NewsController::class, 'store'])->name('news.store');
     Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
-                ->middleware('auth:admin')
                 ->name('verification.notice');
 
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
@@ -92,15 +93,12 @@ Route::middleware('auth:admin')->group(function () {
                 ->name('verification.send');
 
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-                ->middleware('auth:admin')
                 ->name('password.confirm');
 
-    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store'])
-                ->middleware('auth:admin');
+    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->middleware('auth:admin')
                 ->name('logout');
 });

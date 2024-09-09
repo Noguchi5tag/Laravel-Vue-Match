@@ -13,6 +13,9 @@ use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
 {
+
+    // protected $redirectTo = '/admin/dashboard';
+
     /**
      * Display the login view.
      */
