@@ -56,6 +56,9 @@ sail down
 ```
 
 ## テストデータの追加
+#### テストデータ画像
+先にテストデータフォルダの画像を、/public/images/testの中に入れる。
+
 ```bash
 sail artisan migrate:fresh --seed
 ```
@@ -98,6 +101,7 @@ freeDays : 休日<br>
 NearestStation : 最寄り駅<br>
 workOther : その他<br>
 status : 公開か非公開か<br>
+is_checked : 管理者が公開前に確認したかどうか
 
 'image1', // 画像1<br>
 'image2', // 画像2<br>
