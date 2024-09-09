@@ -30,7 +30,7 @@ class JobController extends Controller
         if ($request->is('admin/new/companylist')) {
             $inertiaJobs = InertiaJob::where('is_checked', 0)
             ->paginate(3);
-            return Inertia::render('Admin/NewCompany', [
+            return Inertia::render('Admin/Company/NewCompany', [
                 'inertiaJobs' => $inertiaJobs,
             ]);
         } elseif ($request->is('admin/*')) {
@@ -69,7 +69,7 @@ class JobController extends Controller
                 'managerName' => $manager->name, // nameをフロントに渡す
             ]);
         }
-        return Inertia::render('Admin/CompanyCreate');
+        return Inertia::render('Admin/Company/CompanyCreate');
     }
 
     /**
@@ -140,7 +140,7 @@ class JobController extends Controller
     {
         // URLやリクエストパラメータに基づいてビューを切り替える
         if ($request->is('admin/*')) {
-            return Inertia::render('Admin/Company', [
+            return Inertia::render('Admin/Company/Company', [
                 'inertiaJob' => $inertiaJob,
             ]);
         } elseif ($request->is('manager/*')) {
@@ -161,7 +161,7 @@ class JobController extends Controller
     {
         // URLやリクエストパラメータに基づいてビューを切り替える
         if ($request->is('admin/*')) {
-            return Inertia::render('Admin/CompanyEdit', [
+            return Inertia::render('Admin/Company/CompanyEdit', [
                 'inertiaJob' => $inertiaJob,
             ]);
         } elseif ($request->is('manager/*')) {
@@ -169,10 +169,6 @@ class JobController extends Controller
                 'inertiaJob' => $inertiaJob,
             ]);
         }
-
-        return Inertia::render('Company/Edit', [
-            'inertiaJob' => $inertiaJob,
-        ]);
     }
 
     /**

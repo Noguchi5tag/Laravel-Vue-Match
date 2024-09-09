@@ -17,7 +17,7 @@ onMounted(() => {
 <template>
     <div v-if="isLoggedIn" class=" bg-white fixed bottom-0 max-w-sm w-full left-1/2 transform -translate-x-1/2 border-t-2 border-slate-200">
         <div class="pt-2 flex justify-around items-center">
-            <Link as="button" href="/jobs" class="flex flex-col items-center">
+            <Link as="button" href="/" class="flex flex-col items-center">
                 <img class="w-6" src="../../../../public/images/home.png" alt="">
                 <p>ホーム</p>
             </Link>

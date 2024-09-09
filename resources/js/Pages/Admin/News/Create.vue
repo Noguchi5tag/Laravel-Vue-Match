@@ -1,7 +1,9 @@
 <script setup>
 import { reactive } from 'vue';
-import { Link, Head  } from '@inertiajs/vue3';
+import { Head  } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
 
 const form = reactive({
@@ -33,14 +35,14 @@ const submitFunction = () => {
                             <div class="-m-2">
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="title" class="leading-7 text-sm text-gray-600">タイトル</label>
-                                        <input type="text" name="title" id="title" v-model="form.title" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <InputLabel for="title" class="leading-7 text-sm text-gray-600">タイトル</InputLabel>
+                                        <TextInput type="text" name="title" id="title" v-model="form.title" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="content" class="leading-7 text-sm text-gray-600">内容</label>
+                                        <InputLabel for="content" class="leading-7 text-sm text-gray-600">内容</InputLabel>
                                         <textarea name="content" id="content" v-model="form.content" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                                     </div>
                                 </div>

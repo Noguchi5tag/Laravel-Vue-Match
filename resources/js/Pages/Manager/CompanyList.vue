@@ -193,7 +193,7 @@ const imageCount = (job) => {
                     </div>
                     <!-- 検索結果がない場合の表示 -->
                     <template v-else>
-                        <p class="text-center text-gray-600">データがありません。検索条件を変更してください。</p>
+                        <p class="text-center text-gray-600">登録した求人がありません。</p>
                     </template>
 
                     <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="mt-6 flex justify-center">
