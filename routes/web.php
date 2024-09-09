@@ -59,6 +59,10 @@ Route::get('/questions', function () {
 Route::get('/news', function () {
     return Inertia::render('NewsPage');
 })->name('News');
+//求人掲載を考えている方へ
+Route::get('/jobpostings', function () {
+    return Inertia::render('JobPostings');
+})->name('jobpostings');
 
 //default
 Route::middleware('auth')->group(function () {

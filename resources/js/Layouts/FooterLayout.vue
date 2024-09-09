@@ -15,9 +15,10 @@ const isLoggedIn = props.auth.user !== null;
                 <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800"/>
             </div>
             <div class="py-4 text-center flex flex-col items-center">
+                <NavLink as="button" href="/questions">よくある質問</NavLink>
+                <NavLink as="button" href="/jobpostings">求人掲載をお考えの方へ</NavLink>
                 <NavLink as="button" href="/rules">利用規約</NavLink>
                 <NavLink as="button" href="/privacy">プライバシーポリシー</NavLink>
-                <NavLink as="button" href="/questions">よくある質問</NavLink>
                 <NavLink as="button" href="/contact">お問い合わせ</NavLink>
             </div>
         </div>
