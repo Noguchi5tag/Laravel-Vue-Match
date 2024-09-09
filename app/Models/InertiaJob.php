@@ -104,6 +104,7 @@ class InertiaJob extends Model
             }
         }
     
+        // dd($query->toSql(), $query->getBindings());
         return $query;
     }
 }

@@ -23,14 +23,13 @@ class JobController extends Controller
         $companyPay = $request->input('companyPay');
 
         $inertiaJobs = InertiaJob::where('status', 1) // 公開中のみ表示
-        ->searchInertiaJobs($search, $dutyStation, $Occupation, $companyPay)
+        ->searchInertiaJobs($search, $companySearch, $dutyStation, $Occupation, $companyPay)
         ->orderBy('updated_at', 'desc')
         ->paginate(3);
 
         if ($request->is('admin/new/companylist')) {
             $inertiaJobs = InertiaJob::where('is_checked', 0)
             ->paginate(3);
-            // dd($inertiaJobs);
             return Inertia::render('Admin/NewCompany', [
                 'inertiaJobs' => $inertiaJobs,
             ]);
@@ -51,11 +50,11 @@ class JobController extends Controller
             return Inertia::render('Manager/CompanyList', [
                 'inertiaJobs' => $inertiaJobs,
             ]);
+        } else {
+            return Inertia::render('Company/Index', [
+                'inertiaJobs' => $inertiaJobs,
+            ]);
         }
-        
-        return Inertia::render('Company/Index', [
-            'inertiaJobs' => $inertiaJobs,
-        ]);
     }
 
     /**

@@ -34,11 +34,26 @@ class InertiaJobFactory extends Factory
             'NearestStation' => $this->faker->randomElement(['中央駅', '南駅', '東駅', '西駅', '北駅']),
             'workOther' => $this->faker->realText(100),
             'status' => $this->faker->numberBetween(0, 1),
-            'image1' => null,
-            'image2' => null,
-            'image3' => null,
-            'image4' => null,
-            'image5' => null,
+            'image1' => $this->faker->randomElement([
+                'test/test-1.jpg', 'test/test-2.jpg', 'test/test-3.jpg', 'test/test-4.jpg', 'test/test-5.jpg', 
+                'test/test-6.jpg', 'test/test-7.jpg', 'test/test-8.jpg', 'test/test-9.jpg', 'test/test-10.jpg'
+            ]),
+            'image2' => $this->faker->randomElement([
+                'test/test-1.jpg', 'test/test-2.jpg', 'test/test-3.jpg', 'test/test-4.jpg', 'test/test-5.jpg', 
+                'test/test-6.jpg', 'test/test-7.jpg', 'test/test-8.jpg', 'test/test-9.jpg', 'test/test-10.jpg'
+            ]),
+            'image3' => $this->faker->randomElement([
+                'test/test-1.jpg', 'test/test-2.jpg', 'test/test-3.jpg', 'test/test-4.jpg', 'test/test-5.jpg', 
+                'test/test-6.jpg', 'test/test-7.jpg', 'test/test-8.jpg', 'test/test-9.jpg', 'test/test-10.jpg'
+            ]),
+            'image4' => $this->faker->randomElement([
+                'test/test-1.jpg', 'test/test-2.jpg', 'test/test-3.jpg', 'test/test-4.jpg', 'test/test-5.jpg', 
+                'test/test-6.jpg', 'test/test-7.jpg', 'test/test-8.jpg', 'test/test-9.jpg', 'test/test-10.jpg'
+            ]),
+            'image5' => $this->faker->randomElement([
+                'test/test-1.jpg', 'test/test-2.jpg', 'test/test-3.jpg', 'test/test-4.jpg', 'test/test-5.jpg', 
+                'test/test-6.jpg', 'test/test-7.jpg', 'test/test-8.jpg', 'test/test-9.jpg', 'test/test-10.jpg'
+            ]),
         ];
     }
 }
