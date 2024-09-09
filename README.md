@@ -61,8 +61,8 @@ sail artisan migrate:fresh --seed
 ```
 
 #### テストデータが作成される項目
-###### デフォルトログインユーザー
 管理者（Admin）<br>
+マネージャー（求人を出す企業の担当者）<br>
 求人<br>
 お知らせ
 
@@ -72,6 +72,10 @@ password
 
 管理者ログイン<br>
 admin@admin.com<br>
+password
+
+企業の担当者<br>
+manager@manager.com<br>
 password
 
 ## 変数名の定義
