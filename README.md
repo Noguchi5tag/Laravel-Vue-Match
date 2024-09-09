@@ -59,6 +59,7 @@ sail down
 #### テストデータ画像
 先にテストデータフォルダの画像を、/public/images/testの中に入れる。
 
+#### テストデータ作成
 ```bash
 sail artisan migrate:fresh --seed
 ```
