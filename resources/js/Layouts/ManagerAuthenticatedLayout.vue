@@ -43,6 +43,11 @@ const showingNavigationDropdown = ref(false);
                                     求人一覧
                                 </NavLink>
                             </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('manager.dashboard')" :active="route().current('manager.dashboard')">
+                                    マッチした求人
+                                </NavLink>
+                            </div>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -133,6 +138,11 @@ const showingNavigationDropdown = ref(false);
                     </div>
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('manager.companylist.index')" :active="route().current('manager.companylist.index')">
+                            求人一覧
+                        </ResponsiveNavLink>
+                    </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('manager.dashboard')" :active="route().current('manager.dashboard')">
                             求人一覧
                         </ResponsiveNavLink>
                     </div>

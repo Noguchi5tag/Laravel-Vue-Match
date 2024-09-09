@@ -17,10 +17,10 @@ const props = defineProps({
     Carousel: Carousel,
     Slide: Slide,
     Pagination: Pagination,
-    Navigation: Navigation
+    Navigation: Navigation,
+    totalNewJobs: Number,
 })
-
-// console.log('inertiaJobs:', props.inertiaJobs)
+console.log(props.totalNewJobs);
 
 //クエリパラメータを取得
 const searchKeyword = ref('');
@@ -41,26 +41,13 @@ const searchCustomers = () => {
         companySearch: companySearch.value,
     });
 }
-
-//画像を取得して表示
-const imageCount = (job) => {
-    let count = 0;
-        for (let i = 1; i <= 5; i++) {
-            if (job[`image${i}`]) {
-                count++;
-            }
-        }
-    return count;
-}
-
-const newJobs = props.inertiaJobs.data.length || 0;
 </script>
 
 <template>
     <Head title="新着求人" />
     <AuthenticatedLayout :newJobs="newJobs">
         <template #header>
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">新着求人：{{ newJobs }}件</h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">新着求人：{{ totalNewJobs }}件</h2>
     </template>
     <!-- フラッシュメッセージ -->
     <div v-if="$page.props.flash.message" class="bg-blue-300">

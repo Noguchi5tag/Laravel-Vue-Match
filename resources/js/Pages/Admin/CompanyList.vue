@@ -7,20 +7,15 @@ import { ref, onMounted } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { dutyStations } from '@/data';
-import { Occupations } from '@/data';
-import { companyPays } from '@/data';
-
 
 const props = defineProps({
     inertiaJobs: Object,
     Carousel: Carousel,
     Slide: Slide,
     Pagination: Pagination,
-    Navigation: Navigation
+    Navigation: Navigation,
+    totalJobs: Number,
 })
-
-// console.log('inertiaJobs:', props.inertiaJobs)
 
 //クエリパラメータを取得
 const searchKeyword = ref('');
@@ -52,14 +47,20 @@ const imageCount = (job) => {
         }
     return count;
 }
-
 </script>
 
 <template>
     <Head title="求人一覧" />
     <AdminAuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">求人一覧</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">求人一覧
+                <template v-if="totalJobs > 0">
+                    {{ totalJobs }}社
+                </template>
+                <template v-else>
+                    データがありません
+                </template>
+            </h2>
         </template>
         <!-- フラッシュメッセージ -->
         <div v-if="$page.props.flash.message" class="bg-blue-300">

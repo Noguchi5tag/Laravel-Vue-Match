@@ -22,23 +22,25 @@ class JobController extends Controller
         $Occupation = $request->input('Occupation');
         $companyPay = $request->input('companyPay');
 
-        $inertiaJobs = InertiaJob::where('status', 1) // 公開中のみ表示
-        ->searchInertiaJobs($search, $companySearch, $dutyStation, $Occupation, $companyPay)
-        ->orderBy('updated_at', 'desc')
-        ->paginate(3);
-
         if ($request->is('admin/new/companylist')) {
-            $inertiaJobs = InertiaJob::where('is_checked', 0)
+            $inertiaJobs = InertiaJob::where([
+                ['is_checked', '=', 0], 
+            ])
             ->paginate(3);
+            // 新着求人の総数を取得
+            $totalNewJobs = InertiaJob::where('is_checked', 0)->count();
             return Inertia::render('Admin/Company/NewCompany', [
                 'inertiaJobs' => $inertiaJobs,
+                'totalNewJobs' => $totalNewJobs,
             ]);
         } elseif ($request->is('admin/*')) {
             $inertiaJobs = InertiaJob::searchInertiaJobs($search, $companySearch)
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
+            $totalJobs = InertiaJob::all()->count();
             return Inertia::render('Admin/CompanyList', [
                 'inertiaJobs' => $inertiaJobs,
+                'totalJobs' => $totalJobs
             ]);
         } elseif ($request->is('manager/*')) {
             $manager = Auth::user();
@@ -51,6 +53,13 @@ class JobController extends Controller
                 'inertiaJobs' => $inertiaJobs,
             ]);
         } else {
+            $inertiaJobs = InertiaJob::where([
+                ['status', '=', 1],
+                ['is_checked', '=', 1], 
+            ]) // 公開中のみ表示
+            ->searchInertiaJobs($search, $companySearch, $dutyStation, $Occupation, $companyPay)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(3);
             return Inertia::render('Company/Index', [
                 'inertiaJobs' => $inertiaJobs,
             ]);
