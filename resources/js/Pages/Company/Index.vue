@@ -20,7 +20,6 @@ const props = defineProps({
     Pagination: Pagination,
     Navigation: Navigation
 })
-console.log(props.inertiaJobs);
 
 //クエリパラメータを取得
 const searchKeyword = ref('');
