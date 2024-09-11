@@ -107,4 +107,9 @@ class InertiaJob extends Model
         // dd($query->toSql(), $query->getBindings());
         return $query;
     }
+
+    public function bookmarkedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'bookmarks', 'inertia_job_id', 'user_id')->withTimestamps();
+    }
 }

@@ -21,6 +21,7 @@ class JobController extends Controller
         $dutyStation = $request->input('dutyStation');
         $Occupation = $request->input('Occupation');
         $companyPay = $request->input('companyPay');
+        $user = $request->user();
 
         if ($request->is('admin/new/companylist')) {
             $inertiaJobs = InertiaJob::where([
@@ -57,6 +58,12 @@ class JobController extends Controller
                 ['status', '=', 1],
                 ['is_checked', '=', 1], 
             ]) // 公開中のみ表示
+            // ログインしている場合、ブックマークしていない求人のみ表示
+            ->when($user, function ($query) use ($user) {
+                return $query->whereDoesntHave('bookmarkedByUsers', function ($q) use ($user) {
+                    $q->where('user_id', $user->id);
+                });
+            })
             ->searchInertiaJobs($search, $companySearch, $dutyStation, $Occupation, $companyPay)
             ->orderBy('updated_at', 'desc')
             ->paginate(3);

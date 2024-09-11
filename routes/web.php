@@ -9,29 +9,12 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\AcademicBgController;
 use App\Http\Controllers\JobBgController;
-
+use App\Http\Controllers\BookmarkController;
 
 //テスト用
 Route::get('/test', function () {
     return Inertia::render('Test');
 })->name('top');
-
-//エンドユーザー向け
-// Route::get('/', function () {
-//     //データを取得
-//     $inertiaJobs = InertiaJob::where('status', 1)
-//     ->paginate(3);
-//     $news = News::paginate(3);
-
-//     return Inertia::render('TopPage', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//         'inertiaJob' => $inertiaJobs,
-//         'news' => $news,
-//     ]);
-// });
 
 //ダッシュボード
 Route::get('/dashboard', function () {
@@ -97,6 +80,9 @@ Route::middleware('auth')->group(function () {
 
     //News
     Route::get('/news', [NewsController::class,'index'])->name('news.index');
+
+    //bookmarks
+    Route::post('/bookmark/{id}', [BookmarkController::class, 'store'])->name('bookmark.store');
 });
 
 require __DIR__.'/auth.php';

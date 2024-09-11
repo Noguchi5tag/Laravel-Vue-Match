@@ -66,10 +66,22 @@ const toggleDetails = (job) => {
 };
 
 const showSearch = ref(false);
-
 const search_button = () => {
     showSearch.value = !showSearch.value;
 }
+
+// Inertiaを使ったブックマーク機能
+const bookmarkJob = (jobId) => {
+    Inertia.post(`/bookmark/${jobId}`, {}, {
+        onSuccess: () => {
+            alert('保存しました');
+            window.location.reload();
+        },
+        onError: () => {
+            alert('エラーが発生しました');
+        }
+    });
+};
 
 </script>
 
@@ -190,8 +202,9 @@ const search_button = () => {
 
                                 <div class="flex justify-between items-center">
                                     <div id="bookmark" class="">
-                                        <img class="w-8" src="../../../../public/images/address.png" alt="">
-                                        <InputLabel for="bookmark" class="text-sm">保存</InputLabel>
+                                        <!-- <img class="w-8" src="../../../../public/images/address.png" alt="">
+                                        <InputLabel for="bookmark" class="text-sm">保存</InputLabel> -->
+                                        <button @click="bookmarkJob(job.id)">保存</button>
                                     </div>
                                     <div id="job-contact">
                                         <Link as:button :href="`/job-contact?companyName=${job.companyName}`" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">簡単応募</Link>

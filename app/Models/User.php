@@ -67,4 +67,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(JobBg::class, 'user_id');
     }
+
+    public function bookmarks()
+{
+    return $this->belongsToMany(InertiaJob::class, 'bookmarks', 'user_id', 'inertia_job_id')->withTimestamps();
+}
 }
