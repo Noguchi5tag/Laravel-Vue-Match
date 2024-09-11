@@ -22,6 +22,7 @@ class SkillController extends Controller
 
         return Inertia::render('Profile/Skill/Index', [
             'skills' => $skills,  // 複数のスキルを渡す
+            'user' => Auth::user(),
         ]);
     }
 
@@ -43,7 +44,6 @@ class SkillController extends Controller
      */
     public function store(StoreSkillRequest $request)
     {
-        // dd($request->all());
         $validated = $request->validated();
 
         Skill::create([
@@ -52,7 +52,7 @@ class SkillController extends Controller
             'user_id' => $validated['user_id'],
         ]);
 
-        return redirect()->route('profile.edit')->with('success', 'スキルを登録しました');
+        return redirect()->route('skill.index')->with('success', 'スキルを登録しました');
     }
 
     /**
