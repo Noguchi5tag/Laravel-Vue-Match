@@ -21,7 +21,7 @@ onMounted(() => {
                 <img class="w-6" src="../../../../public/images/home.png" alt="">
                 <p>ホーム</p>
             </Link>
-            <Link as="button" href="/bookmark" class="flex flex-col items-center">
+            <Link as="button" href="/bookmarked" class="flex flex-col items-center">
                 <img class="w-6" src="../../../../public/images/address.png" alt="">
                 <p>保存</p>
             </Link>

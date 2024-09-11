@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\InertiaJob;
-use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
-
 
 class BookmarkController extends Controller
 {
@@ -22,5 +21,15 @@ class BookmarkController extends Controller
         }
 
         return response()->json(['message' => '既に保存されています'], 400);
+    }
+
+    public function show(Request $request)
+    {
+        $user = $request->user();
+        $bookmarkedJobs = $user->bookmarks()->get();
+
+        return Inertia::render('BookmarkPage', [
+            'bookmarkedJobs' => $bookmarkedJobs,
+        ]);
     }
 }

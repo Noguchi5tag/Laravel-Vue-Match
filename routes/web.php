@@ -66,10 +66,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', function () {
         return Inertia::render('SearchPage');
     })->name('search');
-    //ブックマークページ
-    Route::get('/bookmark', function () {
-        return Inertia::render('BookmarkPage');
-    })->name('Bookmark');
 
     //Company
     Route::get('/', [JobController::class,'index'])->name('company.index');
@@ -81,7 +77,9 @@ Route::middleware('auth')->group(function () {
     //News
     Route::get('/news', [NewsController::class,'index'])->name('news.index');
 
-    //bookmarks
+    //ブックマークページ
+    Route::get('/bookmarked', [BookmarkController::class, 'show'])->name('bookmarked.jobs');
+    //bookmarks登録
     Route::post('/bookmark/{id}', [BookmarkController::class, 'store'])->name('bookmark.store');
 });
 
