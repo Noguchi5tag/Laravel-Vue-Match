@@ -48,12 +48,12 @@ const companyName = query.get('companyName');
         <Head title="簡単応募" />
         <BaseLayouts>
 
-            <h1 class="my-2 text-lg text-center">{{ companyName }}</h1>
+            <h1 class="mt-4 text-lg text-center">{{ companyName }}</h1>
 
-            <div class="m-4 p-8 border-2 rounded-lg ">
+            <div class="m-4 px-4 border-2 rounded-lg ">
                 <!-- 基本情報 -->
                 <div v-if="userAuth">
-                    <div class="mt-6 space-y-6">
+                    <div class="my-6 space-y-6">
                         <div>
                             <InputLabel for="name" value="名前" />
 
@@ -103,7 +103,7 @@ const companyName = query.get('companyName');
                             <div id="city" class="mt-1 block w-full">{{ props.userAuth.city }}</div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-center gap-4 pt-4">
+                    <div class="flex items-center justify-center gap-4 mb-6">
                         <template v-if="props.hasAcademicBg === false && props.hasJobBg === false">
                             <NavLink href="/profile" as:button class="text-red-500">学歴と職歴を登録してください</NavLink>
                         </template>

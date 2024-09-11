@@ -83,12 +83,12 @@ const search_button = () => {
     </div>
 
         <section class="text-gray-600 body-font relative">
-            <div class="container px-4 py-12 mx-auto">
+            <div class="container px-3 py-12 mx-auto">
                 <div class="mx-auto">
                     <button 
                         @click="search_button" 
                         class="absolute top-3 right-2 text-white bg-indigo-500 border-0 mb-2 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">
-                        絞り込み<br>検索
+                        絞り込み
                     </button>
                     <transition name="fade-slide" mode="out-in">
                         <section v-if="showSearch" class="text-gray-600 body-font relative">
@@ -139,7 +139,7 @@ const search_button = () => {
                         </section>
                     </transition>
 
-                    <div class="pb-6">
+                    <div class="pt-4 mx-2">
                         <template v-if="searchDutyStation || searchOccupation || searchCompanyPay || searchKeyword">
                             <h1>選択した検索条件</h1>
                         </template>
@@ -167,43 +167,14 @@ const search_button = () => {
                         </ul>
                     </div>
 
-                    <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="my-6 flex justify-center">
-                        <ul class="pagination flex">
-                            <li v-for="(link, index) in inertiaJobs.links" :key="link.label" :class="{ 'active': link.active }">
-                                <!-- "前"のリンクを表示しない（インデックスが0かつリンクが存在しない場合） -->
-                                <template v-if="index !== 0 || link.url">
-                                    <!-- "次"のリンクを表示しない（最終ページでかつリンクが存在しない場合） -->
-                                    <template v-if="index !== inertiaJobs.links.length - 1 || link.url">
-                                        <Link
-                                            v-if="link.url"
-                                            :href="link.url"
-                                            v-html="link.label"
-                                            :class="{ 
-                                                'bg-indigo-500 text-white p-2 mx-2': link.active,
-                                                'bg-gray-200 text-black p-2 mx-2': !link.active
-                                            }">
-                                        </Link>
-                                        <span 
-                                            v-else v-html="link.label" 
-                                            :class="{ 
-                                                'bg-indigo-500 text-white p-2': link.active ,
-                                                'bg-gray-200 text-black': !link.active
-                                                }">
-                                        </span>
-                                    </template>
-                                </template>
-                            </li>
-                        </ul>
-                    </div>
-
                     <div v-if="inertiaJobs.data.length" class="-m-2">
                         <template v-for="job in inertiaJobs.data" :key="job.id">
-                            <div class="my-2 py-2 border-t border-gray-300" v-if="job.status === 1">
-                                <div class="flex flex-col text-center w-full mb-1">
+                            <div class="mb-6 pb-4 px-2 border border-gray-200 rounded shadow-md" v-if="job.status === 1">
+                                <!-- <div class="flex flex-col text-center w-full mb-1">
                                     <h1 class="text-xl font-medium title-font text-gray-900">
                                         {{ job.companyName }}
                                     </h1>
-                                </div>
+                                </div> -->
     
                                 <carousel :items-to-show="1">
                                     <slide v-for="slide in imageCount(job)" :key="slide" class="!w-full">
@@ -234,7 +205,8 @@ const search_button = () => {
                                     </div>
                                 </div>
 
-                                <button v-if="!job.showDetails" @click="toggleDetails(job)" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">もっと見る</button>
+                                <button v-if="!job.showDetails" @click="toggleDetails(job)" class="flex mx-auto text-gray-500 border-0 py-1 px-4 mt-4 focus:outline-none hover:text-gray-700 rounded text-sm">もっと見る</button>
+
                                 <div v-show="job.showDetails">
                                     <div class="p-2 w-full">
                                         <div class="relative">
@@ -345,13 +317,17 @@ const search_button = () => {
                                         </div>
                                     </div>
 
-                                    <div class="p-2 w-full">
+                                    <div class="p-2 w-full mb-4">
                                         <div class="relative">
                                             <InputLabel for="workOther" class="leading-7 text-sm text-gray-600">その他</InputLabel>
                                             <div type="text" id="workOther" name="workOther" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             {{ job.workOther }}
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div id="job-contact" class="text-center">
+                                        <Link as:button :href="`/job-contact?companyName=${job.companyName}`" class="mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm">応募する</Link>
                                     </div>
                                 </div>
                             </div>
@@ -362,7 +338,7 @@ const search_button = () => {
                         <p class="text-center text-gray-600">データがありません。検索条件を変更してください。</p>
                     </template>
 
-                    <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="mt-6 flex justify-center">
+                    <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="mt-10 flex justify-center">
                         <ul class="pagination flex">
                             <li v-for="(link, index) in inertiaJobs.links" :key="link.label" :class="{ 'active': link.active }">
                                 <!-- "前"のリンクを表示しない（インデックスが0かつリンクが存在しない場合） -->
