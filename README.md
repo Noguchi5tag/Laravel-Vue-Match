@@ -4,7 +4,8 @@ PHP 8.2.21<br>
 Laravel 11.14.0（Sail使用）<br>
 Breeze（認証機能）<br>
 Vue3（compositionAPI）<br>
-Inertia.js
+Inertia.js<br>
+Docker使用
 
 ## クローン後の初期設定
 sail をインストール<br>
@@ -68,7 +69,9 @@ sail artisan migrate:fresh --seed
 求人<br>
 お知らせ
 
-###### デフォルトログイン
+###### アカウント情報
+
+通常ログイン<br>
 test@test.com<br>
 password
 
