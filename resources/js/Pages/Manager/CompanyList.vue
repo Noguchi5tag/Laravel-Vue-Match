@@ -144,9 +144,12 @@ const imageCount = (job) => {
                                     <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
                                         {{ job.companyName }}
                                     </h1>
-                                    <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
-                                        {{ job.status === 0 ? '未認証' : '認証済み' }}
-                                    </h1>
+                                    <div class="">
+                                        <p>管理者の認証の有無</p>
+                                        <h3 class="text-xl font-medium title-font mb-4 text-gray-900">
+                                            {{ job.status === 0 ? '未認証' : '認証済み' }}
+                                        </h3>
+                                    </div>
                                 </div>
     
                                 <carousel :items-to-show="1.5">

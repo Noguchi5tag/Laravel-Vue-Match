@@ -242,7 +242,12 @@ const status = form.status;
                                     <div class="relative">
                                         <label for="status" class="leading-7 text-sm text-gray-600">ステータス</label>
                                         <div class="">
-                                            {{ status === 0 ? '非公開' : '公開中' }}
+                                            <label class="">
+                                                <input type="radio" name="status" id="status" value="0" v-model="form.status" required>非公開
+                                            </label>
+                                            <label class="">
+                                                <input type="radio" name="status" id="status" value="1" v-model="form.status" required>公開
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
