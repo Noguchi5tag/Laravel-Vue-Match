@@ -1,5 +1,5 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3';
+import { usePage, Link } from '@inertiajs/vue3';
 import FooterMenu from '../Components/Button/FotterMenu.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
@@ -12,7 +12,9 @@ const isLoggedIn = props.auth.user !== null;
     <div class="">
         <div class="bg-sky-50">
             <div class="flex justify-center pt-3">
-                <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800"/>
+                <Link href="/">
+                    <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800"/>
+                </Link>
             </div>
             <div class="py-4 text-center flex flex-col items-center">
                 <NavLink as="button" href="/questions">よくある質問</NavLink>
