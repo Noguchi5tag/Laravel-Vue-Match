@@ -20,6 +20,7 @@ const props = defineProps({
     Pagination: Pagination,
     Navigation: Navigation
 })
+console.log(props.inertiaJobs);
 
 //クエリパラメータを取得
 const searchKeyword = ref('');
@@ -74,11 +75,11 @@ const search_button = () => {
 const bookmarkJob = (jobId) => {
     Inertia.post(`/bookmark/${jobId}`, {}, {
         onSuccess: () => {
-            alert('保存しました');
+            alert(page.props.flash.message);
             window.location.reload();
         },
         onError: () => {
-            alert('エラーが発生しました');
+            alert(error.response.data.message || 'エラーが発生しました');
         }
     });
 };
@@ -201,10 +202,9 @@ const bookmarkJob = (jobId) => {
                                 </carousel>
 
                                 <div class="flex justify-between items-center">
-                                    <div id="bookmark" class="">
-                                        <!-- <img class="w-8" src="../../../../public/images/address.png" alt="">
-                                        <InputLabel for="bookmark" class="text-sm">保存</InputLabel> -->
-                                        <button @click="bookmarkJob(job.id)"><img class="w-8" src="../../../../public/images/address.png" alt=""></button>
+                                    <div id="bookmark" class="flex flex-col items-center justify-center">
+                                        <button @click="bookmarkJob(job.id)"><img class="w-8" src="../../../../public/images/like01.png" alt=""></button>
+                                        <p class="pt-1">{{ job.bookmarked_by_users_count }}</p>
                                     </div>
                                     <div id="job-contact">
                                         <Link as:button :href="`/job-contact?companyName=${job.companyName}`" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">簡単応募</Link>

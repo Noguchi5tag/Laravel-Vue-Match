@@ -64,9 +64,11 @@ class JobController extends Controller
                     $q->where('user_id', $user->id);
                 });
             })
+            ->withCount('bookmarkedByUsers')
             ->searchInertiaJobs($search, $companySearch, $dutyStation, $Occupation, $companyPay)
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
+            
             return Inertia::render('Company/Index', [
                 'inertiaJobs' => $inertiaJobs,
             ]);

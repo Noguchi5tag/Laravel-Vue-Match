@@ -27,14 +27,14 @@ const toggleDetails = (job) => {
     job.showDetails = !job.showDetails;
 };
 
-const bookmarkJob = (jobId) => {
-    Inertia.post(`/bookmark/${jobId}`, {}, {
+const deleteBookmarkJob = (jobId) => {
+    Inertia.delete(`/bookmark/${jobId}`, {}, {
         onSuccess: () => {
-            alert('保存しました');
+            alert(page.props.flash.message);
             window.location.reload();
         },
         onError: () => {
-            alert('エラーが発生しました');
+            alert(error.response.data.message || 'エラーが発生しました');
         }
     });
 };
@@ -64,9 +64,12 @@ const bookmarkJob = (jobId) => {
                             </template>
                         </carousel>
 
-                        <div class="flex justify-end items-center mx-2">
+                        <div class="flex justify-between items-center">
+                            <div id="bookmark" class="">
+                                <button @click="deleteBookmarkJob(job.id)"><img class="w-8" src="../../../public/images/like02.png" alt=""></button>
+                            </div>
                             <div id="job-contact">
-                            <Link as:button :href="`/job-contact?companyName=${job.companyName}`" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">簡単応募</Link>
+                                <Link as:button :href="`/job-contact?companyName=${job.companyName}`" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">簡単応募</Link>
                             </div>
                         </div>
 

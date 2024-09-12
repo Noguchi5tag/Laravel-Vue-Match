@@ -81,6 +81,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/bookmarked', [BookmarkController::class, 'show'])->name('bookmarked.jobs');
     //bookmarks登録
     Route::post('/bookmark/{id}', [BookmarkController::class, 'store'])->name('bookmark.store');
+    //bookmarks削除
+    Route::delete('/bookmark/{jobId}', [BookmarkController::class, 'destroy'])->name('bookmark.destroy');
 });
 
 require __DIR__.'/auth.php';

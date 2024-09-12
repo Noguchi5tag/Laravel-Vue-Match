@@ -12,7 +12,6 @@ class BookmarkController extends Controller
     public function store($jobId, Request $request)
     {
         $user = $request->user();
-        $job = InertiaJob::findOrFail($jobId);
 
         // 既にブックマークされているか確認
         if (!$user->bookmarks()->where('inertia_job_id', $jobId)->exists()) {
@@ -31,5 +30,18 @@ class BookmarkController extends Controller
         return Inertia::render('BookmarkPage', [
             'bookmarkedJobs' => $bookmarkedJobs,
         ]);
+    }
+
+    public function destroy($jobId, Request $request)
+    {
+        $user = $request->user();
+
+        // ブックマークが存在するか確認して削除
+        if ($user->bookmarks()->where('inertia_job_id', $jobId)->exists()) {
+            $user->bookmarks()->detach($jobId); // ブックマークの解除
+            return to_route('bookmarked.jobs')->with(['message' => 'ブックマークを取り消しました']);
+        }
+
+        return response()->json(['message' => 'ブックマークが存在しません'], 400);
     }
 }
