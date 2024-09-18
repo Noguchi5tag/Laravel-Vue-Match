@@ -20,7 +20,7 @@ const props = defineProps({
     Pagination: Pagination,
     Navigation: Navigation
 })
-console.log(props.inertiaJobs);
+// console.log(props.inertiaJobs);
 
 //クエリパラメータを取得
 const searchKeyword = ref('');
@@ -207,7 +207,7 @@ const bookmarkJob = (jobId) => {
                                         <p class="pt-1">{{ job.bookmarked_by_users_count }}</p>
                                     </div>
                                     <div id="job-contact">
-                                        <Link as:button :href="`/job-contact?companyName=${job.companyName}`" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">簡単応募</Link>
+                                        <Link as:button :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">簡単応募</Link>
                                     </div>
                                 </div>
 
@@ -340,7 +340,7 @@ const bookmarkJob = (jobId) => {
                                     </div>
 
                                     <div id="job-contact" class="text-center">
-                                        <Link as:button :href="`/job-contact?companyName=${job.companyName}`" class="mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm">応募する</Link>
+                                        <Link as:button :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm">応募する</Link>
                                     </div>
                                 </div>
                             </div>

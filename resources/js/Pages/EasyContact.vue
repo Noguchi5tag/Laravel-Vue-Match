@@ -21,6 +21,13 @@ const props = defineProps({
     },
 });
 
+//現在のURL（クエリパラメータなし）
+const currentUrl =  window.location.pathname;
+
+const query = new URLSearchParams(window.location.search);
+const companyName = query.get('companyName');
+const jobId = query.get('job_id');
+
 function formatDate(dateString) {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -33,15 +40,17 @@ const form = useForm({
     birth: props.userAuth.birth ? formatDate(props.userAuth.birth) : '',
 });
 
-//現在のURL（クエリパラメータなし）
-const currentUrl =  window.location.pathname;
 
-const jobSubmit = () => {
-    Inertia.visit('/');
+const jobSubmit = (jobId) => {
+    console.log(jobId);
+    console.log(companyName);
+
+    Inertia.post(route('job.apply', jobId), {
+        job_id: jobId,
+        company_name: companyName,
+    });
 };
 
-const query = new URLSearchParams(window.location.search);
-const companyName = query.get('companyName');
 </script>
 
 <template>
@@ -114,7 +123,7 @@ const companyName = query.get('companyName');
                             <Link href="/jobbg/create" as:button>職歴を登録する</Link>
                         </template>
                         <template v-else-if="currentUrl === '/job-contact' && props.hasAcademicBg === true && props.hasJobBg === true">
-                            <PrimaryButton @click="jobSubmit">応募する</PrimaryButton>
+                            <PrimaryButton @click="() => jobSubmit(jobId, companyName)">応募する</PrimaryButton>
                         </template>
                     </div>
                 </div>

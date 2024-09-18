@@ -10,6 +10,7 @@ use App\Http\Controllers\SkillController;
 use App\Http\Controllers\AcademicBgController;
 use App\Http\Controllers\JobBgController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\ApplicationController;
 
 //テスト用
 Route::get('/test', function () {
@@ -73,6 +74,8 @@ Route::middleware('auth')->group(function () {
 
     //簡単応募ページ
     Route::get('/job-contact', [ProfileController::class,'edit'])->name('easycontact');
+    //登録処理
+    Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('job.apply');
 
     //News
     Route::get('/news', [NewsController::class,'index'])->name('news.index');

@@ -11,7 +11,7 @@ use App\Http\Controllers\Manager\Auth\RegisteredUserController;
 use App\Http\Controllers\Manager\Auth\VerifyEmailController;
 
 use App\Http\Controllers\ManagerProfileController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -71,6 +71,8 @@ Route::middleware('auth:manager')->group(function () {
     Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->middleware('auth:manager')->name('company.edit');
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->middleware('auth:manager')->name('company.show');
     Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('company.update');
+
+    Route::get('/applied', [ApplicationController::class, 'show'])->name('applied.show');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->middleware('auth:manager')
