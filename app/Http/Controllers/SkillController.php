@@ -21,7 +21,7 @@ class SkillController extends Controller
         $skills = Skill::where('user_id', $userId)->get();
 
         return Inertia::render('Profile/Skill/Index', [
-            'skills' => $skills,  // 複数のスキルを渡す
+            'skills' => $skills,  // 複数の資格を渡す
             'user' => Auth::user(),
         ]);
     }
@@ -52,7 +52,7 @@ class SkillController extends Controller
             'user_id' => $validated['user_id'],
         ]);
 
-        return redirect()->route('skill.index')->with('success', 'スキルを登録しました');
+        return redirect()->route('skill.index')->with('success', '資格を登録しました');
     }
 
     /**
@@ -83,7 +83,7 @@ class SkillController extends Controller
         // dd($request->all());
         $validated = $request->validated();
         $skill->update($validated);
-        return to_route('profile.edit')->with('success', 'スキルを更新しました');
+        return to_route('profile.edit')->with('success', '資格を更新しました');
     }
 
     /**

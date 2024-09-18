@@ -23,7 +23,7 @@ class StoreSkillRequest extends FormRequest
     {
         return [
             'skill_name' => 'nullable|string|max:255',
-            'skill_experience' => 'nullable|integer|min:0',
+            'skill_experience' => 'nullable|date',
             'user_id' => 'required|integer',
         ];
     }

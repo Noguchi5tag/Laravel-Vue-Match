@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    //スキル
+    //資格
     Route::resource('skill', SkillController::class);
     //学歴
     Route::resource('academic', AcademicBgController::class);

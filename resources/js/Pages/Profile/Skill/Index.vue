@@ -54,7 +54,7 @@ const toggleDetails = () => {
 </script>
 
 <template>
-    <Head title="スキル一覧" />
+    <Head title="資格一覧" />
     <BaseLayouts>
         <!-- フラッシュメッセージ -->
         <div v-if="$page.props.flash.message" class="bg-blue-300">
@@ -62,7 +62,7 @@ const toggleDetails = () => {
         </div>
 
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">スキル一覧</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">資格一覧</h2>
         </template>
 
         <section class="text-gray-600 body-font relative">
@@ -72,14 +72,14 @@ const toggleDetails = () => {
                         <div class="p-2 w-full">
                             <hr>
                             <div class="relative mt-2">
-                                <label :for="'skill_name_' + index" class="leading-7 text-sm text-gray-600">スキル名</label>
+                                <label :for="'skill_name_' + index" class="leading-7 text-sm text-gray-600">資格名</label>
                                 <input type="text" :name="'skill_name_' + index" :id="'skill_name_' + index" v-model="skill.skill_name" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <div class="p-2 w-full mb-2">
                             <div class="relative">
-                                <label :for="'skill_experience_' + index" class="leading-7 text-sm text-gray-600">経験年数</label>
-                                <input type="number" :name="'skill_experience_' + index" :id="'skill_experience_' + index" v-model="skill.skill_experience" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                <label :for="'skill_experience_' + index" class="leading-7 text-sm text-gray-600">取得日</label>
+                                <input type="date" :name="'skill_experience_' + index" :id="'skill_experience_' + index" v-model="skill.skill_experience" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                             </div>
                         </div>
                         <div class="p-2 w-full mb-2 flex justify-between">
@@ -98,14 +98,14 @@ const toggleDetails = () => {
                                             <div class="-m-2">
                                                 <div class="p-2 w-full">
                                                     <div class="relative">
-                                                        <label for="skill_name" class="leading-7 text-sm text-gray-600">スキル名</label>
+                                                        <label for="skill_name" class="leading-7 text-sm text-gray-600">資格名</label>
                                                         <input type="text" name="skill_name" id="skill_name" v-model="form.skill_name" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                     </div>
                                                 </div>
                                                 <div class="p-2 w-full">
                                                     <div class="relative">
-                                                        <label for="skill_experience" class="leading-7 text-sm text-gray-600">経験年数</label>
-                                                        <input type="number" name="skill_experience" id="skill_experience" v-model="form.skill_experience" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                        <label for="skill_experience" class="leading-7 text-sm text-gray-600">取得日</label>
+                                                        <input type="date" name="skill_experience" id="skill_experience" v-model="form.skill_experience" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                                     </div>
                                                 </div>
     

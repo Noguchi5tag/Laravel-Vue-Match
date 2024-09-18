@@ -23,7 +23,7 @@ class ProfileController extends Controller
         $userId = Auth::id();
         $user = User::with('skills')->findOrFail($userId);
 
-        // ユーザーがスキルを持っているかどうかを判定
+        // ユーザーが資格を持っているかどうかを判定
         $hasSkill = $user->skills->isNotEmpty();
         $hasAcademicBg = $user->academic_bg !== null;
         $hasJobBg = $user->job_bg !== null;
