@@ -13,7 +13,7 @@ const props = defineProps({
 });
 
 const form = reactive({
-    companyName: '',
+    companyName: props.managerName,
     WantedTitles: '',
     Occupation: '',
     companyAddress: '',

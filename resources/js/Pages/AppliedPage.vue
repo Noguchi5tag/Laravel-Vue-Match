@@ -10,7 +10,7 @@ import TextInput from '@/Components/TextInput.vue';
 const props = defineProps({
     applicants: Array,
 })
-// console.log(props.applicants);
+console.log(props.applicants);
 
 //生年月日のフォーマット
 function formatDate(dateString) {

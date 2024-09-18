@@ -42,9 +42,6 @@ const form = useForm({
 
 
 const jobSubmit = (jobId) => {
-    console.log(jobId);
-    console.log(companyName);
-
     Inertia.post(route('job.apply', jobId), {
         job_id: jobId,
         company_name: companyName,

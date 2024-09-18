@@ -13,8 +13,6 @@ class ApplicationController extends Controller
     public function store(Request $request, $jobId)
     {
 
-        // dd($request->all());
-
         $job = InertiaJob::findOrFail($jobId);
 
         // 応募データを保存
@@ -24,7 +22,7 @@ class ApplicationController extends Controller
             'company_name' => $request->input('company_name'),
         ]);
 
-        return redirect()->back()->with('success', '応募が完了しました！');
+        return redirect('/')->with('success', '応募が完了しました！');
     }
 
     public function show()
