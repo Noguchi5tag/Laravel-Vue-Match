@@ -1,18 +1,16 @@
 <script setup>
-import { reactive } from 'vue';
-import { Head, useForm  } from '@inertiajs/vue3';
+import { reactive, ref } from 'vue';
+import { Head, useForm } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 import AuthenticatedLayout from '@/Layouts/ManagerAuthenticatedLayout.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import TextInput from '@/Components/TextInput.vue';
 
-
+// propsを定義
 const props = defineProps({
     applicants: Array,
-})
-console.log(props.applicants);
+});
+// console.log(props.applicants);
 
-//生年月日のフォーマット
+// 生年月日のフォーマット
 function formatDate(dateString) {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -21,126 +19,117 @@ function formatDate(dateString) {
     return `${year}年${month}月${day}日`;
 }
 
-//年齢の計算
+// 年齢の計算
 function calculateAge(birthDate) {
     const today = new Date();
     const birth = new Date(birthDate);
     let age = today.getFullYear() - birth.getFullYear();
     const monthDiff = today.getMonth() - birth.getMonth();
 
-    // 誕生日の月がまだ来ていない、または同じ月でも誕生日がまだ来ていない場合は年齢を1歳引く
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
         age--;
     }
-
     return age;
 }
 
+// 応募者の数を取得
+const applicantCount = Array.isArray(props.applicants) ? props.applicants.length : 1;
 </script>
-
 
 <template>
     <Head title="応募リスト" />
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">応募リスト</h2>
+            <p>応募数：{{ applicantCount }}件</p>
         </template>
 
-        <div class="py-6 max-w-screen-md mx-auto">
-
+        <div class="py-6 max-w-screen-lg mx-auto">
             <div v-if="applicants.length > 0">
-                <ul v-for="(applicant, index) in applicants" :key="index">
-                    <h2>応募者の情報</h2>
-                    <p>氏名: {{ applicant.user.name }}</p>
-                    <p>メールアドレス: {{ applicant.user.email }}</p>
-                    <p>電話番号: {{ applicant.user.tel }}</p>
+                <table class="min-w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 px-4 py-2">#</th>
+                            <th class="border border-gray-300 px-4 py-2">募集タイトル</th>
+                            <th class="border border-gray-300 px-4 py-2">氏名</th>
+                            <th class="border border-gray-300 px-4 py-2">メールアドレス</th>
+                            <th class="border border-gray-300 px-4 py-2">電話番号</th>
+                            <th class="border border-gray-300 px-4 py-2">性別</th>
+                            <th class="border border-gray-300 px-4 py-2">生年月日</th>
+                            <th class="border border-gray-300 px-4 py-2">年齢</th>
+                            <th class="border border-gray-300 px-4 py-2">学歴（学校名）</th>
+                            <th class="border border-gray-300 px-4 py-2">資格名</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(applicant, index) in applicants" :key="index">
+                            <!-- 順番番号 -->
+                            <td class="border border-gray-300 px-4 py-2 text-center">{{ index + 1 }}</td>
 
-                    <p>性別: 
-                        <template v-if="applicant.user.sex === 1">男</template>
-                        <template v-else-if="applicant.user.sex === 2">女</template>
-                        <template v-else>その他</template>
-                    </p>
+                            <!-- 募集タイトル -->
+                            <td class="border border-gray-300 px-4 py-2">{{ applicant.job.WantedTitles }}</td>
 
-                    <p>生年月日: {{ formatDate(applicant.user.birth) }}</p>
-                    <p>年齢: 満{{ calculateAge(applicant.user.birth) }}歳</p>
+                            <!-- 氏名 -->
+                            <td class="border border-gray-300 px-4 py-2">{{ applicant.user.name }}</td>
 
-                    <h2 class="mt-10">学歴</h2>
-                    <p>学校名: {{ applicant.user.academic_bg.school_name }}</p>
-                    <p>学部・学科: {{ applicant.user.academic_bg.department }}</p>
-                    <p>在学中かどうか: 
-                        <template v-if="applicant.user.academic_bg.undergraduate === 0">卒業</template>
-                        <template v-else>在学中</template>
-                    </p>
+                            <!-- メールアドレス -->
+                            <td class="border border-gray-300 px-4 py-2">{{ applicant.user.email }}</td>
 
-                    <h2 class="mt-10">職務履歴</h2>
-                    <!-- job_bgが配列の場合 -->
-                    <template v-if="Array.isArray(applicant.user.job_bg)">
-                        <ul>
-                            <li v-for="(job_bg, job_bgIndex) in applicant.user.job_bg" :key="job_bgIndex">
-                                <p>職種: {{ job_bg.job_title }}</p>
-                                <p>会社名: {{ job_bg.company_name }}</p>
-                                <p>入社日: {{ formatDate(job_bg.start_enrollment) }}</p>
-                                <p>退社日: 
-                                    <template v-if="job_bg.currently_working === 0">
-                                        {{ formatDate(job_bg.end_enrollment) }}
-                                    </template>
-                                    <template v-else>
-                                        現在勤務中
-                                    </template>
-                                </p>
-                            </li>
-                        </ul>
-                    </template>
+                            <!-- 電話番号 -->
+                            <td class="border border-gray-300 px-4 py-2">{{ applicant.user.tel }}</td>
 
-                    <!-- job_bgがオブジェクトの場合 -->
-                    <template v-else>
-                        <p>職種: {{ applicant.user.job_bg.job_title }}</p>
-                        <p>会社名: {{ applicant.user.job_bg.company_name }}</p>
-                        <p>入社日: {{ formatDate(applicant.user.job_bg.start_enrollment) }}</p>
-                        <p>退社日: 
-                            <template v-if="applicant.user.job_bg.currently_working === 0">
-                                {{ formatDate(applicant.user.job_bg.end_enrollment) }}
-                            </template>
-                            <template v-else>
-                                現在勤務中
-                            </template>
-                        </p>
-                    </template>
+                            <!-- 性別 -->
+                            <td class="border border-gray-300 px-4 py-2">
+                                <template v-if="applicant.user.sex === 1">男</template>
+                                <template v-else-if="applicant.user.sex === 2">女</template>
+                                <template v-else>その他</template>
+                            </td>
 
-                    <h2 class="mt-10">資格について</h2>
-                    <!-- skillsが配列の場合 -->
-                    <template v-if="Array.isArray(applicant.user.skills)">
-                        <ul>
-                            <li v-for="(skill, skillIndex) in applicant.user.skills" :key="skillIndex">
-                                <p>資格名: {{ skill.skill_name }}</p>
-                                <p>取得日: {{ formatDate(skill.skill_experience) }}</p>
-                            </li>
-                        </ul>
-                    </template>
+                            <!-- 生年月日 -->
+                            <td class="border border-gray-300 px-4 py-2">{{ formatDate(applicant.user.birth) }}</td>
 
-                    <h2 class="mt-10">資格について</h2>
-                    <!-- 配列の場合 -->
-                    <template v-if="Array.isArray(applicant.user.skills)">
-                        <ul>
-                            <li v-for="(skill, skillIndex) in applicant.user.skills" :key="skillIndex">
-                                <p>資格名: {{ skill.skill_name }}</p>
-                                <p>取得日: {{ formatDate(skill.skill_experience) }}</p>
-                            </li>
-                        </ul>
-                    </template>
-                    <template v-else>
-                        <li>
-                            <p>資格名: {{ applicant.user.skills.skill_name }}</p>
-                            <p>取得日: {{ formatDate(applicant.user.skills.skill_experience) }}</p>
-                        </li>
-                    </template>
+                            <!-- 年齢 -->
+                            <td class="border border-gray-300 px-4 py-2">満{{ calculateAge(applicant.user.birth) }}歳</td>
 
-                </ul>
+                            <!-- 学歴（学校名） -->
+                            <td class="border border-gray-300 px-4 py-2">{{ applicant.user.academic_bg.school_name }}</td>
+
+                            <!-- 資格 -->
+                            <td class="border border-gray-300 px-4 py-2">
+                                <ul>
+                                    <li v-for="(skill, skillIndex) in applicant.user.skills" :key="skillIndex">
+                                        {{ skill.skill_name }}
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div v-else>
                 <p>応募者なし</p>
             </div>
-
         </div>
     </AuthenticatedLayout>
 </template>
+
+<style scoped>
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}
+</style>

@@ -27,7 +27,13 @@ class ApplicationController extends Controller
 
     public function show()
     {
-        $applicants = Application::with(['user', 'job','user.skills', 'user.academic_bg','user.job_bg'])->get();
+        $managerCompanyName = Auth::user()->name; //managerの会社名
+        $applicants = Application::with(['user', 'job', 'user.skills', 'user.academic_bg', 'user.job_bg'])
+        //managerの会社名と応募があった会社名が一致するものだけ表示
+        ->whereHas('job', function ($query) use ($managerCompanyName) {
+            $query->where('companyName', $managerCompanyName);
+        })
+        ->get();
 
         // 応募者情報を管理画面に渡して表示
         return Inertia::render('AppliedPage', [
