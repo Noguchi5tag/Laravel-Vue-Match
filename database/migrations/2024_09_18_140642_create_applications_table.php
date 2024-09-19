@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // 求職者ID（ユーザー）
-            $table->foreignId('job_id')->constrained('inertia_jobs')->onDelete('cascade'); // 求人ID
+            $table->foreignId('inertia_job_id')->constrained('inertia_jobs')->onDelete('cascade'); // 求人ID
             $table->string('company_name'); // 会社名
             $table->timestamps();
         });

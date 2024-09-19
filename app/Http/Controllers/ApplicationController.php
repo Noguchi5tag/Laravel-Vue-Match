@@ -18,7 +18,7 @@ class ApplicationController extends Controller
         // 応募データを保存
         Application::create([
             'user_id' => Auth::id(),
-            'job_id' => $job->id, // 求人ID
+            'inertia_job_id' => $job->id, // 求人ID
             'company_name' => $request->input('company_name'),
         ]);
 
