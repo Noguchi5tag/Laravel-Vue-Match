@@ -76,6 +76,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/job-contact', [ProfileController::class,'edit'])->name('easycontact');
     //登録処理
     Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('job.apply');
+    //完了画面
+    Route::get('/apply-comp', function () {
+        return Inertia::render('AppliedComp');
+    })->name('apply.comp');
 
     //News
     Route::get('/news', [NewsController::class,'index'])->name('news.index');

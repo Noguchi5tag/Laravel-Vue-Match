@@ -22,7 +22,7 @@ class ApplicationController extends Controller
             'company_name' => $request->input('company_name'),
         ]);
 
-        return redirect('/')->with('success', '応募が完了しました！');
+        return to_route('apply.comp');
     }
 
     public function show()
