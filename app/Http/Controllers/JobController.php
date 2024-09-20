@@ -58,6 +58,10 @@ class JobController extends Controller
                 ['status', '=', 1],
                 ['is_checked', '=', 1], 
             ]) // 公開中のみ表示
+            // 応募済みの求人のみ表示
+            ->whereDoesntHave('applications', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
             // ログインしている場合、ブックマークしていない求人のみ表示
             ->when($user, function ($query) use ($user) {
                 return $query->whereDoesntHave('bookmarkedByUsers', function ($q) use ($user) {

@@ -78,8 +78,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('job.apply');
     //完了画面
     Route::get('/apply-comp', function () {
-        return Inertia::render('AppliedComp');
+        return Inertia::render('Applications/AppliedComp');
     })->name('apply.comp');
+    //完了画面
+    Route::get('/applied-list', [ApplicationController::class,'show'])->name('apply.list');
 
     //News
     Route::get('/news', [NewsController::class,'index'])->name('news.index');

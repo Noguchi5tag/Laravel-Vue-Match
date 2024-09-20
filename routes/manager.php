@@ -72,6 +72,7 @@ Route::middleware('auth:manager')->group(function () {
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->middleware('auth:manager')->name('company.show');
     Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('company.update');
 
+    //応募者リスト
     Route::get('/applied', [ApplicationController::class, 'show'])->name('applied.show');
 
     Route::get('verify-email', EmailVerificationPromptController::class)

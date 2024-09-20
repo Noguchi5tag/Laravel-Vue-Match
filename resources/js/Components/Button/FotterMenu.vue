@@ -23,7 +23,11 @@ onMounted(() => {
             </Link>
             <Link as="button" href="/bookmarked" class="flex flex-col items-center">
                 <img class="w-6" src="../../../../public/images/address.png" alt="">
-                <p>保存</p>
+                <p>ブックマーク</p>
+            </Link>
+            <Link as="button" href="/applied-list" class="flex flex-col items-center">
+                <img class="w-6" src="../../../../public/images/address.png" alt="">
+                <p>応募済み</p>
             </Link>
             <Link as="button" href="/profile" class="flex flex-col items-center">
                 <img class="w-6" src="../../../../public/images/address.png" alt="">

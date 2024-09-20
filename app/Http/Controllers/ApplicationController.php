@@ -25,19 +25,34 @@ class ApplicationController extends Controller
         return to_route('apply.comp');
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        $managerCompanyName = Auth::user()->name; //managerの会社名
-        $applicants = Application::with(['user', 'job', 'user.skills', 'user.academic_bg', 'user.job_bg'])
-        //managerの会社名と応募があった会社名が一致するものだけ表示
-        ->whereHas('job', function ($query) use ($managerCompanyName) {
-            $query->where('companyName', $managerCompanyName);
-        })
-        ->get();
+        //managerでしか表示できない
+        if ($request->is('manager/*')) {
+            $managerCompanyName = Auth::user()->name; //managerの会社名
+            $applicants = Application::with(['user', 'job', 'user.skills', 'user.academic_bg', 'user.job_bg'])
+            //managerの会社名と応募があった会社名が一致するものだけ表示
+            ->whereHas('job', function ($query) use ($managerCompanyName) {
+                $query->where('companyName', $managerCompanyName);
+            })
+            ->get();
 
-        // 応募者情報を管理画面に渡して表示
-        return Inertia::render('AppliedPage', [
-            'applicants' => $applicants,
-        ]);
+            // 応募者情報を管理画面に渡して表示
+            return Inertia::render('Applications/AppliedPage', [
+                'applicants' => $applicants,
+            ]);
+        } 
+        else {
+            $userId = Auth::id(); // ログインしているユーザーID
+            // ログインユーザーが応募した求人情報を取得
+            $applications = Application::with(['job'])
+                ->where('user_id', $userId)
+                ->get();
+
+            // ユーザーの応募情報を渡して表示
+            return Inertia::render('Applications/AppliedList', [
+                'applications' => $applications,
+            ]);
+        }
     }
 }

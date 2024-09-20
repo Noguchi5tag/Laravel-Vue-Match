@@ -112,4 +112,9 @@ class InertiaJob extends Model
     {
         return $this->belongsToMany(User::class, 'bookmarks', 'inertia_job_id', 'user_id')->withTimestamps();
     }
+
+    public function applications()
+    {
+        return $this->belongsToMany(User::class, 'applications', 'inertia_job_id', 'user_id')->withTimestamps();
+    }
 }
