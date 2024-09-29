@@ -5,9 +5,9 @@ function goBack() {
 </script>
 
 <template>
-    <div class="bg-black p-4">
+    <div class="bg-gray-200 p-4">
         <div class="text-center">
-            <h3 class="text-white">JobMatch</h3>
+            <h3 class="">JobMatch</h3>
         </div>
     </div>
 

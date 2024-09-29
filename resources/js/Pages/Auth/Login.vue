@@ -73,32 +73,33 @@ const submit = () => {
                 </div>
     
                 <div class="block mt-4">
-                    <label class="flex items-center">
+                    <label class="flex items-center justify-center">
                         <Checkbox name="remember" v-model:checked="form.remember" />
-                        <span class="ms-2 text-sm text-gray-600">保存しておく</span>
+                        <span class="ms-2 text-sm text-gray-600">ログイン情報を保存する</span>
                     </label>
                 </div>
     
-                <div class="flex items-center justify-end mt-4">
+                <div class="flex items-center justify-center mt-4">
                     
                     <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        ログイン
+                        ログインする
                     </PrimaryButton>
                 </div>
             </form>
             
-            <div class="my-6 flex justify-center">
+            <div class="flex justify-center">
                 <!-- v-if="canResetPassword" -->
-                <NavLink
+                <!-- <NavLink
                     as="button" 
                     :href="route('password.request')"
                 >
                     パスワードをわすれた
-                </NavLink>
+                </NavLink> -->
+                <p class="inline-flex items-center mr-1 border-b-2 border-transparent text-xs font-medium leading-5 text-gray-500 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">利用登録はお済みですか？</p>
                 <NavLink 
                     as="button" 
                     :href="route('register')"
-                    class="ml-4"
+                    class="text-xs text-sky-500 hover:text-sky-400 hover:border-sky-400 "
                 >
                     新規会員登録
                 </NavLink>

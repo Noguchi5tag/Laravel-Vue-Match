@@ -1,0 +1,343 @@
+<mxfile host="65bd71144e">
+    <diagram id="guuzhq2KzPAQsZvOTP76" name="エンドユーザー">
+        <mxGraphModel dx="1038" dy="718" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="215" style="edgeStyle=none;html=1;entryX=-0.034;entryY=0.503;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="213" target="214">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="213" value="ログインフォーム" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="40" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="250" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="214" target="243">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="350" y="60.26086956521749" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="214" value="会員か&lt;br&gt;どうか" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="240" y="20" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="216" value="ログアウト" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="1120" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="241" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="217" target="240">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="217" value="メアドの登録" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="400" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="219" value="会員" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="290" y="110" width="50" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="220" value="非会員" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=#FF3333;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="325" y="20" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="233" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="232">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="840" y="60" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="230" value="利用登録&lt;br&gt;個人情報" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="760" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="235" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="232" target="234">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="232" value="利用登録&lt;br&gt;個人情報" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="880" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="237" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="234" target="236">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="234" value="利用登録&lt;br&gt;経歴・スキル" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1000" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="239" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="236" target="238">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1220" y="60" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="236" value="利用登録&lt;br&gt;応募条件等" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1120" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="238" value="内容確認" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1240" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="248" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="240" target="247">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="240" value="メアドの確認&lt;br&gt;リンク送信" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="520" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="243" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#001DBC;fillColor=none;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="395" y="30" width="335" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="244" value="メール送信のシステム" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="490" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="252" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="245" target="251">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="245" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#C73500;fillColor=none;fontColor=#000000;" vertex="1" parent="1">
+                    <mxGeometry x="750" y="30" width="580" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="246" value="利用登録フォーム" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="990" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="249" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="247" target="245">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="247" value="メアド&lt;br&gt;パスワード&lt;br&gt;ログイン" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="640" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="256" style="edgeStyle=none;html=1;entryX=-0.036;entryY=0.522;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="251" target="255">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="251" value="求人リスト画面&lt;br&gt;（ホーム）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d80073;fontColor=#ffffff;strokeColor=#A50040;" vertex="1" parent="1">
+                    <mxGeometry x="1400" y="40" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="260" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="255" target="259">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="255" value="求人詳細" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="257" value="とりあえず&lt;br&gt;保存" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="160" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="264" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="259" target="263">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="259" value="いいね！を&lt;br&gt;送る" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1680" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="261" value="とりあえず&lt;br&gt;保存" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1680" y="120" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="295" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="263" target="294">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="263" value="マッチ！" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1800" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="274" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="265" target="273">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="265" value="&lt;div&gt;保存した&lt;/div&gt;&lt;div&gt;求人&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="360" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="279" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="266" target="278">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="266" value="&lt;div&gt;いいね！&lt;/div&gt;&lt;div&gt;した求人リスト&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="440" width="90" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="267" value="" style="endArrow=none;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="251">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="1140" as="sourcePoint"/>
+                        <mxPoint x="1510" y="250" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="268" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="180" as="sourcePoint"/>
+                        <mxPoint x="1560" y="180" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="269" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="379.74" as="sourcePoint"/>
+                        <mxPoint x="1560" y="379.74" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="270" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="459.74" as="sourcePoint"/>
+                        <mxPoint x="1560" y="459.74" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="276" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="273" target="275">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="273" value="いいね！を&lt;br&gt;送る" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1680" y="360" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="275" value="マッチ！" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1800" y="360" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="278" value="コンタクトを&lt;br&gt;とる" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1680" y="440" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="280" value="&lt;div&gt;このサイトに&lt;/div&gt;&lt;div&gt;ついて&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="640" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="281" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="659.62" as="sourcePoint"/>
+                        <mxPoint x="1560" y="659.62" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="282" value="&lt;div&gt;プライバシー&lt;/div&gt;&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%26lt%3Bdiv%26gt%3B%E3%81%93%E3%81%AE%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%26lt%3B%2Fdiv%26gt%3B%26lt%3Bdiv%26gt%3B%E3%81%A4%E3%81%84%E3%81%A6%26lt%3B%2Fdiv%26gt%3B%22%20style%3D%22rounded%3D0%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%221560%22%20y%3D%22480%22%20width%3D%2280%22%20height%3D%2240%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;ポリシー&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start;&quot;&gt;&lt;br&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="720" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="285" value="利用規約" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="800" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="286" value="求人掲載をお考えの企業様へ" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="880" width="160" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="287" value="利用規約" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="960" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="288" value="よくある質問" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="1040" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="289" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="739.6199999999999" as="sourcePoint"/>
+                        <mxPoint x="1560" y="739.6199999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="290" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="819.6199999999999" as="sourcePoint"/>
+                        <mxPoint x="1560" y="819.6199999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="291" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="899.6199999999999" as="sourcePoint"/>
+                        <mxPoint x="1560" y="899.6199999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="292" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="979.6199999999999" as="sourcePoint"/>
+                        <mxPoint x="1560" y="979.6199999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="293" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="1060" as="sourcePoint"/>
+                        <mxPoint x="1560" y="1059.62" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="294" value="コンタクトを&lt;br&gt;とる" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1920" y="40" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="296" value="" style="endArrow=none;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1600" y="140" as="sourcePoint"/>
+                        <mxPoint x="1600" y="80" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="297" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1600" y="140" as="sourcePoint"/>
+                        <mxPoint x="1680" y="140" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="301" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="298" target="300">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="298" value="求人を&lt;br&gt;さがす" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="240" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="299" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="259.6199999999999" as="sourcePoint"/>
+                        <mxPoint x="1560" y="259.6199999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="312" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="300" target="303">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="300" value="検索結果&lt;br&gt;求人リスト" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1680" y="240" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="302" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="303" target="305">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="303" value="求人詳細" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1800" y="240" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="304" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="305" target="308">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="305" value="いいね！を&lt;br&gt;送る" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1920" y="240" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="306" value="とりあえず&lt;br&gt;保存" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1920" y="320" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="307" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="308" target="309">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="308" value="マッチ！" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="2040" y="240" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="309" value="コンタクトを&lt;br&gt;とる" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="2160" y="240" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="310" value="" style="endArrow=none;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1840" y="340" as="sourcePoint"/>
+                        <mxPoint x="1840" y="280" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="311" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1840" y="340" as="sourcePoint"/>
+                        <mxPoint x="1920" y="340" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="316" value="" style="endArrow=none;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1720" y="340" as="sourcePoint"/>
+                        <mxPoint x="1720" y="280" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="318" value="" style="endArrow=none;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1720" y="340" as="sourcePoint"/>
+                        <mxPoint x="1840" y="340" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="VOeFXfkbjAdXuOcoMfUu-318" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="1139.6999999999998" as="sourcePoint"/>
+                        <mxPoint x="1560" y="1139.6999999999998" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="VOeFXfkbjAdXuOcoMfUu-319" value="&lt;div&gt;プロフィール&lt;/div&gt;&lt;div&gt;編集&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1560" y="560" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="VOeFXfkbjAdXuOcoMfUu-320" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1490" y="579.6199999999999" as="sourcePoint"/>
+                        <mxPoint x="1560.0000000000005" y="579.6199999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="VOeFXfkbjAdXuOcoMfUu-321" value="" style="endArrow=none;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="280" y="160" as="sourcePoint"/>
+                        <mxPoint x="280" y="100" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="VOeFXfkbjAdXuOcoMfUu-322" value="" style="endArrow=none;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="280" y="160" as="sourcePoint"/>
+                        <mxPoint x="1440" y="160" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="VOeFXfkbjAdXuOcoMfUu-323" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1440" y="160" as="sourcePoint"/>
+                        <mxPoint x="1440" y="80" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

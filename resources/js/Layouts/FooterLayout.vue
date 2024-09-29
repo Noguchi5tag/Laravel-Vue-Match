@@ -10,23 +10,14 @@ const isLoggedIn = props.auth.user !== null;
 
 <template>
     <div class="">
-        <div class="bg-sky-50">
-            <div class="flex justify-center pt-3">
-                <Link href="/">
-                    <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800"/>
-                </Link>
-            </div>
-            <div class="py-4 text-center flex flex-col items-center">
-                <NavLink as="button" href="/questions">よくある質問</NavLink>
-                <NavLink as="button" href="/jobpostings">求人掲載をお考えの方へ</NavLink>
-                <NavLink as="button" href="/rules">利用規約</NavLink>
-                <NavLink as="button" href="/privacy">プライバシーポリシー</NavLink>
-                <NavLink as="button" href="/contact">お問い合わせ</NavLink>
-            </div>
+        <div class="flex flex-col mb-6">
+            <NavLink as="button" href="/questions" class="pt-3 pb-3 border-t-2 border-slate-300 font-bold">よくある質問</NavLink>
+            <NavLink as="button" href="/jobpostings" class="pt-3 pb-3 border-slate-300 font-bold">求人掲載をお考えの方へ</NavLink>
+            <NavLink as="button" href="/rules" class="pt-3 pb-3 border-slate-300 font-bold">利用規約</NavLink>
+            <NavLink as="button" href="/privacy" class="pt-3 pb-3 border-slate-300 font-bold">プライバシーポリシー</NavLink>
+            <NavLink as="button" href="/contact" class="pt-3 pb-3 border-slate-300 font-bold">お問い合わせ</NavLink>
         </div>
-        <div class="bg-black ">
-            <p class="text-center text-white">© 2024 FIVE TAG PLUS</p>
-        </div>
+        <p class="text-center text-xs">© 2024 FIVE TAG PLUS</p>
     </div>
     <template v-if="isLoggedIn">
         <div class="pb-12"></div>

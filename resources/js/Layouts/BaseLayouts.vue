@@ -4,8 +4,8 @@
 </script>
 
 <template>
-    <div class="bg-gray-200">
-        <div class="max-w-sm m-auto bg-white">
+    <div class="">
+        <div class="max-w-sm m-auto">
             <HeaderComponent/>
 
                 <slot />
