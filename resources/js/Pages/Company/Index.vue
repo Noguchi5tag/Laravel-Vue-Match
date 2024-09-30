@@ -20,7 +20,7 @@ const props = defineProps({
     Pagination: Pagination,
     Navigation: Navigation
 })
-// console.log(props.inertiaJobs);
+console.log(props.inertiaJobs);
 
 //クエリパラメータを取得
 const searchKeyword = ref('');
@@ -180,19 +180,25 @@ const bookmarkJob = (jobId) => {
                         </ul>
                     </div>
 
-                    <div v-if="inertiaJobs.data.length" class="-m-2">
+                    <div v-if="inertiaJobs.data.length" class="job-lists -m-2">
                         <template v-for="job in inertiaJobs.data" :key="job.id">
-                            <div class="mb-6 pb-4 px-2 border border-gray-200 rounded shadow-md" v-if="job.status === 1">
-                                <!-- <div class="flex flex-col text-center w-full mb-1">
-                                    <h1 class="text-xl font-medium title-font text-gray-900">
-                                        {{ job.companyName }}
-                                    </h1>
-                                </div> -->
+                            <div class="mb-6 pb-4" v-if="job.status === 1">
     
                                 <carousel :items-to-show="1">
                                     <slide v-for="slide in imageCount(job)" :key="slide" class="!w-full">
-                                        <div v-if="job[`image${slide}`]" class="carousel__item  w-full">
-                                            <img :src="`/images/${job[`image${slide}`]}`" alt="" class="w-full h-auto object-cover">
+                                        <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 overflow-hidden">
+                                            <img :src="`/images/${job[`image${slide}`]}`" alt="" class="relative object-cover object-center">
+
+                                            <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center">
+                                                <button @click="bookmarkJob(job.id)"><font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" /></button>
+                                            </div>
+
+                                            <div id="job-contact" class="absolute bottom-0 right-4 translate-y-1/2 bg-sky-400 p-2 rounded-full shadow-lg border-1 border-white">
+                                                <Link as:button :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="flex flex-col text-white">
+                                                    <font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" />
+                                                    <span class="text-[6px] text-white">いいね！</span>
+                                                </Link>
+                                            </div>
                                         </div>
                                     </slide>
                                     <template #addons>
@@ -201,24 +207,19 @@ const bookmarkJob = (jobId) => {
                                     </template>
                                 </carousel>
 
-                                <div class="flex justify-between items-center">
-                                    <div id="bookmark" class="flex flex-col items-center justify-center">
-                                        <button @click="bookmarkJob(job.id)"><img class="w-8" src="../../../../public/images/like01.png" alt=""></button>
-                                        <p class="pt-1">{{ job.bookmarked_by_users_count }}</p>
-                                    </div>
-                                    <div id="job-contact">
-                                        <Link as:button :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">簡単応募</Link>
-                                    </div>
-                                </div>
-
-                                <div class="p-2 w-full">
-                                    <div class="relative flex items-center">
-                                        <InputLabel for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル：</InputLabel>
-                                        <p>{{ job.WantedTitles }}</p>
+                                <div class="p-2">
+                                    <button v-if="!job.showDetails" @click="toggleDetails(job)" class="py-1 focus:outline-none text-base font-bold">{{ job.companyName }}　{{ job.dutyStation }}</button>
+                                    <div class="w-full flex justify-between items-center">
+                                        <div class="relative flex items-center">
+                                            <font-awesome-icon :icon="['fas', 'comment']" class="w-4 h-4" />
+                                            <InputLabel for="WantedTitles" class="ml-2 leading-7 text-xs text-gray-600">{{ job.WantedTitles }}</InputLabel>
+                                        </div>
+                                        <div class="flex items-center gap-1">
+                                            <font-awesome-icon :icon="['far', 'bookmark']" class="w-4 h-4" />
+                                            <p class="pt-1">{{ job.bookmarked_by_users_count }}</p>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <button v-if="!job.showDetails" @click="toggleDetails(job)" class="flex mx-auto text-gray-500 border-0 py-1 px-4 mt-4 focus:outline-none hover:text-gray-700 rounded text-sm">もっと見る</button>
 
                                 <div v-show="job.showDetails">
                                     <div class="p-2 w-full">
@@ -386,7 +387,7 @@ const bookmarkJob = (jobId) => {
 </template>
 
 <style>
-.carousel__item {
+.job-lists .carousel__item {
     min-height: 200px;
     width: 100%;
     background-color: var(--vc-clr-primary);
@@ -396,13 +397,17 @@ const bookmarkJob = (jobId) => {
     align-items: center;
 }
 
-.carousel__slide {
+.job-lists .carousel__slide {
     padding: 2px;
 }
 
-.carousel__prev,
-.carousel__next {
+.job-lists .carousel__prev,
+.job-lists .carousel__next {
     color: white;
+}
+
+.job-lists .carousel__viewport {
+    overflow: visible;
 }
 
 .fade-slide-enter-active, .fade-slide-leave-active {

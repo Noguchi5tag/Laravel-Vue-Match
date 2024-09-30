@@ -18,6 +18,8 @@ import {
     faBars,
     faThumbsUp as faThumbsUpSolid,
     faMagnifyingGlass ,
+    faComment,
+    faThumbsUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { 
     faBell,
@@ -35,7 +37,9 @@ library.add(
     faBookmark,
     faThumbsUpSolid,
     faThumbsUpRegular,
-    faMagnifyingGlass
+    faMagnifyingGlass,
+    faComment,
+    faThumbsUp,
 );
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
