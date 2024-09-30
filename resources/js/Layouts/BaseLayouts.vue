@@ -4,13 +4,11 @@
 </script>
 
 <template>
-    <div class="">
-        <div class="max-w-sm m-auto">
-            <HeaderComponent/>
+    <div class="max-w-sm m-auto">
+        <HeaderComponent/>
 
-                <slot />
-            
-            <FooterComponent />
-        </div>
+            <slot />
+        
+        <FooterComponent />
     </div>
 </template>

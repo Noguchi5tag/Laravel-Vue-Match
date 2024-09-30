@@ -23,6 +23,10 @@ Route::get('/dashboard', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+//このサイトについて
+Route::get('/site-details', function () {
+    return Inertia::render('JobMatch');
+})->name('site-details');
 //利用規約ページ
 Route::get('/rules', function () {
     return Inertia::render('RulesPage');

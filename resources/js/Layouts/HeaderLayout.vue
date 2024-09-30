@@ -1,14 +1,12 @@
 <script setup>
-function goBack() {
-    window.history.back(); // 1つ前のページに戻る
-}
+import NavLink from '@/Components/NavLink.vue';
+
 </script>
 
 <template>
-    <div class="bg-gray-200 p-4">
-        <div class="text-center">
-            <h3 class="">JobMatch</h3>
-        </div>
+    <div class="bg-baseColor p-2 flex justify-between items-center">
+        <font-awesome-icon :icon="['fas', 'bars']" class="w-5 h-5" />
+        <NavLink href="/">JobMatch</NavLink>
+        <font-awesome-icon :icon="['far', 'bell']" class="w-5 h-5" />
     </div>
-
 </template>
