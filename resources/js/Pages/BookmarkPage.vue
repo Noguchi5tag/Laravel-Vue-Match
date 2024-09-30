@@ -12,6 +12,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 const props = defineProps({
     bookmarkedJobs: Array,
 })
+console.log(props.bookmarkedJobs);
 
 const imageCount = (job) => {
     let count = 0;
@@ -49,13 +50,27 @@ const deleteBookmarkJob = (jobId) => {
             <div v-if="bookmarkedJobs.length === 0">
                 <p class="text-center my-10">ブックマークされた求人はありません。</p>
             </div>
-            <div v-else class="m-2">
+            <div v-else class="bookmark-lists m-2">
                 <template v-for="job in bookmarkedJobs" :key="job.id">
-                    <div class="mb-6 pb-4 px-2 border border-gray-200 rounded shadow-md" v-if="job.status === 1">
+                    <div class="mb-6 pb-4" v-if="job.status === 1">
                         <carousel :items-to-show="1">
                             <slide v-for="slide in imageCount(job)" :key="slide" class="!w-full">
-                            <div v-if="job[`image${slide}`]" class="carousel__item w-full">
-                                <img :src="`/images/${job[`image${slide}`]}`" alt="" class="w-full h-auto object-cover">
+                            <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 relative overflow-hidden">
+                                <img :src="`/images/${job[`image${slide}`]}`" alt="" class="object-cover w-full h-full">
+
+                                <!-- 右上にブックマークボタンを配置 -->
+                                <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center shadow-lg">
+                                    <button @click="deleteBookmarkJob(job.id)">
+                                        <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
+                                    </button>
+                                </div>
+
+                                <div id="job-contact" class="absolute bottom-4 right-4 bg-sky-400 p-2 rounded-full shadow-lg border-1 border-white">
+                                    <Link as:button :href="`/job-contact?companyName=${job.companyName}`" class="flex flex-col text-white">
+                                        <font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" />
+                                        <span class="text-[6px] text-white">いいね！</span>
+                                    </Link>
+                                </div>
                             </div>
                             </slide>
                             <template #addons>
@@ -64,12 +79,17 @@ const deleteBookmarkJob = (jobId) => {
                             </template>
                         </carousel>
 
-                        <div class="flex justify-between items-center">
-                            <div id="bookmark" class="">
-                                <button @click="deleteBookmarkJob(job.id)"><img class="w-8" src="../../../public/images/like02.png" alt=""></button>
-                            </div>
-                            <div id="job-contact">
-                                <Link as:button :href="`/job-contact?companyName=${job.companyName}`" class="flex mx-auto text-white bg-indigo-500 border-0 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">簡単応募</Link>
+                        <div class="p-2">
+                            <button v-if="!job.showDetails" @click="toggleDetails(job)" class="py-1 focus:outline-none text-base font-bold">{{ job.companyName }}　{{ job.dutyStation }}</button>
+                            <div class="w-full flex justify-between items-center">
+                                <div class="relative flex items-center">
+                                    <font-awesome-icon :icon="['fas', 'comment']" class="w-4 h-4" />
+                                    <InputLabel for="WantedTitles" class="ml-2 leading-7 text-xs text-gray-600">{{ job.WantedTitles }}</InputLabel>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <font-awesome-icon :icon="['far', 'bookmark']" class="w-4 h-4" />
+                                    <p class="pt-1">{{ job.bookmarked_by_users_count }}</p>
+                                </div>
                             </div>
                         </div>
 
@@ -211,3 +231,9 @@ const deleteBookmarkJob = (jobId) => {
         </div>
     </BasePage>
 </template>
+
+<style>
+.bookmark-lists .carousel__pagination-button--active::after {
+    background-color: #38bdf8;
+}
+</style>

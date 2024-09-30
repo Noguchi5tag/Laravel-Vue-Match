@@ -7,7 +7,7 @@ import { ref, onMounted } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
-import Dropdown from '@/Components/Dropdown.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { dutyStations } from '@/data';
 import { Occupations } from '@/data';
 import { companyPays } from '@/data';
@@ -186,14 +186,21 @@ const bookmarkJob = (jobId) => {
     
                                 <carousel :items-to-show="1">
                                     <slide v-for="slide in imageCount(job)" :key="slide" class="!w-full">
-                                        <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 overflow-hidden">
-                                            <img :src="`/images/${job[`image${slide}`]}`" alt="" class="relative object-cover object-center">
+                                        <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 relative overflow-hidden">
+                                            <img 
+                                                :src="`/images/${job[`image${slide}`]}`" 
+                                                alt="" 
+                                                class="object-cover w-full h-full"
+                                            >
 
-                                            <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center">
-                                                <button @click="bookmarkJob(job.id)"><font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" /></button>
+                                            <!-- 右上にブックマークボタンを配置 -->
+                                            <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center shadow-lg">
+                                                <button @click="bookmarkJob(job.id)">
+                                                    <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
+                                                </button>
                                             </div>
 
-                                            <div id="job-contact" class="absolute bottom-0 right-4 translate-y-1/2 bg-sky-400 p-2 rounded-full shadow-lg border-1 border-white">
+                                            <div id="job-contact" class="absolute bottom-4 right-4 bg-sky-400 p-2 rounded-full shadow-lg border-1 border-white">
                                                 <Link as:button :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="flex flex-col text-white">
                                                     <font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" />
                                                     <span class="text-[6px] text-white">いいね！</span>
@@ -208,7 +215,7 @@ const bookmarkJob = (jobId) => {
                                 </carousel>
 
                                 <div class="p-2">
-                                    <button v-if="!job.showDetails" @click="toggleDetails(job)" class="py-1 focus:outline-none text-base font-bold">{{ job.companyName }}　{{ job.dutyStation }}</button>
+                                    <p class="py-1 focus:outline-none text-base font-bold">{{ job.companyName }}　{{ job.dutyStation }}</p>
                                     <div class="w-full flex justify-between items-center">
                                         <div class="relative flex items-center">
                                             <font-awesome-icon :icon="['fas', 'comment']" class="w-4 h-4" />
@@ -220,6 +227,7 @@ const bookmarkJob = (jobId) => {
                                         </div>
                                     </div>
                                 </div>
+                                <button v-if="!job.showDetails" @click="toggleDetails(job)" class="text-xs">続きを読む</button>
 
                                 <div v-show="job.showDetails">
                                     <div class="p-2 w-full">
@@ -340,9 +348,22 @@ const bookmarkJob = (jobId) => {
                                         </div>
                                     </div>
 
-                                    <div id="job-contact" class="text-center">
-                                        <Link as:button :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="mx-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm">応募する</Link>
+                                    <div class="flex justify-around">
+                                        <div class="bg-sky-400 py-2 px-10 rounded-full shadow-lg border-1 border-white">
+                                            <Link :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="text-white flex justify-center items-center">
+                                                <span class="text-sm font-bold text-white">企業にいいね</span><font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" /><span class="text-sm font-bold text-white">を送る</span>
+                                            </Link>
+                                        </div>
+                                        <div class="pt-2 px-2 pb-1 flex items-center">
+                                            <button @click="bookmarkJob(job.id)">
+                                                <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
+                                            </button>
+                                        </div>
                                     </div>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <button v-if="job.showDetails" @click="toggleDetails(job)" class="text-xs">閉じる</button>
                                 </div>
                             </div>
                         </template>
@@ -352,7 +373,7 @@ const bookmarkJob = (jobId) => {
                         <p class="text-center text-gray-600">データがありません。検索条件を変更してください。</p>
                     </template>
 
-                    <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="mt-10 flex justify-center">
+                    <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="flex justify-center">
                         <ul class="pagination flex">
                             <li v-for="(link, index) in inertiaJobs.links" :key="link.label" :class="{ 'active': link.active }">
                                 <!-- "前"のリンクを表示しない（インデックスが0かつリンクが存在しない場合） -->
@@ -406,8 +427,8 @@ const bookmarkJob = (jobId) => {
     color: white;
 }
 
-.job-lists .carousel__viewport {
-    overflow: visible;
+.job-lists .carousel__pagination-button--active::after {
+    background-color: #38bdf8;
 }
 
 .fade-slide-enter-active, .fade-slide-leave-active {

@@ -25,7 +25,9 @@ class BookmarkController extends Controller
     public function show(Request $request)
     {
         $user = $request->user();
-        $bookmarkedJobs = $user->bookmarks()->get();
+        $bookmarkedJobs = $user->bookmarks()
+            ->withCount('bookmarkedByUsers')
+            ->get();
 
         return Inertia::render('BookmarkPage', [
             'bookmarkedJobs' => $bookmarkedJobs,
