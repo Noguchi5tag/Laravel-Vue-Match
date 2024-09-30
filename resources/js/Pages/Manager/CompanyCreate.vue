@@ -9,14 +9,14 @@ import { dutyStations } from '@/data';
 import { Occupations } from '@/data';
 
 const props = defineProps({
-    managerName: String,
+    manager: Array,
 });
 
 const form = reactive({
-    companyName: props.managerName,
+    companyName: props.manager.name,
     WantedTitles: '',
     Occupation: '',
-    companyAddress: '',
+    companyAddress: props.manager.manager_address,
     companyPay: '',
     dutyStation: '',
     workDescription: '',

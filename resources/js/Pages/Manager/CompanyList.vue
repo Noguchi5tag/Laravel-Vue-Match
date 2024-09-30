@@ -77,10 +77,6 @@ const imageCount = (job) => {
                                         <InputLabel for="search" class="leading-7 text-sm text-gray-600">キーワード検索</InputLabel>
                                         <TextInput type="text" name="search" id="search" v-model="search" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                     </div>
-                                    <div class="p-2 w-full">
-                                        <InputLabel for="companySearch" class="leading-7 text-sm text-gray-600">会社名で検索</InputLabel>
-                                        <TextInput type="text" name="companySearch" id="companySearch" v-model="companySearch" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-                                    </div>
                                     <div class="text-center flex">
                                         <button @click="searchCustomers" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">検索する</button>
                                         <Link as:button href="/manager/companylist" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">条件のリセット</Link>
@@ -141,6 +137,7 @@ const imageCount = (job) => {
                         <template v-for="job in inertiaJobs.data" :key="job.id">
                             <div class="rounded-lg bg-gray-100 my-6 py-6 ">
                                 <div class="flex justify-around text-center w-full mb-6">
+                                    <!-- 消す -->
                                     <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
                                         {{ job.companyName }}
                                     </h1>
@@ -164,28 +161,16 @@ const imageCount = (job) => {
                                     </template>
                                 </carousel>
     
-                                <div class="p-2 w-full">
+                                <!-- <div class="p-2 w-full">
                                     <div class="relative">
                                         <InputLabel for="companyName" class="leading-7 text-sm text-gray-600">会社名</InputLabel>
                                         <div type="text" id="companyName" name="companyName" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyName }}</div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <InputLabel for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</InputLabel>
                                         <div type="text" id="WantedTitles" name="WantedTitles" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.WantedTitles }}</div>
-                                    </div>
-                                </div>
-                                <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel for="Occupation" class="leading-7 text-sm text-gray-600">職種</InputLabel>
-                                        <div type="text" id="Occupation" name="Occupation" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
-                                    </div>
-                                </div>
-                                <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</InputLabel>
-                                        <div type="text" id="companyAddress" name="companyAddress" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">

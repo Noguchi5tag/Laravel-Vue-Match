@@ -46,7 +46,7 @@ class JobController extends Controller
         } elseif ($request->is('manager/*')) {
             $manager = Auth::user();
 
-            $inertiaJobs = InertiaJob::where('registrant', $manager->name)
+            $inertiaJobs = InertiaJob::where('companyName', $manager->name)
             ->searchInertiaJobs($search, $companySearch)
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
@@ -88,7 +88,7 @@ class JobController extends Controller
 
         if ($request->is('manager/*')) {
             return Inertia::render('Manager/CompanyCreate', [
-                'managerName' => $manager->name, // nameをフロントに渡す
+                'manager' => $manager,
             ]);
         }
         return Inertia::render('Admin/Company/CompanyCreate');

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('tel')->default('08012345678');
+            $table->string('tel')->default('01012345678');
             $table->integer('sex'); // 性別を数値で管理
             $table->date('birth')->nullable();
             $table->string('postal');

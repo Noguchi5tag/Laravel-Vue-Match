@@ -18,11 +18,18 @@ class Manager extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'login_name',
         'email',
         'password',
-        'login_name',
+        'tel_manager',
+        'manager_address_number',
+        'manager_address',
+        'business',
+        'recruit_manager',
+        'other_manager',
         'role',
         'status',
+        'image_manager',
     ];
 
     /**
