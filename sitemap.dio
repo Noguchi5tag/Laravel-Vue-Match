@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="guuzhq2KzPAQsZvOTP76" name="エンドユーザー">
-        <mxGraphModel dx="1266" dy="416" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
+        <mxGraphModel dx="1044" dy="490" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -39,7 +39,7 @@
                 <mxCell id="232" value="利用登録&lt;br&gt;個人情報" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="880" y="40" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="321" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="234" target="236">
+                <mxCell id="321" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="234" target="236" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="234" value="利用登録&lt;br&gt;経歴・スキル" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -62,7 +62,7 @@
                 <mxCell id="240" value="メアドの確認&lt;br&gt;リンク送信" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="520" y="40" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="322" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="243" target="245">
+                <mxCell id="322" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="243" target="245" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="243" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#001DBC;fillColor=none;fontColor=#ffffff;" parent="1" vertex="1">
@@ -124,7 +124,7 @@
                 </mxCell>
                 <mxCell id="267" value="" style="endArrow=none;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="1" target="251" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
-                        <mxPoint x="1490" y="1140" as="sourcePoint"/>
+                        <mxPoint x="1490" y="1220" as="sourcePoint"/>
                         <mxPoint x="1510" y="250" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
@@ -329,10 +329,10 @@
                 <mxCell id="245" value="" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#C73500;fillColor=none;fontColor=#000000;" parent="1" vertex="1">
                     <mxGeometry x="840" y="30" width="520" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="323" value="通知&lt;br&gt;お知らせ" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="323" value="通知&lt;br&gt;お知らせ" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="1560" y="560" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="324" value="" style="endArrow=classic;html=1;" edge="1" parent="1">
+                <mxCell id="324" value="" style="endArrow=classic;html=1;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="1490" y="579.6199999999998" as="sourcePoint"/>
                         <mxPoint x="1560.0000000000005" y="579.6199999999998" as="targetPoint"/>
