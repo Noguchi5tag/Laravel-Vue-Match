@@ -8,7 +8,9 @@
     <div class="max-w-sm m-auto border-x-2 border-black">
         <HeaderComponent/>
 
+        <div class="pt-10">
             <slot />
+        </div>
         
         <FooterComponent />
     </div>
