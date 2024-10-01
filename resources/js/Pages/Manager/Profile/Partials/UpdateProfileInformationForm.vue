@@ -72,35 +72,33 @@ const handleImageChange = (event) => {
         </header>
 
         <form @submit.prevent="updateFunction(form.id)" enctype="multipart/form-data" class="mt-6 space-y-6">
-            <div class="flex">
-                <div>
-                    <InputLabel for="name" value="会社名" />
-    
-                    <TextInput
-                        id="name"
-                        type="text"
-                        class="mt-1 block w-full"
-                        v-model="form.name"
-                        required
-                        autofocus
-                        autocomplete="name"
+            <div>
+                <InputLabel for="name" value="会社名" />
+
+                <TextInput
+                    id="name"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.name"
+                    required
+                    autofocus
+                    autocomplete="name"
+                />
+
+                <InputError class="mt-2" :message="form.errors.name" />
+            </div>
+            <div>
+                <InputLabel for="image_manager" value="プロフィール画像" />
+                <div class="mt-1 flex items-center">
+                    <img v-if="imagePreview" :src="`/images/${imagePreview}`" class="w-16 h-16 rounded-full object-cover mr-2" />
+                    <input
+                        id="image_manager"
+                        type="file"
+                        accept="image/*"
+                        @change="handleImageChange"
                     />
-    
-                    <InputError class="mt-2" :message="form.errors.name" />
                 </div>
-                <!-- <div>
-                    <InputLabel for="image_manager" value="プロフィール画像" />
-                    <div class="mt-1 flex items-center">
-                        <img v-if="imagePreview" :src="imagePreview" class="w-16 h-16 rounded-full object-cover mr-2" />
-                        <input
-                            id="image_manager"
-                            type="file"
-                            accept="image/*"
-                            @change="handleImageChange"
-                        />
-                    </div>
-                    <InputError class="mt-2" :message="form.errors.image_manager" />
-                </div> -->
+                <InputError class="mt-2" :message="form.errors.image_manager" />
             </div>
 
             <div>
