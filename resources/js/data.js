@@ -22,11 +22,11 @@ const Occupations = [
 ];
 
 const companyPays = [
-    { value: '150000', label: '150,000円以下' },
-    { value: '200000', label: '150,001円~200,000円' },
-    { value: '250000', label: '200,001円~250,000円' },
-    { value: '300000', label: '250,001円~300,000円' },
-    { value: '300001', label: '300,001円以上' },
+    { value: '150000', label: '~150,000円' },
+    { value: '200000', label: '150,000円~' },
+    { value: '250000', label: '200,000円~' },
+    { value: '300000', label: '250,000円~' },
+    { value: '300001', label: '300,000円~' },
 ];
 
 const prefectures = [

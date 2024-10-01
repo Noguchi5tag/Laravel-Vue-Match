@@ -76,12 +76,16 @@ class InertiaJob extends Model
             });
         }
     
-        if (!empty($dutyStation)) {
-            $query->where('dutyStation', $dutyStation);
+        if (!empty($dutyStation) && is_array($dutyStation)) {
+            $query->where(function($q) use ($dutyStation) {
+                $q->whereIn('dutyStation', $dutyStation);
+            });
         }
     
-        if (!empty($Occupation)) {
-            $query->where('Occupation', $Occupation);
+        if (!empty($Occupation) && is_array($Occupation)) {
+            $query->where(function($q) use ($Occupation) {
+                $q->whereIn('Occupation', $Occupation);
+            });
         }
 
         if (!empty($companyPay)) {
@@ -90,16 +94,16 @@ class InertiaJob extends Model
                     $query->where('companyPay', '<=', 150000);
                     break;
                 case '200000':
-                    $query->whereBetween('companyPay', [150001, 200000]);
+                    $query->whereBetween('companyPay', [150001, 199999]);
                     break;
                 case '250000':
-                    $query->whereBetween('companyPay', [200001, 250000]);
+                    $query->whereBetween('companyPay', [200000, 249999]);
                     break;
                 case '300000':
-                    $query->whereBetween('companyPay', [250001, 300000]);
+                    $query->whereBetween('companyPay', [250000, 299999]);
                     break;
                 case '300001':
-                    $query->where('companyPay', '>', 300001);
+                    $query->where('companyPay', '>', 300000);
                     break;
             }
         }
