@@ -1,13 +1,14 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import BasePage from '../../Layouts/BaseLayouts.vue';
+import SectionInner from '../../Layouts/SectionInner.vue';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextView from '@/Components/TextView.vue';
 import { dutyStations } from '@/data';
 import { Occupations } from '@/data';
 import { companyPays } from '@/data';
@@ -15,12 +16,13 @@ import { companyPays } from '@/data';
 
 const props = defineProps({
     inertiaJobs: Object,
+    managers: Object,
     Carousel: Carousel,
     Slide: Slide,
     Pagination: Pagination,
     Navigation: Navigation
 })
-console.log(props.inertiaJobs);
+console.log(props.managers);
 
 //クエリパラメータを取得
 const searchKeyword = ref('');
@@ -89,319 +91,207 @@ const bookmarkJob = (jobId) => {
 <template>
     <Head title="ホーム" />
     <BasePage>
+        <section class="relative pb-12 mx-auto">
+            <div v-if="inertiaJobs.data.length" class="job-lists">
+                <template v-for="job in inertiaJobs.data" :key="job.id">
+                    <div class="mb-6 pb-4" v-if="job.status === 1">
 
-    <!-- フラッシュメッセージ -->
-    <div v-if="$page.props.flash.message" class="bg-blue-300">
-        {{ $page.props.flash.message }}
-    </div>
+                        <carousel :items-to-show="1">
+                            <slide v-for="slide in imageCount(job)" :key="slide">
+                                <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 relative overflow-hidden">
+                                    <img 
+                                        :src="`/images/${job[`image${slide}`]}`" 
+                                        alt="" 
+                                        class="object-cover w-full h-full"
+                                    >
 
-        <section class="text-gray-600 body-font relative">
-            <div class="container px-3 py-12 mx-auto">
-                <div class="mx-auto">
-                    <button 
-                        @click="search_button" 
-                        class="absolute top-3 right-2 text-white bg-indigo-500 border-0 mb-2 py-1 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm">
-                        絞り込み
-                    </button>
-                    <transition name="fade-slide" mode="out-in">
-                        <section v-if="showSearch" class="text-gray-600 body-font relative">
-                            <div class="container px-5 pb-12 mx-auto">
-                                <div class="mx-auto">
-                                    <div class="-m-2">
-                                        <div class="p-2 w-full">
-                                            <div class="relative">
-                                                <InputLabel for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地からさがす</InputLabel>
-                                                <select name="dutyStation" id="dutyStation" v-model="dutyStation">
-                                                    <option v-for="dutyStation in dutyStations" :value="dutyStation.value" :key="dutyStation.value">
-                                                        {{ dutyStation.label }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="p-2 w-full">
-                                            <div class="relative">
-                                                <InputLabel for="Occupation" class="leading-7 text-sm text-gray-600">職種からさがす</InputLabel>
-                                                <select name="Occupation" id="Occupation" v-model="Occupation">
-                                                    <option v-for="occupation in Occupations" :value="occupation.value" :key="occupation.value">
-                                                        {{ occupation.label }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="p-2 w-full">
-                                            <div class="relative">
-                                                <InputLabel for="companyPay" class="leading-7 text-sm text-gray-600">給料からさがす</InputLabel>
-                                                <select name="companyPay" id="companyPay" v-model="companyPay">
-                                                    <option v-for="companyPay in companyPays" :value="companyPay.value" :key="companyPay.value">
-                                                        {{ companyPay.label }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="p-2 w-full">
-                                            <InputLabel for="search" class="leading-7 text-sm text-gray-600">キーワード検索</InputLabel>
-                                            <TextInput type="text" name="search" id="search" v-model="search" class="w-full" />
-                                        </div>
-                                        <div class="text-center flex">
-                                            <button @click="searchCustomers" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">検索する</button>
-                                            <Link as:button href="/" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">条件のリセット</Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </transition>
-
-                    <div class="pt-4 mx-2">
-                        <template v-if="searchDutyStation || searchOccupation || searchCompanyPay || searchKeyword">
-                            <h1>選択した検索条件</h1>
-                        </template>
-                        <ul>
-                            <li>
-                                <template v-if="searchDutyStation">
-                                    勤務地：{{ searchDutyStation }}
-                                </template>
-                            </li>
-                            <li>
-                                <template v-if="searchOccupation">
-                                    職種：{{ searchOccupation }}
-                                </template>
-                            </li>
-                            <li>
-                                <template v-if="searchCompanyPay">
-                                    給料：{{ companyPays.find(pay => pay.value === searchCompanyPay)?.label || '該当なし' }}
-                                </template>
-                            </li>
-                            <li>
-                                <template v-if="searchKeyword">
-                                    キーワード：{{ searchKeyword }}
-                                </template>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div v-if="inertiaJobs.data.length" class="job-lists -m-2">
-                        <template v-for="job in inertiaJobs.data" :key="job.id">
-                            <div class="mb-6 pb-4" v-if="job.status === 1">
-    
-                                <carousel :items-to-show="1">
-                                    <slide v-for="slide in imageCount(job)" :key="slide" class="!w-full">
-                                        <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 relative overflow-hidden">
-                                            <img 
-                                                :src="`/images/${job[`image${slide}`]}`" 
-                                                alt="" 
-                                                class="object-cover w-full h-full"
-                                            >
-
-                                            <!-- 右上にブックマークボタンを配置 -->
-                                            <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center shadow-lg">
-                                                <button @click="bookmarkJob(job.id)">
-                                                    <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
-                                                </button>
-                                            </div>
-
-                                            <div id="job-contact" class="absolute bottom-4 right-4 bg-sky-400 p-2 rounded-full shadow-lg border-1 border-white">
-                                                <Link as:button :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="flex flex-col text-white">
-                                                    <font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" />
-                                                    <span class="text-[6px] text-white">いいね！</span>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </slide>
-                                    <template #addons>
-                                        <navigation />
-                                        <pagination />
-                                    </template>
-                                </carousel>
-
-                                <div class="p-2">
-                                    <p class="py-1 focus:outline-none text-base font-bold">{{ job.companyName }}　{{ job.dutyStation }}</p>
-                                    <div class="w-full flex justify-between items-center">
-                                        <div class="relative flex items-center">
-                                            <font-awesome-icon :icon="['fas', 'comment']" class="w-4 h-4" />
-                                            <InputLabel for="WantedTitles" class="ml-2 leading-7 text-xs text-gray-600">{{ job.WantedTitles }}</InputLabel>
-                                        </div>
-                                        <div class="flex items-center gap-1">
-                                            <font-awesome-icon :icon="['far', 'bookmark']" class="w-4 h-4" />
-                                            <p class="pt-1">{{ job.bookmarked_by_users_count }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button v-if="!job.showDetails" @click="toggleDetails(job)" class="text-xs">続きを読む</button>
-
-                                <div v-show="job.showDetails">
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="Occupation" class="leading-7 text-sm text-gray-600">職種</InputLabel>
-                                            <div type="text" id="Occupation" name="Occupation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
-                                        </div>
-                                    </div>
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</InputLabel>
-                                            <div type="text" id="companyAddress" name="companyAddress" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
-                                        </div>
-                                    </div>
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="companyPay" class="leading-7 text-sm text-gray-600">給料</InputLabel>
-                                            <div type="text" id="companyPay" name="companyPay" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyPay }}</div>
-                                        </div>
+                                    <!-- 右上にブックマークボタンを配置 -->
+                                    <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center shadow-lg">
+                                        <button @click="bookmarkJob(job.id)">
+                                            <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
+                                        </button>
                                     </div>
 
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地</InputLabel>
-                                            <div type="text" id="dutyStation" name="dutyStation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.dutyStation }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="workDescription" class="leading-7 text-sm text-gray-600">仕事内容</InputLabel>
-                                            <div type="text" id="workDescription" name="workDescription" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.workDescription }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="payDescription" class="leading-7 text-sm text-gray-600">給与詳細</InputLabel>
-                                            <div type="text" id="payDescription" name="payDescription" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.payDescription }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="travelExpenses" class="leading-7 text-sm text-gray-600">交通費</InputLabel>
-                                            <div type="text" id="travelExpenses" name="travelExpenses" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.travelExpenses }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="Welfare" class="leading-7 text-sm text-gray-600">福利厚生</InputLabel>
-                                            <div type="text" id="Welfare" name="Welfare" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.Welfare }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="startWork" class="leading-7 text-sm text-gray-600">勤務開始時間</InputLabel>
-                                            <div type="text" id="startWork" name="startWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.startWork.split(':').slice(0, 2).join(':') }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="endWork" class="leading-7 text-sm text-gray-600">勤務終了時間</InputLabel>
-                                            <div type="text" id="endWork" name="endWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.endWork.split(':').slice(0, 2).join(':') }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="workDays" class="leading-7 text-sm text-gray-600">出勤日</InputLabel>
-                                            <div type="text" id="workDays" name="workDays" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.workDays }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="freeDays" class="leading-7 text-sm text-gray-600">休日</InputLabel>
-                                            <div type="text" id="freeDays" name="freeDays" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.freeDays }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2 w-full">
-                                        <div class="relative">
-                                            <InputLabel for="NearestStation" class="leading-7 text-sm text-gray-600">最寄り駅</InputLabel>
-                                            <div type="text" id="NearestStation" name="NearestStation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.NearestStation }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="p-2 w-full mb-4">
-                                        <div class="relative">
-                                            <InputLabel for="workOther" class="leading-7 text-sm text-gray-600">その他</InputLabel>
-                                            <div type="text" id="workOther" name="workOther" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                            {{ job.workOther }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex justify-around">
-                                        <div class="bg-sky-400 py-2 px-10 rounded-full shadow-lg border-1 border-white">
-                                            <Link :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="text-white flex justify-center items-center">
-                                                <span class="text-sm font-bold text-white">企業にいいね</span><font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" /><span class="text-sm font-bold text-white">を送る</span>
-                                            </Link>
-                                        </div>
-                                        <div class="pt-2 px-2 pb-1 flex items-center">
-                                            <button @click="bookmarkJob(job.id)">
-                                                <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="text-center mt-4">
-                                    <button v-if="job.showDetails" @click="toggleDetails(job)" class="text-xs">閉じる</button>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-                    <!-- 検索結果がない場合の表示 -->
-                    <template v-else>
-                        <p class="text-center text-gray-600">データがありません。検索条件を変更してください。</p>
-                    </template>
-
-                    <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="flex justify-center">
-                        <ul class="pagination flex">
-                            <li v-for="(link, index) in inertiaJobs.links" :key="link.label" :class="{ 'active': link.active }">
-                                <!-- "前"のリンクを表示しない（インデックスが0かつリンクが存在しない場合） -->
-                                <template v-if="index !== 0 || link.url">
-                                    <!-- "次"のリンクを表示しない（最終ページでかつリンクが存在しない場合） -->
-                                    <template v-if="index !== inertiaJobs.links.length - 1 || link.url">
-                                        <Link
-                                            v-if="link.url"
-                                            :href="link.url"
-                                            v-html="link.label"
-                                            :class="{ 
-                                                'bg-indigo-500 text-white p-2 mx-2': link.active,
-                                                'bg-gray-200 text-black p-2 mx-2': !link.active
-                                            }">
+                                    <div id="job-contact" class="absolute bottom-4 right-4 bg-sky-400 p-2 rounded-full shadow-lg border-1 border-white">
+                                        <Link as:button :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="flex flex-col text-white">
+                                            <font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" />
+                                            <span class="text-[6px] text-white">いいね！</span>
                                         </Link>
-                                        <span 
-                                            v-else v-html="link.label" 
-                                            :class="{ 
-                                                'bg-indigo-500 text-white p-2': link.active ,
-                                                'bg-gray-200 text-black': !link.active
-                                                }">
-                                        </span>
-                                    </template>
-                                </template>
-                            </li>
-                        </ul>
+                                    </div>
+                                </div>
+                            </slide>
+                            <template #addons>
+                                <navigation />
+                                <pagination />
+                            </template>
+                        </carousel>
+
+                        <div class="m-4">
+                            <p class="py-1 focus:outline-none text-base font-bold">{{ job.companyName }}　{{ job.dutyStation }}</p>
+                            <div class="w-full flex justify-between items-center">
+                                <div class="relative flex items-center">
+                                    <font-awesome-icon :icon="['fas', 'comment']" class="w-4 h-4" />
+                                    <InputLabel for="WantedTitles" class="ml-2 leading-7 text-xs text-gray-600">{{ job.WantedTitles }}</InputLabel>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <font-awesome-icon :icon="['far', 'bookmark']" class="w-4 h-4" />
+                                    <p class="pt-1">{{ job.bookmarked_by_users_count }}</p>
+                                </div>
+                            </div>
+
+                            <button v-if="!job.showDetails" @click="toggleDetails(job)" class="text-xs">続きを読む</button>
+
+                            <div v-show="job.showDetails" class="flex flex-col gap-2 w-full">
+                                <div class="">
+                                    <InputLabel for="Occupation" class="leading-5">職種</InputLabel>
+                                    <TextView >{{ job.Occupation }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="workDescription" class="leading-5">仕事内容</InputLabel>
+                                    <TextView>{{ job.workDescription }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="dutyStation" class="leading-5">勤務地</InputLabel>
+                                    <TextView>{{ job.dutyStation }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="companyPay" class="leading-5">給料</InputLabel>
+                                    <TextView>{{ job.companyPay }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="payDescription" class="leading-5">給与詳細</InputLabel>
+                                    <TextView>{{ job.payDescription }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="travelExpenses" class="leading-5">交通費</InputLabel>
+                                    <TextView>{{ job.travelExpenses }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="Welfare" class="leading-5">福利厚生</InputLabel>
+                                    <TextView>{{ job.Welfare }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="startWork" class="leading-5">勤務開始時間</InputLabel>
+                                    <TextView>{{ job.startWork.split(':').slice(0, 2).join(':') }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="endWork" class="leading-5">勤務終了時間</InputLabel>
+                                    <TextView>{{ job.endWork.split(':').slice(0, 2).join(':') }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="workDays" class="leading-5">出勤日</InputLabel>
+                                    <TextView>{{ job.workDays }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="freeDays" class="leading-5">休日</InputLabel>
+                                    <TextView>{{ job.freeDays }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="NearestStation" class="leading-5">最寄り駅</InputLabel>
+                                    <TextView>{{ job.NearestStation }}</TextView>
+                                </div>
+                                <div class="">
+                                    <InputLabel for="workOther" class="leading-5">その他</InputLabel>
+                                    <TextView>{{ job.workOther }}</TextView>
+                                </div>
+
+                                <div v-if="managers" class="mt-6">
+                                    <div class="bg-stone-50 -mx-4 py-4">
+                                        <InputLabel class="pl-4">企業情報</InputLabel>
+                                        <div class="mx-4 my-2 px-4 bg-white">
+                                            <template v-for="manager in managers" :key="manager.id">
+                                                <div class="flex gap-4 py-4 border-b-2 border-stone-50">
+                                                    <img class="w-12 h-12 object-cover rounded-full" src="../../../../public/images/job01.jpg" alt="">
+                                                    <div class="">
+                                                        <h3 class="text-base font-bold">{{ manager.name }}</h3>
+                                                        <a href="#" class="text-sm" target="_blank">https:://google.com</a>
+                                                    </div>
+                                                </div>
+                                                <div class="py-4 flex flex-col gap-2">
+                                                    <div class="">
+                                                        <InputLabel>名称</InputLabel>
+                                                        <p class="text-xs leading-loose">{{ manager.name }}</p>
+                                                    </div>
+                                                    <div class="">
+                                                        <InputLabel>所在地</InputLabel>
+                                                        <p class="text-xs leading-loose">〒{{ manager.manager_address_number }}　{{ manager.manager_address }}</p>
+                                                    </div>
+                                                    <div class="">
+                                                        <InputLabel>電話番号</InputLabel>
+                                                        <p class="text-xs leading-loose">{{ manager.tel_manager }}</p>
+                                                    </div>
+                                                    <div class="">
+                                                        <InputLabel>事業内容</InputLabel>
+                                                        <p class="text-xs leading-loose">{{ manager.business }}</p>
+                                                    </div>
+                                                    <div class="">
+                                                        <InputLabel>採用担当</InputLabel>
+                                                        <p class="text-xs leading-loose">{{ manager.recruit_manager }}</p>
+                                                    </div>
+                                                    <div class="">
+                                                        <InputLabel>その他</InputLabel>
+                                                        <p class="text-xs leading-loose">{{ manager.other_manager }}</p>
+                                                    </div>
+                                                </div>
+
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-around mt-4">
+                                    <div class="bg-sky-400 py-2 px-10 rounded-full shadow-lg border-1 border-white">
+                                        <Link :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="text-white flex justify-center items-center">
+                                            <span class="text-sm font-bold text-white">企業にいいね</span><font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" /><span class="text-sm font-bold text-white">を送る</span>
+                                        </Link>
+                                    </div>
+                                    <div class="pt-2 px-2 pb-1 flex items-center">
+                                        <button @click="bookmarkJob(job.id)">
+                                            <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button v-if="job.showDetails" @click="toggleDetails(job)" class="text-xs">閉じる</button>
+                        </div>
                     </div>
-                </div>
+                </template>
+            </div>
+            <!-- 検索結果がない場合の表示 -->
+            <template v-else>
+                <p class="text-center text-gray-600">データがありません。検索条件を変更してください。</p>
+            </template>
+
+            <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="flex justify-center">
+                <ul class="pagination flex">
+                    <li v-for="(link, index) in inertiaJobs.links" :key="link.label" :class="{ 'active': link.active }">
+                        <!-- "前"のリンクを表示しない（インデックスが0かつリンクが存在しない場合） -->
+                        <template v-if="index !== 0 || link.url">
+                            <!-- "次"のリンクを表示しない（最終ページでかつリンクが存在しない場合） -->
+                            <template v-if="index !== inertiaJobs.links.length - 1 || link.url">
+                                <Link
+                                    v-if="link.url"
+                                    :href="link.url"
+                                    v-html="link.label"
+                                    :class="{ 
+                                        'bg-indigo-500 text-white p-2 mx-2': link.active,
+                                        'bg-gray-200 text-black p-2 mx-2': !link.active
+                                    }">
+                                </Link>
+                                <span 
+                                    v-else v-html="link.label" 
+                                    :class="{ 
+                                        'bg-indigo-500 text-white p-2': link.active ,
+                                        'bg-gray-200 text-black': !link.active
+                                        }">
+                                </span>
+                            </template>
+                        </template>
+                    </li>
+                </ul>
             </div>
         </section>
     </BasePage>

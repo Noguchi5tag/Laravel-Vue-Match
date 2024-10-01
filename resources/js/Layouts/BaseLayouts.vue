@@ -4,7 +4,8 @@
 </script>
 
 <template>
-    <div class="max-w-sm m-auto">
+    <!-- 後でborder消す -->
+    <div class="max-w-sm m-auto border-x-2 border-black">
         <HeaderComponent/>
 
             <slot />

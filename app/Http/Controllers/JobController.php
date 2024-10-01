@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InertiaJob;
+use App\Models\Manager;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
@@ -53,6 +54,32 @@ class JobController extends Controller
             return Inertia::render('Manager/CompanyList', [
                 'inertiaJobs' => $inertiaJobs,
             ]);
+        } elseif ($request->is('/search')) {
+            $inertiaJobs = InertiaJob::where([
+                ['status', '=', 1],
+                ['is_checked', '=', 1], 
+            ]) // 公開中のみ表示
+            // 応募済みの求人のみ表示
+            ->whereDoesntHave('applications', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            // ログインしている場合、ブックマークしていない求人のみ表示
+            ->when($user, function ($query) use ($user) {
+                return $query->whereDoesntHave('bookmarkedByUsers', function ($q) use ($user) {
+                    $q->where('user_id', $user->id);
+                });
+            })
+            ->withCount('bookmarkedByUsers')
+            ->searchInertiaJobs($search, $companySearch, $dutyStation, $Occupation, $companyPay)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(3);
+
+            $managers = Manager::all();
+            
+            return Inertia::render('SearchPage', [
+                'inertiaJobs' => $inertiaJobs,
+                'managers' => $managers,
+            ]);
         } else {
             $inertiaJobs = InertiaJob::where([
                 ['status', '=', 1],
@@ -72,9 +99,12 @@ class JobController extends Controller
             ->searchInertiaJobs($search, $companySearch, $dutyStation, $Occupation, $companyPay)
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
+
+            $managers = Manager::all();
             
             return Inertia::render('Company/Index', [
                 'inertiaJobs' => $inertiaJobs,
+                'managers' => $managers,
             ]);
         }
     }
