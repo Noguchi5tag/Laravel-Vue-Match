@@ -5,7 +5,7 @@
 
 <template>
     <!-- 後でborder消す -->
-    <div class="max-w-sm m-auto border-x-2 border-black">
+    <div class="max-w-sm m-auto border-x-2 border-black h-100%">
         <HeaderComponent/>
 
         <div class="pt-10">
