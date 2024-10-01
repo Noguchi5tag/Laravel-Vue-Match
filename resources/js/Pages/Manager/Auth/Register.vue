@@ -6,6 +6,8 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import TextArea from '@/Components/TextArea.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
 
 const form = useForm({
     name: '',
@@ -29,15 +31,35 @@ const submit = () => {
         onFinish: () => form.reset('password', 'password_confirmation'),
     });
 };
+
+const submitFunction = () => {
+    const formData = new FormData();
+    for (const key in form) {
+        formData.append(key, form[key]);
+    }
+    Inertia.post(route('manager.register'), formData);
+}
+
+// 画像プレビュー用の参照を追加
+const imagePreview = ref(form.image_manager || '');
+// 画像が選択されたときの処理
+const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        form.image_manager = file;
+        // プレビューを表示するためのURLを設定
+        imagePreview.value = URL.createObjectURL(file);
+    }
+};
 </script>
 
 <template>
     <GuestLayout>
         <Head title="管理者登録" />
 
-        <form @submit.prevent="submit" class="flex flex-col gap-6">
+        <form @submit.prevent="submitFunction" enctype="multipart/form-data" class="flex flex-col gap-6">
             <div>
-                <InputLabel for="name" value="名前" />
+                <InputLabel for="name" value="会社名" />
 
                 <TextInput
                     id="name"
@@ -50,6 +72,19 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
+            </div>
+            <div>
+                <InputLabel for="image_manager" value="プロフィール画像" />
+                <div class="mt-1 flex items-center">
+                    <img v-if="imagePreview" :src="imagePreview" class="w-16 h-16 rounded-full object-cover mr-2" />
+                    <input
+                        id="image_manager"
+                        type="file"
+                        accept="image/*"
+                        @change="handleImageChange"
+                    />
+                </div>
+                <InputError class="mt-2" :message="form.errors.image_manager" />
             </div>
 
             <div>
@@ -111,7 +146,7 @@ const submit = () => {
             </div>
 
             <div>
-                <InputLabel for="manager_address_number" value="郵便番号" />
+                <InputLabel for="manager_address_number" value="郵便番号（ハイフンなし）" />
 
                 <TextInput
                     id="manager_address_number"

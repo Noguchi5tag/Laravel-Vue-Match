@@ -54,7 +54,6 @@ const updateFunction = () => {
 
 // 画像プレビュー用の参照を追加
 const imagePreview = ref(user.image_manager || '');
-
 // 画像が選択されたときの処理
 const handleImageChange = (event) => {
     const file = event.target.files[0];

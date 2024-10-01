@@ -14,6 +14,7 @@ const form = useForm({
     business: user.business,
     recruit_manager: user.recruit_manager,
     other_manager: user.other_manager,
+    image_manager: user.image_manager,
 });
 </script>
 
@@ -32,8 +33,8 @@ const form = useForm({
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
+                <div class="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-around">
+                    <div class="text-gray-900">
                         <div class="py-2">
                             <InputLabel>名称</InputLabel>
                             <p>{{ form.name }}</p>
@@ -56,6 +57,9 @@ const form = useForm({
                         </div>
                         <InputLabel>その他</InputLabel>
                         <p>{{ form.other_manager }}</p>
+                    </div>
+                    <div class="w-1/2 h-auto">
+                        <img :src="`/images/${form.image_manager}`" alt="プロフィール画像" v-if="form.image_manager">
                     </div>
                 </div>
 

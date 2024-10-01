@@ -60,10 +60,10 @@ Route::middleware('auth:manager')->group(function () {
         return Inertia::render('Manager/Dashboard');
     })->middleware(['auth:manager', 'verified'])->name('dashboard');
 
-    Route::get('/profile', [ManagerProfileController::class, 'edit'])->middleware('auth:manager')->name('profile.edit');
-    Route::patch('/profile', [ManagerProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile', [ManagerProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ManagerProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ManagerProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::post('/profile/update', [ManagerProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/update', [ManagerProfileController::class, 'update'])->name('profile.update');
 
 
     //Company
