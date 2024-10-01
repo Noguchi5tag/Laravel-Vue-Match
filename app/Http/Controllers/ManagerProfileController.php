@@ -48,19 +48,17 @@ class ManagerProfileController extends Controller
         $image = 'image_manager';
 
     if ($request->hasFile($image)) {
+        $originalName = $request->file($image)->getClientOriginalName();
+
         // 古い画像が存在する場合は削除
         if ($user->{$image}) {
-            Storage::delete('public/storages/' . $user->{$image});
-            if (file_exists(public_path('images/' . $user->{$image}))) {
-                unlink(public_path('images/' . $user->{$image}));
-            }
+            Storage::delete('public/storages/' . $originalName);
         }
 
         // 画像のオリジナル名を取得し、ストレージと公開ディレクトリに保存
         $originalName = $request->file($image)->getClientOriginalName();
         // 画像を保存し、パスを取得
         $path = $request->file($image)->storeAs('public/storages', $originalName);
-        $request->file($image)->move(public_path('images'), $originalName);
         $validatedData[$image] = basename($path); // データベースに保存するパスを設定
     } else {
         // 既存の画像パスを保持

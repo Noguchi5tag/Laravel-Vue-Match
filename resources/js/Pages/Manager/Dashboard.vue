@@ -59,7 +59,7 @@ const form = useForm({
                         <p>{{ form.other_manager }}</p>
                     </div>
                     <div class="w-1/2 h-auto">
-                        <img :src="`/images/${form.image_manager}`" alt="プロフィール画像" v-if="form.image_manager">
+                        <img :src="`/storage/storages/${form.image_manager}`" alt="プロフィール画像" v-if="form.image_manager">
                     </div>
                 </div>
 
