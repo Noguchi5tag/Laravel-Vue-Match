@@ -1,7 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import BasePage from '../../Layouts/BaseLayouts.vue';
-import SectionInner from '../../Layouts/SectionInner.vue';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted } from 'vue'
@@ -9,9 +8,6 @@ import { Inertia } from '@inertiajs/inertia';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import TextView from '@/Components/TextView.vue';
-import { dutyStations } from '@/data';
-import { Occupations } from '@/data';
-import { companyPays } from '@/data';
 
 
 const props = defineProps({
@@ -202,9 +198,9 @@ const bookmarkJob = (jobId) => {
                                             <template v-for="manager in managers" :key="manager.id">
                                                 <div class="flex gap-4 py-4 border-b-2 border-stone-50">
                                                     <img class="w-12 h-12 object-cover rounded-full" src="../../../../public/images/job01.jpg" alt="">
-                                                    <div class="">
+                                                    <div class="flex flex-col justify-center">
                                                         <h3 class="text-base font-bold">{{ manager.name }}</h3>
-                                                        <a href="#" class="text-sm" target="_blank">https:://google.com</a>
+                                                        <a v-if="manager.manager_url" :href="manager.manager_url" class="text-sm" target="_blank">{{ manager.manager_url }}</a>
                                                     </div>
                                                 </div>
                                                 <div class="py-4 flex flex-col gap-2">
@@ -260,9 +256,9 @@ const bookmarkJob = (jobId) => {
                     </div>
                 </template>
             </div>
-            <!-- 検索結果がない場合の表示 -->
+            <!-- データがない場合の表示 -->
             <template v-else>
-                <p class="text-center ">データがありません。検索条件を変更してください。</p>
+                <p class="text-center pt-12">データがありません。</p>
             </template>
 
             <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="flex justify-center">
