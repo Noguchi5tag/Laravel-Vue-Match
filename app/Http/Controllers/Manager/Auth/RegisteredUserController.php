@@ -68,7 +68,6 @@ class RegisteredUserController extends Controller
             $image = $request->file('image_manager');
             $originalName = $image->getClientOriginalName();
             $imagePath = $image->storeAs('public/storages', $originalName);
-            $image->move(public_path('images'), $originalName);
     
             // データベースに画像パスを保存
             $user->update(['image_manager' => $originalName]);

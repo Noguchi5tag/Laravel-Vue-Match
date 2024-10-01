@@ -171,7 +171,6 @@ class JobController extends Controller
             if ($request->hasFile($image)) {
                 $originalName = $request->file($image)->getClientOriginalName();
                 $path = $request->file($image)->storeAs('public/storages', $originalName);
-                $request->file($image)->move(public_path('images'), $originalName);
                 $validatedData[$image] = basename($path); // データベースに保存するパスを設定
             }
         }
@@ -274,9 +273,6 @@ class JobController extends Controller
                 // 古い画像が存在する場合は削除
                 if ($inertiaJob->{$image}) {
                     Storage::delete('public/storages/' . $inertiaJob->{$image});
-                    if (file_exists(public_path('images/' . $inertiaJob->{$image}))) {
-                        unlink(public_path('images/' . $inertiaJob->{$image}));
-                    }
                 }
                 $validatedData[$image] = null;// データベースからも画像パスを削除
                 $imageDeleted = true; // 画像が削除されたことを記録
@@ -295,7 +291,6 @@ class JobController extends Controller
                 $originalName = $request->file($image)->getClientOriginalName();
                 // 画像を保存し、パスを取得
                 $path = $request->file($image)->storeAs('public/storages', $originalName);
-                $request->file($image)->move(public_path('images'), $originalName);
                 $validatedData[$image] = basename($path); // データベースに保存するパスを設定
             } else {
                 // 現在の画像パスを保持
