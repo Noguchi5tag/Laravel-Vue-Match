@@ -125,7 +125,7 @@ const bookmarkJob = (jobId) => {
         <SiteTitle>求人を探す</SiteTitle>
         <section class="relative py-1b mx-auto">
 
-            <template v-if="showSearchOptions">
+            <!-- <template v-if="showSearchOptions"> -->
                 <transition name="fade-slide" mode="out-in">
                     <section class="h-screen relative">
                         <div class="p-4">
@@ -137,14 +137,6 @@ const bookmarkJob = (jobId) => {
                                     <NavLink v-else href="/jobs-choose" class="opacity-50 text-xs">指定なし</NavLink>
                                 </div>
 
-                                <!-- <div class="p-2 w-full flex justify-between">
-                                    <InputLabel for="dutyStation" class="leading-7 text-sm ">エリア</InputLabel>
-                                    <select name="dutyStation" id="dutyStation" v-model="dutyStation">
-                                        <option v-for="dutyStation in dutyStations" :value="dutyStation.value" :key="dutyStation.value">
-                                            {{ dutyStation.label }}
-                                        </option>
-                                    </select>
-                                </div> -->
                                 <div class="p-2 w-full flex justify-between items-center border-b-baseColor border-b">
                                     <InputLabel for="dutyStation" class="leading-7 text-sm ">エリア</InputLabel>
                                     <span v-if="savedDutyStations.length" class="opacity-50 text-xs">{{ savedDutyStations.join(', ') }}</span>
@@ -172,13 +164,15 @@ const bookmarkJob = (jobId) => {
                         </div>
                     </section>
                 </transition>
-            </template>
+            <!-- </template> -->
 
             <!-- 検索結果 -->
             <template v-if="!showSearchOptions">
                 <template v-if="savedOccupations.length > 0 || savedDutyStations.length > 0 ||  searchCompanyPay || searchKeyword ">
     
-                    <button @click="showSearchOptionsSection">条件を変更する</button>
+                    <div class="my-2 text-center">
+                        <PrimaryButton @click="showSearchOptionsSection">条件を変更する</PrimaryButton>
+                    </div>
     
                     <div class="bg-baseColor p-1">
                         <ul class="bg-white m-2 p-4 rounded-lg">
