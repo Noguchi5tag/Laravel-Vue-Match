@@ -98,7 +98,6 @@ const handleImageChange = (event) => {
                         @change="handleImageChange"
                     />
                 </div>
-                <InputError class="mt-2" :message="form.errors.image_manager" />
             </div>
 
             <div>

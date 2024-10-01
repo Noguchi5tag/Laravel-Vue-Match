@@ -63,7 +63,7 @@ Route::middleware('auth:manager')->group(function () {
     Route::get('/profile', [ManagerProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ManagerProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ManagerProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::put('/profile/update', [ManagerProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/update', [ManagerProfileController::class, 'update'])->name('profile.update');
 
 
     //Company

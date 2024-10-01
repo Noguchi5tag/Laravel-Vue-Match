@@ -14,7 +14,7 @@ const props = defineProps({
             <div class="mx-4 my-2 px-4 bg-white">
                 <template v-for="manager in managers" :key="manager.id">
                     <div class="flex gap-4 py-4 border-b-2 border-stone-50">
-                        <img class="w-12 h-12 object-cover rounded-full" src="../../../../public/images/job01.jpg" alt="">
+                        <img class="w-12 h-12 object-cover rounded-full" :src="`/images/${ manager.image_manager }`" alt="プロフィール画像">
                         <div class="flex flex-col justify-center">
                             <h3 class="text-base font-bold">{{ manager.name }}</h3>
                             <a v-if="manager.manager_url" :href="manager.manager_url" class="text-sm" target="_blank">{{ manager.manager_url }}</a>

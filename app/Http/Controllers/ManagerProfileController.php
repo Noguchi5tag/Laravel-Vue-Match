@@ -47,44 +47,31 @@ class ManagerProfileController extends Controller
 
         $image = 'image_manager';
 
-        // 画像削除フラグの確認
-        if ($request->input("imageDeleteFlag.$image") === true) {
-            // 古い画像が存在する場合は削除
-            if ($user->{$image}) {
-                Storage::delete('public/storages/' . $user->{$image});
-                if (file_exists(public_path('images/' . $user->{$image}))) {
-                    unlink(public_path('images/' . $user->{$image}));
-                }
+    if ($request->hasFile($image)) {
+        // 古い画像が存在する場合は削除
+        if ($user->{$image}) {
+            Storage::delete('public/storages/' . $user->{$image});
+            if (file_exists(public_path('images/' . $user->{$image}))) {
+                unlink(public_path('images/' . $user->{$image}));
             }
-            // データベースから画像パスを削除
-            $validatedData[$image] = null;
-        } elseif ($request->hasFile($image)) {
-            // 古い画像が存在する場合は削除
-            if ($user->{$image}) {
-                Storage::delete('public/storages/' . $user->{$image});
-                if (file_exists(public_path('images/' . $user->{$image}))) {
-                    unlink(public_path('images/' . $user->{$image}));
-                }
-            }
-
-            // 画像のオリジナル名を取得
-            $originalName = $request->file($image)->getClientOriginalName();
-            // 画像をストレージに保存し、パスを取得
-            $path = $request->file($image)->storeAs('public/storages', $originalName);
-            // 公開ディレクトリにも保存
-            $request->file($image)->move(public_path('images'), $originalName);
-            // データベースに保存するパスを設定
-            $validatedData[$image] = $originalName;
-        } else {
-            // 既存の画像パスを保持
-            $validatedData[$image] = $user->{$image};
         }
+
+        // 画像のオリジナル名を取得し、ストレージと公開ディレクトリに保存
+        $originalName = $request->file($image)->getClientOriginalName();
+        // 画像を保存し、パスを取得
+        $path = $request->file($image)->storeAs('public/storages', $originalName);
+        $request->file($image)->move(public_path('images'), $originalName);
+        $validatedData[$image] = basename($path); // データベースに保存するパスを設定
+    } else {
+        // 既存の画像パスを保持
+        $validatedData[$image] = $user->{$image};
+    }
         
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
     
-        $user->save();
+        $user->update($validatedData);
 
         return Redirect::route('manager.profile.edit')->with('status', 'プロフィールを更新しました');
     }
