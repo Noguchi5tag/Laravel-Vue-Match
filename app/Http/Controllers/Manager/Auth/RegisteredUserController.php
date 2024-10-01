@@ -32,19 +32,45 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'login_name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.Manager::class,
+            'manager_url' => 'string|max:255',
+            'tel_manager' => 'required|string|max:12',
+            'manager_address_number' => 'required', 'regex:/^\d{3}-?\d{4}$/',
+            'manager_address' => 'required|string|max:255',
+            'business' => 'required|string|max:255',
+            'recruit_manager' => 'required|string|max:255',
+            'other_manager' => 'nullable|string|max:1000',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'image_manager' => ['nullable', 'image', 'max:5120'],
         ]);
 
         $user = Manager::create([
-            'name' => $request->name,
-            'login_name' => $request->login_name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'name' => $validatedData['name'],
+            'login_name' => $validatedData['login_name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'manager_url' => $validatedData['manager_url'] ?? null,
+            'tel_manager' => $validatedData['tel_manager'],
+            'manager_address_number' => $validatedData['manager_address_number'],
+            'manager_address' => $validatedData['manager_address'],
+            'business' => $validatedData['business'],
+            'recruit_manager' => $validatedData['recruit_manager'],
+            'other_manager' => $validatedData['other_manager'] ?? null,
         ]);
+
+        if ($request->hasFile('image_manager')) {
+            $image = $request->file('image_manager');
+            $originalName = $image->getClientOriginalName();
+            $imagePath = $image->storeAs('public/storages', $originalName);
+            $image->move(public_path('images'), $originalName);
+    
+            // データベースに画像パスを保存
+            $user->update(['image_manager' => $originalName]);
+        }
 
         event(new Registered($user));
 

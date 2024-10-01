@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue';
 
 const model = defineModel({
     type: String,
-    required: true,
 });
 
 const textarea = ref(null);
