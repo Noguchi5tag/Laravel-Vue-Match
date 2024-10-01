@@ -29,20 +29,20 @@ const submitFunction = () => {
     </div>
         <div class="py-6">
             <form @submit.prevent="submitFunction">
-                <section class="text-gray-600 body-font relative">
+                <section class=" body-font relative">
                     <div class="container px-4 py-24 mx-auto">
                         <div class="mx-auto">
                             <div class="-m-2">
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="title" class="leading-7 text-sm text-gray-600">タイトル</InputLabel>
+                                        <InputLabel for="title" class="leading-7 text-sm ">タイトル</InputLabel>
                                         <TextInput type="text" name="title" id="title" v-model="form.title" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="content" class="leading-7 text-sm text-gray-600">内容</InputLabel>
+                                        <InputLabel for="content" class="leading-7 text-sm ">内容</InputLabel>
                                         <textarea name="content" id="content" v-model="form.content" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
                                     </div>
                                 </div>

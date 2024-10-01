@@ -25,7 +25,7 @@ const submit = () => {
     <GuestLayout>
         <Head title="Forgot Password" />
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 text-sm ">
             パスワードをお忘れですか？<br>
             メールアドレスをお知らせください。リンクをお送りします。
         </div>

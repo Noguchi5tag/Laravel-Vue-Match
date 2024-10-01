@@ -21,7 +21,7 @@ const submit = () => {
     <GuestLayout>
         <Head title="Confirm Password" />
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 text-sm ">
             これはアプリケーションの安全なエリアです。続行する前にパスワードを確認してください。
         </div>
 

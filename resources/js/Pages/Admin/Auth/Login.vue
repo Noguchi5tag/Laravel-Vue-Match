@@ -74,7 +74,7 @@ const adminSubmit = () => {
             <div class="block mt-4">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600">保存しておく</span>
+                    <span class="ms-2 text-sm ">保存しておく</span>
                 </label>
             </div>
 

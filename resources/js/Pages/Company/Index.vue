@@ -131,7 +131,7 @@ const bookmarkJob = (jobId) => {
                             <div class="w-full flex justify-between items-center">
                                 <div class="relative flex items-center">
                                     <font-awesome-icon :icon="['fas', 'comment']" class="w-4 h-4" />
-                                    <InputLabel for="WantedTitles" class="ml-2 leading-7 text-xs text-gray-600">{{ job.WantedTitles }}</InputLabel>
+                                    <InputLabel for="WantedTitles" class="ml-2 leading-7 text-xs ">{{ job.WantedTitles }}</InputLabel>
                                 </div>
                                 <div class="flex items-center gap-1">
                                     <font-awesome-icon :icon="['far', 'bookmark']" class="w-4 h-4" />
@@ -262,7 +262,7 @@ const bookmarkJob = (jobId) => {
             </div>
             <!-- 検索結果がない場合の表示 -->
             <template v-else>
-                <p class="text-center text-gray-600">データがありません。検索条件を変更してください。</p>
+                <p class="text-center ">データがありません。検索条件を変更してください。</p>
             </template>
 
             <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="flex justify-center">

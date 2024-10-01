@@ -47,38 +47,38 @@ const submitFunction = () => {
 
         <div class="py-6">
             <form @submit.prevent="submitFunction">
-                <section class="text-gray-600 body-font relative">
+                <section class=" body-font relative">
                     <div class="container px-4 py-10 mx-auto">
                         <div class="mx-auto">
                             <div class="-m-2">
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="job_title" class="leading-7 text-sm text-gray-600">職種名</label>
+                                        <label for="job_title" class="leading-7 text-sm ">職種名</label>
                                         <input type="text" name="job_title" id="job_title" v-model="form.job_title" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="company_name" class="leading-7 text-sm text-gray-600">会社名</label>
+                                        <label for="company_name" class="leading-7 text-sm ">会社名</label>
                                         <input type="text" name="company_name" id="company_name" v-model="form.company_name" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="start_enrollment" class="leading-7 text-sm text-gray-600">在籍開始</label>
+                                        <label for="start_enrollment" class="leading-7 text-sm ">在籍開始</label>
                                         <input type="date" name="start_enrollment" id="start_enrollment" v-model="form.start_enrollment" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="end_enrollment" class="leading-7 text-sm text-gray-600">在籍終了</label>
+                                        <label for="end_enrollment" class="leading-7 text-sm ">在籍終了</label>
                                         <input type="date" name="end_enrollment" id="end_enrollment" v-model="form.end_enrollment" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <input type="checkbox" name="currently_working" id="currently_working" v-model="form.currently_working" class="rounded border-gray-300 text-indigo-600 focus:border-indigo-500 focus:ring-indigo-500">
-                                        <label for="currently_working" class="leading-7 text-sm text-gray-600">現職中</label>
+                                        <label for="currently_working" class="leading-7 text-sm ">現職中</label>
                                     </div>
                                 </div>
 

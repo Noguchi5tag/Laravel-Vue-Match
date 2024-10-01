@@ -75,7 +75,7 @@ const submit = () => {
                 <div class="block mt-4">
                     <label class="flex items-center justify-center">
                         <Checkbox name="remember" v-model:checked="form.remember" />
-                        <span class="ms-2 text-sm text-gray-600">ログイン情報を保存する</span>
+                        <span class="ms-2 text-sm ">ログイン情報を保存する</span>
                     </label>
                 </div>
     

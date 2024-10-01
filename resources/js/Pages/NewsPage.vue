@@ -29,7 +29,7 @@ const formattedNews = props.news.map(item => {
     <BasePage>
         <SiteTitle>お知らせ</SiteTitle>
 
-        <section class="text-gray-600 body-font">
+        <section class=" body-font">
             <div class="container px-5 py-24 mx-auto">
                 <div class="flex flex-col flex-wrap py-6 text-left">
                     <div class="flex flex-col mb-10 lg:items-start items-center">

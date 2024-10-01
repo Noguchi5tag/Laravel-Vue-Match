@@ -68,9 +68,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('jobbg', JobBgController::class);
 
     //検索ページ
-    Route::get('/search', function () {
-        return Inertia::render('SearchPage');
-    })->name('search');
+    Route::get('/search', [JobController::class,'index'])->name('search');
+    Route::get('/jobs-choose', function () {
+        return Inertia::render('Search/Jobs');
+    })->name('jobs.choose');
+    Route::get('/area-choose', function () {
+        return Inertia::render('Search/Area');
+    })->name('area.choose');
 
     //Company
     Route::get('/', [JobController::class,'index'])->name('company.index');

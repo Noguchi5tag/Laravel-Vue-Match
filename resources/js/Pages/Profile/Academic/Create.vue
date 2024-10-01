@@ -48,37 +48,37 @@ const submitFunction = () => {
 
         <div class="py-6">
             <form @submit.prevent="submitFunction">
-                <section class="text-gray-600 body-font relative">
+                <section class=" body-font relative">
                     <div class="container px-4 py-10 mx-auto">
                         <div class="mx-auto">
                             <div class="-m-2">
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="school_classification" class="leading-7 text-sm text-gray-600">学校区分</label>
+                                        <label for="school_classification" class="leading-7 text-sm ">学校区分</label>
                                         <input type="text" name="school_classification" id="school_classification" v-model="form.school_classification" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="school_name" class="leading-7 text-sm text-gray-600">学校名</label>
+                                        <label for="school_name" class="leading-7 text-sm ">学校名</label>
                                         <input type="text" name="school_name" id="school_name" v-model="form.school_name" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="department" class="leading-7 text-sm text-gray-600">学部・学科</label>
+                                        <label for="department" class="leading-7 text-sm ">学部・学科</label>
                                         <input type="text" name="department" id="department" v-model="form.department" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="matriculation" class="leading-7 text-sm text-gray-600">入学</label>
+                                        <label for="matriculation" class="leading-7 text-sm ">入学</label>
                                         <input type="date" name="matriculation" id="matriculation" v-model="form.matriculation" required class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="graduation" class="leading-7 text-sm text-gray-600">卒業</label>
+                                        <label for="graduation" class="leading-7 text-sm ">卒業</label>
                                         <input type="date" name="graduation" id="graduation" v-model="form.graduation" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@ const submitFunction = () => {
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <input type="checkbox" name="undergraduate" id="undergraduate" v-model="form.undergraduate" class="rounded border-gray-300 text-indigo-600 focus:border-indigo-500 focus:ring-indigo-500">
-                                        <label for="undergraduate" class="leading-7 text-sm text-gray-600">在学中</label>
+                                        <label for="undergraduate" class="leading-7 text-sm ">在学中</label>
                                     </div>
                                 </div>
 

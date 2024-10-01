@@ -17,11 +17,13 @@ class JobController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
+        //検索条件
         $search = $request->input('search');
         $companySearch = $request->input('companySearch');
         $dutyStation = $request->input('dutyStation');
         $Occupation = $request->input('Occupation');
         $companyPay = $request->input('companyPay');
+
         $user = $request->user();
 
         if ($request->is('admin/new/companylist')) {
@@ -54,12 +56,12 @@ class JobController extends Controller
             return Inertia::render('Manager/CompanyList', [
                 'inertiaJobs' => $inertiaJobs,
             ]);
-        } elseif ($request->is('/search')) {
+        } elseif ($request->is('search')) {
             $inertiaJobs = InertiaJob::where([
                 ['status', '=', 1],
                 ['is_checked', '=', 1], 
             ]) // 公開中のみ表示
-            // 応募済みの求人のみ表示
+            // 応募済みの求人は非表示
             ->whereDoesntHave('applications', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })
@@ -85,7 +87,7 @@ class JobController extends Controller
                 ['status', '=', 1],
                 ['is_checked', '=', 1], 
             ]) // 公開中のみ表示
-            // 応募済みの求人のみ表示
+            // 応募済みの求人は非表示
             ->whereDoesntHave('applications', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })
@@ -96,7 +98,6 @@ class JobController extends Controller
                 });
             })
             ->withCount('bookmarkedByUsers')
-            ->searchInertiaJobs($search, $companySearch, $dutyStation, $Occupation, $companyPay)
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
 

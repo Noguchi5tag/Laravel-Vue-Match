@@ -51,7 +51,7 @@ const closeModal = () => {
                     本当にアカウントを削除しますか？
                 </h2>
 
-                <p class="mt-1 text-sm text-gray-600">
+                <p class="mt-1 text-sm ">
                     アカウントが削除されると、データはすべて永久に削除されます。<br>
                     このまま削除する場合は、パスワードを入力してください。
                 </p>

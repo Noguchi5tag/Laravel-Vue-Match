@@ -68,7 +68,7 @@ const form = useForm({
                         :href="route('verification.send')"
                         method="post"
                         as="button"
-                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="underline text-sm  hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         こちらをクリックして認証メールを再送信してください。
                     </Link>
@@ -91,7 +91,7 @@ const form = useForm({
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">保存しました。</p>
+                    <p v-if="form.recentlySuccessful" class="text-sm ">保存しました。</p>
                 </Transition>
             </div>
         </form>

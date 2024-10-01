@@ -23,7 +23,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
     <GuestLayout>
         <Head title="Email Verification" />
 
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="mb-4 text-sm ">
             ご登録ありがとうございます！登録を始める前に、以下のリンクをクリックしてメールアドレスを確認してください。<br>
             Eメールが届いていない場合は、再度お送りいたします。
         </div>
@@ -42,7 +42,7 @@ const verificationLinkSent = computed(() => props.status === 'verification-link-
                     :href="route('admin.logout')"
                     method="post"
                     as="button"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    class="underline text-sm  hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >ログアウト</Link
                 >
             </div>

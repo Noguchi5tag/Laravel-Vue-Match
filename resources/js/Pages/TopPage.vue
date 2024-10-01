@@ -61,19 +61,19 @@ const submit = () => {
                             <div class="rounded-lg bg-gray-100 my-6 mx-2 py-6 " v-if="job.status === 1">
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="companyName" class="leading-7 text-sm text-gray-600">会社名</label>
+                                        <label for="companyName" class="leading-7 text-sm ">会社名</label>
                                         <div id="companyName" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyName }}</div>
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル</label>
+                                        <label for="WantedTitles" class="leading-7 text-sm ">募集タイトル</label>
                                         <div id="WantedTitles" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.WantedTitles }}</div>
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <label for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</label>
+                                        <label for="companyAddress" class="leading-7 text-sm ">会社の住所</label>
                                         <div id="companyAddress" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@ const submit = () => {
                 </div>
 
                 <!-- お知らせ一覧 -->
-                <section class="text-gray-600 body-font">
+                <section class=" body-font">
                     <div class="container px-5 py-6 mx-auto">
                         <h2 class="text-gray-900 text-lg title-font font-medium text-center">お知らせ</h2>
                         <div v-if="news.data.length" class="flex flex-col flex-wrap py-6">
@@ -350,14 +350,14 @@ const submit = () => {
                         <div class="text-center">
                             <Link
                                 :href="route('rules')"
-                                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                class="underline text-sm  hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 利用規約
                             </Link>
                             と
                             <Link
                                 :href="route('Privacy')"
-                                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                class="underline text-sm  hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 プライバシーポリシー
                             </Link>

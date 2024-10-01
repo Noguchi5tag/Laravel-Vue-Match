@@ -84,7 +84,7 @@ const deleteBookmarkJob = (jobId) => {
                             <div class="w-full flex justify-between items-center">
                                 <div class="relative flex items-center">
                                     <font-awesome-icon :icon="['fas', 'comment']" class="w-4 h-4" />
-                                    <InputLabel for="WantedTitles" class="ml-2 leading-7 text-xs text-gray-600">{{ job.WantedTitles }}</InputLabel>
+                                    <InputLabel for="WantedTitles" class="ml-2 leading-7 text-xs ">{{ job.WantedTitles }}</InputLabel>
                                 </div>
                                 <div class="flex items-center gap-1">
                                     <font-awesome-icon :icon="['far', 'bookmark']" class="w-4 h-4" />
@@ -95,7 +95,7 @@ const deleteBookmarkJob = (jobId) => {
 
                         <div class="p-2 w-full">
                             <div class="relative flex items-center">
-                                <InputLabel for="WantedTitles" class="leading-7 text-sm text-gray-600">募集タイトル：</InputLabel>
+                                <InputLabel for="WantedTitles" class="leading-7 text-sm ">募集タイトル：</InputLabel>
                                 <p>{{ job.WantedTitles }}</p>
                             </div>
                         </div>
@@ -105,26 +105,26 @@ const deleteBookmarkJob = (jobId) => {
                         <div v-show="job.showDetails">
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="Occupation" class="leading-7 text-sm text-gray-600">職種</InputLabel>
+                                    <InputLabel for="Occupation" class="leading-7 text-sm ">職種</InputLabel>
                                     <div type="text" id="Occupation" name="Occupation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.Occupation }}</div>
                                 </div>
                             </div>
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="companyAddress" class="leading-7 text-sm text-gray-600">会社の住所</InputLabel>
+                                    <InputLabel for="companyAddress" class="leading-7 text-sm ">会社の住所</InputLabel>
                                     <div type="text" id="companyAddress" name="companyAddress" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
                                 </div>
                             </div>
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="companyPay" class="leading-7 text-sm text-gray-600">給料</InputLabel>
+                                    <InputLabel for="companyPay" class="leading-7 text-sm ">給料</InputLabel>
                                     <div type="text" id="companyPay" name="companyPay" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyPay }}</div>
                                 </div>
                             </div>
 
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="dutyStation" class="leading-7 text-sm text-gray-600">勤務地</InputLabel>
+                                    <InputLabel for="dutyStation" class="leading-7 text-sm ">勤務地</InputLabel>
                                     <div type="text" id="dutyStation" name="dutyStation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.dutyStation }}
                                     </div>
@@ -133,7 +133,7 @@ const deleteBookmarkJob = (jobId) => {
 
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="workDescription" class="leading-7 text-sm text-gray-600">仕事内容</InputLabel>
+                                    <InputLabel for="workDescription" class="leading-7 text-sm ">仕事内容</InputLabel>
                                     <div type="text" id="workDescription" name="workDescription" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.workDescription }}
                                     </div>
@@ -142,7 +142,7 @@ const deleteBookmarkJob = (jobId) => {
 
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="payDescription" class="leading-7 text-sm text-gray-600">給与詳細</InputLabel>
+                                    <InputLabel for="payDescription" class="leading-7 text-sm ">給与詳細</InputLabel>
                                     <div type="text" id="payDescription" name="payDescription" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.payDescription }}
                                     </div>
@@ -151,7 +151,7 @@ const deleteBookmarkJob = (jobId) => {
 
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="travelExpenses" class="leading-7 text-sm text-gray-600">交通費</InputLabel>
+                                    <InputLabel for="travelExpenses" class="leading-7 text-sm ">交通費</InputLabel>
                                     <div type="text" id="travelExpenses" name="travelExpenses" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.travelExpenses }}
                                     </div>
@@ -160,7 +160,7 @@ const deleteBookmarkJob = (jobId) => {
 
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="Welfare" class="leading-7 text-sm text-gray-600">福利厚生</InputLabel>
+                                    <InputLabel for="Welfare" class="leading-7 text-sm ">福利厚生</InputLabel>
                                     <div type="text" id="Welfare" name="Welfare" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.Welfare }}
                                     </div>
@@ -169,7 +169,7 @@ const deleteBookmarkJob = (jobId) => {
 
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="startWork" class="leading-7 text-sm text-gray-600">勤務開始時間</InputLabel>
+                                    <InputLabel for="startWork" class="leading-7 text-sm ">勤務開始時間</InputLabel>
                                     <div type="text" id="startWork" name="startWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.startWork.split(':').slice(0, 2).join(':') }}
                                     </div>
@@ -178,7 +178,7 @@ const deleteBookmarkJob = (jobId) => {
 
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="endWork" class="leading-7 text-sm text-gray-600">勤務終了時間</InputLabel>
+                                    <InputLabel for="endWork" class="leading-7 text-sm ">勤務終了時間</InputLabel>
                                     <div type="text" id="endWork" name="endWork" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.endWork.split(':').slice(0, 2).join(':') }}
                                     </div>
@@ -187,7 +187,7 @@ const deleteBookmarkJob = (jobId) => {
 
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="workDays" class="leading-7 text-sm text-gray-600">出勤日</InputLabel>
+                                    <InputLabel for="workDays" class="leading-7 text-sm ">出勤日</InputLabel>
                                     <div type="text" id="workDays" name="workDays" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.workDays }}
                                     </div>
@@ -196,7 +196,7 @@ const deleteBookmarkJob = (jobId) => {
 
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="freeDays" class="leading-7 text-sm text-gray-600">休日</InputLabel>
+                                    <InputLabel for="freeDays" class="leading-7 text-sm ">休日</InputLabel>
                                     <div type="text" id="freeDays" name="freeDays" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.freeDays }}
                                     </div>
@@ -205,7 +205,7 @@ const deleteBookmarkJob = (jobId) => {
 
                             <div class="p-2 w-full">
                                 <div class="relative">
-                                    <InputLabel for="NearestStation" class="leading-7 text-sm text-gray-600">最寄り駅</InputLabel>
+                                    <InputLabel for="NearestStation" class="leading-7 text-sm ">最寄り駅</InputLabel>
                                     <div type="text" id="NearestStation" name="NearestStation" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.NearestStation }}
                                     </div>
@@ -214,7 +214,7 @@ const deleteBookmarkJob = (jobId) => {
 
                             <div class="p-2 w-full mb-4">
                                 <div class="relative">
-                                    <InputLabel for="workOther" class="leading-7 text-sm text-gray-600">その他</InputLabel>
+                                    <InputLabel for="workOther" class="leading-7 text-sm ">その他</InputLabel>
                                     <div type="text" id="workOther" name="workOther" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     {{ job.workOther }}
                                     </div>
