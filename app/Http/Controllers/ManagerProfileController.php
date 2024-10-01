@@ -74,6 +74,7 @@ class ManagerProfileController extends Controller
         $user->update($validatedData);
 
         return Redirect::route('manager.profile.edit')->with('status', 'プロフィールを更新しました');
+        
     }
 
     public function destroy(Request $request): RedirectResponse
