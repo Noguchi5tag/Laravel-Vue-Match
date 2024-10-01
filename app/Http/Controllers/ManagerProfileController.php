@@ -28,7 +28,16 @@ class ManagerProfileController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
+            'login_name' => ['string', 'max:255'],
+            'manager_url' => ['string', 'max:255'],
+            'tel_manager' => ['nullable', 'string', 'max:15'],
+            'manager_address_number' => ['required', 'string'],
+            'manager_address' => ['required', 'string', 'max:255'],
+            'business' => ['required', 'string'],
+            'recruit_manager' => ['required', 'string', 'max:255'],
+            'other_manager' => ['nullable', 'string'],
         ]);
+        
 
         $user = $request->user('manager');
         $user->fill($validatedData);

@@ -3,6 +3,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import TextArea from '@/Components/TextArea.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
 defineProps({
@@ -19,6 +20,14 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    login_name: user.login_name,
+    manager_url: user.manager_url || '',
+    tel_manager: user.tel_manager || '01012345678',
+    manager_address_number: user.manager_address_number || '8551234',
+    manager_address: user.manager_address || '',
+    business: user.business || '',
+    recruit_manager: user.recruit_manager || '',
+    other_manager: user.other_manager || ''
 });
 
 </script>
@@ -31,7 +40,7 @@ const form = useForm({
 
         <form @submit.prevent="form.patch(route('manager.profile.update'))" class="mt-6 space-y-6">
             <div>
-                <InputLabel for="name" value="名前" />
+                <InputLabel for="name" value="会社名" />
 
                 <TextInput
                     id="name"
@@ -81,6 +90,110 @@ const form = useForm({
                     登録したメールアドレスに新しい認証リンクが送信されました。
                 </div>
             </div> -->
+
+            <div>
+                <InputLabel for="login_name" value="ログインネーム" />
+
+                <TextInput
+                    id="login_name"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.login_name"
+                />
+
+                <InputError class="mt-2" :message="form.errors.login_name" />
+            </div>
+
+            <div>
+                <InputLabel for="manager_url" value="サイトURL" />
+
+                <TextInput
+                    id="manager_url"
+                    type="url"
+                    class="mt-1 block w-full"
+                    v-model="form.manager_url"
+                />
+
+                <InputError class="mt-2" :message="form.errors.manager_url" />
+            </div>
+
+            <div>
+                <InputLabel for="tel_manager" value="電話番号" />
+
+                <TextInput
+                    id="tel_manager"
+                    type="tel"
+                    class="mt-1 block w-full"
+                    v-model="form.tel_manager"
+                />
+
+                <InputError class="mt-2" :message="form.errors.tel_manager" />
+            </div>
+
+            <div>
+                <InputLabel for="manager_address_number" value="郵便番号" />
+
+                <TextInput
+                    id="manager_address_number"
+                    type="number"
+                    class="mt-1 block w-full"
+                    v-model="form.manager_address_number"
+                />
+
+                <InputError class="mt-2" :message="form.errors.manager_address_number" />
+            </div>
+
+            <div>
+                <InputLabel for="manager_address" value="住所" />
+
+                <TextInput
+                    id="manager_address"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.manager_address"
+                />
+
+                <InputError class="mt-2" :message="form.errors.manager_address" />
+            </div>
+
+            <div>
+                <InputLabel for="business" value="事業内容" />
+
+                <TextInput
+                    id="business"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.business"
+                />
+
+                <InputError class="mt-2" :message="form.errors.business" />
+            </div>
+
+            <div>
+                <InputLabel for="recruit_manager" value="採用担当者" />
+
+                <TextInput
+                    id="recruit_manager"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.recruit_manager"
+                />
+
+                <InputError class="mt-2" :message="form.errors.recruit_manager" />
+            </div>
+
+            <div>
+                <InputLabel for="other_manager" value="その他" />
+
+                <TextArea
+                    id="other_manager"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.other_manager"
+                />
+
+                <InputError class="mt-2" :message="form.errors.other_manager" />
+            </div>
 
             <div class="flex items-center gap-4">
                 <PrimaryButton :disabled="form.processing">保 存</PrimaryButton>

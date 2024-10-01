@@ -21,6 +21,7 @@ class Manager extends Authenticatable
         'login_name',
         'email',
         'password',
+        'manager_url',
         'tel_manager',
         'manager_address_number',
         'manager_address',

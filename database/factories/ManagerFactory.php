@@ -22,6 +22,7 @@ class ManagerFactory extends Factory
             'login_name' => '株式会社マネジャー',
             'email' => 'manager@manager.com',
             'password' => bcrypt('password'),
+            'manager_url' =>'https://google.com',
             'tel_manager' =>'01012345678',
             'manager_address_number' => '8551234',
             'manager_address' => '長崎県長崎市賑町12-1',
