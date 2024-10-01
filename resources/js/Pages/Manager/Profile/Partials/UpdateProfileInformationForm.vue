@@ -4,7 +4,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import TextArea from '@/Components/TextArea.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import { Link, useForm, usePage, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 defineProps({
     mustVerifyEmail: {
@@ -18,6 +19,7 @@ defineProps({
 const user = usePage().props.auth.user;
 
 const form = useForm({
+    id: user.id,
     name: user.name,
     email: user.email,
     login_name: user.login_name,
@@ -27,9 +29,41 @@ const form = useForm({
     manager_address: user.manager_address || '',
     business: user.business || '',
     recruit_manager: user.recruit_manager || '',
-    other_manager: user.other_manager || ''
+    other_manager: user.other_manager || '',
+    image_manager: user.image_manager || '',
 });
 
+const updateFunction = () => {
+    console.log(form);
+
+    form.post(route('manager.profile.update', user.id), {
+        _method: 'put',
+        name: form.name,
+        email: form.email,
+        login_name: form.login_name,
+        manager_url: form.manager_url,
+        tel_manager: form.tel_manager,
+        manager_address_number: form.manager_address_number,
+        manager_address: form.manager_address,
+        business: form.business,
+        recruit_manager: form.recruit_manager,
+        other_manager: form.other_manager,
+        image_manager: form.image_manager,
+    })
+}
+
+// 画像プレビュー用の参照を追加
+const imagePreview = ref(user.image_manager || '');
+
+// 画像が選択されたときの処理
+const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        form.image_manager = file;
+        // プレビューを表示するためのURLを設定
+        imagePreview.value = URL.createObjectURL(file);
+    }
+};
 </script>
 
 <template>
@@ -38,21 +72,36 @@ const form = useForm({
             <h2 class="text-lg font-medium text-gray-900">登録情報</h2>
         </header>
 
-        <form @submit.prevent="form.patch(route('manager.profile.update'))" class="mt-6 space-y-6">
-            <div>
-                <InputLabel for="name" value="会社名" />
-
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="mt-2" :message="form.errors.name" />
+        <form @submit.prevent="updateFunction(form.id)" enctype="multipart/form-data" class="mt-6 space-y-6">
+            <div class="flex">
+                <div>
+                    <InputLabel for="name" value="会社名" />
+    
+                    <TextInput
+                        id="name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.name"
+                        required
+                        autofocus
+                        autocomplete="name"
+                    />
+    
+                    <InputError class="mt-2" :message="form.errors.name" />
+                </div>
+                <!-- <div>
+                    <InputLabel for="image_manager" value="プロフィール画像" />
+                    <div class="mt-1 flex items-center">
+                        <img v-if="imagePreview" :src="imagePreview" class="w-16 h-16 rounded-full object-cover mr-2" />
+                        <input
+                            id="image_manager"
+                            type="file"
+                            accept="image/*"
+                            @change="handleImageChange"
+                        />
+                    </div>
+                    <InputError class="mt-2" :message="form.errors.image_manager" />
+                </div> -->
             </div>
 
             <div>
