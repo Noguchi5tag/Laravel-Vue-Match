@@ -35,7 +35,7 @@ function formatDate(dateString) {
 
 // 保存処理
 const profileUpdate = () => {
-    localStorage.setItem('userProfile', JSON.stringify(form));
+    // localStorage.setItem('userProfile', JSON.stringify(form));
     form.patch(route('profile.update'));
 };
 
@@ -219,7 +219,6 @@ const inputClasses = computed(() => {
                         leave-active-class="transition ease-in-out"
                         leave-to-class="opacity-0"
                     >
-                        <p v-if="form.recentlySuccessful" class="text-sm ">保存しました。</p>
                     </Transition>
                 </div>
             </form>

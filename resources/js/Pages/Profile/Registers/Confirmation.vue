@@ -45,22 +45,6 @@ function formatDate(dateString) {
     return `${year}-${month}-${day}`;
 }
 
-// ローカルストレージからデータを取り出して設定する関数
-const retrieveFromLocalStorage = () => {
-    const savedData = localStorage.getItem('userProfile');
-    if (savedData) {
-        // 取り出したデータをパースして `form` に設定
-        const parsedData = JSON.parse(savedData);
-        Object.assign(form, parsedData); // フォームに保存されたデータを適用
-        console.log('ローカルストレージからデータを取得しました:', parsedData);
-    }
-};
-
-// ページ読み込み時に `localStorage` からデータを取り出してセット
-onMounted(() => {
-    retrieveFromLocalStorage();
-});
-
 // 保存処理
 const profileUpdate = () => {
     form.patch(route('profile.update'));
