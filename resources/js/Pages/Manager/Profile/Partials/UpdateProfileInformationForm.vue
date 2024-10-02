@@ -90,7 +90,7 @@ const handleImageChange = (event) => {
             <div>
                 <InputLabel for="image_manager" value="プロフィール画像" />
                 <div class="mt-1 flex items-center">
-                    <img v-if="imagePreview" :src="`/storage/storages/${imagePreview}`" class="w-16 h-16 rounded-full object-cover mr-2" />
+                    <img v-if="imagePreview" :src="`/storage/storages/manager/${imagePreview}`" class="w-16 h-16 rounded-full object-cover mr-2" />
                     <input
                         id="image_manager"
                         type="file"

@@ -170,7 +170,7 @@ class JobController extends Controller
         foreach ($images as $image) {
             if ($request->hasFile($image)) {
                 $originalName = $request->file($image)->getClientOriginalName();
-                $path = $request->file($image)->storeAs('public/storages', $originalName);
+                $path = $request->file($image)->storeAs('public/storages/jobs', $originalName);
                 $validatedData[$image] = basename($path); // データベースに保存するパスを設定
             }
         }
@@ -270,7 +270,7 @@ class JobController extends Controller
             if ($request->input("imageDeleteFlag.$image") === true) {
                 // 古い画像が存在する場合は削除
                 if ($inertiaJob->{$image}) {
-                    Storage::delete('public/storages/' . $inertiaJob->{$image});
+                    Storage::delete('public/storages/jobs/' . $inertiaJob->{$image});
                 }
                 $validatedData[$image] = null;// データベースからも画像パスを削除
                 $imageDeleted = true; // 画像が削除されたことを記録
@@ -278,7 +278,7 @@ class JobController extends Controller
             } elseif ($request->hasFile($image)) {
                 // 古い画像が存在する場合は削除
                 if ($inertiaJob->{$image}) {
-                    Storage::delete('public/storages/' . $inertiaJob->{$image});
+                    Storage::delete('public/storages/jobs/' . $inertiaJob->{$image});
                     // 公開ディレクトリからも削除
                     if (file_exists(public_path('images/' . $inertiaJob->{$image}))) {
                         unlink(public_path('images/' . $inertiaJob->{$image}));
@@ -288,7 +288,7 @@ class JobController extends Controller
                 // 画像の名前を取得ししのまま保存
                 $originalName = $request->file($image)->getClientOriginalName();
                 // 画像を保存し、パスを取得
-                $path = $request->file($image)->storeAs('public/storages', $originalName);
+                $path = $request->file($image)->storeAs('public/storages/jobs', $originalName);
                 $validatedData[$image] = basename($path); // データベースに保存するパスを設定
             } else {
                 // 現在の画像パスを保持

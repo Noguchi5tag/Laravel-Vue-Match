@@ -276,7 +276,7 @@ const updateFunction = () => {
                                                     <!-- index が 1 でない場合のみ削除ボタンを表示 -->
                                                     <DangerButton v-if="index !== 1" @click="deleteImage(`image${index}`)">削 除</DangerButton>
                                                 </div>
-                                                <img :src="`/storage/storages/` + form[`registerd_image${index}`]">
+                                                <img :src="`/storage/storages/jobs/` + form[`registerd_image${index}`]">
                                                 <input type="hidden" v-model="form[`registerd_image${index}`]">
                                             </div>
                                         </template>

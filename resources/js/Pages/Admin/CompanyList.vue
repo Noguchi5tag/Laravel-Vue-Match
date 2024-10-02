@@ -150,7 +150,7 @@ const imageCount = (job) => {
                                 <carousel :items-to-show="1.5">
                                     <slide v-for="slide in imageCount(job)" :key="slide">
                                         <div v-if="job[`image${slide}`]" class="carousel__item">
-                                            <img :src="`/images/${job[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
+                                            <img :src="`/storage/storages/jobs/${job[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
                                         </div>
                                     </slide>
                                     <template #addons>
