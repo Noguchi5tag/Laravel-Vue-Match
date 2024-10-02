@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 const props = defineProps({
     user: Object,
 })
-
+console.log(props.user);
 const form = reactive({
     school_classification: null,
     school_name: null,
@@ -20,6 +20,8 @@ const form = reactive({
 
 //登録処理
 const submitFunction = () => {
+
+    console.log(form);
 
     const today = dayjs().format('YYYY-MM-DD');
     if (form.graduation && form.graduation > today) {
@@ -40,7 +42,6 @@ const submitFunction = () => {
 </script>
 
 <template>
-<Head title="学歴登録" />
     <BaseLayouts>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">学歴登録</h2>

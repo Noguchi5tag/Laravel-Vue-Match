@@ -61,7 +61,11 @@ class ProfileController extends Controller
     
         $user->save();
 
-        return Redirect::route('profile.edit');
+        if ($request->path('/personal')) {
+            return Redirect::route('academicskill');
+        }
+
+        return Redirect::route('company.index');
     }
 
     /**

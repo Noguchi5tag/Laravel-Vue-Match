@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('tel')->default('01012345678');
-            $table->integer('sex'); // 性別を数値で管理
+            $table->string('tel')->nullable();
+            $table->integer('sex')->nullable();
             $table->date('birth')->nullable();
-            $table->string('postal');
-            $table->string('prefectures');
-            $table->string('city');
+            $table->string('postal')->nullable();
+            $table->string('prefectures')->nullable();
+            $table->string('city')->nullable();
             $table->integer('status')->default(2);
             $table->rememberToken();
             $table->timestamps();

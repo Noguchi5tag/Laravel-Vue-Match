@@ -29,6 +29,13 @@ const companyPays = [
     { value: '300001', label: '300,000円~' },
 ];
 
+const SchoolClass = [
+    { value: '大学院', label: '大学院' },
+    { value: '大学', label: '大学' },
+    { value: '高校', label: '高校' },
+    { value: '中学校', label: '中学校' },
+]
+
 const prefectures = [
     '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
     '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県',
@@ -39,4 +46,4 @@ const prefectures = [
     '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県',
 ];
 
-export { dutyStations, Occupations, companyPays, prefectures };
+export { dutyStations, Occupations, companyPays, SchoolClass, prefectures };

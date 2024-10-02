@@ -1,5 +1,7 @@
 <?php
 
+//メール認証リンクを再送信する機能を提供
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;

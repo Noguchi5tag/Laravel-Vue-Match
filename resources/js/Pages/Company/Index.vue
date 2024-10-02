@@ -97,7 +97,7 @@ const bookmarkJob = (jobId) => {
                             <slide v-for="slide in imageCount(job)" :key="slide">
                                 <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 relative overflow-hidden">
                                     <img 
-                                        :src="`/storage/storages/${job[`image${slide}`]}`" 
+                                        :src="`/storage/storages/jobs/${job[`image${slide}`]}`" 
                                         alt="" 
                                         class="object-cover w-full h-full"
                                     >

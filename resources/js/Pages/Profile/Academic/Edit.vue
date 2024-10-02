@@ -18,6 +18,8 @@ const form = useForm({
 });
 
 const updateFunction = () => {
+    console.log(form);
+    
     const today = dayjs().format('YYYY-MM-DD');
     if (form.graduation && form.graduation > today) {
         alert('卒業日は本日以前の日付を選択してください');

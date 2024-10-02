@@ -34,30 +34,31 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'tel' => 'required|string',
-            'sex' => 'required|integer|in:0,1,2',
-            'birth' => 'required|date',
-            'postal' => 'required|integer',
-            'prefectures' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
+            // 'tel' => 'string',
+            // 'sex' => 'integer|in:0,1,2',
+            // 'birth' => 'date',
+            // 'postal' => 'integer',
+            // 'prefectures' => 'string|max:255',
+            // 'city' => 'string|max:255',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'tel' => $request->tel,
-            'sex' => $request->sex,
-            'birth' => $request->birth,
-            'postal' => $request->postal,
-            'prefectures' => $request->prefectures,
-            'city' => $request->city,
+            // 'tel' => $request->tel,
+            // 'sex' => $request->sex,
+            // 'birth' => $request->birth,
+            // 'postal' => $request->postal,
+            // 'prefectures' => $request->prefectures,
+            // 'city' => $request->city,
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('company.index', absolute: false));
+        // return redirect(route('company.index', absolute: false));
+        return redirect()->route('verification.notice');
     }
 }

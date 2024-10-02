@@ -23,12 +23,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'tel',         // 追加
-        'sex',         // 追加
-        'birth',       // 追加
-        'postal',      // 追加
-        'prefectures', // 追加
-        'city',        // 追加
+        'tel',        
+        'sex',        
+        'birth',      
+        'postal',     
+        'prefectures',
+        'city',       
     ];
 
     /**
@@ -69,7 +69,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function bookmarks()
-{
-    return $this->belongsToMany(InertiaJob::class, 'bookmarks', 'user_id', 'inertia_job_id')->withTimestamps();
-}
+    {
+        return $this->belongsToMany(InertiaJob::class, 'bookmarks', 'user_id', 'inertia_job_id')->withTimestamps();
+    }
 }

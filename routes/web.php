@@ -20,8 +20,8 @@ Route::get('/test', function () {
 //ダッシュボード
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 //このサイトについて
 Route::get('/site-details', function () {
@@ -53,7 +53,14 @@ Route::get('/jobpostings', function () {
 })->name('jobpostings');
 
 //default
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    //利用登録・個人情報
+    Route::get('/personal', function () { return Inertia::render('Profile/Registers/Personal'); })->name('personal');
+    //利用登録・個人情報
+    Route::get('/academicskill', [AcademicBgController::class, 'index'])->name('academicskill');
+    //内容確認
+    Route::get('/confirmation', function () { return Inertia::render('Profile/Registers/Confirmation'); })->name('confirmation');
     
     //プロフィール
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -64,6 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('skill', SkillController::class);
     //学歴
     Route::resource('academic', AcademicBgController::class);
+    Route::get('/academicskill', [AcademicBgController::class, 'create'])->name('academicskill');
     //職務履歴
     Route::resource('jobbg', JobBgController::class);
 

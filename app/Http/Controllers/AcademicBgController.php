@@ -20,6 +20,12 @@ class AcademicBgController extends Controller
         $userId = Auth::id();
         $academic_bgs = Academic_Bg::where('user_id', $userId)->get();
 
+        if ($request->path('/academicskill')) {
+            return Inertia::render('Profile/Registers/AcademicSkill', [
+                'academic_bgs' => $academic_bgs,
+            ]);
+        }
+
         return Inertia::render('Profile/Academic/Index', [
             'academic_bgs' => $academic_bgs,
         ]);
@@ -33,7 +39,7 @@ class AcademicBgController extends Controller
         $userId = Auth::id();
         $user = User::with('academic_bg')->findOrFail($userId);
 
-        return Inertia::render('Profile/Academic/Create',[
+        return Inertia::render('Profile/Registers/AcademicSkill',[
             'user' => $user,
         ]);
     }
@@ -43,7 +49,7 @@ class AcademicBgController extends Controller
      */
     public function store(StoreAcademic_BgRequest $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $validated = $request->validated();
 
         Academic_Bg::create([
@@ -87,9 +93,17 @@ class AcademicBgController extends Controller
      */
     public function update(UpdateAcademic_BgRequest $request, Academic_Bg $academic)
     {
+
+        dd($request->all());
+        
         $validated = $request->validated();
         $validated['undergraduate'] = $request->has('undergraduate') ? $request->input('undergraduate') : false;
         $academic->update($validated);
+
+        if ($request->path('/academicskill')) {
+            return to_route('confirmation');
+        }
+
         return to_route('profile.edit')->with('success', '学歴を更新しました');
     }
 

@@ -11,12 +11,12 @@ import BasePage from '../../Layouts/BaseLayouts.vue';
 const form = useForm({
     name: '',
     email: '',
-    tel: '',
-    sex: '',
-    birth: '',
-    postal: '',
-    prefectures: '',
-    city: '',
+    // tel: '',
+    // sex: '',
+    // birth: '',
+    // postal: '',
+    // prefectures: '',
+    // city: '',
     password: '',
     password_confirmation: '',
 });
@@ -34,7 +34,7 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <SiteTitle>会員登録</SiteTitle>
-            <div class="max-w-7xl mx-auto my-12 px-6 space-y-6">
+            <div class="max-w-7xl mx-auto mt-6 mb-12 px-6 space-y-6">
                 <div>
                     <InputLabel for="name" value="名前" />
     
@@ -67,7 +67,7 @@ const submit = () => {
                 </div>
 
                 <!-- ここに追加 -->
-                <div>
+                <!-- <div>
                     <InputLabel for="tel" value="電話番号（ハイフンなし）" />
 
                     <TextInput
@@ -195,7 +195,7 @@ const submit = () => {
                     />
 
                     <InputError class="mt-2" :message="form.errors.city" />
-                </div>
+                </div> -->
     
                 <div class="mt-4">
                     <InputLabel for="password" value="パスワード" />
@@ -227,17 +227,16 @@ const submit = () => {
                     <InputError class="mt-2" :message="form.errors.password_confirmation" />
                 </div>
     
-                <div class="flex items-center justify-end mt-4">
-                    <Link
-                        :href="route('login')"
-                        class="underline text-sm  hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        すでにアカウントをお持ちですか？
-                    </Link>
-    
+                <div class="flex flex-col items-center justify-end mt-4">
                     <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         登録する
                     </PrimaryButton>
+                    <Link
+                        :href="route('login')"
+                        class="underline text-xs mt-2 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                        すでにアカウントをお持ちですか？
+                    </Link>
                 </div>
             </div>
         </form>
