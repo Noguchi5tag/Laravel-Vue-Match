@@ -39,7 +39,7 @@ class AcademicBgController extends Controller
         $userId = Auth::id();
         $user = User::with('academic_bg')->findOrFail($userId);
 
-        return Inertia::render('Profile/Registers/AcademicSkill',[
+        return Inertia::render('Profile/Academic/Create',[
             'user' => $user,
         ]);
     }
@@ -49,7 +49,7 @@ class AcademicBgController extends Controller
      */
     public function store(StoreAcademic_BgRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $validated = $request->validated();
 
         Academic_Bg::create([
