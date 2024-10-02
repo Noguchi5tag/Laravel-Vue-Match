@@ -58,7 +58,7 @@ const imageCount = (job) => {
                     <carousel :items-to-show="1.5">
                         <slide v-for="slide in imageCount(props.inertiaJob)" :key="slide">
                             <div v-if="props.inertiaJob[`image${slide}`]" class="carousel__item">
-                                <img :src="`/images/${props.inertiaJob[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
+                                <img :src="`/storage/storages/${props.inertiaJob[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
                             </div>
                         </slide>
                         <template #addons>

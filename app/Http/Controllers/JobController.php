@@ -181,8 +181,6 @@ class JobController extends Controller
             return to_route('manager.dashboard')->with(['message' => '登録しました。']);
         }
         return to_route('admin.dashboard')->with(['message' => '登録しました。']);
-
-
     }
 
     /**
