@@ -60,7 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //利用登録・経歴
     Route::get('/academic-register', [AcademicBgController::class, 'create'])->name('academic.register');
     //利用登録・資格
-    Route::get('/skill-register', [JobBgController::class, 'create'])->name('skill.register');
+    Route::get('/jobbg-register', [JobBgController::class, 'create'])->name('skill.register');
     //内容確認
     Route::get('/confirmation', function () { return Inertia::render('Profile/Registers/Confirmation'); })->name('confirmation');
     

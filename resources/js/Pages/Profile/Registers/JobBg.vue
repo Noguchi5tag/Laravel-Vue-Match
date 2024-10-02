@@ -85,7 +85,6 @@ const months = [
                         type="text"
                         :class="inputClasses"
                         v-model="form.skill_name"
-                        autofocus
                         placeholder="勤務先の事業内容"
                     />
                 </div>
@@ -99,7 +98,6 @@ const months = [
                             :class="inputClasses"
                             class="w-2/3"
                             v-model="form.skill_name"
-                            autofocus
                             placeholder="年を入力"
                         />
                         <select
@@ -123,7 +121,6 @@ const months = [
                             :class="inputClasses"
                             class="w-2/3"
                             v-model="form.skill_name"
-                            autofocus
                             placeholder="年を入力"
                         />
                         <select
@@ -185,7 +182,6 @@ const months = [
                             :class="inputClasses"
                             class="w-1/3"
                             v-model="form.skill_name"
-                            autofocus
                             placeholder="300"
                         />
                         <p class="text-sm">万円</p>

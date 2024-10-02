@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, computed } from 'vue';
+import { reactive, computed, onMounted } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 import { SchoolClass } from '@/data';
@@ -14,7 +14,6 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 const props = defineProps({
     user: Object,
 })
-console.log(props.user);
 const form = reactive({
     school_classification: null,
     school_name: null,
