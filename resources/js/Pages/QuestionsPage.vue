@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import BasePage from '../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import SectionInner from '../Layouts/SectionInner.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -9,7 +9,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 <template>
     <Head title="よくある質問" />
-    <BasePage>
+    <BaseLayouts>
         <SiteTitle>よくある質問</SiteTitle>
         <SectionInner class="my-4">
             <div class="pb-6 border-b-2 border-baseColor">
@@ -51,5 +51,5 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
                 <PrimaryButton href="/contact" class="">お問い合わせ</PrimaryButton>
             </div>
         </SectionInner>
-    </BasePage>
+    </BaseLayouts>
 </template>

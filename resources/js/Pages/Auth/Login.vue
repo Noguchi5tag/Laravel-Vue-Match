@@ -7,7 +7,7 @@ import TextInput from '@/Components/TextInput.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import NavLink from '@/Components/NavLink.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import BasePage from '../../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../../Layouts/BaseLayouts.vue';
 
 defineProps({
     canResetPassword: {
@@ -32,7 +32,7 @@ const submit = () => {
 </script>
 
 <template>
-    <BasePage>
+    <BaseLayouts>
         <Head title="ログイン" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
@@ -105,6 +105,6 @@ const submit = () => {
                 </NavLink>
             </div>
         </div>
-    </BasePage>
+    </BaseLayouts>
 
 </template>

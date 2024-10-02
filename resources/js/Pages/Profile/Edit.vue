@@ -10,7 +10,7 @@ import AcademicUpdate from './Partials/AcademicUpdate.vue';
 import JobBgCreate from './Partials/JobBgCreate.vue';
 import JobBgUpdate from './Partials/JobBgUpdate.vue';
 import { Head, Link } from '@inertiajs/vue3';
-import BasePage from '../../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../../Layouts/BaseLayouts.vue';
 
 const props = defineProps({
     mustVerifyEmail: {
@@ -38,7 +38,7 @@ console.log(props);
 <template>
     <Head title="プロフィール" />
 
-    <BasePage>
+    <BaseLayouts>
         <template #header>
             <h2 class="font-semibold text-gray-800 leading-tight">プロフィール</h2>
         </template>
@@ -108,5 +108,5 @@ console.log(props);
                 </div>
             </div>
         </div>
-    </BasePage>
+    </BaseLayouts>
 </template>

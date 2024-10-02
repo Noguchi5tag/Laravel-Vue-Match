@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import NavLink from '@/Components/NavLink.vue';
-import BasePage from '../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import { ref, onMounted } from 'vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -50,7 +50,7 @@ const submit = () => {
 <template>
     <Head title="Home" />
 
-    <BasePage>
+    <BaseLayouts>
         <div v-if="canLogin || !isAdmin">
             <template v-if="$page.props.auth.user">
                 <div class="my-4">
@@ -381,5 +381,5 @@ const submit = () => {
 
             </div>
         </div>
-    </BasePage>
+    </BaseLayouts>
 </template>

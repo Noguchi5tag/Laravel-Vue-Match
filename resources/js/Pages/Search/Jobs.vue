@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
-import BasePage from '../../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../../Layouts/BaseLayouts.vue';
 import SectionInner from '../../Layouts/SectionInner.vue';
 import SiteTitle from '@/Components/SiteTitle.vue';
 import { Occupations } from '@/data';
@@ -16,7 +16,7 @@ const saveJobs = () => {
 
 <template>
     <Head title="職種選択" />
-    <BasePage>
+    <BaseLayouts>
         <SiteTitle>職業選択</SiteTitle>
         <SectionInner>
             <div id="Occupation" class="flex flex-wrap">
@@ -38,5 +38,5 @@ const saveJobs = () => {
                 </button>
             </div>
         </SectionInner>
-    </BasePage>
+    </BaseLayouts>
 </template>

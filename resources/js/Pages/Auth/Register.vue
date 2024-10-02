@@ -6,7 +6,7 @@ import TextInput from '@/Components/TextInput.vue';
 import SiteTitle from '@/Components/SiteTitle.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { prefectures } from '@/data';
-import BasePage from '../../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../../Layouts/BaseLayouts.vue';
 
 const form = useForm({
     name: '',
@@ -29,7 +29,7 @@ const submit = () => {
 </script>
 
 <template>
-    <BasePage>
+    <BaseLayouts>
         <Head title="会員登録" />
 
         <form @submit.prevent="submit">
@@ -240,5 +240,5 @@ const submit = () => {
                 </div>
             </div>
         </form>
-    </BasePage>
+    </BaseLayouts>
 </template>

@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 import { SchoolClass } from '@/data';
 import dayjs from 'dayjs';
-import BasePage from '@/Layouts/BaseLayouts.vue';
+import BaseLayouts from '@/Layouts/BaseLayouts.vue';
 import SectionInner from '@/Layouts/SectionInner.vue';
 import SiteTitle from '@/Components/SiteTitle.vue';
 import TextInput from '@/Components/TextInput.vue';
@@ -50,12 +50,12 @@ const inputClasses = computed(() => {
 </script>
 
 <template>
-    <Head title="利用登録・経歴・スキル" />
-    <BasePage>
-        <SiteTitle class="bg-baseColor">経歴・スキル</SiteTitle>
+    <Head title="利用登録・経歴" />
+    <BaseLayouts>
+        <SiteTitle class="bg-baseColor">経歴</SiteTitle>
         <div class="flex justify-around items-center bg-baseColor">
             <div class="w-full py-2 text-center text-sm font-bold opacity-50">1.個人情報</div>
-            <div class="w-full py-2 text-center text-sm font-bold border-black border-b-2">2.経歴・スキル</div>
+            <div class="w-full py-2 text-center text-sm font-bold border-black border-b-2">2.経歴・職務履歴</div>
             <div class="w-full py-2 text-center text-sm font-bold opacity-50">3.応募条件</div>
         </div>
         <SectionInner class="my-6 px-4">
@@ -138,17 +138,16 @@ const inputClasses = computed(() => {
                 </div>
 
                 <div class="flex flex-col items-center gap-4 border-t-2 border-baseColor py-4">
-                    <PrimaryButton>保存して応募条件等を入力する</PrimaryButton>
+                    <PrimaryButton>保存して職務履歴を入力する</PrimaryButton>
                     <Transition
                         enter-active-class="transition ease-in-out"
                         enter-from-class="opacity-0"
                         leave-active-class="transition ease-in-out"
                         leave-to-class="opacity-0"
                     >
-                        <p v-if="form.recentlySuccessful" class="text-sm ">保存しました。</p>
                     </Transition>
                 </div>
             </form>
         </SectionInner>
-    </BasePage>
+    </BaseLayouts>
 </template>

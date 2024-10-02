@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import BasePage from '../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
 
 const props = defineProps({
@@ -26,7 +26,7 @@ const formattedNews = props.news.map(item => {
 
 <template>
     <Head title="お知らせ" />
-    <BasePage>
+    <BaseLayouts>
         <SiteTitle>お知らせ</SiteTitle>
 
         <section class=" body-font">
@@ -42,5 +42,5 @@ const formattedNews = props.news.map(item => {
                 </div>
             </div>
         </section>
-    </BasePage>
+    </BaseLayouts>
 </template>

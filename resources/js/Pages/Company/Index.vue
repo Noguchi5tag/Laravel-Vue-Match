@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import BasePage from '../../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../../Layouts/BaseLayouts.vue';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted } from 'vue'
@@ -87,7 +87,7 @@ const bookmarkJob = (jobId) => {
 
 <template>
     <Head title="ホーム" />
-    <BasePage>
+    <BaseLayouts>
         <section class="relative pb-12 mx-auto">
             <div v-if="inertiaJobs.data.length" class="job-lists">
                 <template v-for="job in inertiaJobs.data" :key="job.id">
@@ -250,7 +250,7 @@ const bookmarkJob = (jobId) => {
                 </ul>
             </div>
         </section>
-    </BasePage>
+    </BaseLayouts>
 </template>
 
 <style>

@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import BasePage from '@/Layouts/BaseLayouts.vue';
+import BaseLayouts from '@/Layouts/BaseLayouts.vue';
 import SectionInner from '@/Layouts/SectionInner.vue';
 import SiteTitle from '@/Components/SiteTitle.vue';
 import InputError from '@/Components/InputError.vue';
@@ -74,7 +74,7 @@ const inputClasses = computed(() => {
 
 <template>
     <Head title="内容確認" />
-    <BasePage>
+    <BaseLayouts>
         <SiteTitle class="bg-baseColor">内容確認</SiteTitle>
         
         <SectionInner class="my-6 px-4">
@@ -91,5 +91,5 @@ const inputClasses = computed(() => {
 
             <button @click="profileUpdate" class="border-2 border-black rounded-full text-xs py-2 px-8">保存する</button>
         </SectionInner>
-    </BasePage>
+    </BaseLayouts>
 </template>

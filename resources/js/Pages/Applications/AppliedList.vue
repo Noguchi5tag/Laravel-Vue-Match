@@ -4,7 +4,7 @@ import { Inertia } from '@inertiajs/inertia';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import BasePage from '../../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../../Layouts/BaseLayouts.vue';
 import SiteTitle from '../../Components/SiteTitle.vue';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
@@ -32,7 +32,7 @@ const toggleDetails = (job) => {
 
 <template>
     <Head title="応募済みリスト" />
-    <BasePage>
+    <BaseLayouts>
         <div>
             <SiteTitle>応募した求人</SiteTitle>
 
@@ -45,5 +45,5 @@ const toggleDetails = (job) => {
                 </template>
             </div>
         </div>
-    </BasePage>
+    </BaseLayouts>
 </template>

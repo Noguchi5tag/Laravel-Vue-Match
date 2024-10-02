@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import BasePage from '@/Layouts/BaseLayouts.vue';
+import BaseLayouts from '@/Layouts/BaseLayouts.vue';
 import SectionInner from '@/Layouts/SectionInner.vue';
 import SiteTitle from '@/Components/SiteTitle.vue';
 import InputError from '@/Components/InputError.vue';
@@ -55,7 +55,7 @@ const inputClasses = computed(() => {
 
 <template>
     <Head title="利用登録・経歴・スキル" />
-    <BasePage>
+    <BaseLayouts>
         <SiteTitle class="bg-baseColor">経歴・スキル</SiteTitle>
         <div class="flex justify-around items-center bg-baseColor">
             <div class="w-full py-2 text-center text-sm font-bold opacity-50">1.個人情報</div>
@@ -154,5 +154,5 @@ const inputClasses = computed(() => {
                 </div>
             </form>
         </SectionInner>
-    </BasePage>
+    </BaseLayouts>
 </template>

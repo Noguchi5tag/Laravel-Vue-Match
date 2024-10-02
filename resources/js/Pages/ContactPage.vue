@@ -1,6 +1,6 @@
 <script setup>
 import { Head} from '@inertiajs/vue3';
-import BasePage from '../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
 import InputLabel from '../Components/InputLabel.vue';
 import TextInput from '../Components/TextInput.vue';
@@ -10,7 +10,7 @@ import PrimaryButton from '../Components/PrimaryButton.vue';
 
 <template>
     <Head title="お問い合わせ" />
-    <BasePage>
+    <BaseLayouts>
         <SiteTitle>お問い合わせ</SiteTitle>
         <SectionInner class="my-4">
                 <div class="flex flex-wrap">
@@ -31,6 +31,6 @@ import PrimaryButton from '../Components/PrimaryButton.vue';
                     <PrimaryButton>送信</PrimaryButton>
                 </div>
         </SectionInner>
-    </BasePage>
+    </BaseLayouts>
 
 </template>

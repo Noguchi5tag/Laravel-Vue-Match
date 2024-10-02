@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import BasePage from '../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
 
 
@@ -61,7 +61,7 @@ const prevPage = () => {
 <template>
     <Head title="Test" />
 
-    <BasePage>
+    <BaseLayouts>
         <SiteTitle>テスト</SiteTitle>
 
         <div>
@@ -82,5 +82,5 @@ const prevPage = () => {
             </div>
         </div>
 
-    </BasePage>
+    </BaseLayouts>
 </template>

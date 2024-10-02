@@ -1,6 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import BasePage from '../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import SectionInner from '../Layouts/SectionInner.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
 
@@ -8,7 +8,7 @@ import SiteTitle from '../Components/SiteTitle.vue';
 
 <template>
     <Head title="プライバシーポリシー" />
-    <BasePage>
+    <BaseLayouts>
         <SiteTitle>個人情報保護方針</SiteTitle>
         <SectionInner class="my-4">
             <p class="text-sm"> 株式会社ファイブタッグプラスは（以下当社）は、個人情報保護の重要性を認識し、最善の注意を払ってお客様の個人情報を保護することが社会的責務であると考え、役員はじめ全従業員が個人情報保護に関する法規範を定め、それに従い厳重に取り扱ってまいります。</p>
@@ -44,5 +44,5 @@ import SiteTitle from '../Components/SiteTitle.vue';
             </div>
 
         </SectionInner>
-    </BasePage>
+    </BaseLayouts>
 </template>

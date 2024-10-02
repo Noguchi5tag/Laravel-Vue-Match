@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link, usePage  } from '@inertiajs/vue3';
-import BasePage from '../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import SectionInner from '../Layouts/SectionInner.vue';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
@@ -121,7 +121,7 @@ const bookmarkJob = (jobId) => {
 
 <template>
     <Head title="検索" />
-    <BasePage>
+    <BaseLayouts>
         <SiteTitle>求人を探す</SiteTitle>
         <section class="relative py-1b mx-auto">
 
@@ -375,7 +375,7 @@ const bookmarkJob = (jobId) => {
 
 
         </section>
-    </BasePage>
+    </BaseLayouts>
 </template>
 
 <style>

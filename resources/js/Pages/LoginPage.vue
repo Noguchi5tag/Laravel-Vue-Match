@@ -1,16 +1,16 @@
 <script setup>
-import BasePage from '../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
 import LoginForm from './Auth/Login.vue';
 
 </script>
 
 <template>
-    <BasePage>
+    <BaseLayouts>
 
         <SiteTitle>会員登録</SiteTitle>
 
         <LoginForm />
         
-    </BasePage>
+    </BaseLayouts>
 </template>

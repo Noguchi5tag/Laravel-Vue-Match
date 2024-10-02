@@ -2,7 +2,7 @@
 import { Head, router, Link } from '@inertiajs/vue3';
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-import BasePage from '../../Layouts/BaseLayouts.vue';
+import BaseLayouts from '../../Layouts/BaseLayouts.vue';
 import { ref, onMounted } from 'vue';
 
 //ログインしているかどうかの処理
@@ -38,7 +38,7 @@ const imageCount = (job) => {
 
 <template>
     <Head title="求人詳細" />
-    <BasePage>
+    <BaseLayouts>
         <!-- フラッシュメッセージ -->
         <div v-if="$page.props.flash.message" class="bg-blue-300">
             {{ $page.props.flash.message }}
@@ -208,7 +208,7 @@ const imageCount = (job) => {
         <div v-else>
             <p>データが見つかりません。</p>
         </div>
-    </BasePage>
+    </BaseLayouts>
 </template>
 
 <style>
