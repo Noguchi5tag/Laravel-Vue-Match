@@ -10,21 +10,36 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextArea from '@/Components/TextArea.vue';
 
+
 const props = defineProps({
     user: Object,
 })
 
 const form = reactive({
-    skill_name: null,
-    skill_experience: null,
+    job_title: null,
+    company_name: null,
+    start_enrollment: null,
+    end_enrollment: null,
+    currently_working: false,
 });
+console.log(form);
 
 //登録処理
 const submitFunction = () => {
-    Inertia.post(route('skill.store'),{
-        skill_name: form.skill_name,
-        skill_experience: form.skill_experience,
+
+    const today = dayjs().format('YYYY-MM-DD');
+    if (form.end_enrollment && form.end_enrollment > today) {
+        alert('卒業日は本日以前の日付を選択してください');
+        return;
+    }
+    
+    Inertia.post(route('jobbg.store'),{
         user_id: props.user.id,
+        job_title: form.job_title,
+        company_name: form.company_name,
+        start_enrollment: form.start_enrollment,
+        end_enrollment: form.end_enrollment,
+        currently_working: form.currently_working,
     });
 };
 

@@ -34,7 +34,7 @@ class JobBgController extends Controller
         $user = User::with('job_bg')->findOrFail($userId);
 
         if ($request->path('/skill-register')) {
-            return Inertia::render('Profile/Registers/Skill',[
+            return Inertia::render('Profile/Registers/JobBg',[
                 'user' => $user,
             ]);
         }
