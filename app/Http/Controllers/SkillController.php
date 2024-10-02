@@ -52,6 +52,10 @@ class SkillController extends Controller
             'user_id' => $validated['user_id'],
         ]);
 
+        if ($request->path('/skill-register')) {
+            return redirect()->route('confirmation');
+        }
+
         return redirect()->route('skill.index')->with('success', '資格を登録しました');
     }
 

@@ -62,7 +62,7 @@ class ProfileController extends Controller
         $user->save();
 
         if ($request->path('/personal')) {
-            return Redirect::route('academicskill');
+            return Redirect::route('academic.register');
         }
 
         return Redirect::route('company.index');

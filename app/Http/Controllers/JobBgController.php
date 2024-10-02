@@ -28,10 +28,16 @@ class JobBgController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         $userId = Auth::id();
         $user = User::with('job_bg')->findOrFail($userId);
+
+        if ($request->path('/skill-register')) {
+            return Inertia::render('Profile/Registers/Skill',[
+                'user' => $user,
+            ]);
+        }
 
         return Inertia::render('Profile/Jobs/Create',[
             'user' => $user,
