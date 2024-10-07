@@ -90,8 +90,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [JobController::class,'index'])->name('company.index');
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show');
 
-    //簡単応募ページ
-    Route::get('/job-contact', [ProfileController::class,'edit'])->name('easycontact');
     //登録処理
     Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('job.apply');
     //完了画面

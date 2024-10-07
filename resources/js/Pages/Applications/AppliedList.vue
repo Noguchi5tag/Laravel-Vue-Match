@@ -31,10 +31,10 @@ const toggleDetails = (job) => {
 </script>
 
 <template>
-    <Head title="応募済みリスト" />
+    <Head title="いいね！済みリスト" />
     <BaseLayouts>
         <div>
-            <SiteTitle>応募した求人</SiteTitle>
+            <SiteTitle>いいね！した求人</SiteTitle>
 
             <div v-if="applications.length === 0">
                 <p class="text-center my-10">応募した求人はまだありません</p>

@@ -10,7 +10,6 @@ import TextInput from '@/Components/TextInput.vue';
 import TextView from '@/Components/TextView.vue';
 import CompanyInfo from './CompanyInfo.vue';
 
-
 const props = defineProps({
     inertiaJobs: Object,
     managers: Object,
@@ -19,35 +18,7 @@ const props = defineProps({
     Pagination: Pagination,
     Navigation: Navigation
 })
-console.log(props.managers);
-
-//クエリパラメータを取得
-const searchKeyword = ref('');
-const searchDutyStation = ref('');
-const searchOccupation = ref('');
-const searchCompanyPay = ref('');
-
-onMounted(() => {
-    const params = new URLSearchParams(window.location.search);
-    searchKeyword.value = params.get('search') || '';
-    searchDutyStation.value = params.get('dutyStation') || '';
-    searchOccupation.value = params.get('Occupation') || '';
-    searchCompanyPay.value = params.get('companyPay') || '';
-});
-
-//検索項目をControllerに送信
-const search = ref('')
-const dutyStation = ref('')
-const Occupation = ref('')
-const companyPay = ref('')
-const searchCustomers = () => {
-    Inertia.get(route('company.index'), {
-        search: search.value,
-        dutyStation: dutyStation.value,
-        Occupation: Occupation.value,
-        companyPay: companyPay.value,
-    });
-}
+// console.log(props.managers);
 
 //画像を取得して表示
 const imageCount = (job) => {
@@ -83,6 +54,24 @@ const bookmarkJob = (jobId) => {
     });
 };
 
+const likeFunction = ref(false);
+
+const likeButton = (jobId, companyName) => {
+    likeFunction.value = true;
+
+    // Inertia.post(`/jobs/${jobId}/apply`, {
+    //     company_name: companyName,
+    // }, {
+    //     onSuccess: () => {
+    //         alert(page.props.flash.message);
+    //         window.location.reload();
+    //     },
+    //     onError: () => {
+    //         alert(error.response.data.message || 'エラーが発生しました');
+    //     }
+    // });
+};
+
 </script>
 
 <template>
@@ -110,10 +99,10 @@ const bookmarkJob = (jobId) => {
                                     </div>
 
                                     <div id="job-contact" class="absolute bottom-4 right-4 bg-sky-400 p-2 rounded-full shadow-lg border-1 border-white">
-                                        <Link as:button :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="flex flex-col text-white">
+                                        <button @click="likeButton(job.id, job.companyName)" class="flex flex-col justify-center items-center text-white">
                                             <font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" />
                                             <span class="text-[6px] text-white">いいね！</span>
-                                        </Link>
+                                        </button>
                                     </div>
                                 </div>
                             </slide>
@@ -249,7 +238,14 @@ const bookmarkJob = (jobId) => {
                     </li>
                 </ul>
             </div>
+
+            <div v-if="likeFunction" class="absolute top-0 left-0 inset-0 bg-black bg-opacity-50 p-20">
+                <div class="bg-white">
+                    コンテンツの表示
+                </div>
+            </div>
         </section>
+
     </BaseLayouts>
 </template>
 
