@@ -29,7 +29,7 @@ onMounted(() => {
             <Link as="button" href="/bookmarked" class="flex flex-col items-center">
                 <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
             </Link>
-            <Link as="button" href="/profile" class="flex flex-col items-center">
+            <Link as="button" href="/confirmation" class="flex flex-col items-center">
                 <font-awesome-icon :icon="['far', 'circle-user']" class="w-5 h-5" />
             </Link>
         </div>
