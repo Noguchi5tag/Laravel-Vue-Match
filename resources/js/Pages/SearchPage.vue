@@ -72,6 +72,7 @@ const hasSearchConditions = () => {
 
 //検索項目をControllerに送信
 const searchCustomers = () => {
+    showSearchOptions.value = false;
     if (!hasSearchConditions()) {
         alert('少なくとも1つの検索条件を入力してください。');
         return;
@@ -125,9 +126,9 @@ const bookmarkJob = (jobId) => {
         <SiteTitle>求人を探す</SiteTitle>
         <section class="relative py-1b mx-auto">
 
-            <!-- <template v-if="showSearchOptions"> -->
+            <template v-if="showSearchOptions">
                 <transition name="fade-slide" mode="out-in">
-                    <section class="h-screen relative">
+                    <section class="">
                         <div class="p-4">
                             <div class="mx-auto">
 
@@ -164,7 +165,7 @@ const bookmarkJob = (jobId) => {
                         </div>
                     </section>
                 </transition>
-            <!-- </template> -->
+            </template>
 
             <!-- 検索結果 -->
             <template v-if="!showSearchOptions">
@@ -213,7 +214,7 @@ const bookmarkJob = (jobId) => {
     
                     <div v-if="inertiaJobs.data.length" class="job-lists">
                         <template v-for="job in inertiaJobs.data" :key="job.id">
-                            <div class="mb-6 pb-4" v-if="job.status === 1">
+                            <div class="mb-6" v-if="job.status === 1">
         
                                 <carousel :items-to-show="1">
                                     <slide v-for="slide in imageCount(job)" :key="slide">
@@ -372,8 +373,6 @@ const bookmarkJob = (jobId) => {
                     </div>
                 </template>
             </template>
-
-
         </section>
     </BaseLayouts>
 </template>

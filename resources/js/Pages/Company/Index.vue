@@ -139,55 +139,55 @@ const bookmarkJob = (jobId) => {
                             <button v-if="!job.showDetails" @click="toggleDetails(job)" class="text-xs">続きを読む</button>
 
                             <div v-show="job.showDetails" class="flex flex-col gap-2 w-full">
-                                <div class="">
+                                <div>
                                     <InputLabel for="Occupation" class="leading-5">職種</InputLabel>
                                     <TextView >{{ job.Occupation }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="workDescription" class="leading-5">仕事内容</InputLabel>
                                     <TextView>{{ job.workDescription }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="dutyStation" class="leading-5">勤務地</InputLabel>
                                     <TextView>{{ job.dutyStation }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="companyPay" class="leading-5">給料</InputLabel>
                                     <TextView>{{ job.companyPay }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="payDescription" class="leading-5">給与詳細</InputLabel>
                                     <TextView>{{ job.payDescription }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="travelExpenses" class="leading-5">交通費</InputLabel>
                                     <TextView>{{ job.travelExpenses }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="Welfare" class="leading-5">福利厚生</InputLabel>
                                     <TextView>{{ job.Welfare }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="startWork" class="leading-5">勤務開始時間</InputLabel>
                                     <TextView>{{ job.startWork.split(':').slice(0, 2).join(':') }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="endWork" class="leading-5">勤務終了時間</InputLabel>
                                     <TextView>{{ job.endWork.split(':').slice(0, 2).join(':') }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="workDays" class="leading-5">出勤日</InputLabel>
                                     <TextView>{{ job.workDays }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="freeDays" class="leading-5">休日</InputLabel>
                                     <TextView>{{ job.freeDays }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="NearestStation" class="leading-5">最寄り駅</InputLabel>
                                     <TextView>{{ job.NearestStation }}</TextView>
                                 </div>
-                                <div class="">
+                                <div>
                                     <InputLabel for="workOther" class="leading-5">その他</InputLabel>
                                     <TextView>{{ job.workOther }}</TextView>
                                 </div>

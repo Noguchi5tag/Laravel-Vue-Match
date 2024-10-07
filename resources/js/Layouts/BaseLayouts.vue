@@ -8,7 +8,7 @@
     <div class="max-w-sm m-auto border-x-2 border-black h-100%">
         <HeaderComponent/>
 
-        <div class="pt-10">
+        <div class="pt-12">
             <slot />
         </div>
         
