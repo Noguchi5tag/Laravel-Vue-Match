@@ -86,9 +86,15 @@ class JobBgController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(JobBg $jobBg)
+    public function edit(JobBg $jobBg, Request $request)
     {
-        //
+        $user = $request->user();
+        $jobBgs = $user->job_Bg()->get(); // 学歴データを取得する例
+
+        return Inertia::render('Profile/Jobs/Edit', [
+            'user' => $request->user(),
+            'jobBgs' => $jobBgs,
+        ]);
     }
 
     /**

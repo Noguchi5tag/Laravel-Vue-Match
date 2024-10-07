@@ -22,26 +22,19 @@ class ProfileController extends Controller
         $userAuth = Auth::user();
         $userId = Auth::id();
         $user = User::with('skills')->findOrFail($userId);
+        $user = $request->user()->load('academic_bg', 'job_bg');
 
         // ユーザーが資格を持っているかどうかを判定
         $hasSkill = $user->skills->isNotEmpty();
         $hasAcademicBg = $user->academic_bg !== null;
         $hasJobBg = $user->job_bg !== null;
 
-        if ($request->is('job-contact')) {
-            return Inertia::render('EasyContact', [
-                'hasSkill' => $hasSkill,
-                'hasAcademicBg' => $hasAcademicBg,
-                'hasJobBg' => $hasJobBg,
-                'userAuth' => $userAuth,
-            ]);
-        }
-
-        return Inertia::render('Profile/Edit', [
+        return Inertia::render('Profile/Registers/Confirmation', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
-            'hasSkill' => $hasSkill,
             'userAuth' => $userAuth,
+            'academic_bg' => $user->academic_bg,
+            'job_bg' => $user->job_bg,
             'hasAcademicBg' => $hasAcademicBg,
             'hasJobBg' => $hasJobBg,
         ]);
@@ -61,11 +54,7 @@ class ProfileController extends Controller
     
         $user->save();
 
-        if ($request->path('/personal/create')) {
-            return Redirect::route('academic.create');
-        }
-
-        return Redirect::route('company.index');
+        return Redirect::route('profile.edit')->with('success', '更新しました');
     }
 
     /**

@@ -1,6 +1,15 @@
 <script setup>
-import { useForm  } from '@inertiajs/vue3';
+import { reactive, computed, onMounted } from 'vue';
+import { Link, Head, useForm  } from '@inertiajs/vue3';
+import { Inertia } from '@inertiajs/inertia';
+import { SchoolClass } from '@/data';
 import dayjs from 'dayjs';
+import BaseLayouts from '@/Layouts/BaseLayouts.vue';
+import SectionInner from '@/Layouts/SectionInner.vue';
+import SiteTitle from '@/Components/SiteTitle.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
     academic_bgs: Array,
@@ -17,6 +26,13 @@ const form = useForm({
     undergraduate: props.academic_bgs?.length ? props.academic_bgs[0].undergraduate : false,
 });
 
+const isUndergraduate = computed({
+    get: () => Boolean(form.undergraduate),
+    set: (value) => {
+        form.undergraduate = value ? 1 : 0;
+    }
+});
+
 const updateFunction = () => {
     console.log(form);
     
@@ -27,53 +43,107 @@ const updateFunction = () => {
     }
     form.put(route('academic.update', form.id));
 };
+
+const inputClasses = computed(() => {
+    return "mt-2 block w-full bg-gray-50 border-1 border-gray-200 text-sm rounded-md";
+});
 </script>
 
 <template>
-    <!-- フラッシュメッセージ -->
-    <div v-if="$page.props.flash.message" class="bg-blue-300">
-        {{ $page.props.flash.message }}
-    </div>
-    
-    <section class=" body-font relative">
-        <div class="container px-4 py-10 mx-auto">
-            <section class=" body-font relative">
-                <div class="container px-4 py-12 mx-auto">
-                    <div class="mx-auto">
-                        <div class="-m-2">
-                            <div class="p-2 w-full">
-                                <div class="relative mb-2">
-                                    <label for="school_classification" class="leading-7 text-sm ">学校区分</label>
-                                    <input type="text" name="school_classification" id="school_classification" v-model="form.school_classification" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                </div>
-                                <div class="relative mb-2">
-                                    <label for="school_name" class="leading-7 text-sm ">学校名</label>
-                                    <input type="text" name="school_name" id="school_name" v-model="form.school_name" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                </div>
-                                <div class="relative mb-2">
-                                    <label for="department" class="leading-7 text-sm ">学部・学科</label>
-                                    <input type="text" name="department" id="department" v-model="form.department" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                </div>
-                                <div class="relative mb-2">
-                                    <label for="matriculation" class="leading-7 text-sm ">入学</label>
-                                    <input type="date" name="matriculation" id="matriculation" v-model="form.matriculation" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                </div>
-                                <div class="relative mb-2">
-                                    <label for="graduation" class="leading-7 text-sm ">卒業</label>
-                                    <input type="date" name="graduation" id="graduation" v-model="form.graduation" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                </div>
-                                <div class="relative mb-2">
-                                    <input type="checkbox" name="undergraduate" id="undergraduate" v-model="form.undergraduate" true-value="1" false-value="0" class="rounded border-gray-300 text-indigo-600 focus:border-indigo-500 focus:ring-indigo-500">
-                                    <label for="undergraduate" class="leading-7 text-sm ">在学中</label>
-                                </div>
-                            </div>
-                        </div>
+    <Head title="学歴更新" />
+    <BaseLayouts>
+        <SiteTitle class="bg-baseColor">学歴を更新</SiteTitle>
+
+        <SectionInner class="my-6 px-4">
+            <div class="text-xs opacity-50 leading-normal tracking-wider">
+                あなたの学歴・職務経歴等を入力します。ここで入力した情報はいつでも修正・削除ができます。ここで入力した情報は求職者一覧にて企業側に情報が開示されます。
+            </div>
+
+            <form @submit.prevent="updateFunction" class="mt-6 flex flex-col gap-6">
+                <div>
+                    <InputLabel value="最終学歴を入力" />
+                    <select
+                        id="school_classification"
+                        :class="inputClasses"
+                        v-model="form.school_classification"
+                        required
+                        
+                        autocomplete="address-level1"
+                    >
+                        <option value="" disabled selected>学校区分</option>
+                        <option v-for="item in SchoolClass" :key="item.value" :value="item.value">
+                            {{ item.value }}
+                        </option>
+                    </select>
+
+                    <TextInput
+                        id="school_name"
+                        type="text"
+                        :class="inputClasses"
+                        v-model="form.school_name"
+                        required
+                        
+                        placeholder="学校名を入力"
+                    />
+                    
+                    <TextInput
+                        id="department"
+                        type="text"
+                        :class="inputClasses"
+                        v-model="form.department"
+                        required
+                        
+                        placeholder="学部・学科名を入力"
+                    />
+                </div>
+
+                <div>
+                    <InputLabel value="卒業区分を入力" />
+
+                    <p class="mt-2 text-xs leading-normal tracking-wider">入学した年月</p>
+                    <TextInput
+                        id="matriculation"
+                        type="date"
+                        :class="inputClasses"
+                        v-model="form.matriculation"
+                        required
+                        
+                        placeholder="入学した年月"
+                    />
+
+                    <p class="mt-2 text-xs leading-normal tracking-wider">卒業した年月</p>
+                    <TextInput
+                        id="graduation"
+                        type="date"
+                        :class="inputClasses"
+                        v-model="form.graduation"
+                        
+                        placeholder="卒業した年月"
+                    />
+
+                    <div class="mt-2  flex justify-start items-center gap-2">
+                        <input 
+                            type="checkbox" 
+                            name="undergraduate" 
+                            id="undergraduate" 
+                            v-model="isUndergraduate" 
+                            class="rounded border-gray-300 text-indigo-600 focus:border-indigo-500 focus:ring-indigo-500"
+                        >
+                        <p class="text-xs leading-normal tracking-wider">在学中の方のみチェック</p>
                     </div>
                 </div>
-            </section>
-            <div class="p-2 w-full mb-2 flex justify-center">
-                <button  @click.prevent="updateFunction" class="flex text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
-            </div>
-        </div>
-    </section>
+
+                <div class="flex flex-col items-center gap-4 border-t-2 border-baseColor py-4">
+                    <PrimaryButton>更新する</PrimaryButton>
+                    <Transition
+                        enter-active-class="transition ease-in-out"
+                        enter-from-class="opacity-0"
+                        leave-active-class="transition ease-in-out"
+                        leave-to-class="opacity-0"
+                    >
+                    </Transition>
+                </div>
+            </form>
+        </SectionInner>
+    </BaseLayouts>
 </template>

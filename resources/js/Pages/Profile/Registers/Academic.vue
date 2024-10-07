@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, computed, onMounted } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { Link, Head, useForm  } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 import { SchoolClass } from '@/data';
 import dayjs from 'dayjs';
@@ -49,13 +49,17 @@ const inputClasses = computed(() => {
 </script>
 
 <template>
-    <Head title="利用登録・経歴" />
+    <Head title="利用登録・学歴" />
     <BaseLayouts>
-        <SiteTitle class="bg-baseColor">経歴</SiteTitle>
+        <SiteTitle class="bg-baseColor">学歴</SiteTitle>
         <div class="flex justify-around items-center bg-baseColor">
-            <div class="w-full py-2 text-center text-sm font-bold opacity-50">1.個人情報</div>
-            <div class="w-full py-2 text-center text-sm font-bold border-black border-b-2">2.経歴・職務履歴</div>
-            <div class="w-full py-2 text-center text-sm font-bold opacity-50">3.応募条件</div>
+            <div class="w-full py-2 text-center text-sm font-bold opacity-50">
+                <Link as:button :href="route('personal.register')">1.個人情報</Link>
+            </div>
+            <div class="w-full py-2 text-center text-sm font-bold border-black border-b-2">
+                <Link as:button :href="route('academic.create')">2.学歴・職務履歴</Link>
+            </div>
+            <!-- <div class="w-full py-2 text-center text-sm font-bold opacity-50">3.応募条件</div> -->
         </div>
         <SectionInner class="my-6 px-4">
             <div class="text-xs opacity-50 leading-normal tracking-wider">

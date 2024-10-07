@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, computed, ref } from 'vue';
-import { Link, Head  } from '@inertiajs/vue3';
+import { Link, Head, useForm  } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 import BaseLayouts from '@/Layouts/BaseLayouts.vue';
 import SectionInner from '@/Layouts/SectionInner.vue';
@@ -9,50 +9,36 @@ import TextInput from '@/Components/TextInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextArea from '@/Components/TextArea.vue';
+import dayjs from 'dayjs';
 
 const props = defineProps({
-    user: Object,
+    jobBgs: Array,
 })
+console.log(props.jobBgs)
 
-const form = reactive({
-    company_name: '',
-    company_business: '',
-    start_enrollment_year: '',
-    start_enrollment_month: 0,
-    currently_working: false,
-    end_enrollment_year: '',
-    end_enrollment_month: 0,
-    business_other: '',
-    company_post: '',
-    company_pay_type: '',
-    company_pay: 0,
+const form = useForm({
+    id: props.jobBgs?.length ? props.jobBgs[0].id : null,
+    user_id: props.jobBgs?.length ? props.jobBgs[0].user_id : null,
+    company_name: props.jobBgs?.length ? props.jobBgs[0].company_name : null,
+    company_business: props.jobBgs?.length ? props.jobBgs[0].company_business : null,
+    start_enrollment_year: props.jobBgs?.length ? props.jobBgs[0].start_enrollment_year : "",
+    start_enrollment_month: props.jobBgs?.length ? props.jobBgs[0].start_enrollment_month : "",
+    currently_working: props.jobBgs?.length ? props.jobBgs[0].currently_working : false,
+    end_enrollment_year: props.jobBgs?.length ? props.jobBgs[0].end_enrollment_year : "",
+    end_enrollment_month: props.jobBgs?.length ? props.jobBgs[0].end_enrollment_month : "",
+    business_other: props.jobBgs?.length ? props.jobBgs[0].business_other : null,
+    company_post: props.jobBgs?.length ? props.jobBgs[0].company_post : null,
+    company_pay_type: props.jobBgs?.length ? props.jobBgs[0].company_pay_type : null,
+    company_pay: props.jobBgs?.length ? props.jobBgs[0].company_pay : 0,
 });
 
-//登録処理
-
-const submitFunction = () => {
-    console.log(form);
-    Inertia.post(route('jobbg.store'),{
-        user_id: props.user.id,
-        company_name: form.company_name,
-        company_business: form.company_business,
-        start_enrollment_year: form.start_enrollment_year,
-        start_enrollment_month: form.start_enrollment_month,
-        currently_working: form.currently_working,
-        end_enrollment_year: form.end_enrollment_year,
-        end_enrollment_month: form.end_enrollment_month,
-        business_other: form.business_other,
-        company_post: form.company_post,
-        company_pay_type: form.company_pay_type,
-        company_pay: form.company_pay,
-    }, {
-        onError: (errors) => {
-            console.error("エラーが発生しました:", errors);
-        },
-        onSuccess: () => {
-            console.log("データが正常に送信されました！");
-        }
-    });
+const updateFunction = () => {
+    const today = dayjs().format('YYYY-MM-DD');
+    if (form.end_enrollment && form.end_enrollment > today) {
+        alert('卒業日は本日以前の日付を選択してください');
+        return;
+    }
+    form.put(route('jobbg.update', form.id));
 };
 
 const inputClasses = computed(() => {
@@ -75,32 +61,19 @@ const pay_type = [
     "月給",
     "年収"
 ]
-
-// const showDetails = ref(false);
-// const toggleDetails = () => {
-//     showDetails.value = !showDetails.value;
-// };
 </script>
 
 <template>
-<Head title="利用登録・職務履歴" />
+<Head title="職務履歴更新" />
     <BaseLayouts>
-        <SiteTitle class="bg-baseColor">職務履歴</SiteTitle>
-        <div class="flex justify-around items-center bg-baseColor">
-            <div class="w-full py-2 text-center text-sm font-bold border-black border-b-2">
-                <Link as:button :href="route('personal.register')">1.個人情報</Link>
-            </div>
-            <div class="w-full py-2 text-center text-sm font-bold opacity-50">
-                <Link as:button :href="route('academic.create')">2.学歴・職務履歴</Link>
-            </div>
-            <!-- <div class="w-full py-2 text-center text-sm font-bold opacity-50">3.応募条件</div> -->
-        </div>
+        <SiteTitle class="bg-baseColor">職務履歴の更新</SiteTitle>
+
         <SectionInner class="my-6 px-4">
             <div class="text-xs opacity-50 leading-normal tracking-wider">
                 あなたの学歴・職務経歴等を入力します。ここで入力した情報はいつでも修正・削除ができます。ここで入力した情報は求職者一覧にて企業側に情報が開示されます。
             </div>
 
-            <form @submit.prevent="submitFunction" class="mt-6 flex flex-col gap-6">
+            <form @submit.prevent="updateFunction" class="mt-6 flex flex-col gap-6">
 
                 <InputLabel value="職務履歴を入力" />
                 <div>
@@ -243,14 +216,8 @@ const pay_type = [
                         <p class="text-sm">万円</p>
                     </div> 
                 </div>
-
-                <!-- 後から追加処理をする -->
-                <!-- <button class="flex justify-center gap-4 py-6 text-sm font-bold bg-sky-100 rounded-lg">
-                    職務履歴を追加（任意）
-                </button> -->
-
                 <div class="flex flex-col items-center gap-4 border-t-2 border-baseColor py-4">
-                    <PrimaryButton>保存して応募条件を入力する</PrimaryButton>
+                    <PrimaryButton>更新する</PrimaryButton>
                     <Transition
                         enter-active-class="transition ease-in-out"
                         enter-from-class="opacity-0"

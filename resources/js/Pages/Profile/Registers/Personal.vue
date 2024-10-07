@@ -8,7 +8,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import NavLink from '@/Components/NavLink.vue';
-import { useForm, usePage, router  } from '@inertiajs/vue3';
+import { useForm, usePage, router, Link  } from '@inertiajs/vue3';
 import { prefectures } from '@/data';
 import { ref, computed } from 'vue';
 
@@ -50,9 +50,13 @@ const inputClasses = computed(() => {
     <BaseLayouts>
         <SiteTitle class="bg-baseColor">利用登録</SiteTitle>
         <div class="flex justify-around items-center bg-baseColor">
-            <div class="w-full py-2 text-center text-sm font-bold border-black border-b-2">1.個人情報</div>
-            <div class="w-full py-2 text-center text-sm font-bold opacity-50">2.経歴・スキル</div>
-            <div class="w-full py-2 text-center text-sm font-bold opacity-50">3.応募条件</div>
+            <div class="w-full py-2 text-center text-sm font-bold border-black border-b-2">
+                <Link as:button :href="route('personal.register')">1.個人情報</Link>
+            </div>
+            <div class="w-full py-2 text-center text-sm font-bold opacity-50">
+                <Link as:button :href="route('academic.create')">2.学歴・職務履歴</Link>
+            </div>
+            <!-- <div class="w-full py-2 text-center text-sm font-bold opacity-50">3.応募条件</div> -->
         </div>
         <SectionInner class="my-6 px-4">
             <div class="text-xs opacity-50 leading-normal tracking-wider">

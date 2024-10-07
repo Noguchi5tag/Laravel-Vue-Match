@@ -77,9 +77,15 @@ class AcademicBgController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Academic_Bg $academic_Bg)
+    public function edit(Academic_Bg $academic_Bg, Request $request)
     {
-        //
+        $user = $request->user();
+        $academic_bgs = $user->academic_Bg()->get(); // 学歴データを取得する例
+
+        return Inertia::render('Profile/Academic/Edit', [
+            'academic_bgs' => $academic_bgs,
+            'user' => $request->user(),
+        ]);
     }
 
     /**

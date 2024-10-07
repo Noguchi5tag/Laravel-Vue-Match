@@ -62,10 +62,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //利用登録・資格
     // URL /jobbg/create
     //内容確認
-    Route::get('/confirmation', function () { return Inertia::render('Profile/Registers/Confirmation'); })->name('confirmation');
+    // Route::get('/confirmation', function () { return Inertia::render('Profile/Registers/Confirmation'); })->name('confirmation');
+    Route::get('/confirmation', [ProfileController::class, 'edit'])->name('profile.edit');
     
     //プロフィール
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
