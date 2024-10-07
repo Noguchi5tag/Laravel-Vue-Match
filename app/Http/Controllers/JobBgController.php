@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class JobBgController extends Controller
 {
@@ -30,16 +31,12 @@ class JobBgController extends Controller
      */
     public function create(Request $request)
     {
+        Log::info('JobBgController@create called');
+
         $userId = Auth::id();
         $user = User::with('job_bg')->findOrFail($userId);
 
-        if ($request->path('/skill-register')) {
-            return Inertia::render('Profile/Registers/JobBg',[
-                'user' => $user,
-            ]);
-        }
-
-        return Inertia::render('Profile/Jobs/Create',[
+        return Inertia::render('Profile/Registers/JobBg',[
             'user' => $user,
         ]);
     }
@@ -49,18 +46,33 @@ class JobBgController extends Controller
      */
     public function store(StoreJobBgRequest $request)
     {
-        $validated = $request->validated();
+        try {
+            // dd($request->all());
 
-        JobBg::create([
-            'user_id' => $validated['user_id'],
-            'job_title' => $validated['job_title'],
-            'company_name' => $validated['company_name'],
-            'start_enrollment' => $validated['start_enrollment'],
-            'end_enrollment' => $validated['end_enrollment'],
-            'currently_working' => $validated['currently_working'],
-        ]);
+            $validated = $request->validated();
 
-        return to_route('profile.edit')->with('success', '職歴を追加しました');
+            JobBg::create([
+                'user_id' => $validated['user_id'],
+                'company_name' => $validated['company_name'],
+                'company_business' => $validated['company_business'],
+                'start_enrollment_year' => $validated['start_enrollment_year'],
+                'start_enrollment_month' => $validated['start_enrollment_month'],
+                'currently_working' => $validated['currently_working'],
+                'end_enrollment_year' => $validated['end_enrollment_year'],
+                'end_enrollment_month' => $validated['end_enrollment_month'],
+                'business_other' => $validated['business_other'],
+                'company_post' => $validated['company_post'],
+                'company_pay_type' => $validated['company_pay_type'],
+                'company_pay' => $validated['company_pay'],
+            ]);
+
+            return to_route('profile.edit')->with('success', '職歴を追加しました');
+
+        } catch (\Exception $e) {
+            Log::error('JobBg store error', ['error' => $e->getMessage()]);
+            return back()->withErrors(['error' => '職歴の追加中にエラーが発生しました。']);
+        }
+        
     }
 
     /**

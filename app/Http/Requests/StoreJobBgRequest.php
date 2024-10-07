@@ -24,11 +24,17 @@ class StoreJobBgRequest extends FormRequest
     {
         return [
             'user_id' => 'required|integer',
-            'job_title' => 'required|string|max:255',
             'company_name' => 'required|string|max:255',
-            'start_enrollment' => 'required|date',
-            'end_enrollment' => ['nullable', 'date', 'before_or_equal:' . Carbon::today()->toDateString()],
+            'company_business' => 'required|string|max:255',
+            'start_enrollment_year' => 'required|integer',
+            'start_enrollment_month' => 'required|integer',
             'currently_working' => 'required|boolean',
+            'end_enrollment_year' => 'nullable|integer',
+            'end_enrollment_month' => 'nullable|integer',
+            'business_other' => 'nullable|string|max:255',
+            'company_post' => 'required|string|max:255',
+            'company_pay_type' => 'nullable|string|max:255',
+            'company_pay' => 'nullable|integer',
         ];
     }
 }

@@ -12,11 +12,17 @@ class JobBg extends Model
 
     protected $fillable = [
         'user_id',
-        'job_title',
         'company_name',
-        'start_enrollment',
-        'end_enrollment',
+        'company_business',
+        'start_enrollment_year',
+        'start_enrollment_month',
         'currently_working',
+        'end_enrollment_year',
+        'end_enrollment_month',
+        'business_other',
+        'company_post',
+        'company_pay_type',
+        'company_pay',
     ];
 
     public function user()

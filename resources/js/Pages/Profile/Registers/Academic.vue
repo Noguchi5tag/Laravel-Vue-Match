@@ -15,11 +15,11 @@ const props = defineProps({
     user: Object,
 })
 const form = reactive({
-    school_classification: null,
-    school_name: null,
-    department: null,
-    matriculation: null,
-    graduation: null,
+    school_classification: '',
+    school_name: '',
+    department: '',
+    matriculation: '',
+    graduation: '',
     undergraduate: false,
 });
 
@@ -70,7 +70,7 @@ const inputClasses = computed(() => {
                         :class="inputClasses"
                         v-model="form.school_classification"
                         required
-                        autofocus
+                        
                         autocomplete="address-level1"
                     >
                         <option value="" disabled selected>学校区分</option>
@@ -85,7 +85,7 @@ const inputClasses = computed(() => {
                         :class="inputClasses"
                         v-model="form.school_name"
                         required
-                        autofocus
+                        
                         placeholder="学校名を入力"
                     />
                     
@@ -95,7 +95,7 @@ const inputClasses = computed(() => {
                         :class="inputClasses"
                         v-model="form.department"
                         required
-                        autofocus
+                        
                         placeholder="学部・学科名を入力"
                     />
                 </div>
@@ -110,7 +110,7 @@ const inputClasses = computed(() => {
                         :class="inputClasses"
                         v-model="form.matriculation"
                         required
-                        autofocus
+                        
                         placeholder="入学した年月"
                     />
 
@@ -120,7 +120,7 @@ const inputClasses = computed(() => {
                         type="date"
                         :class="inputClasses"
                         v-model="form.graduation"
-                        autofocus
+                        
                         placeholder="卒業した年月"
                     />
 

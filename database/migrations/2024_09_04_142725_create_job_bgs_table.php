@@ -14,11 +14,17 @@ return new class extends Migration
         Schema::create('job_bgs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->unique();
-            $table->string('job_title'); // 職種名
-            $table->string('company_name'); // 会社名
-            $table->date('start_enrollment');
-            $table->date('end_enrollment')->nullable(); //在籍期間中はnull
+            $table->string('company_name'); // 勤務先名
+            $table->string('company_business'); // 勤務先の事業内容
+            $table->string('start_enrollment_year');
+            $table->string('start_enrollment_month');
             $table->boolean('currently_working')->default(false); // 退職（デフォルトはfalse）
+            $table->string('end_enrollment_year')->nullable(); //在籍期間中はnull
+            $table->string('end_enrollment_month')->nullable(); //在籍期間中はnull
+            $table->string('business_other');
+            $table->string('company_post'); // 役職
+            $table->string('company_pay_type'); // 月給か年俸か
+            $table->string('company_pay'); // 金額
             $table->timestamps();
         });
     }

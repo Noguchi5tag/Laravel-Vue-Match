@@ -1,8 +1,12 @@
 <script setup>
-import { reactive } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { reactive, computed, ref } from 'vue';
+import { Link, Head  } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
-import BaseLayouts from '../../../Layouts/BaseLayouts.vue';
+import BaseLayouts from '@/Layouts/BaseLayouts.vue';
+import SectionInner from '@/Layouts/SectionInner.vue';
+import SiteTitle from '@/Components/SiteTitle.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/InputLabel.vue';
 import dayjs from 'dayjs';
 
 const props = defineProps({
@@ -10,8 +14,9 @@ const props = defineProps({
 })
 
 const form = reactive({
-    job_title: null,
+    company_business: null,
     company_name: null,
+    job_title: null,
     start_enrollment: null,
     end_enrollment: null,
     currently_working: false,
@@ -21,14 +26,15 @@ console.log(form);
 //登録処理
 const submitFunction = () => {
 
-    const today = dayjs().format('YYYY-MM-DD');
-    if (form.end_enrollment && form.end_enrollment > today) {
-        alert('卒業日は本日以前の日付を選択してください');
-        return;
-    }
+    // const today = dayjs().format('YYYY-MM-DD');
+    // if (form.end_enrollment && form.end_enrollment > today) {
+    //     alert('卒業日は本日以前の日付を選択してください');
+    //     return;
+    // }
     
     Inertia.post(route('jobbg.store'),{
         user_id: props.user.id,
+        company_business: form.company_business,
         job_title: form.job_title,
         company_name: form.company_name,
         start_enrollment: form.start_enrollment,
@@ -41,12 +47,26 @@ const submitFunction = () => {
 <template>
 <Head title="職務履歴登録" />
     <BaseLayouts>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">職務履歴登録</h2>
-        </template>
-
-        <div class="py-6">
-            <form @submit.prevent="submitFunction">
+        <SiteTitle class="bg-baseColor">職務履歴</SiteTitle>
+        <div class="flex justify-around items-center bg-baseColor">
+            <div class="w-full py-2 text-center text-sm font-bold opacity-50">1.個人情報</div>
+            <div class="w-full py-2 text-center text-sm font-bold border-black border-b-2">2.経歴・職務履歴</div>
+            <div class="w-full py-2 text-center text-sm font-bold opacity-50">3.応募条件</div>
+        </div>
+        <SectionInner class="my-6 px-4">
+            <div class="text-xs opacity-50 leading-normal tracking-wider">
+                あなたの学歴・職務経歴等を入力します。ここで入力した情報はいつでも修正・削除ができます。ここで入力した情報は求職者一覧にて企業側に情報が開示されます。
+            </div>
+            <form @submit.prevent="submitFunction" class="mt-6 flex flex-col gap-6">
+                <InputLabel value="職務履歴を入力" />
+                <TextInput
+                    id="company_business"
+                    type="text"
+                    name="company_business"
+                    v-model="form.company_business"
+                    placeholder="勤務先の事業内容"
+                    required
+                />
                 <section class=" body-font relative">
                     <div class="container px-4 py-10 mx-auto">
                         <div class="mx-auto">
@@ -90,6 +110,6 @@ const submitFunction = () => {
                     </div>
                 </section>
             </form>
-        </div>
+        </SectionInner>
     </BaseLayouts>
 </template>

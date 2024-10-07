@@ -43,6 +43,9 @@ class AcademicBgController extends Controller
      */
     public function store(StoreAcademic_BgRequest $request)
     {
+
+        // dd($request->all());
+
         $validated = $request->validated();
 
         Academic_Bg::create([
@@ -55,11 +58,7 @@ class AcademicBgController extends Controller
             'undergraduate' => $validated['undergraduate'],
         ]);
 
-        if ($request->path('/academic-register')) {
-            return redirect()->route('skill.register');
-        }
-
-        return redirect()->route('profile.edit');
+        return redirect()->route('jobbg.create');
     }
 
     /**

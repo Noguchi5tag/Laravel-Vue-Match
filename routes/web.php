@@ -56,11 +56,11 @@ Route::get('/jobpostings', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     //利用登録・個人情報
-    Route::get('/personal', function () { return Inertia::render('Profile/Registers/Personal'); })->name('personal.register');
+    Route::get('/personal/create', function () { return Inertia::render('Profile/Registers/Personal'); })->name('personal.register');
     //利用登録・経歴
-    Route::get('/academic-register', [AcademicBgController::class, 'create'])->name('academic.register');
+    // URL /academicbg/create
     //利用登録・資格
-    Route::get('/jobbg-register', [JobBgController::class, 'create'])->name('skill.register');
+    // URL /jobbg/create
     //内容確認
     Route::get('/confirmation', function () { return Inertia::render('Profile/Registers/Confirmation'); })->name('confirmation');
     
@@ -73,7 +73,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('skill', SkillController::class);
     //学歴
     Route::resource('academic', AcademicBgController::class);
-
     //職務履歴
     Route::resource('jobbg', JobBgController::class);
 

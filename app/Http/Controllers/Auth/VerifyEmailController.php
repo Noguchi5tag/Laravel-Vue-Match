@@ -17,7 +17,7 @@ class VerifyEmailController extends Controller
         // ユーザーのメールアドレスがすでに確認済みかどうか
         // メールからのリダイレクト先
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('company.index', absolute: false).'?verified=1');
+            return redirect()->intended(route('personal.register', absolute: false).'?verified=1');
         }
 
         //ユーザーのメールアドレスを認証済みにする
