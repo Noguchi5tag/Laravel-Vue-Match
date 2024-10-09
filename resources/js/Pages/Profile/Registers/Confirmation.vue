@@ -316,10 +316,10 @@ const publicLabel = computed(() => {
                         </div>
                         <div class="text-xs">{{ form.company_post }}</div>
                     </div>
-                    <div v-if="form.company_pay !== null">
+                    <div v-if="form.company_pay === 0">
                         <div class="my-4">
                             <InputLabel value="在職時の給与" />
-                            <div class="text-xs">{{form.company_pay_type}}{{ form.company_pay }}万円</div>
+                            <div class="text-xs">{{ form.company_pay_type }}{{ form.company_pay }}万円</div>
                         </div>
                     </div>
                 </div>

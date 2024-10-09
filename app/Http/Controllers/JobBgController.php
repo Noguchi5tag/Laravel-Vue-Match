@@ -101,8 +101,8 @@ class JobBgController extends Controller
      */
     public function update(UpdateJobBgRequest $request, JobBg $jobbg)
     {
+        // dd($request->all());
         $validated = $request->validated();
-        $validated['currently_working'] = $request->has('currently_working') ? $request->input('currently_working') : false;
         $jobbg->update($validated);
         return to_route('profile.edit')->with('success', '職歴を更新しました');
     }

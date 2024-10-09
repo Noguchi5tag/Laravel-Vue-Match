@@ -154,7 +154,7 @@ const bookmarkJob = (jobId) => {
                                 
                                 <div class="p-2 w-full flex justify-between items-center border-b-baseColor border-b">
                                     <InputLabel for="companyPay" class="leading-7 text-sm ">給料からさがす</InputLabel>
-                                    <select name="companyPay" id="companyPay" v-model="companyPay" class="border-gray-200 rounded-lg text-sm">
+                                    <select name="companyPay" id="companyPay" v-model="companyPay" class="border-gray-200 rounded-lg text-sm w-2/3">
                                         <option value="">指定なし</option>
                                         <option v-for="companyPay in companyPays" :value="companyPay.value" :key="companyPay.value" class="text-sm">
                                             <p>{{ companyPay.label }}</p>
@@ -163,7 +163,7 @@ const bookmarkJob = (jobId) => {
                                 </div>
                                 <div class="p-2 w-full flex justify-between items-center border-b-baseColor border-b">
                                     <InputLabel for="search" class="leading-7 text-sm ">キーワード検索</InputLabel>
-                                    <TextInput type="text" name="search" id="search" placeholder="キーワード" v-model="search" class="text-sm" />
+                                    <TextInput type="text" name="search" id="search" placeholder="キーワード" v-model="search" class="text-sm w-2/3" />
                                 </div>
 
                                 <div class="text-center flex justify-around items-center mt-4">

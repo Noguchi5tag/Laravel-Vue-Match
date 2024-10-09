@@ -22,11 +22,17 @@ class UpdateJobBgRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'job_title' => 'nullable|string|max:255',
-            'company_name' => 'nullable|string|max:255',
-            'start_enrollment' => 'nullable|date',
-            'end_enrollment' => 'nullable|date',
+            'company_name' => 'required|string|max:255',
+            'company_business' => 'required|string|max:255',
+            'start_enrollment_year' => 'required|integer',
+            'start_enrollment_month' => 'required|integer',
             'currently_working' => 'nullable|boolean',
+            'end_enrollment_year' => 'nullable|integer',
+            'end_enrollment_month' => 'nullable|integer',
+            'business_other' => 'required|string|max:255',
+            'company_post' => 'required|string|max:255',
+            'company_pay_type' => 'nullable|string|max:255',
+            'company_pay' => 'nullable|integer',
         ];
     }
 }

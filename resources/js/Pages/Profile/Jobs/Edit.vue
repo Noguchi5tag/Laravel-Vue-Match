@@ -14,7 +14,6 @@ import dayjs from 'dayjs';
 const props = defineProps({
     jobBgs: Array,
 })
-console.log(props.jobBgs)
 
 const form = useForm({
     id: props.jobBgs?.length ? props.jobBgs[0].id : null,
@@ -23,7 +22,7 @@ const form = useForm({
     company_business: props.jobBgs?.length ? props.jobBgs[0].company_business : null,
     start_enrollment_year: props.jobBgs?.length ? props.jobBgs[0].start_enrollment_year : "",
     start_enrollment_month: props.jobBgs?.length ? props.jobBgs[0].start_enrollment_month : "",
-    currently_working: props.jobBgs?.length ? props.jobBgs[0].currently_working : false,
+    currently_working: props.jobBgs?.length ? Boolean(props.jobBgs[0].currently_working) : false,
     end_enrollment_year: props.jobBgs?.length ? props.jobBgs[0].end_enrollment_year : "",
     end_enrollment_month: props.jobBgs?.length ? props.jobBgs[0].end_enrollment_month : "",
     business_other: props.jobBgs?.length ? props.jobBgs[0].business_other : null,
@@ -31,6 +30,7 @@ const form = useForm({
     company_pay_type: props.jobBgs?.length ? props.jobBgs[0].company_pay_type : null,
     company_pay: props.jobBgs?.length ? props.jobBgs[0].company_pay : 0,
 });
+console.log(form.currently_working);
 
 const updateFunction = () => {
     const today = dayjs().format('YYYY-MM-DD');

@@ -11,13 +11,13 @@ const closeMenu = () => {
 <template>
     <div class="fixed top-0 left-1/2 -translate-x-1/2 z-10 w-full max-w-sm">
         <div class= "bg-baseColor p-2 flex justify-between items-center">
-            <div class="w-10 h-10 py-3 px-2 relative" @click="isMenuOpen = !isMenuOpen">
+            <button class="w-10 h-10 py-3 px-2 relative" @click="isMenuOpen = !isMenuOpen">
                 <div class="w-full h-full flex flex-col justify-between items-center">
                     <span class="block w-full h-[2px] bg-black"></span>
                     <span class="block w-full h-[2px] bg-black"></span>
                     <span class="block w-full h-[2px] bg-black"></span>
                 </div>
-            </div>
+            </button>
             <NavLink href="/">JobMatch</NavLink>
             <font-awesome-icon :icon="['far', 'bell']" class="w-5 h-5" />
         </div>

@@ -26,27 +26,19 @@ class ProfileController extends Controller
         $user = $request->user()->load('academic_bg', 'job_bg');
 
         // ユーザーが資格を持っているかどうかを判定
-        $hasSkill = $user->skills->isNotEmpty();
+        // $hasSkill = $user->skills->isNotEmpty();
         $hasAcademicBg = $user->academic_bg !== null;
         $hasJobBg = $user->job_bg !== null;
 
-        // dd($user->academic_bg);
-
-        // if (!$hasAcademicBg) {
-        //     return Inertia::render('Profile/Registers/Academic');
-        // } elseif (!$hasJobBg) {
-        //     return Inertia::render('Profile/Registers/JobBg');
-        // } else {
-            return Inertia::render('Profile/Registers/Confirmation', [
-                'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-                'status' => session('status'),
-                'userAuth' => $userAuth,
-                'academic_bg' => $user->academic_bg,
-                'job_bg' => $user->job_bg,
-                'hasAcademicBg' => $hasAcademicBg,
-                'hasJobBg' => $hasJobBg,
-            ]);
-        // }
+        return Inertia::render('Profile/Registers/Confirmation', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => session('status'),
+            'userAuth' => $userAuth,
+            'academic_bg' => $user->academic_bg,
+            'job_bg' => $user->job_bg,
+            'hasAcademicBg' => $hasAcademicBg,
+            'hasJobBg' => $hasJobBg,
+        ]);
 
     }
 
