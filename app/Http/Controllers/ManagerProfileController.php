@@ -47,23 +47,23 @@ class ManagerProfileController extends Controller
 
         $image = 'image_manager';
 
-    if ($request->hasFile($image)) {
-        $originalName = $request->file($image)->getClientOriginalName();
+        if ($request->hasFile($image)) {
+            $originalName = $request->file($image)->getClientOriginalName();
 
-        // 古い画像が存在する場合は削除
-        if ($user->{$image}) {
-            Storage::delete('public/storages/manager/' . $originalName);
+            // 古い画像が存在する場合は削除
+            if ($user->{$image}) {
+                Storage::delete('public/storages/manager/' . $originalName);
+            }
+
+            // 画像のオリジナル名を取得し、ストレージと公開ディレクトリに保存
+            $originalName = $request->file($image)->getClientOriginalName();
+            // 画像を保存し、パスを取得
+            $path = $request->file($image)->storeAs('public/storages/manager', $originalName);
+            $validatedData[$image] = basename($path); // データベースに保存するパスを設定
+        } else {
+            // 既存の画像パスを保持
+            $validatedData[$image] = $user->{$image};
         }
-
-        // 画像のオリジナル名を取得し、ストレージと公開ディレクトリに保存
-        $originalName = $request->file($image)->getClientOriginalName();
-        // 画像を保存し、パスを取得
-        $path = $request->file($image)->storeAs('public/storages/manager', $originalName);
-        $validatedData[$image] = basename($path); // データベースに保存するパスを設定
-    } else {
-        // 既存の画像パスを保持
-        $validatedData[$image] = $user->{$image};
-    }
         
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;

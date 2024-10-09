@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import DeleteUserForm from '../Partials/DeleteUserForm.vue';
 import LogoutUserForm from '../Partials/LogoutUserForm.vue';
 import UpdatePasswordForm from '../Partials/UpdatePasswordForm.vue';
@@ -36,6 +36,7 @@ const form = useForm({
     postal: user.postal,
     prefectures: user.prefectures,
     city: user.city,
+    privacy: user.privacy,
 
     academic_id: props.academic_bg?.user_id || '',
     school_classification: props.academic_bg?.school_classification || '',
@@ -70,10 +71,23 @@ function formatDate(dateString) {
 
 // 保存処理
 const profileUpdate = () => {
-    form.patch(route('profile.update'));
+    form.put(route('profile.update'));
 };
 
 const privacyChecked = ref(false);
+
+const handleRegistration = () => {
+    form.privacy = 1;
+    form.put(route('profile.update'), {
+        onSuccess: () => {
+            alert('登録が完了しました。');
+            router.visit(route('company.index'));
+        },
+        onError: (errors) => {
+            console.error('エラーが発生しました:', errors);
+        }
+    });
+};
 
 //inputのスタイル
 const inputClasses = computed(() => {
@@ -337,7 +351,21 @@ const publicLabel = computed(() => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div v-else class="mt-6 flex items-center gap-4">
+                <p class="text-sm font-bold text-red-400">職務履歴が未登録です。</p>
+                <Link :href="route('jobbg.create')" class="block px-8 py-2 text-sky-400 border-2 border-sky-400 rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">登録する</Link>
+            </div>
 
+            <div class="flex flex-col gap-4 my-4 border-t-2 border-baseColor pt-4">
+                <UpdatePasswordForm />
+    
+                <LogoutUserForm />
+    
+                <DeleteUserForm />
+            </div>
+
+            <template v-if="form.privacy === 0">
                 <div class="bg-baseColor p-4 mt-4 rounded-lg">
                     <div class="text-xs font-bold mb-4">利用登録に関する個人情報保護方針・利用規約</div>
                     <div class="h-36 overflow-y-auto">
@@ -361,44 +389,31 @@ const publicLabel = computed(() => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div v-else class="mt-6 flex items-center gap-4">
-                <p class="text-sm font-bold text-red-400">職務履歴が未登録です。</p>
-                <Link :href="route('jobbg.create')" class="block px-8 py-2 text-sky-400 border-2 border-sky-400 rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">登録する</Link>
-            </div>
-
-            <div class="flex flex-col gap-4 my-4">
-                <UpdatePasswordForm />
     
-                <LogoutUserForm />
+                <div class="my-2 flex justify-center items-center gap-2 mt-4">
+                    <input 
+                        type="checkbox" 
+                        name="currently_working" 
+                        id="currently_working" 
+                        v-model="privacyChecked"
+                        class="rounded border-gray-300 text-indigo-600 focus:border-indigo-500 focus:ring-indigo-500"
+                        required
+                    >
+                    <p class="text-xs leading-normal tracking-wider">上記の個人情報保護方針に同意する</p>
+                </div> 
     
-                <DeleteUserForm />
-            </div>
+                <div v-if="privacyChecked === true " class="flex flex-col items-center gap-4 py-2">
+                    <PrimaryButton @click="handleRegistration">この内容で利用登録</PrimaryButton>
+                    <Transition
+                        enter-active-class="transition ease-in-out"
+                        enter-from-class="opacity-0"
+                        leave-active-class="transition ease-in-out"
+                        leave-to-class="opacity-0"
+                    >
+                    </Transition>
+                </div>
+            </template>
 
-            <div class="my-2 flex justify-center items-center gap-2 mt-4">
-                <input 
-                    type="checkbox" 
-                    name="currently_working" 
-                    id="currently_working" 
-                    v-model="privacyChecked"
-                    class="rounded border-gray-300 text-indigo-600 focus:border-indigo-500 focus:ring-indigo-500"
-                    required
-                >
-                <p class="text-xs leading-normal tracking-wider">上記の個人情報保護方針に同意する</p>
-            </div> 
-
-            <div v-if="privacyChecked === true " class="flex flex-col items-center gap-4 py-2">
-                <Link :href="route('company.index')">
-                    <PrimaryButton>この内容で利用登録</PrimaryButton>
-                </Link>
-                <Transition
-                    enter-active-class="transition ease-in-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out"
-                    leave-to-class="opacity-0"
-                >
-                </Transition>
-            </div>
         </SectionInner>
     </BaseLayouts>
 </template>

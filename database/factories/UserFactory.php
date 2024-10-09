@@ -32,8 +32,10 @@ class UserFactory extends Factory
             'postal' => '8551234',
             'prefectures' => '長崎県',
             'city' => '長崎市万屋町12-1',
-            'password' => bcrypt('password'), // パスワード
+            'password' => bcrypt('password'),
             'status' => 1,
+            'privacy' => 0,
+            'profile_image' => '',
         ];
     }
 

@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('prefectures')->nullable();
             $table->string('city')->nullable();
             $table->integer('status')->default(2);
+            $table->integer('privacy')->default(0);
+            $table->string('profile_image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

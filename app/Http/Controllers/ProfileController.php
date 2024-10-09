@@ -12,6 +12,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -47,20 +48,32 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        // dd([
-        //     'path' => $request->path(),
-        //     'fullUrl' => $request->fullUrl(),
-        //     'is_search' => $request->is('applied-list'),
-        //     'is_api_search' => $request->is('api/search'),
-        //     'method' => $request->method(),
-        //     'all' => $request->all(),
-        //     'headers' => $request->headers->all(),
-        // ]);
+        // dd($request->all());
 
         $user = $request->user();
         $user->fill($request->validated());
 
         $referer = $request->header('referer');
+
+        $image = 'profile_image';
+
+        if ($request->hasFile($image)) {
+            $originalName = $request->file($image)->getClientOriginalName();
+
+            // 古い画像が存在する場合は削除
+            if ($user->{$image}) {
+                Storage::delete('public/storages/user/profile/' . $originalName);
+            }
+
+            // 画像のオリジナル名を取得し、ストレージと公開ディレクトリに保存
+            $originalName = $request->file($image)->getClientOriginalName();
+            // 画像を保存し、パスを取得
+            $path = $request->file($image)->storeAs('public/storages/user/profile/', $originalName);
+            $validatedData[$image] = basename($path); // データベースに保存するパスを設定
+        } else {
+            // 既存の画像パスを保持
+            $validatedData[$image] = $user->{$image};
+        }
     
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;

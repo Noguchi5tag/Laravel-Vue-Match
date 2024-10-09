@@ -23,6 +23,7 @@ const form = useForm({
     postal: user.postal,
     prefectures: user.prefectures,
     city: user.city,
+    profile_image: user.profile_image,
 });
 
 // 日付を yyyy-MM-dd 形式に変換する関数
@@ -36,13 +37,25 @@ function formatDate(dateString) {
 
 // 保存処理
 const profileUpdate = () => {
-    form.patch(route('profile.update'));
+    form.put(route('profile.update'));
 };
 
 //inputのスタイル
 const inputClasses = computed(() => {
     return "mt-2 block w-full bg-gray-50 border-1 border-gray-200 text-sm rounded-md";
 });
+
+// 画像プレビュー用の参照を追加
+const imagePreview = ref(user.profile_image || '');
+// 画像が選択されたときの処理
+const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        form.profile_image = file;
+        // プレビューを表示するためのURLを設定
+        imagePreview.value = URL.createObjectURL(file);
+    }
+};
 </script>
 
 <template>
@@ -63,7 +76,7 @@ const inputClasses = computed(() => {
                 あなたの氏名・電話番号・メールアドレス等を入力します。ここで入力した情報はいつでも修正・削除ができます。企業とマッチングするまで、年代を除き、その他の個人情報が開示されることはありません。
             </div>
 
-            <form class="mt-6 flex flex-col gap-6">
+            <form class="mt-6 flex flex-col gap-6" enctype="multipart/form-data" >
                 <div>
                     <TextInput
                         id="name"
@@ -226,6 +239,19 @@ const inputClasses = computed(() => {
                         />
                         <p class="mt-1 text-xs opacity-50 leading-normal tracking-wider">アパート・マンション等にお住まいの方は、番地以降にスペースを入れて建物名・部屋番号を続けて入力してください。</p>
                         <InputError class="mt-2" :message="form.errors.city" />
+                    </div>
+                </div>
+
+                <div>
+                    <InputLabel for="profile_image" value="プロフィール画像" />
+                    <div class="mt-1 flex items-center">
+                        <img v-if="imagePreview" :src="`/storage/storages/user/profile/${imagePreview}`" class="w-16 h-16 rounded-full object-cover mr-2" />
+                        <input
+                            id="profile_image"
+                            type="file"
+                            accept="image/*"
+                            @change="handleImageChange"
+                        />
                     </div>
                 </div>
 

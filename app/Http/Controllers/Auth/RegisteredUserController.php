@@ -35,12 +35,6 @@ class RegisteredUserController extends Controller
             'kana' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            // 'tel' => 'string',
-            // 'sex' => 'integer|in:0,1,2',
-            // 'birth' => 'date',
-            // 'postal' => 'integer',
-            // 'prefectures' => 'string|max:255',
-            // 'city' => 'string|max:255',
         ]);
 
         $user = User::create([
@@ -48,12 +42,6 @@ class RegisteredUserController extends Controller
             'kana' => $request->kana,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            // 'tel' => $request->tel,
-            // 'sex' => $request->sex,
-            // 'birth' => $request->birth,
-            // 'postal' => $request->postal,
-            // 'prefectures' => $request->prefectures,
-            // 'city' => $request->city,
         ]);
 
         event(new Registered($user));

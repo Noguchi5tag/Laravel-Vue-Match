@@ -34,7 +34,7 @@ const form = useForm({
 });
 
 const updateFunction = () => {
-    console.log(form);
+    // console.log(form);
 
     form.post(route('manager.profile.update', user.id), {
         _method: 'put',

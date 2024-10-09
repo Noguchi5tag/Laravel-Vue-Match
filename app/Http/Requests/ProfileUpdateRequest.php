@@ -17,13 +17,17 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'kana' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
-            'tel' => 'required|string',
-            'sex' => 'required|integer|in:0,1,2',
-            'birth' => 'required|date',
-            'postal' => 'required|integer',
-            'prefectures' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
+            'tel' => ['required', 'string'],
+            'sex' => ['required', 'integer', 'in:0,1,2'],
+            'birth' => ['required', 'date'],
+            'postal' => ['required', 'integer'],
+            'prefectures' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'status' => ['nullable', 'boolean'],
+            'privacy' => ['nullable', 'boolean'],
+            'profile_image' => ['nullable', 'image', 'max:5120'],
         ];
     }
 }
