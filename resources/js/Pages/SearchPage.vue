@@ -167,9 +167,10 @@ const bookmarkJob = (jobId) => {
                                 </div>
 
                                 <div class="text-center flex justify-around items-center mt-4">
+                                    <button @click="clearFilters" class="block px-8 py-3 text-sky-400 border-2 border-sky-400 rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">クリア</button>
+
                                     <PrimaryButton v-if="savedOccupations.length > 0 || savedDutyStations.length > 0 ||  companyPay || search" @click="searchCustomers">この条件で検索する</PrimaryButton>
                                     <div v-else class="inline-flex items-center px-12 py-3 bg-gray-400 border border-transparent rounded-full font-semibold text-xs text-white uppercase tracking-widest">この条件で検索する</div>
-                                    <button @click="clearFilters" class="inline-flex items-center px-8 py-3 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">クリア</button>
                                 </div>
                             </div>
                         </div>
