@@ -37,7 +37,7 @@ const imageCount = (job) => {
     return count;
 }
 
-const showSearchOptions = ref(false);
+const showSearchOptions = ref(true);
 
 //クエリパラメータを取得
 const searchKeyword = ref('');
@@ -46,6 +46,9 @@ onMounted(() => {
     const params = new URLSearchParams(window.location.search);
     searchKeyword.value = params.get('search') || '';
     searchCompanyPay.value = params.get('companyPay') || '';
+
+    const storedValue = localStorage.getItem('showSearchOptions');
+    showSearchOptions.value = storedValue === null ? true : JSON.parse(storedValue);
 });
 
 const search = ref('')
@@ -72,17 +75,20 @@ const hasSearchConditions = () => {
 
 //検索項目をControllerに送信
 const searchCustomers = () => {
-    showSearchOptions.value = false;
     if (!hasSearchConditions()) {
         alert('少なくとも1つの検索条件を入力してください。');
         return;
+    } else {
+        showSearchOptions.value = false;
+        localStorage.setItem('showSearchOptions', JSON.stringify(false));
+
+        Inertia.get(route('search'), {
+            search: search.value,
+            dutyStation: savedDutyStations.value,
+            Occupation: savedOccupations.value,
+            companyPay: companyPay.value,
+        });
     }
-    Inertia.get(route('search'), {
-        search: search.value,
-        dutyStation: savedDutyStations.value,
-        Occupation: savedOccupations.value,
-        companyPay: companyPay.value,
-    });
 }
 
 //検索条件クリア
@@ -91,6 +97,7 @@ const clearFilters = () => {
     companyPay.value = null; 
     savedOccupations.value = [];
     savedDutyStations.value = []; 
+    localStorage.removeItem('showSearchOptions');
     localStorage.removeItem('selectedOccupations');
     localStorage.removeItem('selectedDutyStations'); 
 };
@@ -98,6 +105,7 @@ const clearFilters = () => {
 // 検索条件表示ボタンのクリック時に表示を切り替え
 const showSearchOptionsSection = () => {
     showSearchOptions.value = true;
+    localStorage.setItem('showSearchOptions', JSON.stringify(true));
 };
 
 //  続きを見る、閉じる
@@ -124,7 +132,7 @@ const bookmarkJob = (jobId) => {
     <Head title="検索" />
     <BaseLayouts>
         <SiteTitle>求人を探す</SiteTitle>
-        <section class="relative py-1b mx-auto">
+        <section class="relative pb-6 mx-auto">
 
             <template v-if="showSearchOptions">
                 <transition name="fade-slide" mode="out-in">
@@ -158,7 +166,8 @@ const bookmarkJob = (jobId) => {
                                     <TextInput type="text" name="search" id="search" placeholder="キーワード" v-model="search" class="text-sm" />
                                 </div>
                                 <div class="text-center flex justify-around items-center mt-4">
-                                    <PrimaryButton @click="searchCustomers">この条件で検索する</PrimaryButton>
+                                    <PrimaryButton v-if="savedOccupations.length > 0 || savedDutyStations.length > 0 ||  searchCompanyPay || searchKeyword" @click="searchCustomers">この条件で検索する</PrimaryButton>
+                                    <div v-else class="inline-flex items-center px-12 py-3 bg-gray-400 border border-transparent rounded-full font-semibold text-xs text-white uppercase tracking-widest">この条件で検索する</div>
                                     <button @click="clearFilters" class="inline-flex items-center px-8 py-3 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">クリア</button>
                                 </div>
                             </div>
@@ -168,7 +177,7 @@ const bookmarkJob = (jobId) => {
             </template>
 
             <!-- 検索結果 -->
-            <template v-if="!showSearchOptions">
+            <template v-else>
                 <template v-if="savedOccupations.length > 0 || savedDutyStations.length > 0 ||  searchCompanyPay || searchKeyword ">
     
                     <div class="my-2 text-center">
@@ -178,7 +187,7 @@ const bookmarkJob = (jobId) => {
                     <div class="bg-baseColor p-1">
                         <ul class="bg-white m-2 p-4 rounded-lg">
                             <li>
-                                <template v-if="savedOccupations">
+                                <template v-if="savedOccupations.length > 0">
                                     <div class="flex items-center">
                                         <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">職種</p>
                                         <p class="ml-2 opacity-50 text-xs">{{ savedOccupations.join(', ') }}</p>
@@ -186,7 +195,7 @@ const bookmarkJob = (jobId) => {
                                 </template>
                             </li>
                             <li>
-                                <template v-if="savedDutyStations.value">
+                                <template v-if="savedDutyStations.length > 0">
                                     <div class="flex items-center mt-2">
                                         <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">エリア</p>
                                         <p class="ml-2 opacity-50 text-xs">{{ savedDutyStations.join(', ') }}</p>
@@ -196,7 +205,7 @@ const bookmarkJob = (jobId) => {
                             <li>
                                 <template v-if="searchCompanyPay">
                                     <div class="flex items-center mt-2">
-                                        <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">エリア</p>
+                                        <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">給料</p>
                                         <p class="ml-2 opacity-50 text-xs">{{ companyPays.find(pay => pay.value === searchCompanyPay)?.label || '該当なし' }}</p>
                                     </div>
                                 </template>
@@ -204,7 +213,7 @@ const bookmarkJob = (jobId) => {
                             <li>
                                 <template v-if="searchKeyword">
                                     <div class="flex items-center mt-2">
-                                        <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">エリア</p>
+                                        <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">キーワード</p>
                                         <p class="ml-2 opacity-50 text-xs">{{ searchKeyword }}</p>
                                     </div>
                                 </template>
@@ -220,7 +229,7 @@ const bookmarkJob = (jobId) => {
                                     <slide v-for="slide in imageCount(job)" :key="slide">
                                         <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 relative overflow-hidden">
                                             <img 
-                                                :src="`/images/${job[`image${slide}`]}`" 
+                                                :src="`/storage/storages/jobs/${job[`image${slide}`]}`" 
                                                 alt="" 
                                                 class="object-cover w-full h-full"
                                             >
