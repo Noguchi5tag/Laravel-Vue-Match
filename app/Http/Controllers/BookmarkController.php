@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\InertiaJob;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
+use App\Models\Manager;
+use App\Models\Application;
 
 class BookmarkController extends Controller
 {
@@ -29,8 +31,13 @@ class BookmarkController extends Controller
             ->withCount('bookmarkedByUsers')
             ->get();
 
+        $managers = Manager::all();
+        $applications = Application::all();
+
         return Inertia::render('BookmarkPage', [
             'bookmarkedJobs' => $bookmarkedJobs,
+            'managers' => $managers,
+            'applications' => $applications,
         ]);
     }
 

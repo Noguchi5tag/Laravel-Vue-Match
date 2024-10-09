@@ -36,11 +36,6 @@ const toggleDetails = (job) => {
     job.showDetails = !job.showDetails;
 };
 
-const showSearch = ref(false);
-const search_button = () => {
-    showSearch.value = !showSearch.value;
-}
-
 // Inertiaを使ったブックマーク機能
 const bookmarkJob = (jobId) => {
     Inertia.post(`/bookmark/${jobId}`, {}, {
