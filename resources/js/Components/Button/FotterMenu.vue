@@ -15,7 +15,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div v-if="isLoggedIn" class="py-2 shadow-tw-shadow-top bg-white fixed bottom-0 max-w-sm w-full h-auto">
+    <div v-if="isLoggedIn" class="py-2 shadow-tw-shadow-top bg-white fixed bottom-0 left-1/2 -translate-x-1/2 max-w-sm w-full h-auto">
         <div class="flex justify-around items-center">
             <Link as="button" href="/" class="flex flex-col items-center">
                 <font-awesome-icon :icon="['fas', 'house']" class="w-5 h-5" />

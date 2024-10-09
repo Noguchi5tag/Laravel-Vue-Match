@@ -26,6 +26,6 @@ class VerifyEmailController extends Controller
         }
 
         //認証が完了したことを通知してリダイレクト
-        return redirect()->intended(route('search', absolute: false).'?verified=1');
+        return redirect()->intended(route('personal.register', absolute: false).'?verified=1');
     }
 }

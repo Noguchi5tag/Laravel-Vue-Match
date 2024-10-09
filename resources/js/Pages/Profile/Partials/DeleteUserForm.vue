@@ -40,7 +40,7 @@ const closeModal = () => {
 <template>
     <section>
 
-        <button class="text-sm" @click="confirmUserDeletion">アカウントを削除する</button>
+        <button class="text-sm text-red-500 font-bold" @click="confirmUserDeletion">アカウントを削除する</button>
 
         <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6">

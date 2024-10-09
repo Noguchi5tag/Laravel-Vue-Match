@@ -368,11 +368,11 @@ const publicLabel = computed(() => {
             </div>
 
             <div class="flex flex-col gap-4 my-4">
-                <UpdatePasswordForm class="max-w-xl" />
+                <UpdatePasswordForm />
     
-                <LogoutUserForm class="max-w-xl" />
+                <LogoutUserForm />
     
-                <DeleteUserForm class="max-w-xl" />
+                <DeleteUserForm />
             </div>
 
             <div class="my-2 flex justify-center items-center gap-2 mt-4">
