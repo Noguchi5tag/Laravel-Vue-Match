@@ -15,9 +15,24 @@ class BookmarkController extends Controller
     {
         $user = $request->user();
 
+        // dd([
+        //     'path' => $request->path(),
+        //     'fullUrl' => $request->fullUrl(),
+        //     'is_search' => $request->is('search'),
+        //     'is_api_search' => $request->is('api/search'),
+        //     'jobId' => $jobId,
+        //     'method' => $request->method(),
+        //     'all' => $request->all(),
+        //     'headers' => $request->headers->all(),
+        // ]);
+
         // 既にブックマークされているか確認
         if (!$user->bookmarks()->where('inertia_job_id', $jobId)->exists()) {
             $user->bookmarks()->attach($jobId);
+
+            if ($request->path('/bookmark/*')) {
+                return to_route('search');
+            }
             return to_route('company.index')->with(['message' => 'ブックマークしました。']);
         }
 

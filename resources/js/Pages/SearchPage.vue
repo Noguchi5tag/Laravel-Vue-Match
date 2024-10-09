@@ -165,8 +165,9 @@ const bookmarkJob = (jobId) => {
                                     <InputLabel for="search" class="leading-7 text-sm ">キーワード検索</InputLabel>
                                     <TextInput type="text" name="search" id="search" placeholder="キーワード" v-model="search" class="text-sm" />
                                 </div>
+
                                 <div class="text-center flex justify-around items-center mt-4">
-                                    <PrimaryButton v-if="savedOccupations.length > 0 || savedDutyStations.length > 0 ||  searchCompanyPay || searchKeyword" @click="searchCustomers">この条件で検索する</PrimaryButton>
+                                    <PrimaryButton v-if="savedOccupations.length > 0 || savedDutyStations.length > 0 ||  companyPay || search" @click="searchCustomers">この条件で検索する</PrimaryButton>
                                     <div v-else class="inline-flex items-center px-12 py-3 bg-gray-400 border border-transparent rounded-full font-semibold text-xs text-white uppercase tracking-widest">この条件で検索する</div>
                                     <button @click="clearFilters" class="inline-flex items-center px-8 py-3 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">クリア</button>
                                 </div>
@@ -185,12 +186,12 @@ const bookmarkJob = (jobId) => {
                     </div>
     
                     <div class="bg-baseColor p-1">
-                        <ul class="bg-white m-2 p-4 rounded-lg">
+                        <ul class="bg-white m-2 p-2 rounded-lg">
                             <li>
                                 <template v-if="savedOccupations.length > 0">
                                     <div class="flex items-center">
                                         <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">職種</p>
-                                        <p class="ml-2 opacity-50 text-xs">{{ savedOccupations.join(', ') }}</p>
+                                        <p class="opacity-50 text-xs">{{ savedOccupations.join(', ') }}</p>
                                     </div>
                                 </template>
                             </li>
@@ -198,7 +199,7 @@ const bookmarkJob = (jobId) => {
                                 <template v-if="savedDutyStations.length > 0">
                                     <div class="flex items-center mt-2">
                                         <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">エリア</p>
-                                        <p class="ml-2 opacity-50 text-xs">{{ savedDutyStations.join(', ') }}</p>
+                                        <p class="opacity-50 text-xs">{{ savedDutyStations.join(', ') }}</p>
                                     </div>
                                 </template>
                             </li>
@@ -206,7 +207,7 @@ const bookmarkJob = (jobId) => {
                                 <template v-if="searchCompanyPay">
                                     <div class="flex items-center mt-2">
                                         <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">給料</p>
-                                        <p class="ml-2 opacity-50 text-xs">{{ companyPays.find(pay => pay.value === searchCompanyPay)?.label || '該当なし' }}</p>
+                                        <p class="opacity-50 text-xs">{{ companyPays.find(pay => pay.value === searchCompanyPay)?.label || '該当なし' }}</p>
                                     </div>
                                 </template>
                             </li>
@@ -214,7 +215,7 @@ const bookmarkJob = (jobId) => {
                                 <template v-if="searchKeyword">
                                     <div class="flex items-center mt-2">
                                         <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">キーワード</p>
-                                        <p class="ml-2 opacity-50 text-xs">{{ searchKeyword }}</p>
+                                        <p class="opacity-50 text-xs">{{ searchKeyword }}</p>
                                     </div>
                                 </template>
                             </li>
@@ -349,7 +350,7 @@ const bookmarkJob = (jobId) => {
                     </div>
                     <!-- 検索結果がない場合の表示 -->
                     <template v-else>
-                        <p class="text-center ">データがありません。検索条件を変更してください。</p>
+                        <p class="py-10 text-center">求人がありません。検索条件を変更してください。</p>
                     </template>
     
                     <div v-if="inertiaJobs.data.length && inertiaJobs.links.length" class="flex justify-center">

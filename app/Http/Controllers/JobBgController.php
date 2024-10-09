@@ -31,7 +31,6 @@ class JobBgController extends Controller
      */
     public function create(Request $request)
     {
-        Log::info('JobBgController@create called');
 
         $userId = Auth::id();
         $user = User::with('job_bg')->findOrFail($userId);
