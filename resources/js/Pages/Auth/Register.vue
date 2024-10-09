@@ -10,6 +10,7 @@ import BaseLayouts from '../../Layouts/BaseLayouts.vue';
 
 const form = useForm({
     name: '',
+    kana: '',
     email: '',
     // tel: '',
     // sex: '',
@@ -49,6 +50,21 @@ const submit = () => {
                     />
     
                     <InputError class="mt-2" :message="form.errors.name" />
+                </div>
+
+                <div>
+                    <InputLabel for="kana" value="フリガナ" />
+    
+                    <TextInput
+                        id="kana"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.kana"
+                        required
+                        autofocus
+                    />
+    
+                    <InputError class="mt-2" :message="form.errors.kana" />
                 </div>
     
                 <div class="mt-4">

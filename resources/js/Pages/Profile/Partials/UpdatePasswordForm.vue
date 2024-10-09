@@ -6,6 +6,8 @@ import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
+const isFormVisible = ref(false);
+
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
 
@@ -31,15 +33,21 @@ const updatePassword = () => {
         },
     });
 };
+
+// フォームの表示・非表示を切り替える関数
+const toggleFormVisibility = () => {
+    isFormVisible.value = !isFormVisible.value;
+};
 </script>
 
 <template>
     <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">パスワードの変更</h2>
-        </header>
+        <div class="flex items-center gap-2 cursor-pointer" @click="toggleFormVisibility">
+            <h2 class="text-sm" >パスワードを変更する</h2>
+            <font-awesome-icon :icon="['fas', 'chevron-down']" />
+        </div>
 
-        <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
+        <form v-if="isFormVisible" @submit.prevent="updatePassword" class="mt-6 space-y-6">
             <div>
                 <InputLabel for="current_password" value="現在のパスワード" />
 

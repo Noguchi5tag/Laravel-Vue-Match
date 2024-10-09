@@ -1,5 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
+import DeleteUserForm from '../Partials/DeleteUserForm.vue';
+import LogoutUserForm from '../Partials/LogoutUserForm.vue';
+import UpdatePasswordForm from '../Partials/UpdatePasswordForm.vue';
 import BaseLayouts from '@/Layouts/BaseLayouts.vue';
 import SectionInner from '@/Layouts/SectionInner.vue';
 import SiteTitle from '@/Components/SiteTitle.vue';
@@ -25,6 +28,7 @@ const user = usePage().props.auth.user;
 const form = useForm({
     id: user.id,
     name: user.name,
+    kana: user.kana,
     email: user.email,
     tel: user.tel,
     sex: user.sex,
@@ -109,6 +113,16 @@ const publicLabel = computed(() => {
                         v-model="form.name"
                         required
                         autocomplete="username"
+                    />
+                </div>
+                <div class="my-2 border-b-2 border-baseColor pb-4">
+                    <InputLabel>フリガナ</InputLabel>
+                    <TextInput
+                        id="kana"
+                        type="text"
+                        :class="inputClasses"
+                        v-model="form.kana"
+                        required
                     />
                 </div>
                 <div class="my-2 border-b-2 border-baseColor pb-4">
@@ -351,6 +365,14 @@ const publicLabel = computed(() => {
             <div v-else class="mt-6 flex items-center gap-4">
                 <p class="text-sm font-bold text-red-400">職務履歴が未登録です。</p>
                 <Link :href="route('jobbg.create')" class="block px-8 py-2 text-sky-400 border-2 border-sky-400 rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">登録する</Link>
+            </div>
+
+            <div class="flex flex-col gap-4 my-4">
+                <UpdatePasswordForm class="max-w-xl" />
+    
+                <LogoutUserForm class="max-w-xl" />
+    
+                <DeleteUserForm class="max-w-xl" />
             </div>
 
             <div class="my-2 flex justify-center items-center gap-2 mt-4">

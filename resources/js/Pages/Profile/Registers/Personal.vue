@@ -15,6 +15,7 @@ import { ref, computed } from 'vue';
 const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
+    kana: user.kana,
     email: user.email,
     tel: user.tel,
     sex: user.sex,
@@ -76,6 +77,20 @@ const inputClasses = computed(() => {
                     />
 
                     <InputError class="mt-2" :message="form.errors.name" />
+                </div>
+
+                <div>
+                    <TextInput
+                        id="kana"
+                        type="text"
+                        :class="inputClasses"
+                        v-model="form.kana"
+                        required
+                        autofocus
+                        placeholder="フリガナを入力"
+                    />
+
+                    <InputError class="mt-2" :message="form.errors.kana" />
                 </div>
 
                 <div>

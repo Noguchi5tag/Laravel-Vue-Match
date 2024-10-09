@@ -33,6 +33,7 @@ function formatDate(dateString) {
 
 const form = useForm({
     name: user.name,
+    kana: user.kana,
     email: user.email,
     tel: user.tel,
     sex: user.sex,
@@ -64,6 +65,21 @@ const form = useForm({
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
+            </div>
+
+            <div>
+                <InputLabel for="kana" value="フリガナ" />
+
+                <TextInput
+                    id="kana"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.kana"
+                    required
+                    autofocus
+                />
+
+                <InputError class="mt-2" :message="form.errors.kana" />
             </div>
 
             <div>

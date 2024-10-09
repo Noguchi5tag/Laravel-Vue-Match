@@ -21,6 +21,7 @@ import {
     faComment,
     faThumbsUp,
     faBookmark,
+    faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { 
     faBell,
@@ -42,6 +43,7 @@ library.add(
     faMagnifyingGlass,
     faComment,
     faThumbsUp,
+    faChevronDown,
 );
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';

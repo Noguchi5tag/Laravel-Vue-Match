@@ -38,12 +38,9 @@ const closeModal = () => {
 </script>
 
 <template>
-    <section class="space-y-6">
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">アカウントの削除</h2>
-        </header>
+    <section>
 
-        <DangerButton @click="confirmUserDeletion">アカウントを削除する</DangerButton>
+        <button class="text-sm" @click="confirmUserDeletion">アカウントを削除する</button>
 
         <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6">
