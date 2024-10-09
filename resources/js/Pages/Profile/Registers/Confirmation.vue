@@ -23,6 +23,7 @@ const props = defineProps({
 
 const user = usePage().props.auth.user;
 const form = useForm({
+    id: user.id,
     name: user.name,
     email: user.email,
     tel: user.tel,
@@ -32,25 +33,26 @@ const form = useForm({
     prefectures: user.prefectures,
     city: user.city,
 
-    academic_id: props.academic_bg.id,
-    school_classification: props.academic_bg.school_classification,
-    school_name: props.academic_bg.school_name,
-    department: props.academic_bg.department,
-    matriculation: props.academic_bg.matriculation,
-    graduation: props.academic_bg.graduation,
-    undergraduate: props.academic_bg.undergraduate,
+    academic_id: props.academic_bg?.user_id || '',
+    school_classification: props.academic_bg?.school_classification || '',
+    school_name: props.academic_bg?.school_name || '',
+    department: props.academic_bg?.department || '',
+    matriculation: props.academic_bg?.matriculation || '',
+    graduation: props.academic_bg?.graduation || '',
+    undergraduate: props.academic_bg?.undergraduate || false,
 
-    company_name: props.job_bg.company_name,
-    company_business: props.job_bg.company_business,
-    start_enrollment_year: props.job_bg.start_enrollment_year,
-    start_enrollment_month: props.job_bg.start_enrollment_month,
-    currently_working: props.job_bg.currently_working,
-    end_enrollment_year: props.job_bg.end_enrollment_year,
-    end_enrollment_month: props.job_bg.end_enrollment_month,
-    business_other: props.job_bg.business_other,
-    company_post: props.job_bg.company_post,
-    company_pay_type: props.job_bg.company_pay_type,
-    company_pay: props.job_bg.company_pay,
+    job_bg_id: props.job_bg?.user_id || '',
+    company_name: props.job_bg?.company_name || '',
+    company_business: props.job_bg?.company_business || '',
+    start_enrollment_year: props.job_bg?.start_enrollment_year || '',
+    start_enrollment_month: props.job_bg?.start_enrollment_month || '',
+    currently_working: props.job_bg?.currently_working || false,
+    end_enrollment_year: props.job_bg?.end_enrollment_year || '',
+    end_enrollment_month: props.job_bg?.end_enrollment_month || '',
+    business_other: props.job_bg?.business_other || '',
+    company_post: props.job_bg?.company_post || '',
+    company_pay_type: props.job_bg?.company_pay_type || '',
+    company_pay: props.job_bg?.company_pay || '',
 });
 
 // 日付を yyyy-MM-dd 形式に変換する関数
@@ -221,7 +223,7 @@ const publicLabel = computed(() => {
                 </div>
             </div>
 
-            <div class="mt-20">
+            <div v-if="form.academic_id" class="mt-20">
                 <div class="flex items-center justify-between">
                     <div class="text-base font-bold mb-2">学歴</div>
                     <Link as:button :href="route('academic.edit', form.academic_id)" class="border-2 border-black rounded-full text-sm py-1 px-4">修正する</Link>
@@ -255,8 +257,12 @@ const publicLabel = computed(() => {
                     </div>
                 </div>
             </div>
+            <div v-else class="mt-6 flex items-center gap-4">
+                <p class="text-sm font-bold text-red-400">学歴が未登録です。</p>
+                <Link :href="route('academic.create')" class="block px-8 py-2 text-sky-400 border-2 border-sky-400 rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">登録する</Link>
+            </div>
 
-            <div class="mt-20">
+            <div v-if="form.job_bg_id" class="mt-20">
                 <div class="flex items-center justify-between">
                     <div class="text-base font-bold mb-2">職務履歴</div>
                     <Link as:button :href="route('jobbg.edit', form.academic_id)" class="border-2 border-black rounded-full text-sm py-1 px-4">修正する</Link>
@@ -282,15 +288,17 @@ const publicLabel = computed(() => {
                             <InputLabel value="勤続年数" />
                             <span :class="publicLabel">公開</span>
                         </div>
-                        <div class="text-xs">
+                        <div class="flex items-center gap-2">
+                            <div class="text-xs">
                             {{ form.start_enrollment_year }}年{{ form.start_enrollment_month }}月〜
-                        </div>
-                        <div>
-                            <div v-if="form.end_enrollment_year !== null">
-                                {{ form.end_enrollment_year }}年{{ form.end_enrollment_month }}月
                             </div>
-                            <div v-else class="text-xs">
-                                現職中
+                            <div>
+                                <div v-if="form.end_enrollment_year !== '' || form.end_enrollment_month === 0 ">
+                                    {{ form.end_enrollment_year }}年{{ form.end_enrollment_month }}月
+                                </div>
+                                <div v-else class="text-xs">
+                                    現職中
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -339,6 +347,10 @@ const publicLabel = computed(() => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div v-else class="mt-6 flex items-center gap-4">
+                <p class="text-sm font-bold text-red-400">職務履歴が未登録です。</p>
+                <Link :href="route('jobbg.create')" class="block px-8 py-2 text-sky-400 border-2 border-sky-400 rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">登録する</Link>
             </div>
 
             <div class="my-2 flex justify-center items-center gap-2 mt-4">

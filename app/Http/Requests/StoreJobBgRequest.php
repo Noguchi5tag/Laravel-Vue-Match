@@ -31,7 +31,7 @@ class StoreJobBgRequest extends FormRequest
             'currently_working' => 'required|boolean',
             'end_enrollment_year' => 'nullable|integer',
             'end_enrollment_month' => 'nullable|integer',
-            'business_other' => 'nullable|string|max:255',
+            'business_other' => 'required|string|max:255',
             'company_post' => 'required|string|max:255',
             'company_pay_type' => 'nullable|string|max:255',
             'company_pay' => 'nullable|integer',

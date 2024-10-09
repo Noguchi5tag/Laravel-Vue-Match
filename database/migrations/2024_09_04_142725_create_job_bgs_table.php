@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('end_enrollment_month')->nullable(); //在籍期間中はnull
             $table->string('business_other');
             $table->string('company_post'); // 役職
-            $table->string('company_pay_type'); // 月給か年俸か
-            $table->string('company_pay'); // 金額
+            $table->string('company_pay_type')->nullable(); // 月給か年俸か
+            $table->string('company_pay')->nullable(); // 金額
             $table->timestamps();
         });
     }

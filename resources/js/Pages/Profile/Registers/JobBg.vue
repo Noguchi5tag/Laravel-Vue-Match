@@ -87,10 +87,10 @@ const pay_type = [
     <BaseLayouts>
         <SiteTitle class="bg-baseColor">職務履歴</SiteTitle>
         <div class="flex justify-around items-center bg-baseColor">
-            <div class="w-full py-2 text-center text-sm font-bold border-black border-b-2">
+            <div class="w-full py-2 text-center text-sm font-bold opacity-50">
                 <Link as:button :href="route('personal.register')">1.個人情報</Link>
             </div>
-            <div class="w-full py-2 text-center text-sm font-bold opacity-50">
+            <div class="w-full py-2 text-center text-sm font-bold border-black border-b-2">
                 <Link as:button :href="route('academic.create')">2.学歴・職務履歴</Link>
             </div>
             <!-- <div class="w-full py-2 text-center text-sm font-bold opacity-50">3.応募条件</div> -->

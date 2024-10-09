@@ -35,7 +35,6 @@ function formatDate(dateString) {
 
 // 保存処理
 const profileUpdate = () => {
-    // localStorage.setItem('userProfile', JSON.stringify(form));
     form.patch(route('profile.update'));
 };
 
