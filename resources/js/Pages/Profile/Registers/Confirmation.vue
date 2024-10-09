@@ -118,17 +118,26 @@ const publicLabel = computed(() => {
                     生年月日は年齢表記となります。<br>
                     例：2000年生まれであれば2024年現在は 20代 と表示。
                 </div>
-                <div class="my-2 border-b-2 border-baseColor pb-4">
-                    <InputLabel>氏名</InputLabel>
-                    <TextInput
-                        id="name"
-                        type="text"
-                        :class="inputClasses"
-                        v-model="form.name"
-                        required
-                        autocomplete="username"
-                    />
+                <div class="flex items-center gap-4 py-4 border-b-2 border-baseColor pb-4">
+                    <div class="w-14 h-14 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
+                        <img class="w-full h-full object-cover" :src="`/storage/storages/testAAAA.jpg`" alt="プロフィール画像">
+                    </div>
+                    <div class="flex flex-col justify-center w-full">
+                        <div>
+                            <InputLabel>氏名</InputLabel>
+                            <TextInput
+                                id="name"
+                                type="text"
+                                :class="inputClasses"
+                                class="w-full"
+                                v-model="form.name"
+                                required
+                                autocomplete="username"
+                            />
+                        </div>
+                    </div>
                 </div>
+
                 <div class="my-2 border-b-2 border-baseColor pb-4">
                     <InputLabel>フリガナ</InputLabel>
                     <TextInput
