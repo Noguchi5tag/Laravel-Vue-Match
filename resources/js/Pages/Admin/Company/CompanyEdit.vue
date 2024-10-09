@@ -61,7 +61,7 @@ const deleteImage = (imageKey) => {
 }
 
 const updateFunction = () => {
-    console.log(form);
+    // console.log(form);
 
     router.post(route('admin.company.update', props.inertiaJob.id), {
         _method: 'put',

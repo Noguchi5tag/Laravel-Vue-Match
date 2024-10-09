@@ -21,8 +21,6 @@ class ApplicationController extends Controller
             'inertia_job_id' => $job->id, // 求人ID
             'company_name' => $request->input('company_name'),
         ]);
-
-        return to_route('apply.comp');
     }
 
     public function show(Request $request)

@@ -56,12 +56,12 @@ const deleteBookmarkJob = (jobId) => {
                         <carousel :items-to-show="1">
                             <slide v-for="slide in imageCount(job)" :key="slide" class="!w-full">
                             <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 relative overflow-hidden">
-                                <img :src="`/images/${job[`image${slide}`]}`" alt="" class="object-cover w-full h-full">
+                                <img :src="`/storage/storages/jobs/${job[`image${slide}`]}`" alt="" class="object-cover w-full h-full">
 
                                 <!-- 右上にブックマークボタンを配置 -->
                                 <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center shadow-lg">
                                     <button @click="deleteBookmarkJob(job.id)">
-                                        <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
+                                        <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5" />
                                     </button>
                                 </div>
 

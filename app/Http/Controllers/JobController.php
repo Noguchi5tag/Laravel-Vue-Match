@@ -101,7 +101,10 @@ class JobController extends Controller
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
 
-            $managers = Manager::all();
+            // inertiaJobsの中の全てのcompanyNameを取得
+            $companyNames = $inertiaJobs->pluck('companyName')->toArray();
+            // companyName が inertiaJobs のいずれかに一致する Manager データのみを取得
+            $managers = Manager::whereIn('name', $companyNames)->get();
             
             return Inertia::render('Company/Index', [
                 'inertiaJobs' => $inertiaJobs,
@@ -305,7 +308,7 @@ class JobController extends Controller
         if ($request->is('manager/*')) {
             return to_route('manager.company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
         }
-        return to_route('admin.company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
+        return to_route('admin.new.companylist.index', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
     }
 
     public function delete(Request $request, $id)

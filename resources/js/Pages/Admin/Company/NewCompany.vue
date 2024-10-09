@@ -138,12 +138,6 @@ const totalNewJobs = pageProps.totalNewJobs || 0;
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel for="companyAddress" class="leading-7 text-sm ">会社の住所</InputLabel>
-                                        <div type="text" id="companyAddress" name="companyAddress" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyAddress }}</div>
-                                    </div>
-                                </div>
-                                <div class="p-2 w-full">
                                     <Link as="button" :href="route('admin.company.show', { id: job.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">詳細へ</Link>
                                 </div>
                             </div>

@@ -55,22 +55,32 @@ const bookmarkJob = (jobId) => {
 };
 
 const likeFunction = ref(false);
+const jobIdToSend = ref(null);
+const companyNameToSend = ref(null);
 
 const likeButton = (jobId, companyName) => {
     likeFunction.value = true;
-
-    // Inertia.post(`/jobs/${jobId}/apply`, {
-    //     company_name: companyName,
-    // }, {
-    //     onSuccess: () => {
-    //         alert(page.props.flash.message);
-    //         window.location.reload();
-    //     },
-    //     onError: () => {
-    //         alert(error.response.data.message || 'エラーが発生しました');
-    //     }
-    // });
+    jobIdToSend.value = jobId;
+    companyNameToSend.value = companyName;
 };
+
+const closeLikeButton = () => {
+    likeFunction.value = false;
+
+    if (jobIdToSend.value && companyNameToSend.value) {
+        Inertia.post(`/jobs/${jobIdToSend.value}/apply`, {
+            company_name: companyNameToSend.value,
+        }, {
+            onSuccess: () => {
+                alert("データが正常に送信されました！");
+                window.location.reload();
+            },
+            onError: (error) => {
+                alert(error.response.data.message || 'エラーが発生しました');
+            }
+        });
+    }
+}
 
 </script>
 
@@ -127,62 +137,60 @@ const likeButton = (jobId, companyName) => {
 
                             <button v-if="!job.showDetails" @click="toggleDetails(job)" class="text-xs">続きを読む</button>
 
-                            <div v-show="job.showDetails" class="flex flex-col gap-2 w-full">
+                            <div v-show="job.showDetails" class="flex flex-col gap-4 w-full mt-4">
                                 <div>
                                     <InputLabel for="Occupation" class="leading-5">職種</InputLabel>
-                                    <TextView >{{ job.Occupation }}</TextView>
+                                    <p class="text-xs leading-loose">{{ job.Occupation }}</p>
                                 </div>
                                 <div>
                                     <InputLabel for="workDescription" class="leading-5">仕事内容</InputLabel>
-                                    <TextView>{{ job.workDescription }}</TextView>
+                                    <p class="text-xs leading-loose">{{ job.workDescription }}</p>
                                 </div>
                                 <div>
                                     <InputLabel for="dutyStation" class="leading-5">勤務地</InputLabel>
-                                    <TextView>{{ job.dutyStation }}</TextView>
+                                    <p class="text-xs leading-loose">{{ job.dutyStation }}</p>
                                 </div>
                                 <div>
                                     <InputLabel for="companyPay" class="leading-5">給料</InputLabel>
-                                    <TextView>{{ job.companyPay }}</TextView>
+                                    <p class="text-xs leading-loose">{{ job.companyPay }}円</p>
                                 </div>
                                 <div>
                                     <InputLabel for="payDescription" class="leading-5">給与詳細</InputLabel>
-                                    <TextView>{{ job.payDescription }}</TextView>
+                                    <p class="text-xs leading-loose">{{ job.payDescription }}</p>
                                 </div>
                                 <div>
                                     <InputLabel for="travelExpenses" class="leading-5">交通費</InputLabel>
-                                    <TextView>{{ job.travelExpenses }}</TextView>
+                                    <p class="text-xs leading-loose">月に{{ job.travelExpenses }}円まで</p>
                                 </div>
                                 <div>
                                     <InputLabel for="Welfare" class="leading-5">福利厚生</InputLabel>
-                                    <TextView>{{ job.Welfare }}</TextView>
+                                    <p class="text-xs leading-loose">{{ job.Welfare }}</p>
                                 </div>
                                 <div>
-                                    <InputLabel for="startWork" class="leading-5">勤務開始時間</InputLabel>
-                                    <TextView>{{ job.startWork.split(':').slice(0, 2).join(':') }}</TextView>
-                                </div>
-                                <div>
-                                    <InputLabel for="endWork" class="leading-5">勤務終了時間</InputLabel>
-                                    <TextView>{{ job.endWork.split(':').slice(0, 2).join(':') }}</TextView>
+                                    <InputLabel for="startWork" class="leading-5">勤務時間</InputLabel>
+                                    <p class="text-xs leading-loose">{{ job.startWork.split(':').slice(0, 2).join(':') }}～{{ job.endWork.split(':').slice(0, 2).join(':') }}</p>
                                 </div>
                                 <div>
                                     <InputLabel for="workDays" class="leading-5">出勤日</InputLabel>
-                                    <TextView>{{ job.workDays }}</TextView>
+                                    <p class="text-xs leading-loose">{{ job.workDays }}</p>
                                 </div>
                                 <div>
                                     <InputLabel for="freeDays" class="leading-5">休日</InputLabel>
-                                    <TextView>{{ job.freeDays }}</TextView>
+                                    <p class="text-xs leading-loose">{{ job.freeDays }}</p>
                                 </div>
                                 <div>
                                     <InputLabel for="NearestStation" class="leading-5">最寄り駅</InputLabel>
-                                    <TextView>{{ job.NearestStation }}</TextView>
+                                    <p class="text-xs leading-loose">{{ job.NearestStation }}</p>
                                 </div>
                                 <div>
                                     <InputLabel for="workOther" class="leading-5">その他</InputLabel>
-                                    <TextView>{{ job.workOther }}</TextView>
+                                    <p class="text-xs leading-loose">{{ job.workOther }}</p>
                                 </div>
 
                                 <!-- 企業情報 -->
-                                <CompanyInfo :managers="managers" />
+                                <template  v-if="managers.find(manager => manager.name === job.companyName)">
+                                    <CompanyInfo :managers="managers" />
+                                </template>
                                 
                                 <div class="flex justify-around mt-4">
                                     <div class="bg-sky-400 py-2 px-10 rounded-full shadow-lg border-1 border-white">
@@ -222,7 +230,7 @@ const likeButton = (jobId, companyName) => {
                                     :href="link.url"
                                     v-html="link.label"
                                     :class="{ 
-                                        'bg-indigo-500 text-white p-2 mx-2': link.active,
+                                        'bg-sky-400 text-white p-2 mx-2': link.active,
                                         'bg-gray-200 text-black p-2 mx-2': !link.active
                                     }">
                                 </Link>
@@ -239,10 +247,28 @@ const likeButton = (jobId, companyName) => {
                 </ul>
             </div>
 
-            <div v-if="likeFunction" class="absolute top-0 left-0 inset-0 bg-black bg-opacity-50 p-20">
-                <div class="bg-white">
-                    コンテンツの表示
+            <!-- いいねしたとき -->
+            <div v-if="likeFunction" class="absolute top-0 left-0 inset-0 bg-black bg-opacity-50 pt-16 px-4">
+                <div class="bg-white rounded-lg py-6 px-2">
+                    <div v-for="manager in managers" :key="manager.id" class="flex flex-col justify-center items-center">
+                        <img class="w-12 h-12 object-cover rounded-full" :src="`/storage/storages/manager/${ manager.image_manager }`" alt="プロフィール画像">
+                        <p class="text-xs mt-4 font-bold">{{ manager.name }}</p>
+                        <h3 class="mt-4 text-sky-400 font-bold text-2xl">いいね！しました</h3>
+                        <!-- <div class="text-center">
+                            <h3 class="mt-4 text-sky-400 font-bold text-2xl">お互いのいいね！</h3>
+                            <p class="font-bold text-base">が成立しました。</p>
+                        </div> -->
+
+                        <!-- <div class="bg-sky-100 p-4 mt-6 w-full rounded-b-lg">
+                            <p class="font-bold text-center text-base">マッチングした企業に<br>早速メッセージを送ってみましょう！</p>
+                            <Link href="#" class="rounded-full bg-green-500 flex items-center justify-center mt-4">
+                                <img class="w-10 h-10" src="../../../../public/images/logo/LINE_logo.png" alt="LINE">
+                                <p class="text-white text-sm">友達追加してメッセージを送る</p>
+                            </Link>
+                        </div> -->
+                    </div>
                 </div>
+                <button @click="closeLikeButton" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
             </div>
         </section>
 

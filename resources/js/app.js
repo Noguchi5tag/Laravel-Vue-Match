@@ -17,14 +17,15 @@ import {
     faHouse,
     faBars,
     faThumbsUp as faThumbsUpSolid,
-    faMagnifyingGlass ,
+    faMagnifyingGlass,
     faComment,
     faThumbsUp,
+    faBookmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { 
     faBell,
     faCircleUser,
-    faBookmark,
+    faBookmark as faBookmarkRegular,
     faThumbsUp as faThumbsUpRegular,
 } from '@fortawesome/free-regular-svg-icons';
 /* library にアイコンを追加 */
@@ -35,6 +36,7 @@ library.add(
     faBell, 
     faCircleUser,
     faBookmark,
+    faBookmarkRegular,
     faThumbsUpSolid,
     faThumbsUpRegular,
     faMagnifyingGlass,
