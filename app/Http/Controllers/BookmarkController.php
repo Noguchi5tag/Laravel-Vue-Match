@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
 use App\Models\Manager;
 use App\Models\Application;
+use Illuminate\Support\Str;
 
 class BookmarkController extends Controller
 {
@@ -18,7 +19,7 @@ class BookmarkController extends Controller
         // dd([
         //     'path' => $request->path(),
         //     'fullUrl' => $request->fullUrl(),
-        //     'is_search' => $request->is('search'),
+        //     'is_search' => $request->is('applied-list'),
         //     'is_api_search' => $request->is('api/search'),
         //     'jobId' => $jobId,
         //     'method' => $request->method(),
@@ -30,8 +31,12 @@ class BookmarkController extends Controller
         if (!$user->bookmarks()->where('inertia_job_id', $jobId)->exists()) {
             $user->bookmarks()->attach($jobId);
 
-            if ($request->path('/bookmark/*')) {
+            $referer = $request->header('referer');
+
+            if (Str::contains($referer, '/search')) {
                 return to_route('search');
+            } elseif (Str::contains($referer, '/applied-list')) {
+                return to_route('apply.list');
             }
             return to_route('company.index')->with(['message' => 'ブックマークしました。']);
         }
@@ -63,6 +68,12 @@ class BookmarkController extends Controller
         // ブックマークが存在するか確認して削除
         if ($user->bookmarks()->where('inertia_job_id', $jobId)->exists()) {
             $user->bookmarks()->detach($jobId); // ブックマークの解除
+
+            $referer = $request->header('referer');
+
+            if (Str::contains($referer, '/applied-list')) {
+                return to_route('apply.list');
+            }
             return to_route('bookmarked.jobs')->with(['message' => 'ブックマークを取り消しました']);
         }
 

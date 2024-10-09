@@ -46,10 +46,16 @@ class ApplicationController extends Controller
             $applications = Application::with(['job'])
                 ->where('user_id', $userId)
                 ->get();
+            
+                $user = $request->user();
+                $bookmarkedJobs = $user->bookmarks()
+                    ->withCount('bookmarkedByUsers')
+                    ->get();
 
             // ユーザーの応募情報を渡して表示
             return Inertia::render('Applications/AppliedList', [
                 'applications' => $applications,
+                'bookmarkedJobs' => $bookmarkedJobs,
             ]);
         }
     }
