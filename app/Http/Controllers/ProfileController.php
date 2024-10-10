@@ -13,6 +13,7 @@ use Inertia\Response;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Models\JobRequirement;
 
 class ProfileController extends Controller
 {
@@ -23,8 +24,9 @@ class ProfileController extends Controller
     {
         $userAuth = Auth::user();
         $userId = Auth::id();
-        $user = User::with('skills')->findOrFail($userId);
-        $user = $request->user()->load('academic_bg', 'job_bg');
+
+        // $user = User::with('skills')->findOrFail($userId);
+        $user = User::with(['academic_bg', 'job_bg', 'jobRequirements'])->findOrFail($userId);
 
         // ユーザーが資格を持っているかどうかを判定
         // $hasSkill = $user->skills->isNotEmpty();
@@ -39,6 +41,7 @@ class ProfileController extends Controller
             'job_bg' => $user->job_bg,
             'hasAcademicBg' => $hasAcademicBg,
             'hasJobBg' => $hasJobBg,
+            'job_requirements' => $user->jobRequirements,
         ]);
 
     }

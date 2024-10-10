@@ -16,7 +16,7 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                baseColor: '#ededed', // ベースカラーを追加
+                baseColor: '#f7f7f7', // ベースカラーを追加
             },
             boxShadow: {
                 'tw-shadow-top': '0 -4px 6px -4px rgba(0, 0, 0, 0.3)', // カスタムシャドウを定義

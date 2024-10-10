@@ -11,6 +11,7 @@ use App\Http\Controllers\AcademicBgController;
 use App\Http\Controllers\JobBgController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\JobRequirementController;
 
 //テスト用
 Route::get('/test', function () {
@@ -61,6 +62,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // URL /academicbg/create
     //利用登録・資格
     // URL /jobbg/create
+    //こだわり条件
+    Route::get('/requirements', [JobRequirementController::class, 'create'])->name('requirements.create');
+    Route::post('/requirements', [JobRequirementController::class, 'store'])->name('requirements.store');
     //内容確認
     // Route::get('/confirmation', function () { return Inertia::render('Profile/Registers/Confirmation'); })->name('confirmation');
     Route::get('/confirmation', [ProfileController::class, 'edit'])->name('profile.edit');

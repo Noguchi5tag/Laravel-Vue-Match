@@ -21,8 +21,12 @@ const props = defineProps({
     },
     job_bg: {
         type : Object,
-    }
+    },
+    job_requirements: {
+        type : Object,
+    },
 });
+console.log(props.job_requirements);
 
 const user = usePage().props.auth.user;
 const form = useForm({
