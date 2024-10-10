@@ -33,7 +33,7 @@ class AcademicBgController extends Controller
         $userId = Auth::id();
         $user = User::with('academic_bg')->findOrFail($userId);
 
-        return Inertia::render('Profile/Registers/Academic',[
+        return Inertia::render('Profile/Academic/Create',[
             'user' => $user,
         ]);
     }
@@ -80,8 +80,8 @@ class AcademicBgController extends Controller
     public function edit(Academic_Bg $academic_Bg, Request $request)
     {
         $user = $request->user();
-        $academic_bgs = $user->academic_Bg()->get(); // 学歴データを取得する例
-
+        $academic_bgs = $user->academic_Bg()->get(); 
+        
         return Inertia::render('Profile/Academic/Edit', [
             'academic_bgs' => $academic_bgs,
             'user' => $request->user(),

@@ -21,7 +21,7 @@ class JobRequirementController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Profile/Registers/Requirements');
+        return Inertia::render('Profile/Requirements/Create');
     }
 
     /**
@@ -61,9 +61,15 @@ class JobRequirementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, Request $request)
     {
-        //
+        $user = $request->user();
+        $job_requirements = $user->jobRequirements()->get(); // 学歴データを取得する例
+
+        return Inertia::render('Profile/Requirements/Edit', [
+            'job_requirements' => $job_requirements,
+            'user' => $request->user(),
+        ]);
     }
 
     /**

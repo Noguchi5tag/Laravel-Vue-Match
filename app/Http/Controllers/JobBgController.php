@@ -35,7 +35,7 @@ class JobBgController extends Controller
         $userId = Auth::id();
         $user = User::with('job_bg')->findOrFail($userId);
 
-        return Inertia::render('Profile/Registers/JobBg',[
+        return Inertia::render('Profile/Jobs/Create',[
             'user' => $user,
         ]);
     }
