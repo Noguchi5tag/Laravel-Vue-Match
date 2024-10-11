@@ -10,7 +10,6 @@ import FlashMessage from '../Components/FlashMessage.vue';
 import 'vue3-carousel/dist/carousel.css'
 
 const page = usePage();
-console.log(page.props);
 
 const props = defineProps({
     bookmarkedJobs: Array,

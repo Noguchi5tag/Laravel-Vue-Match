@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class JobController extends Controller
 {
@@ -17,16 +18,19 @@ class JobController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
+
+        $user = $request->user();
+
         //検索条件
-        $search = $request->input('search');
         $companySearch = $request->input('companySearch');
         $dutyStation = $request->input('dutyStation');
         $Occupation = $request->input('Occupation');
         $companyPay = $request->input('companyPay');
-
-        $user = $request->user();
+        $search = $request->input('search');
 
         if ($request->is('admin/new/companylist')) {
+            // 管理者の新着求人の表示 //
+
             $inertiaJobs = InertiaJob::where([
                 ['is_checked', '=', 0], 
             ])
@@ -38,6 +42,8 @@ class JobController extends Controller
                 'totalNewJobs' => $totalNewJobs,
             ]);
         } elseif ($request->is('admin/*')) {
+             // 管理者の求人の表示 //
+            
             $inertiaJobs = InertiaJob::searchInertiaJobs($search, $companySearch)
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
@@ -47,6 +53,8 @@ class JobController extends Controller
                 'totalJobs' => $totalJobs
             ]);
         } elseif ($request->is('manager/*')) {
+            // マネージャーの求人の表示 //
+
             $manager = Auth::user();
 
             $inertiaJobs = InertiaJob::where('companyName', $manager->name)
@@ -57,6 +65,8 @@ class JobController extends Controller
                 'inertiaJobs' => $inertiaJobs,
             ]);
         } elseif ($request->is('search')) {
+            // 検索結果の処理 //
+
             $inertiaJobs = InertiaJob::where([
                 ['status', '=', 1],
                 ['is_checked', '=', 1], 
@@ -82,7 +92,28 @@ class JobController extends Controller
                 'inertiaJobs' => $inertiaJobs,
                 'managers' => $managers,
             ]);
+
         } else {
+
+            // ホームでの表示 //
+
+            // ユーザーのこだわり条件を取得 //
+            // ユーザーの `job_requirements` テーブルから条件を取得（例：カンマ区切りの文字列）
+            $userRequirements = DB::table('job_requirements')
+            ->where('user_id', $user->id)
+            ->pluck('job_category')
+            ->toArray();
+            // dd($userRequirements);
+
+            // カンマ区切りの要素を個々の条件に分解して、全てを配列にまとめる
+            $allRequirements = [];
+            foreach ($userRequirements as $requirement) {
+                // 各要素をカンマで分割し、全体の配列にマージする
+                $splitRequirements = array_map('trim', explode(',', $requirement));
+                $allRequirements = array_merge($allRequirements, $splitRequirements);
+            }
+            // ユーザーのこだわり条件 ここまで //
+
             $inertiaJobs = InertiaJob::where([
                 ['status', '=', 1],
                 ['is_checked', '=', 1], 
@@ -95,6 +126,14 @@ class JobController extends Controller
             ->when($user, function ($query) use ($user) {
                 return $query->whereDoesntHave('bookmarkedByUsers', function ($q) use ($user) {
                     $q->where('user_id', $user->id);
+                });
+            })
+            //  ユーザーのこだわり条件に一致する求人データのみを取得
+            ->when(!empty($allRequirements), function ($query) use ($allRequirements) {
+                $query->where(function ($query) use ($allRequirements) {
+                    foreach ($allRequirements as $requirement) {
+                        $query->orWhere('Occupation', 'LIKE', '%' . $requirement . '%');
+                    }
                 });
             })
             ->withCount('bookmarkedByUsers')

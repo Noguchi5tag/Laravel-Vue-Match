@@ -16,7 +16,6 @@ const props = defineProps({
     Pagination: Pagination,
     Navigation: Navigation
 })
-console.log(props.inertiaJobs);
 
 //画像を取得して表示
 const imageCount = (job) => {
