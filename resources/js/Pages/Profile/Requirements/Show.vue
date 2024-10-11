@@ -47,18 +47,12 @@ const publicLabel = computed(() => {
             </div>
 
             <div class="my-4 border-b-2 border-baseColor pb-4">
-                <div class="flex items-center gap-2">
-                    <InputLabel value="希望勤務地" />
-                    <span :class="publicLabel">公開</span>
-                </div>
+                <InputLabel value="希望勤務地" />
                 <div class="text-xs">{{ form.prefecture }}{{ form.dutyStation }}</div>
             </div>
 
             <div class="my-4 border-b-2 border-baseColor pb-4">
-                <div class="flex items-center gap-2">
-                    <InputLabel value="転勤有でも可" />
-                    <span :class="publicLabel">公開</span>
-                </div>
+                <InputLabel value="転勤有でも可" />
                 <div class="flex items-center gap-2">
                     <div class="text-xs">
                     {{ relocationStatus }}
@@ -66,34 +60,21 @@ const publicLabel = computed(() => {
                 </div>
             </div>
             <div class="my-4 border-b-2 border-baseColor pb-4">
-                <div class="flex items-center gap-2">
-                    <InputLabel value="希望入社時期" />
-                    <span :class="publicLabel">公開</span>
-                </div>
+                <InputLabel value="希望入社時期" />
                 <div class="text-xs">{{ form.job_join }}</div>
             </div>
             <div class="my-4 border-b-2 border-baseColor pb-4">
-                <div class="flex items-center gap-2">
-                    <InputLabel value="希望雇用形態" />
-                    <span :class="publicLabel">公開</span>
-                </div>
+                <InputLabel value="希望雇用形態" />
                 <div class="text-xs">{{ form.employment_type }}</div>
             </div>
             <div class="my-4 border-b-2 border-baseColor pb-4">
-                <div class="flex items-center gap-2">
-                    <InputLabel value="希望年収または月収" />
-                    <span :class="publicLabel">公開</span>
-                </div>
-                <div class="text-xs">{{ form.salary_type }}：{{ form.salary_amount }}</div>
+                <InputLabel value="希望年収または月収" />
+                <div class="text-xs">{{ form.salary_type }}：{{ form.salary_amount }}万円</div>
             </div>
             <div class="my-4">
-                <div class="flex items-center gap-2">
-                    <InputLabel value="こだわり条件" />
-                    <span :class="publicLabel">公開</span>
-                </div>
+                <InputLabel value="こだわり条件" />
                 <div class="text-xs">{{ form.particular_type }}</div>
             </div>
-            
         </div>
     </div>
     <div v-else class="mt-6 flex items-center gap-4">

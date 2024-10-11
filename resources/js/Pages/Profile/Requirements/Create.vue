@@ -92,9 +92,6 @@ watch(salaryType, () => {
     selectedAmount.value = '';
 });
 
-const inputClasses = computed(() => {
-    return "mt-2 block w-full bg-gray-50 border-1 border-gray-200 text-sm rounded-md";
-});
 </script>
 
 <template>

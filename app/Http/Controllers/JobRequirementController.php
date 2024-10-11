@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\JobRequirement;
 use Inertia\Inertia;
+use App\Models\JobBg;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class JobRequirementController extends Controller
 {
@@ -64,7 +67,7 @@ class JobRequirementController extends Controller
     public function edit(string $id, Request $request)
     {
         $user = $request->user();
-        $job_requirements = $user->jobRequirements()->get(); // 学歴データを取得する例
+        $job_requirements = $user->jobRequirements()->get();
 
         return Inertia::render('Profile/Requirements/Edit', [
             'job_requirements' => $job_requirements,
@@ -77,7 +80,28 @@ class JobRequirementController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $validated = $request->validate([
+            'job_category' => 'nullable|array',
+            'prefecture' => 'nullable|string',
+            'dutyStation' => 'nullable|string',
+            'relocation' => 'nullable|boolean',
+            'job_join' => 'nullable|string',
+            'employment_type' => 'nullable|array',
+            'salary_type' => 'nullable|string',
+            'salary_amount' => 'nullable|integer',
+            'particular_type' => 'nullable|array',
+        ]);
+
+        $validated['job_category'] = implode(',', $request->input('job_category', []));
+        $validated['employment_type'] = implode(',', $request->input('employment_type', []));
+        $validated['particular_type'] = implode(',', $request->input('particular_type', []));
+
+        $jobRequirement = JobRequirement::findOrFail($id);
+
+        $jobRequirement->update($validated);
+
+        return to_route('profile.edit');
     }
 
     /**

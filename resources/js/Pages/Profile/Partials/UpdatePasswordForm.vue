@@ -47,7 +47,7 @@ const toggleFormVisibility = () => {
             <font-awesome-icon :icon="['fas', 'chevron-down']" />
         </div>
 
-        <form v-if="isFormVisible" @submit.prevent="updatePassword" class="mt-6 space-y-6">
+        <form v-if="isFormVisible" @submit.prevent="updatePassword" class="mt-6 space-y-3">
             <div>
                 <InputLabel for="current_password" value="現在のパスワード" />
 
@@ -93,7 +93,7 @@ const toggleFormVisibility = () => {
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">変 更</PrimaryButton>
+                <PrimaryButton :disabled="form.processing" class="mx-auto">変 更</PrimaryButton>
 
                 <Transition
                     enter-active-class="transition ease-in-out"

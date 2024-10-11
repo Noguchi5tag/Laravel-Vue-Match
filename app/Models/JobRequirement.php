@@ -18,7 +18,7 @@ class JobRequirement extends Model
         'job_join',
         'employment_type',
         'salary_type',
-        'salary_amount' => 'integer',
+        'salary_amount',
         'particular_type',
     ];
 

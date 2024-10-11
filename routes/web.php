@@ -58,14 +58,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //利用登録・個人情報
     Route::get('/personal/create', function () { return Inertia::render('Profile/Personal/Create'); })->name('personal.register');
+    
     //利用登録・経歴
     // URL /academicbg/create
+
     //利用登録・資格
     // URL /jobbg/create
+
     //こだわり条件
     Route::get('/requirements', [JobRequirementController::class, 'create'])->name('requirements.create');
     Route::post('/requirements', [JobRequirementController::class, 'store'])->name('requirements.store');
     Route::get('/requirements/{id}/edit', [JobRequirementController::class, 'edit'])->name('requirements.edit');
+    Route::put('/requirements/{id}', [JobRequirementController::class, 'update'])->name('requirements.update');
+
     //内容確認
     // Route::get('/confirmation', function () { return Inertia::render('Profile/Registers/Confirmation'); })->name('confirmation');
     Route::get('/confirmation', [ProfileController::class, 'edit'])->name('profile.edit');
