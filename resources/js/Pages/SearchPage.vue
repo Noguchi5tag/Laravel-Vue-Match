@@ -1,11 +1,12 @@
 <script setup>
 import { Head, Link, usePage  } from '@inertiajs/vue3';
 import BaseLayouts from '../Layouts/BaseLayouts.vue';
-import SectionInner from '../Layouts/SectionInner.vue';
-import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
+import { companyPays, requirements, prefectures, dutyStations, jobJoin, employment, particulars } from '@/data.js';
+import SectionInner from '../Layouts/SectionInner.vue';
+import 'vue3-carousel/dist/carousel.css'
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import TextView from '@/Components/TextView.vue';
@@ -13,7 +14,6 @@ import SiteTitle from '../Components/SiteTitle.vue';
 import NavLink from '../Components/NavLink.vue';
 import PrimaryButton from '../Components/PrimaryButton.vue';
 import CompanyInfo from './Company/CompanyInfo.vue';
-import { companyPays } from '@/data';
 
 
 const props = defineProps({
@@ -24,7 +24,26 @@ const props = defineProps({
     Pagination: Pagination,
     Navigation: Navigation
 })
-console.log(props);
+
+const selectedCategories = ref([]);
+
+// 各カテゴリの表示・非表示フラグとデータをまとめて定義
+const jobCategories = ref([
+    { label: '営業', visible: false, requirements: requirements.find(req => req.label === '営業').value },
+    { label: '医療・福祉', visible: false, requirements: requirements.find(req => req.label === '医療・福祉').value },
+    { label: 'ITエンジニア', visible: false, requirements: requirements.find(req => req.label === 'ITエンジニア').value },
+    { label: 'クリエイティブ', visible: false, requirements: requirements.find(req => req.label === 'クリエイティブ').value },
+    { label: '美容・ブライダル・ホテル・交通', visible: false, requirements: requirements.find(req => req.label === '美容・ブライダル・ホテル・交通').value }
+]);
+// カテゴリの表示・非表示を切り替える関数
+const toggleCategoryVisible = (categoryLabel) => {
+    const category = jobCategories.value.find(cat => cat.label === categoryLabel);
+    if (category) {
+        category.visible = !category.visible;
+    }
+};
+
+
 
 //画像を取得して表示
 const imageCount = (job) => {
@@ -69,12 +88,14 @@ const hasSearchConditions = () => {
         search.value !== '' ||
         companyPay.value !== '' ||
         savedOccupations.value.length > 0 ||
-        savedDutyStations.value.length > 0
+        savedDutyStations.value.length > 0 ||
+        selectedCategories.value.length > 0
     );
 };
 
 //検索項目をControllerに送信
 const searchCustomers = () => {
+
     if (!hasSearchConditions()) {
         alert('少なくとも1つの検索条件を入力してください。');
         return;
@@ -83,10 +104,11 @@ const searchCustomers = () => {
         localStorage.setItem('showSearchOptions', JSON.stringify(false));
 
         Inertia.get(route('search'), {
-            search: search.value,
+            // Occupation: savedOccupations.value,
+            Occupation: selectedCategories.value, //職種
             dutyStation: savedDutyStations.value,
-            Occupation: savedOccupations.value,
             companyPay: companyPay.value,
+            search: search.value,
         });
     }
 }
@@ -97,6 +119,7 @@ const clearFilters = () => {
     companyPay.value = null; 
     savedOccupations.value = [];
     savedDutyStations.value = []; 
+    selectedCategories.value = [];
     localStorage.removeItem('showSearchOptions');
     localStorage.removeItem('selectedOccupations');
     localStorage.removeItem('selectedDutyStations'); 
@@ -134,17 +157,11 @@ const bookmarkJob = (jobId) => {
         <SiteTitle>求人を探す</SiteTitle>
         <section class="relative pb-6 mx-auto">
 
-            <template v-if="showSearchOptions">
+            <template v-if="!showSearchOptions">
                 <transition name="fade-slide" mode="out-in">
                     <section class="">
                         <div class="p-4">
                             <div class="mx-auto">
-
-                                <div class="p-2 w-full flex justify-between items-center border-b-baseColor border-b">
-                                    <InputLabel for="Occupation" class="leading-7 text-sm">職種</InputLabel>
-                                    <NavLink v-if="savedOccupations.length" href="/jobs-choose" class="opacity-50 text-xs">{{ savedOccupations.join(', ') }}</NavLink>
-                                    <NavLink v-else href="/jobs-choose" class="opacity-50 text-xs">指定なし</NavLink>
-                                </div>
 
                                 <div class="p-2 w-full flex justify-between items-center border-b-baseColor border-b">
                                     <InputLabel for="dutyStation" class="leading-7 text-sm ">エリア</InputLabel>
@@ -161,6 +178,26 @@ const bookmarkJob = (jobId) => {
                                         </option>
                                     </select>
                                 </div>
+
+                                <div class="border-b-2 border-baseColor pb-4">
+                                    <!-- 各職種カテゴリを繰り返し表示 -->
+                                    <div v-for="(category, index) in jobCategories" :key="index" class="mb-4">
+                                        <div @click="toggleCategoryVisible(category.label)" class="w-full bg-baseColor py-2 flex justify-between items-center px-4 cursor-pointer">
+                                            <div class="text-left text-sm">{{ category.label }}</div>
+                                            <font-awesome-icon :icon="['fas', 'chevron-down']" class="w-3 h-3" />
+                                        </div>
+                                        <!-- カテゴリが開いている時に職種を表示 -->
+                                        <div v-if="category.visible" class="border-baseColor border-2 py-2 px-4">
+                                            <div class="flex flex-wrap gap-2">
+                                                <div v-for="job in category.requirements" :key="job.value" class="flex items-center space-x-2">
+                                                    <input type="checkbox" :id="job.value" v-model="selectedCategories" :value="job.label" class="bg-baseColor border-none" />
+                                                    <label :for="job.value" class="text-sm">{{ job.label }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="p-2 w-full flex justify-between items-center border-b-baseColor border-b">
                                     <InputLabel for="search" class="leading-7 text-sm ">キーワード検索</InputLabel>
                                     <TextInput type="text" name="search" id="search" placeholder="キーワード" v-model="search" class="text-sm w-2/3" />
@@ -169,7 +206,12 @@ const bookmarkJob = (jobId) => {
                                 <div class="text-center flex justify-around items-center mt-4">
                                     <button @click="clearFilters" class="block px-8 py-3 text-sky-400 border-2 border-sky-400 rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">クリア</button>
 
-                                    <PrimaryButton v-if="savedOccupations.length > 0 || savedDutyStations.length > 0 ||  companyPay || search" @click="searchCustomers">この条件で検索する</PrimaryButton>
+                                    <PrimaryButton 
+                                        v-if="savedOccupations.length > 0 || savedDutyStations.length > 0 ||  companyPay || search || selectedCategories.length > 0" 
+                                        @click="searchCustomers"
+                                    >
+                                        この条件で検索する
+                                    </PrimaryButton>
                                     <div v-else class="inline-flex items-center px-12 py-3 bg-gray-400 border border-transparent rounded-full font-semibold text-xs text-white uppercase tracking-widest">この条件で検索する</div>
                                 </div>
                             </div>
@@ -209,6 +251,14 @@ const bookmarkJob = (jobId) => {
                                     <div class="flex items-center mt-2">
                                         <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">給料</p>
                                         <p class="opacity-50 text-xs">{{ companyPays.find(pay => pay.value === searchCompanyPay)?.label || '該当なし' }}</p>
+                                    </div>
+                                </template>
+                            </li>
+                            <li>
+                                <template v-if="selectedCategories.length > 0">
+                                    <div class="flex items-center mt-2">
+                                        <p class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">職種カテゴリ</p>
+                                        <p class="opacity-50 text-xs">{{ selectedCategories.join(', ') }}</p>
                                     </div>
                                 </template>
                             </li>
