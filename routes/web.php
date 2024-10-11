@@ -18,11 +18,16 @@ Route::get('/test', function () {
     return Inertia::render('Test');
 })->name('top');
 
+
+
+
 //ダッシュボード
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 // })->middleware(['auth'])->name('dashboard');
+
+// ハンバーガーメニュー //
 
 //このサイトについて
 Route::get('/site-details', function () {
@@ -53,16 +58,14 @@ Route::get('/jobpostings', function () {
     return Inertia::render('JobPostings');
 })->name('jobpostings');
 
-//default
+// ハンバーガーメニューここまで //
+
+
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    //利用登録・個人情報
+    // 登録処理 //
     Route::get('/personal/create', function () { return Inertia::render('Profile/Personal/Create'); })->name('personal.register');
-    
-    //利用登録・経歴
     // URL /academicbg/create
-
-    //利用登録・資格
     // URL /jobbg/create
 
     //こだわり条件
@@ -74,14 +77,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //内容確認
     // Route::get('/confirmation', function () { return Inertia::render('Profile/Registers/Confirmation'); })->name('confirmation');
     Route::get('/confirmation', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    // 登録処理ここまで //
     
     //プロフィール
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    //資格
-    Route::resource('skill', SkillController::class);
     //学歴
     Route::resource('academic', AcademicBgController::class);
     //職務履歴
@@ -96,21 +99,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Search/Area');
     })->name('area.choose');
 
-    //Company
+    //ホーム
     Route::get('/', [JobController::class,'index'])->name('company.index');
+    //求人詳細
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show');
 
-    //登録処理
+    //求人応募の登録処理
     Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('job.apply');
-    //完了画面
+    //求人応募の完了画面
     Route::get('/apply-comp', function () {
         return Inertia::render('Applications/AppliedComp');
     })->name('apply.comp');
-    //完了画面
+    //求人登録したリスト
     Route::get('/applied-list', [ApplicationController::class,'show'])->name('apply.list');
-
-    //News
-    Route::get('/news', [NewsController::class,'index'])->name('news.index');
 
     //ブックマークページ
     Route::get('/bookmarked', [BookmarkController::class, 'show'])->name('bookmarked.jobs');
@@ -118,6 +119,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/bookmark/{id}', [BookmarkController::class, 'store'])->name('bookmark.store');
     //bookmarks削除
     Route::delete('/bookmark/{jobId}', [BookmarkController::class, 'destroy'])->name('bookmark.destroy');
+
+    //News
+    Route::get('/news', [NewsController::class,'index'])->name('news.index');
 });
 
 require __DIR__.'/auth.php';
