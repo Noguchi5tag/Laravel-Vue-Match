@@ -30,6 +30,9 @@ return new class extends Migration
             $table->string('NearestStation')->nullable(); // 最寄り駅
             $table->text('workOther')->nullable(); // その他
             $table->integer('status')->default(0);
+            $table->string('registrant')->nullable();
+            $table->boolean('is_checked')->default(0);
+            $table->string('search_keywords')->nullable();
             $table->string('image1')->nullable();
             $table->string('image2')->nullable();
             $table->string('image3')->nullable();
