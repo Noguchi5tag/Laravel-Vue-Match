@@ -61,7 +61,7 @@ const publicLabel = computed(() => {
             </div>
             <div class="flex flex-col justify-center w-full">
                 <div>
-                    <InputLabel>氏名</InputLabel>
+                    <InputLabel value="氏名" />
                     <TextInput
                         id="name"
                         type="text"
@@ -76,7 +76,7 @@ const publicLabel = computed(() => {
         </div>
     
         <div class="my-2 border-b-2 border-baseColor pb-4">
-            <InputLabel>フリガナ</InputLabel>
+            <InputLabel value="フリガナ" />
             <TextInput
                 id="kana"
                 type="text"
@@ -86,7 +86,7 @@ const publicLabel = computed(() => {
             />
         </div>
         <div class="my-2 border-b-2 border-baseColor pb-4">
-            <InputLabel>性別</InputLabel>
+            <InputLabel value="性別" />
             <div class="mt-1 flex justify-start items-center gap-2">
                 <label class="bg-gray-50 px-4 py-1 border-2 border-gray-100 rounded-lg text-sm">
                     <input
@@ -136,7 +136,7 @@ const publicLabel = computed(() => {
             />
         </div>
         <div class="my-2 border-b-2 border-baseColor pb-4">
-            <InputLabel>電話番号</InputLabel>
+            <InputLabel value="電話番号" />
             <TextInput
                 id="tel"
                 type="tel"
@@ -148,7 +148,7 @@ const publicLabel = computed(() => {
             />
         </div>
         <div class="my-2 border-b-2 border-baseColor pb-4">
-            <InputLabel>メールアドレス</InputLabel>
+            <InputLabel value="メールアドレス" />
             <TextInput
                 id="email"
                 type="email"
@@ -159,7 +159,7 @@ const publicLabel = computed(() => {
             />
         </div>
         <div class="my-2 border-b-2 border-baseColor pb-4">
-            <InputLabel>住所（郵便番号）</InputLabel>
+            <InputLabel value="住所（郵便番号）" />
             <TextInput
                 id="postal"
                 type="number"
@@ -170,7 +170,7 @@ const publicLabel = computed(() => {
             />
         </div>
         <div class="my-2 border-b-2 border-baseColor pb-4">
-            <InputLabel>住所（都道府県）</InputLabel>
+            <InputLabel value="住所（都道府県）" />
             <select
                 id="prefectures"
                 :class="inputClasses"
@@ -185,7 +185,7 @@ const publicLabel = computed(() => {
             </select>
         </div>
         <div class="my-2">
-            <InputLabel>住所（市町村・番地等）</InputLabel>
+            <InputLabel value="住所（市町村・番地等）" />
             <TextInput
                 id="city"
                 type="text"

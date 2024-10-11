@@ -255,6 +255,7 @@ const handleImageChange = (event) => {
                             @change="handleImageChange"
                         />
                     </div>
+                    <p class="mt-1 text-xs opacity-50 leading-normal tracking-wider">後からでも登録可能</p>
                 </div>
 
                 <div class="flex flex-col items-center gap-4 border-t-2 border-baseColor py-4">

@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
 
 const confirmLogout = (event) => {
     if (!confirm("本当にログアウトしますか？")) {

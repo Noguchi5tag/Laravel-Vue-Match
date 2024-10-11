@@ -65,7 +65,7 @@ class JobBgController extends Controller
                 'company_pay' => $validated['company_pay'],
             ]);
 
-            return to_route('profile.edit')->with('success', '職歴を追加しました');
+            return to_route('requirements.create')->with('success', '職歴を追加しました');
 
         } catch (\Exception $e) {
             Log::error('JobBg store error', ['error' => $e->getMessage()]);

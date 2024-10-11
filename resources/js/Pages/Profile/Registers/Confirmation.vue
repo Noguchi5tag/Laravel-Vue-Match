@@ -31,9 +31,6 @@ const props = defineProps({
     },
 });
 
-// const pageProps = usePage().props;
-// console.log(pageProps);
-
 const form = useForm({
     privacy: user.privacy
 });
@@ -63,7 +60,7 @@ const handleRegistration = () => {
         <FlashMessage v-if="$page.props.flash.message" >
             {{ $page.props.flash.message }}
         </FlashMessage>
-        
+
         <SectionInner class="my-6 px-4">
 
             <PersonalShow />
