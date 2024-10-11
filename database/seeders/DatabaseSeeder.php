@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         User::factory(1)->create();
         Admin::factory(1)->create();
         Manager::factory(1)->create();
-        InertiaJob::factory(10)->create();
+        // InertiaJob::factory(10)->create();
         News::factory(3)->create();
     }
 }
