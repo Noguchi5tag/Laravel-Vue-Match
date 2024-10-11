@@ -11,7 +11,6 @@ const props = defineProps({
         type: Object,
     },
 });
-console.log(props.job_bg);
 
 const form = useForm({
     academic_id: props.academic_bg?.user_id || '',

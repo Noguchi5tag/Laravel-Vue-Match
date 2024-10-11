@@ -85,10 +85,10 @@ class ProfileController extends Controller
         $user->save();
 
         if (Str::contains($referer, '/personal/create')) {
-            return Redirect::route('academic.create');
+            return to_route('academic.create');
         }
 
-        return Redirect::route('profile.edit')->with('success', '更新しました');
+        return to_route('profile.edit')->with('message', '更新しました');
     }
 
     /**

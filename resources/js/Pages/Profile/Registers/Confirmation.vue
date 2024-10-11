@@ -1,5 +1,8 @@
 <script setup>
 import { Head, router } from '@inertiajs/vue3';
+import { useForm, usePage, Link } from '@inertiajs/vue3';
+import { ref, computed, onMounted  } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
 import DeleteUserForm from '../Partials/DeleteUserForm.vue';
 import LogoutUserForm from '../Partials/LogoutUserForm.vue';
 import UpdatePasswordForm from '../Partials/UpdatePasswordForm.vue';
@@ -7,13 +10,14 @@ import BaseLayouts from '@/Layouts/BaseLayouts.vue';
 import SectionInner from '@/Layouts/SectionInner.vue';
 import SiteTitle from '@/Components/SiteTitle.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import { useForm, usePage, Link } from '@inertiajs/vue3';
-import { ref, computed, onMounted  } from 'vue';
+import FlashMessage from '@/Components/FlashMessage.vue';
 
 import PersonalShow from '../Personal/Show.vue';
 import AcademicShow from '../Academic/Show.vue';
 import JobsShow from '../Jobs/Show.vue';
 import RequirementsShow from '../Requirements/Show.vue';
+
+const user = usePage().props.auth.user;
 
 const props = defineProps({
     academic_bg: {
@@ -27,8 +31,11 @@ const props = defineProps({
     },
 });
 
-const form = useForm({
+// const pageProps = usePage().props;
+// console.log(pageProps);
 
+const form = useForm({
+    privacy: user.privacy
 });
 
 
@@ -46,15 +53,6 @@ const handleRegistration = () => {
         }
     });
 };
-
-//inputのスタイル
-const inputClasses = computed(() => {
-    return "mt-2 block w-full bg-gray-50 border-1 border-gray-200 text-sm rounded-md";
-});
-
-const publicLabel = computed(() => {
-    return "text-red-500 font-bold bg-red-200 py-0.5 px-2 rounded-lg text-xs";
-})
 </script>
 
 <template>
@@ -62,10 +60,11 @@ const publicLabel = computed(() => {
     <BaseLayouts>
         <SiteTitle class="bg-baseColor">利用登録の入力内容確認</SiteTitle>
         
+        <FlashMessage v-if="$page.props.flash.message" >
+            {{ $page.props.flash.message }}
+        </FlashMessage>
+        
         <SectionInner class="my-6 px-4">
-            <!-- <div v-if="$page.props.flash.message" class="bg-blue-300">
-                {{ $page.props.flash.message }}
-            </div> -->
 
             <PersonalShow />
 
