@@ -2,7 +2,7 @@
 import { reactive, computed, onMounted, ref, watch } from 'vue';
 import { Link, Head, useForm, usePage  } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
-import { Occupations, requirements, prefectures, dutyStations, jobJoin, employment, particulars } from '@/data.js';
+import { requirements, prefectures, dutyStations, jobJoin, employment, particulars } from '@/data.js';
 import AuthenticatedLayout from '@/Layouts/ManagerAuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
@@ -74,8 +74,6 @@ const toggleParticularsVisible = (particularsLabel) => {
     }
 };
 
-const salaryType = ref('');
-
 //登録処理
 const submitFunction = () => {
     const formData = new FormData();
@@ -112,9 +110,7 @@ const submitFunction = () => {
                             <div class="-m-2">
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="companyName" class="leading-7 text-sm ">
-                                            会社名
-                                        </InputLabel>
+                                        <InputLabel value="会社名" for="companyName" class="leading-7 text-sm " />
                                         <TextInput 
                                             type="text" 
                                             name="companyName" 
@@ -127,9 +123,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="companyAddress" class="leading-7 text-sm ">
-                                            会社の住所
-                                        </InputLabel>
+                                        <InputLabel value="会社の住所" for="companyAddress" class="leading-7 text-sm " />
                                         <TextInput 
                                             type="text" 
                                             name="companyAddress" 
@@ -142,9 +136,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="WantedTitles" class="leading-7 text-sm ">
-                                            募集タイトル
-                                        </InputLabel>
+                                        <InputLabel value="募集タイトル" for="WantedTitles" class="leading-7 text-sm " />
                                         <TextInput 
                                             type="text" 
                                             name="WantedTitles" 
@@ -157,9 +149,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="Occupation" class="leading-7 text-sm ">
-                                            職種（当てはまるものにチェック）
-                                        </InputLabel>
+                                        <InputLabel value="職種（当てはまるものにチェック）" for="Occupation" class="leading-7 text-sm " />
                                         <div class="border-b-2 border-baseColor pb-4">
                                             <!-- 各職種カテゴリを繰り返し表示 -->
                                             <div v-for="(category, index) in jobCategories" :key="index" class="mb-4">
@@ -252,9 +242,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="workDescription" class="leading-7 text-sm ">
-                                            仕事内容
-                                        </InputLabel>
+                                        <InputLabel value="仕事内容" for="workDescription" class="leading-7 text-sm " />
                                         <TextInput 
                                             type="text" 
                                             name="workDescription" 
@@ -280,9 +268,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="travelExpenses" class="leading-7 text-sm ">
-                                            交通費 / 月
-                                        </InputLabel>
+                                        <InputLabel value="交通費 / 月" for="travelExpenses" class="leading-7 text-sm " />
                                         <TextInput 
                                             type="number" 
                                             name="travelExpenses" 
@@ -295,9 +281,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="startWork" class="leading-7 text-sm ">
-                                            勤務開始時間
-                                        </InputLabel>
+                                        <InputLabel value="勤務開始時間" for="startWork" class="leading-7 text-sm " />
                                         <TextInput 
                                             type="time" 
                                             name="startWork" 
@@ -310,9 +294,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="endWork" class="leading-7 text-sm ">
-                                            勤務終了時間
-                                        </InputLabel>
+                                        <InputLabel value="勤務終了時間" for="endWork" class="leading-7 text-sm " />
                                         <TextInput 
                                             type="time" 
                                             name="endWork" 
@@ -325,9 +307,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="workDays" class="leading-7 text-sm ">
-                                            出勤日
-                                        </InputLabel>
+                                        <InputLabel value="出勤日" for="workDays" class="leading-7 text-sm " />
                                         <TextInput 
                                             type="text" 
                                             name="workDays" 
@@ -340,9 +320,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="freeDays" class="leading-7 text-sm ">
-                                            休日
-                                        </InputLabel>
+                                        <InputLabel value="休日" for="freeDays" class="leading-7 text-sm " />
                                         <TextInput 
                                             type="text" 
                                             name="freeDays" 
@@ -355,9 +333,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="NearestStation" class="leading-7 text-sm ">
-                                            最寄り駅
-                                        </InputLabel>
+                                        <InputLabel value="最寄り駅" for="NearestStation" class="leading-7 text-sm " />
                                         <TextInput 
                                             type="text" 
                                             name="NearestStation" 
@@ -370,9 +346,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="search_keyword" class="leading-7 text-sm ">
-                                            その他
-                                        </InputLabel>
+                                        <InputLabel value="その他" for="search_keyword" class="leading-7 text-sm " />
                                         <textarea 
                                             name="workOther" 
                                             id="workOther" 
@@ -407,9 +381,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="Welfare" class="leading-7 text-sm">
-                                            その他福利厚生
-                                        </InputLabel>
+                                        <InputLabel value="その他福利厚生" for="Welfare" class="leading-7 text-sm" />
                                         <TextInput 
                                             type="text" 
                                             name="Welfare" 
@@ -422,9 +394,7 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel for="search_keywords" class="leading-7 text-sm ">
-                                            検索キーワード（カンマ区切り）
-                                        </InputLabel>
+                                        <InputLabel value="検索キーワード（カンマ区切り）" for="search_keywords" class="leading-7 text-sm" />
                                         <textarea 
                                             name="search_keywords" 
                                             id="search_keywords" 

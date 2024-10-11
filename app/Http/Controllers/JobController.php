@@ -186,10 +186,8 @@ class JobController extends Controller
                 'image4.max' => '画像ファイルのサイズは5MB以下にしてください。',
                 'image5.max' => '画像ファイルのサイズは5MB以下にしてください。',
             ]);
-    
-            $validatedData['Occupation'] = is_array($request->input('Occupation')) ? implode(',', $request->input('Occupation')) : '';
-            $validatedData['employment_type'] = is_array($request->input('employment_type')) ? implode(',', $request->input('employment_type')) : '';
-            $validatedData['particular_type'] = is_array($request->input('particular_type')) ? implode(',', $request->input('particular_type')) : '';
+
+            // dd($validatedData);
     
             $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
             foreach ($images as $image) {
@@ -258,84 +256,106 @@ class JobController extends Controller
     {
         // dd($request->all());
 
-        // 検索キーワードを配列に変換
         if ($request->has('search_keywords') && is_string($request->search_keywords)) {
             $request->merge([
                 'search_keywords' => explode(',', $request->search_keywords),
             ]);
         }
-        
-        $validatedData = $request->validate([
-            'companyName' => ['nullable', 'max:100'],
-            'WantedTitles' => ['nullable'],
-            'Occupation' => ['nullable'],
-            'companyAddress' => ['nullable'],
-            'companyPay' => ['nullable'],
-            'dutyStation' => ['nullable'],
-            'workDescription' => ['nullable'],
-            'payDescription' => ['nullable'],
-            'travelExpenses' => ['nullable'],
-            'Welfare' => ['nullable'],
-            'startWork' => ['nullable'],
-            'endWork' => ['nullable'],
-            'workDays' => ['nullable'],
-            'freeDays' => ['nullable'],
-            'NearestStation' => ['nullable'],
-            'workOther' => ['nullable'],
-            'search_keywords' => ['nullable','array'],
-            'status' => ['nullable'],
-            'is_checked' => ['nullable'],
-            'image1' => ['nullable', 'image', 'max:5120'],
-            'image2' => ['nullable', 'image', 'max:5120'],
-            'image3' => ['nullable', 'image', 'max:5120'],
-            'image4' => ['nullable', 'image', 'max:5120'],
-            'image5' => ['nullable', 'image', 'max:5120'],
+        $request->merge([
+            'is_checked' => filter_var($request->input('is_checked'), FILTER_VALIDATE_BOOLEAN),
         ]);
-        // dd($validatedData);
-    
-        $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
-        $imageDeleted = false; // 画像が削除されたかどうかを追跡するフラグ
-        foreach ($images as $image) {
-            // 画像が削除フラグされているかチェック
-            if ($request->input("imageDeleteFlag.$image") === true) {
-                // 古い画像が存在する場合は削除
-                if ($inertiaJob->{$image}) {
-                    Storage::delete('public/storages/jobs/' . $inertiaJob->{$image});
-                }
-                $validatedData[$image] = null;// データベースからも画像パスを削除
-                $imageDeleted = true; // 画像が削除されたことを記録
 
-            } elseif ($request->hasFile($image)) {
-                // 古い画像が存在する場合は削除
-                if ($inertiaJob->{$image}) {
-                    Storage::delete('public/storages/jobs/' . $inertiaJob->{$image});
-                    // 公開ディレクトリからも削除
-                    if (file_exists(public_path('images/' . $inertiaJob->{$image}))) {
-                        unlink(public_path('images/' . $inertiaJob->{$image}));
+        try {
+
+            $validatedData = $request->validate([
+                'companyName' => ['nullable', 'string', 'max:100'], // 会社名
+                'WantedTitles' => ['nullable', 'string'],           // 募集タイトル
+                'Occupation' => ['nullable', 'string'],             // 職種
+                'companyAddress' => ['nullable', 'string'],         // 会社の住所
+                'prefecture' => ['nullable', 'string'],             // 勤務地 都道府県
+                'dutyStation' => ['nullable', 'string'],            // 勤務地 市町村
+                'relocation' => ['nullable', 'in:0,1'],            // 転勤の有無
+                'workDescription' => ['nullable', 'string'],        // 仕事内容
+                'employment_type' => ['nullable', 'string'], // 雇用形態
+                'job_join' => ['nullable', 'string'],               // 入社時期
+                'salary_type' => ['nullable', 'string'],            // 月収か年収か
+                'salary_amount' => ['nullable', 'integer'],         // 給与
+                'travelExpenses' => ['nullable', 'integer'],        // 交通費
+                'particular_type' => ['nullable', 'string'], // こだわり条件
+                'Welfare' => ['nullable', 'string'],                // 福利厚生
+                'startWork' => ['nullable'],     // 勤務開始時間
+                'endWork' => ['nullable'],       // 勤務終了時間
+                'workDays' => ['nullable', 'string'],               // 出勤日
+                'freeDays' => ['nullable', 'string'],               // 休日
+                'NearestStation' => ['nullable', 'string'],         // 最寄り駅
+                'workOther' => ['nullable', 'string'],              // その他
+                'search_keywords' => ['nullable', 'array'],         // 検索キーワード
+                'status' => ['nullable', 'integer'],                // ステータス
+                'registrant' => ['nullable', 'string'],             // 登録者名
+                'is_checked' => ['nullable', 'boolean'],            // 確認フラグ
+                'image1' => ['nullable', 'image', 'max:5120'],      // 画像1
+                'image2' => ['nullable', 'image', 'max:5120'],      // 画像2
+                'image3' => ['nullable', 'image', 'max:5120'],      // 画像3
+                'image4' => ['nullable', 'image', 'max:5120'],      // 画像4
+                'image5' => ['nullable', 'image', 'max:5120'],      // 画像5
+            ], [
+                'image1.max' => '画像ファイルのサイズは5MB以下にしてください。',
+                'image2.max' => '画像ファイルのサイズは5MB以下にしてください。',
+                'image3.max' => '画像ファイルのサイズは5MB以下にしてください。',
+                'image4.max' => '画像ファイルのサイズは5MB以下にしてください。',
+                'image5.max' => '画像ファイルのサイズは5MB以下にしてください。',
+            ]);
+            // dd($validatedData);
+        
+            $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
+            $imageDeleted = false; // 画像が削除されたかどうかを追跡するフラグ
+            foreach ($images as $image) {
+                // 画像が削除フラグされているかチェック
+                if ($request->input("imageDeleteFlag.$image") === true) {
+                    // 古い画像が存在する場合は削除
+                    if ($inertiaJob->{$image}) {
+                        Storage::delete('public/storages/jobs/' . $inertiaJob->{$image});
                     }
+                    $validatedData[$image] = null;// データベースからも画像パスを削除
+                    $imageDeleted = true; // 画像が削除されたことを記録
+    
+                } elseif ($request->hasFile($image)) {
+                    // 古い画像が存在する場合は削除
+                    if ($inertiaJob->{$image}) {
+                        Storage::delete('public/storages/jobs/' . $inertiaJob->{$image});
+                        // 公開ディレクトリからも削除
+                        if (file_exists(public_path('images/' . $inertiaJob->{$image}))) {
+                            unlink(public_path('images/' . $inertiaJob->{$image}));
+                        }
+                    }
+    
+                    // 画像の名前を取得ししのまま保存
+                    $originalName = $request->file($image)->getClientOriginalName();
+                    // 画像を保存し、パスを取得
+                    $path = $request->file($image)->storeAs('public/storages/jobs', $originalName);
+                    $validatedData[$image] = basename($path); // データベースに保存するパスを設定
+                } else {
+                    // 現在の画像パスを保持
+                    $validatedData[$image] = $inertiaJob->{$image};
                 }
-
-                // 画像の名前を取得ししのまま保存
-                $originalName = $request->file($image)->getClientOriginalName();
-                // 画像を保存し、パスを取得
-                $path = $request->file($image)->storeAs('public/storages/jobs', $originalName);
-                $validatedData[$image] = basename($path); // データベースに保存するパスを設定
-            } else {
-                // 現在の画像パスを保持
-                $validatedData[$image] = $inertiaJob->{$image};
             }
+    
+            // dd($validatedData);
+    
+            $inertiaJob->update($validatedData);
+    
+            $message = $imageDeleted ? '画像を削除しました。' : '更新しました。';
+    
+            if ($request->is('manager/*')) {
+                return to_route('manager.company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
+            }
+            return to_route('admin.new.companylist.index', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            dd($e->errors());
         }
-
-        // dd($validatedData);
-
-        $inertiaJob->update($validatedData);
-
-        $message = $imageDeleted ? '画像を削除しました。' : '更新しました。';
-
-        if ($request->is('manager/*')) {
-            return to_route('manager.company.show', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
-        }
-        return to_route('admin.new.companylist.index', ['inertiaJob' => $inertiaJob->id])->with(['message' => $message]);
+        
+        
     }
 
     public function delete(Request $request, $id)

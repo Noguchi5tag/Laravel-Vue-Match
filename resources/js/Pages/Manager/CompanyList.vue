@@ -20,8 +20,6 @@ const props = defineProps({
     Navigation: Navigation
 })
 
-// console.log('inertiaJobs:', props.inertiaJobs)
-
 //クエリパラメータを取得
 const searchKeyword = ref('');
 const company_Search = ref('');
@@ -152,7 +150,7 @@ const imageCount = (job) => {
                                 <carousel :items-to-show="1.5">
                                     <slide v-for="slide in imageCount(job)" :key="slide">
                                         <div v-if="job[`image${slide}`]" class="carousel__item">
-                                            <img :src="`/images/${job[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
+                                            <img :src="`/storage/storages/jobs/${job[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
                                         </div>
                                     </slide>
                                     <template #addons>
@@ -161,12 +159,6 @@ const imageCount = (job) => {
                                     </template>
                                 </carousel>
     
-                                <!-- <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel for="companyName" class="leading-7 text-sm ">会社名</InputLabel>
-                                        <div type="text" id="companyName" name="companyName" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ job.companyName }}</div>
-                                    </div>
-                                </div> -->
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <InputLabel for="WantedTitles" class="leading-7 text-sm ">募集タイトル</InputLabel>
