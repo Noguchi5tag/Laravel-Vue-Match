@@ -38,7 +38,7 @@ class BookmarkController extends Controller
             } elseif (Str::contains($referer, '/applied-list')) {
                 return to_route('apply.list');
             }
-            return to_route('company.index')->with(['message' => 'ブックマークしました。']);
+            return to_route('company.index')->with('message', 'ブックマークしました。');
         }
 
         return response()->json(['message' => '既に保存されています'], 400);
@@ -74,7 +74,8 @@ class BookmarkController extends Controller
             if (Str::contains($referer, '/applied-list')) {
                 return to_route('apply.list');
             }
-            return to_route('bookmarked.jobs')->with(['message' => 'ブックマークを取り消しました']);
+
+            return to_route('bookmarked.jobs')->with('message', 'ブックマークを取り消しました');
         }
 
         return response()->json(['message' => 'ブックマークが存在しません'], 400);

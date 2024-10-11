@@ -1,20 +1,22 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import InputLabel from '@/Components/InputLabel.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import InputLabel from '@/Components/InputLabel.vue';
 import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
+import FlashMessage from '../Components/FlashMessage.vue';
 import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
+const page = usePage();
+console.log(page.props);
 
 const props = defineProps({
     bookmarkedJobs: Array,
     managers: Object,
     applications: Object,
 })
-console.log(props.applications);
 
 const imageCount = (job) => {
     let count = 0;
@@ -34,7 +36,6 @@ const toggleDetails = (job) => {
 const deleteBookmarkJob = (jobId) => {
     Inertia.delete(`/bookmark/${jobId}`, {}, {
         onSuccess: () => {
-            alert(page.props.flash.message);
             window.location.reload();
         },
         onError: () => {
@@ -70,6 +71,11 @@ const closeLikeButton = () => {
         });
     }
 }
+
+const relocationStatus = computed(() => {
+    return props.bookmarkedJobs.relocation ? 'あり' : 'なし';
+});
+
 </script>
 
 <template>
@@ -77,6 +83,10 @@ const closeLikeButton = () => {
     <BaseLayouts>
         <section class="relative">
             <SiteTitle>ブックマークした求人</SiteTitle>
+
+            <FlashMessage v-if="$page.props.flash.message" >
+                {{ $page.props.flash.message }}
+            </FlashMessage>
 
             <div v-if="bookmarkedJobs.length === 0">
                 <p class="text-center my-10">ブックマークされた求人はありません。</p>
@@ -123,7 +133,7 @@ const closeLikeButton = () => {
                         </carousel>
 
                         <div class="p-2">
-                            <p class="py-1 focus:outline-none text-base font-bold">{{ job.companyName }}　{{ job.dutyStation }}</p>
+                            <p class="py-1 focus:outline-none text-base font-bold">{{ job.companyName }}　{{ job.prefecture }}{{ job.dutyStation }}</p>
                             <div class="w-full flex justify-between items-center">
                                 <div class="relative flex items-center">
                                     <font-awesome-icon :icon="['fas', 'comment']" class="w-4 h-4" />
@@ -139,74 +149,96 @@ const closeLikeButton = () => {
 
                             <div v-show="job.showDetails" class="flex flex-col gap-4 w-full mt-4">
                                 <div>
-                                    <InputLabel for="Occupation" class="leading-5">職種</InputLabel>
+                                    <InputLabel value="職種" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.Occupation }}</p>
                                 </div>
+
                                 <div>
-                                    <InputLabel for="workDescription" class="leading-5">仕事内容</InputLabel>
+                                    <InputLabel value="仕事内容" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.workDescription }}</p>
                                 </div>
+
                                 <div>
-                                    <InputLabel for="dutyStation" class="leading-5">勤務地</InputLabel>
-                                    <p class="text-xs leading-loose">{{ job.dutyStation }}</p>
+                                    <InputLabel value="雇用形態" class="leading-7 text-sm " />
+                                    <p class="text-xs leading-loose">{{ job.employment_type }}</p>
                                 </div>
+
                                 <div>
-                                    <InputLabel for="companyPay" class="leading-5">給料</InputLabel>
-                                    <p class="text-xs leading-loose">{{ job.companyPay }}円</p>
+                                    <InputLabel value="年収または月収" class="leading-7 text-sm " />
+                                    <p class="text-xs leading-loose">{{ job.salary_type }} {{ job.salary_amount }}万円</p>
                                 </div>
+
                                 <div>
-                                    <InputLabel for="payDescription" class="leading-5">給与詳細</InputLabel>
-                                    <p class="text-xs leading-loose">{{ job.payDescription }}</p>
+                                    <InputLabel value="勤務地" class="leading-7 text-sm " />
+                                    <p class="text-xs leading-loose">{{ job.prefecture }}{{ job.dutyStation }}</p>
                                 </div>
+
                                 <div>
-                                    <InputLabel for="travelExpenses" class="leading-5">交通費</InputLabel>
-                                    <p class="text-xs leading-loose">月に{{ job.travelExpenses }}円まで</p>
+                                    <InputLabel value="転勤の有無" class="leading-7 text-sm " />
+                                    <p class="text-xs leading-loose">{{ relocationStatus }}</p>
                                 </div>
+                                
                                 <div>
-                                    <InputLabel for="Welfare" class="leading-5">福利厚生</InputLabel>
-                                    <p class="text-xs leading-loose">{{ job.Welfare }}</p>
+                                    <InputLabel value="入社時期" class="leading-7 text-sm " />
+                                    <p class="text-xs leading-loose">{{ job.job_join }}</p>
                                 </div>
+                                
                                 <div>
-                                    <InputLabel for="startWork" class="leading-5">勤務時間</InputLabel>
+                                    <InputLabel value="交通費 / 月" class="leading-7 text-sm " />
+                                    <p class="text-xs leading-loose">{{ job.travelExpenses }}円</p>
+                                </div>
+                                
+                                <div>
+                                    <InputLabel value="勤務時間" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.startWork.split(':').slice(0, 2).join(':') }}～{{ job.endWork.split(':').slice(0, 2).join(':') }}</p>
                                 </div>
+                                
                                 <div>
-                                    <InputLabel for="workDays" class="leading-5">出勤日</InputLabel>
+                                    <InputLabel value="出勤日" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.workDays }}</p>
                                 </div>
+                                
                                 <div>
-                                    <InputLabel for="freeDays" class="leading-5">休日</InputLabel>
+                                    <InputLabel value="休日" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.freeDays }}</p>
                                 </div>
+                                
                                 <div>
-                                    <InputLabel for="NearestStation" class="leading-5">最寄り駅</InputLabel>
+                                    <InputLabel value="最寄り駅" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.NearestStation }}</p>
                                 </div>
+                                
                                 <div>
-                                    <InputLabel for="workOther" class="leading-5">その他</InputLabel>
+                                    <InputLabel value="こだわり条件" class="leading-7 text-sm " />
+                                    <p class="text-xs leading-loose">{{ job.particular_type }}</p>
+                                </div>
+                                
+                                <div>
+                                    <InputLabel value="その他福利厚生" class="leading-7 text-sm " />
+                                    <p class="text-xs leading-loose">{{ job.Welfare }}</p>
+                                </div>
+                                
+                                <div>
+                                    <InputLabel value="その他" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.workOther }}</p>
                                 </div>
 
                                 <!-- 企業情報 -->
-                                <!-- <template  v-if="managers.find(manager => manager.name === job.companyName)">
+                                <template  v-if="managers.find(manager => manager.name === job.companyName)">
                                     <CompanyInfo :managers="managers" />
-                                </template> -->
+                                </template>
                                 
                                 <div class="flex justify-around mt-4">
-                                    <template v-if="!applications.some(application => application.inertia_job_id === job.id) && !bookmarkedJobs.some(bookmark => bookmark.inertia_job_id === job.id)">
-                                        <div class="bg-sky-400 py-2 px-10 rounded-full shadow-lg border-1 border-white">
-                                            <Link :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="text-white flex justify-center items-center">
-                                                <span class="text-sm font-bold text-white">企業にいいね</span><font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" /><span class="text-sm font-bold text-white">を送る</span>
-                                            </Link>
-                                        </div>
-                                    </template>
-                                    <template v-else>
-                                        <div class="bg-gray-300 py-2 px-10 rounded-full shadow-lg border-1 border-white">
-                                            <div class="text-white flex justify-center items-center">
-                                                <span class="text-sm font-bold text-white">企業にいいね</span><font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" /><span class="text-sm font-bold text-white">を送りました</span>
-                                            </div>
-                                        </div>
-                                    </template>
+                                    <div class="bg-sky-400 py-2 px-10 rounded-full shadow-lg border-1 border-white">
+                                        <Link :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="text-white flex justify-center items-center">
+                                            <span class="text-sm font-bold text-white">企業にいいね</span><font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" /><span class="text-sm font-bold text-white">を送る</span>
+                                        </Link>
+                                    </div>
+                                    <div class="pt-2 px-2 pb-1 flex items-center">
+                                        <button @click="bookmarkJob(job.id)">
+                                            <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

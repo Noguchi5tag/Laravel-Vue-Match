@@ -7,6 +7,7 @@ use App\Models\InertiaJob;
 use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Models\Manager;
 
 class ApplicationController extends Controller
 {
@@ -39,23 +40,25 @@ class ApplicationController extends Controller
             return Inertia::render('Applications/AppliedPage', [
                 'applicants' => $applicants,
             ]);
-        } 
-        else {
+        } else {
             $userId = Auth::id(); // ログインしているユーザーID
             // ログインユーザーが応募した求人情報を取得
             $applications = Application::with(['job'])
                 ->where('user_id', $userId)
                 ->get();
             
-                $user = $request->user();
-                $bookmarkedJobs = $user->bookmarks()
-                    ->withCount('bookmarkedByUsers')
-                    ->get();
+            $user = $request->user();
+            $bookmarkedJobs = $user->bookmarks()
+                ->withCount('bookmarkedByUsers')
+                ->get();
+            
+            $managers = Manager::all();
 
             // ユーザーの応募情報を渡して表示
             return Inertia::render('Applications/AppliedList', [
                 'applications' => $applications,
                 'bookmarkedJobs' => $bookmarkedJobs,
+                'managers' => $managers,
             ]);
         }
     }
