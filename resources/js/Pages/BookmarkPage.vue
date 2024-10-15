@@ -164,7 +164,7 @@ const relocationStatus = computed(() => {
 
                                 <div>
                                     <InputLabel value="年収または月収" class="leading-7 text-sm " />
-                                    <p class="text-xs leading-loose">{{ job.salary_type }} {{ job.salary_amount }}万円</p>
+                                    <p class="text-xs leading-loose">{{ job.salary_type }} {{ job.salary_amount }}円</p>
                                 </div>
 
                                 <div>

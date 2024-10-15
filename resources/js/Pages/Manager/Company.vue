@@ -96,7 +96,7 @@ const relocationStatus = computed(() => {
                                 <div class="relative">
                                     <InputLabel value="年収または月収" class="leading-7 text-sm " />
                                     <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.salary_type }} {{ props.inertiaJob.salary_amount }}万円
+                                    {{ props.inertiaJob.salary_type }} {{ props.inertiaJob.salary_amount }}円
                                     </div>
                                 </div>
                             </div>

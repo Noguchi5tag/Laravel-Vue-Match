@@ -58,9 +58,9 @@ const toggleCategoryVisible = (categoryLabel) => {
     }
 };
 
-// 選択された給与タイプ（1つ目のセレクトボックス）
+// 選択された給与タイプ
 const salaryType = ref('');
-// 選択された金額（2つ目のセレクトボックス）
+// 選択された金額
 const selectedAmount = ref('');
 // 2つ目のセレクトボックスの選択肢を動的に管理する
 const salaryOptions = computed(() => {
@@ -95,8 +95,6 @@ const toggleParticularsVisible = (particularsLabel) => {
 const showSearchOptions = ref(true);
 
 //クエリパラメータを取得
-const searchKeyword = ref('');
-const searchCompanyPay = ref('');
 onMounted(() => {
     const params = new URLSearchParams(window.location.search);
 
@@ -122,9 +120,6 @@ onMounted(() => {
     if (params.has('salaryType')) {
         salaryType.value = params.get('salaryType');
     }
-    if (params.has('selectedAmount')) {
-        selectedAmount.value = Number(params.get('selectedAmount'));
-    }
 
     const particularsParams = [];
     let p_index = 0;
@@ -135,9 +130,12 @@ onMounted(() => {
     if (particularsParams.length > 0) {
         selectedParticulars.value = particularsParams;
     }
+
+    const storedAmount = localStorage.getItem('selectedAmount');
+    if (storedAmount) {
+        selectedAmount.value = JSON.parse(storedAmount); // ローカルストレージから取得
+    }
 });
-
-
 
 // 検索条件が設定されているかをチェック
 const hasSearchConditions = () => {
@@ -161,6 +159,8 @@ const searchCustomers = () => {
     } else {
         showSearchOptions.value = false;
         localStorage.setItem('showSearchOptions', JSON.stringify(false));
+        //金額だけローカルストレージから
+        localStorage.setItem('selectedAmount', JSON.stringify(selectedAmount.value));
 
         Inertia.get(route('search'), {
             Occupation: selectedCategories.value, //職種
@@ -183,6 +183,8 @@ const clearFilters = () => {
     selectedAmount.value = '';
     search.value = '';
     selectedParticulars.value = [];
+
+    localStorage.setItem('selectedAmount', JSON.stringify('0'));
 };
 
 // 検索条件表示ボタンのクリック時に表示を切り替え
@@ -208,6 +210,11 @@ const bookmarkJob = (jobId) => {
         }
     });
 };
+
+const relocationStatus = computed(() => {
+    return props.inertiaJobs.relocation ? '有' : '無';
+});
+
 </script>
 
 <template>
@@ -348,10 +355,10 @@ const bookmarkJob = (jobId) => {
                             <td class="opacity-50 text-xs">{{ prefecture }} {{ dutyStation }}</td>
                         </tr>
                         
-                        <tr v-if="salaryType && selectedAmount">
-                            <th class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">年収または月給</th>
-                            <td class="opacity-50 text-xs">{{ salaryType }} {{ selectedAmount }}万円</td>
-                        </tr>
+                        <!-- <tr v-if="salaryType || selectedAmount ">
+                            <th class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">{{ salaryType }}</th>
+                            <td class="opacity-50 text-xs">{{ selectedAmount }}円</td>
+                        </tr> -->
 
                         <tr v-if="selectedParticulars.length > 0">
                             <th class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">こだわり条件</th>
@@ -434,7 +441,7 @@ const bookmarkJob = (jobId) => {
 
                                     <div>
                                         <InputLabel value="年収または月収" class="leading-7 text-sm " />
-                                        <p class="text-xs leading-loose">{{ job.salary_type }} {{ job.salary_amount }}万円</p>
+                                        <p class="text-xs leading-loose">{{ job.salary_type }} {{ job.salary_amount }}円</p>
                                     </div>
 
                                     <div>

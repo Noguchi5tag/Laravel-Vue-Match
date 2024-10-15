@@ -69,7 +69,7 @@ const publicLabel = computed(() => {
             </div>
             <div class="my-4 border-b-2 border-baseColor pb-4">
                 <InputLabel value="希望年収または月収" />
-                <div class="text-xs">{{ form.salary_type }}：{{ form.salary_amount }}万円</div>
+                <div class="text-xs">{{ form.salary_type }}：{{ form.salary_amount }}円</div>
             </div>
             <div class="my-4">
                 <InputLabel value="こだわり条件" />
