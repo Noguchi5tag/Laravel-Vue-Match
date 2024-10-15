@@ -45,7 +45,12 @@ const showingNavigationDropdown = ref(false);
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('manager.applied.show')" :active="route().current('manager.applied.show')">
-                                    マッチした求人
+                                    いいね！された求人
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('manager.member.index')" :active="route().current('manager.member.index')">
+                                    会員リスト
                                 </NavLink>
                             </div>
                         </div>
@@ -148,7 +153,12 @@ const showingNavigationDropdown = ref(false);
                     </div>
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('manager.applied.show')" :active="route().current('manager.applied.show')">
-                            マッチした求人
+                            いいね！された求人
+                        </ResponsiveNavLink>
+                    </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('manager.member.index')" :active="route().current('manager.member.index')">
+                            会員リスト
                         </ResponsiveNavLink>
                     </div>
 

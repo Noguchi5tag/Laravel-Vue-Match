@@ -13,6 +13,7 @@ use App\Http\Controllers\Manager\Auth\VerifyEmailController;
 use App\Http\Controllers\ManagerProfileController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -65,7 +66,6 @@ Route::middleware('auth:manager')->group(function () {
     Route::delete('/profile', [ManagerProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile/update', [ManagerProfileController::class, 'update'])->name('profile.update');
 
-
     //Company
     Route::get('/companylist', [JobController::class,'index'])->middleware('auth:manager')->name('companylist.index');
     Route::get('/company/create', [JobController::class,'create'])->middleware('auth:manager')->name('company.create');
@@ -74,8 +74,11 @@ Route::middleware('auth:manager')->group(function () {
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->middleware('auth:manager')->name('company.show');
     Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('company.update');
 
-    //応募者リスト
+    //いいね！があった応募者リスト
     Route::get('/applied', [ApplicationController::class, 'show'])->name('applied.show');
+
+    //会員リスト
+    Route::get('/members', [MemberController::class, 'index'])->name('member.index');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
                 ->middleware('auth:manager')
