@@ -17,7 +17,7 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
         $user = $request->user();
 
