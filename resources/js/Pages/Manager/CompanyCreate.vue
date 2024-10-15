@@ -205,7 +205,7 @@ const submitFunction = () => {
                                             class="border-2 border-gray-200 text-sm"
                                             required 
                                         />
-                                        <div class="text-sm font-bold">万円</div>
+                                        <div class="text-sm font-bold">円</div>
                                     </div>
                                 </div>
 

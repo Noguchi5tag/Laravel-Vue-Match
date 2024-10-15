@@ -23,10 +23,14 @@ class JobController extends Controller
 
         //検索条件
         $companySearch = $request->input('companySearch');
-        $dutyStation = $request->input('dutyStation');
-        $Occupation = $request->input('Occupation');
-        $companyPay = $request->input('companyPay');
-        $search = $request->input('search');
+        $Occupation = $request->input('Occupation', []); // 配列として取得
+        $dutyStation = $request->input('dutyStation'); // 市町村
+        $prefecture = $request->input('prefecture'); // 都道府県
+        $search = $request->input('search'); // キーワード検索
+        $salaryType = $request->input('salaryType'); // 給与タイプ
+        $selectedAmount = $request->input('selectedAmount'); // 選択した金額
+        $particulars = $request->input('particulars', []); // 配列として取得
+        // dd($Occupation, $dutyStation, $prefecture, $search, $salaryType, $selectedAmount, $particulars);
 
         if ($request->is('admin/new/companylist')) {
             // 管理者の新着求人の表示 //
@@ -82,7 +86,16 @@ class JobController extends Controller
                 });
             })
             ->withCount('bookmarkedByUsers')
-            ->searchInertiaJobs($search, $companySearch, $dutyStation, $Occupation, $companyPay)
+            ->searchInertiaJobs(
+                $companySearch,
+                $Occupation, 
+                $dutyStation, 
+                $prefecture, 
+                $search,
+                $salaryType, 
+                $selectedAmount, 
+                $particulars
+            )
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
 

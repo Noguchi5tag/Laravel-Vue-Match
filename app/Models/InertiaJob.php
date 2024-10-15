@@ -62,13 +62,18 @@ class InertiaJob extends Model
 
     public function scopeSearchInertiaJobs(
         $query,
-        $search = null, 
         $companySearch = null,
+        $Occupation = null, 
         $dutyStation = null, 
-        $Occupation = null,
-        $companyPay = null
+        $prefecture = null,
+        $search = null,
+        $salaryType = null,
+        $selectedAmount = null,
+        $particulars = null
+        
     )
     {
+        
         if (!empty($search)) {
             $query->where(function($q) use ($search) {
                 $q->where('search_keywords', 'like', '%' . $search . '%');
@@ -80,36 +85,83 @@ class InertiaJob extends Model
                 $q->where('companyName', 'like', '%' . $companySearch . '%');
             });
         }
+
+        if (!empty($dutyStation)) {
+            $query->where('dutyStation', $dutyStation);
+        }
     
-        if (!empty($dutyStation) && is_array($dutyStation)) {
-            $query->where(function($q) use ($dutyStation) {
-                $q->whereIn('dutyStation', $dutyStation);
-            });
+        if (!empty($prefecture)) {
+            $query->where('prefecture', $prefecture);
         }
     
         if (!empty($Occupation) && is_array($Occupation)) {
             $query->where(function($q) use ($Occupation) {
-                $q->whereIn('Occupation', $Occupation);
+                foreach ($Occupation as $occupation) {
+                    $q->orWhere('Occupation', 'like', '%' . $occupation . '%');
+                }
             });
         }
 
-        if (!empty($companyPay)) {
-            switch ($companyPay) {
-                case '150000':
-                    $query->where('companyPay', '<=', 150000);
-                    break;
-                case '200000':
-                    $query->whereBetween('companyPay', [150001, 199999]);
-                    break;
-                case '250000':
-                    $query->whereBetween('companyPay', [200000, 249999]);
-                    break;
-                case '300000':
-                    $query->whereBetween('companyPay', [250000, 299999]);
-                    break;
-                case '300001':
-                    $query->where('companyPay', '>', 300000);
-                    break;
+         // こだわり条件（複数選択可）
+        if (!empty($particulars) && is_array($particulars)) {
+            $query->where(function($q) use ($particulars) {
+                foreach ($particulars as $particular) {
+                    // カンマで囲まれた文字列をLIKE検索で確認
+                    $q->orWhere('particular_type', 'like', '%,' . $particular . ',%')
+                    ->orWhere('particular_type', 'like', '%,' . $particular)
+                    ->orWhere('particular_type', 'like', $particular . ',%')
+                    ->orWhere('particular_type', $particular);
+                }
+            });
+        }
+
+        if (!empty($salaryType)) {
+            $query->where('salary_type', $salaryType);
+
+            if ($salaryType === '月給' && !empty($selectedAmount)) {
+                // 月給の場合の金額条件
+                switch ($selectedAmount) {
+                    case '20':
+                        $query->whereBetween('salary_amount', [200000, 299999]);
+                        break;
+                    case '30':
+                        $query->whereBetween('salary_amount', [300000, 399999]);
+                        break;
+                    case '40':
+                        $query->whereBetween('salary_amount', [400000, 499999]);
+                        break;
+                    case '50';
+                        $query->where('salary_amount', '>', 500000);
+                        break;
+                }
+            } elseif ($salaryType === '年収' && !empty($selectedAmount)) {
+                // 年収の場合の金額条件
+                switch ($selectedAmount) {
+                    case '300':
+                        $query->whereBetween('salary_amount', [3000001, 3999999]); // 300〜399万円
+                        break;
+                    case '400':
+                        $query->whereBetween('salary_amount', [4000000, 4999999]); // 400〜499万円
+                        break;
+                    case '500':
+                        $query->whereBetween('salary_amount', [5000000, 5999999]); // 500〜599万円
+                        break;
+                    case '600':
+                        $query->whereBetween('salary_amount', [6000000, 6999999]); // 600〜699万円
+                        break;
+                    case '700':
+                        $query->whereBetween('salary_amount', [7000000, 7999999]); // 700〜799万円
+                        break;
+                    case '800':
+                        $query->whereBetween('salary_amount', [8000000, 8999999]); // 800〜899万円
+                        break;
+                    case '900':
+                        $query->whereBetween('salary_amount', [9000000, 9999999]); // 900〜999万円
+                        break;
+                    case '1000':
+                        $query->where('salary_amount', '>=', 10000000); // 1000万円以上
+                        break;
+                }
             }
         }
     
