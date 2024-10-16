@@ -29,7 +29,7 @@ class ApplicationController extends Controller
         //managerでしか表示できない
         if ($request->is('manager/*')) {
             $managerCompanyName = Auth::user()->name; //managerの会社名
-            $applicants = Application::with(['user', 'job', 'user.skills', 'user.academic_bg', 'user.job_bg'])
+            $applicants = Application::with(['user', 'job', 'user.academic_bg', 'user.job_bg'])
             //managerの会社名と応募があった会社名が一致するものだけ表示
             ->whereHas('job', function ($query) use ($managerCompanyName) {
                 $query->where('companyName', $managerCompanyName);

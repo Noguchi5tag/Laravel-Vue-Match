@@ -7,7 +7,6 @@ import AuthenticatedLayout from '@/Layouts/ManagerAuthenticatedLayout.vue';
 const props = defineProps({
     applicants: Array,
 });
-console.log(props.applicants);
 
 // 年齢の計算
 function calculateAge(birthDate) {
@@ -72,9 +71,10 @@ function likeApplicant(applicantId) {
                         
                             <!-- いいね -->
                             <td class="border border-gray-300 px-4 py-2 text-center">
-                                <button @click="likeApplicant(applicant.id)">
+                                <button @click="likeApplicant(applicant.id)" v-if="applicant.liked === 0">
                                     <font-awesome-icon :icon="['fas', 'thumbs-up']"  class="w-5 h-5" />
                                 </button>
+                                <div v-else>いいね！済み</div>
                             </td>
 
                             <!-- 募集タイトル -->

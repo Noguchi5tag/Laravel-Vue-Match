@@ -14,11 +14,10 @@ const confirmLogout = (event) => {
 
 <template>
     <section>
-        <Link 
+        <button 
             @click="confirmLogout"
-            as="button" 
             class="inline-flex items-center text-sm uppercase tracking-widest transition ease-in-out duration-15">
             ログアウトする
-        </Link>
+        </button>
     </section>
 </template>
