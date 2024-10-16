@@ -106,12 +106,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //求人応募の登録処理
     Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('job.apply');
-    //求人応募の完了画面
-    Route::get('/apply-comp', function () {
-        return Inertia::render('Applications/AppliedComp');
-    })->name('apply.comp');
     //求人登録したリスト
     Route::get('/applied-list', [ApplicationController::class,'show'])->name('apply.list');
+    //マッチした求人の通知削除
+    Route::post('/applicants/{id}/noticed', [ApplicationController::class,'noticedUpdate']);
 
     //ブックマークページ
     Route::get('/bookmarked', [BookmarkController::class, 'show'])->name('bookmarked.jobs');

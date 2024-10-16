@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { usePage, Link } from '@inertiajs/vue3';
+import { Inertia } from '@inertiajs/inertia';
 import NavLink from '@/Components/NavLink.vue';
 
 const page = usePage();
@@ -35,6 +36,20 @@ function matchView(applicant) {
 
 const closePopup = () => {
     isPopupOpen.value = false;
+}
+
+// noticed を 0 から 1 にする
+function updateNoticed(applicantId) {
+    Inertia.post(`/applicants/${applicantId}/noticed`, {
+        noticed: 1
+    }, {
+        onSuccess: () => {
+            closePopup(); // ポップアップを閉じる
+        },
+        onError: (errors) => {
+            console.error('通知の更新に失敗しました', errors);
+        }
+    });
 }
 </script>
 
@@ -73,10 +88,9 @@ const closePopup = () => {
             <div class="text-sm text-center font-bold py-4 bg-baseColor shadow-md">お知らせ</div>
             <div class="flex-1 overflow-y-auto">
                 <ul class="text-base space-y-2">
-    
                     <li v-for="(applicant, index) in applicants" :key="applicant.id" @click="matchView(applicant)" class="p-2 cursor-pointer border-b-2 border-baseColor">
     
-                        <div v-if="applicant.liked !== 0" class="flex gap-4 items-center">
+                        <div v-if="applicant.liked !== 0 && applicant.noticed !== 1" class="flex gap-4 items-center">
                             <img class="w-16 h-16 object-cover rounded-lg border-2 border-baseColor" :src="`/storage/storages/jobs/${ applicant?.job.image1 }`" alt="求人画像">
                             <div class="">
                                 <span class="text-xs">{{ formatDate(applicant.updated_at) }}</span>
@@ -85,7 +99,7 @@ const closePopup = () => {
                             </div>
                         </div>
                         <div v-else>
-                            <div class="text-sm text-center">マッチング無し</div>
+                            <div class="text-sm text-center">新着情報はありません</div>
                         </div>
                     </li>
                 </ul>
@@ -134,7 +148,10 @@ const closePopup = () => {
                     </div>
                 </div>
             </div>
-            <button class="rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white" @click="closePopup">閉じる</button>
+            <div class="flex gap-6 mt-4">
+                <button class="rounded-full border-2 border-white text-center mx-auto px-8 py-2 text-xs text-white" @click="updateNoticed(selectedApplicant.id)">通知から削除</button>
+                <button class="rounded-full border-2 border-white text-center mx-auto px-8 py-2 text-xs text-white" @click="closePopup">閉じる</button>
+            </div>
         </div>
     </div>
 </template>

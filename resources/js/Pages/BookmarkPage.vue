@@ -244,33 +244,35 @@ const relocationStatus = computed(() => {
                         <div class="text-center mt-4">
                             <button v-if="job.showDetails" @click="toggleDetails(job)" class="text-xs">閉じる</button>
                         </div>
+
+                        <!-- いいねしたとき -->
+                        <div v-if="likeFunction" class="absolute top-0 left-0 inset-0 bg-black bg-opacity-50 pt-16 px-4">
+                            <div class="bg-white rounded-lg py-6 px-2">
+                                <template  v-if="managers.find(manager => bookmarkedJobs.some(bookmark => bookmark.companyName === manager.name))">
+                                    <div v-for="manager in managers" :key="manager.id" class="flex flex-col justify-center items-center">
+                                        <img class="w-12 h-12 object-cover rounded-full" :src="`/storage/storages/manager/${ manager.image_manager }`" alt="プロフィール画像">
+                                        <p class="text-xs mt-4 font-bold">{{ manager.name }}</p>
+                                        <p class="text-xs mt-4 font-bold">募集タイトル<br>{{ job.WantedTitles }}</p>
+                                        <h3 class="mt-4 text-sky-400 font-bold text-2xl">いいね！しました</h3>
+                                        <!-- <div class="text-center">
+                                            <h3 class="mt-4 text-sky-400 font-bold text-2xl">お互いのいいね！</h3>
+                                            <p class="font-bold text-base">が成立しました。</p>
+                                        </div> -->
+
+                                        <!-- <div class="bg-sky-100 p-4 mt-6 w-full rounded-b-lg">
+                                            <p class="font-bold text-center text-base">マッチングした企業に<br>早速メッセージを送ってみましょう！</p>
+                                            <Link href="#" class="rounded-full bg-green-500 flex items-center justify-center mt-4">
+                                                <img class="w-10 h-10" src="../../../../public/images/logo/LINE_logo.png" alt="LINE">
+                                                <p class="text-white text-sm">友達追加してメッセージを送る</p>
+                                            </Link>
+                                        </div> -->
+                                    </div>
+                                </template>
+                            </div>
+                            <button @click="closeLikeButton" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
+                        </div>
                     </div>
                 </template>
-            </div>
-            <!-- いいねしたとき -->
-            <div v-if="likeFunction" class="absolute top-0 left-0 inset-0 bg-black bg-opacity-50 pt-16 px-4">
-                <div class="bg-white rounded-lg py-6 px-2">
-                    <template  v-if="managers.find(manager => bookmarkedJobs.some(bookmark => bookmark.companyName === manager.name))">
-                        <div v-for="manager in managers" :key="manager.id" class="flex flex-col justify-center items-center">
-                            <img class="w-12 h-12 object-cover rounded-full" :src="`/storage/storages/manager/${ manager.image_manager }`" alt="プロフィール画像">
-                            <p class="text-xs mt-4 font-bold">{{ manager.name }}</p>
-                            <h3 class="mt-4 text-sky-400 font-bold text-2xl">いいね！しました</h3>
-                            <!-- <div class="text-center">
-                                <h3 class="mt-4 text-sky-400 font-bold text-2xl">お互いのいいね！</h3>
-                                <p class="font-bold text-base">が成立しました。</p>
-                            </div> -->
-
-                            <!-- <div class="bg-sky-100 p-4 mt-6 w-full rounded-b-lg">
-                                <p class="font-bold text-center text-base">マッチングした企業に<br>早速メッセージを送ってみましょう！</p>
-                                <Link href="#" class="rounded-full bg-green-500 flex items-center justify-center mt-4">
-                                    <img class="w-10 h-10" src="../../../../public/images/logo/LINE_logo.png" alt="LINE">
-                                    <p class="text-white text-sm">友達追加してメッセージを送る</p>
-                                </Link>
-                            </div> -->
-                        </div>
-                    </template>
-                </div>
-                <button @click="closeLikeButton" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
             </div>
         </section>
     </BaseLayouts>

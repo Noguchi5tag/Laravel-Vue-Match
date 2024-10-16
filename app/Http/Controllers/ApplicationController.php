@@ -77,4 +77,17 @@ class ApplicationController extends Controller
         // 成功メッセージを返す
         return redirect()->back()->with('success', 'Liked successfully!');
     }
+
+    public function noticedUpdate(Request $request, string $id)
+    {
+        // dd($request->all());
+
+        $application = Application::findOrFail($id);
+
+        $application->noticed = 1;
+        $application->save();
+
+        // 成功メッセージを返す
+        return redirect()->back();
+    }
 }

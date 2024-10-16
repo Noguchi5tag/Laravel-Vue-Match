@@ -9,7 +9,13 @@ class Application extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'inertia_job_id', 'company_name', 'liked'];
+    protected $fillable = [
+        'user_id', 
+        'inertia_job_id', 
+        'company_name', 
+        'liked',
+        'noticed'
+    ];
 
     // 求人情報とのリレーション
     public function job()
