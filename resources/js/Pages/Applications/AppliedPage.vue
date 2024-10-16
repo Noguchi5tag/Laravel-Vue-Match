@@ -4,20 +4,10 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 import AuthenticatedLayout from '@/Layouts/ManagerAuthenticatedLayout.vue';
 
-// propsを定義
 const props = defineProps({
     applicants: Array,
 });
-// console.log(props.applicants);
-
-// 生年月日のフォーマット
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}年${month}月${day}日`;
-}
+console.log(props.applicants);
 
 // 年齢の計算
 function calculateAge(birthDate) {
@@ -34,6 +24,21 @@ function calculateAge(birthDate) {
 
 // 応募者の数を取得
 const applicantCount = Array.isArray(props.applicants) ? props.applicants.length : 1;
+
+// いいねの処理
+function likeApplicant(applicantId) {
+    Inertia.post(`/manager/applicants/${applicantId}/like`, {
+        liked: 1,
+    }, {
+        onSuccess: () => {
+            console.log('Liked successfully');
+        },
+        onError: (errors) => {
+            console.error('Error liking applicant', errors);
+        }
+    });
+    alert('いいね！しました');
+}
 </script>
 
 <template>
@@ -46,25 +51,31 @@ const applicantCount = Array.isArray(props.applicants) ? props.applicants.length
 
         <div class="py-6 max-w-screen-lg mx-auto">
             <div v-if="applicants.length > 0">
-                <table class="min-w-full border-collapse border border-gray-300">
+                <table class="min-w-full border-collapse border border-gray-300 bg-white">
                     <thead>
-                        <tr class="bg-gray-100">
+                        <tr>
                             <th class="border border-gray-300 px-4 py-2">#</th>
+                            <th class="border border-gray-300 px-4 py-2">いいね！する</th>
                             <th class="border border-gray-300 px-4 py-2">募集タイトル</th>
                             <th class="border border-gray-300 px-4 py-2">氏名</th>
                             <th class="border border-gray-300 px-4 py-2">メールアドレス</th>
                             <th class="border border-gray-300 px-4 py-2">電話番号</th>
                             <th class="border border-gray-300 px-4 py-2">性別</th>
-                            <th class="border border-gray-300 px-4 py-2">生年月日</th>
                             <th class="border border-gray-300 px-4 py-2">年齢</th>
-                            <th class="border border-gray-300 px-4 py-2">学歴（学校名）</th>
-                            <th class="border border-gray-300 px-4 py-2">資格名</th>
+                            <th class="border border-gray-300 px-4 py-2">最終学歴（学校名）</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(applicant, index) in applicants" :key="index">
                             <!-- 順番番号 -->
                             <td class="border border-gray-300 px-4 py-2 text-center">{{ index + 1 }}</td>
+                        
+                            <!-- いいね -->
+                            <td class="border border-gray-300 px-4 py-2 text-center">
+                                <button @click="likeApplicant(applicant.id)">
+                                    <font-awesome-icon :icon="['fas', 'thumbs-up']"  class="w-5 h-5" />
+                                </button>
+                            </td>
 
                             <!-- 募集タイトル -->
                             <td class="border border-gray-300 px-4 py-2">{{ applicant.job.WantedTitles }}</td>
@@ -85,23 +96,12 @@ const applicantCount = Array.isArray(props.applicants) ? props.applicants.length
                                 <template v-else>その他</template>
                             </td>
 
-                            <!-- 生年月日 -->
-                            <td class="border border-gray-300 px-4 py-2">{{ formatDate(applicant.user.birth) }}</td>
-
                             <!-- 年齢 -->
                             <td class="border border-gray-300 px-4 py-2">満{{ calculateAge(applicant.user.birth) }}歳</td>
 
                             <!-- 学歴（学校名） -->
                             <td class="border border-gray-300 px-4 py-2">{{ applicant.user.academic_bg.school_name }}</td>
 
-                            <!-- 資格 -->
-                            <td class="border border-gray-300 px-4 py-2">
-                                <ul>
-                                    <li v-for="(skill, skillIndex) in applicant.user.skills" :key="skillIndex">
-                                        {{ skill.skill_name }}
-                                    </li>
-                                </ul>
-                            </td>
                         </tr>
                     </tbody>
                 </table>

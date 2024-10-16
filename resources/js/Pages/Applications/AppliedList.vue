@@ -15,7 +15,6 @@ const props = defineProps({
     bookmarkedJobs: Array,
     managers: Object,
 })
-console.log(props.managers);
 
 const imageCount = (job) => {
     let count = 0;
@@ -210,9 +209,9 @@ const relocationStatus = computed(() => {
                             </div>
                             
                             <!-- 企業情報 -->
-                            <template  v-if="managers.find(manager => manager.name === application.job.companyName)">
+                            <div  v-if="managers.find(manager => manager.name === application.job.companyName)" class="m-2">
                                 <CompanyInfo :managers="managers" />
-                            </template>
+                            </div>
                             
                             <div class="flex justify-around mt-4">
                                 <div class="bg-gray-300 py-2 px-10 rounded-full shadow-lg border-1 border-white">

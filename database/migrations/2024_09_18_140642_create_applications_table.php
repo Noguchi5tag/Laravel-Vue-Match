@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // 求職者ID（ユーザー）
             $table->foreignId('inertia_job_id')->constrained('inertia_jobs')->onDelete('cascade'); // 求人ID
-            $table->string('company_name'); // 会社名
+            $table->string('company_name');
             $table->timestamps();
         });
     }

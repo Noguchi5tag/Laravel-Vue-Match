@@ -76,6 +76,8 @@ Route::middleware('auth:manager')->group(function () {
 
     //いいね！があった応募者リスト
     Route::get('/applied', [ApplicationController::class, 'show'])->name('applied.show');
+    //企業側がいいね！
+    Route::post('/applicants/{id}/like', [ApplicationController::class, 'update']);
 
     //会員リスト
     Route::get('/members', [MemberController::class, 'index'])->name('member.index');

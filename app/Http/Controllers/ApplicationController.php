@@ -62,4 +62,19 @@ class ApplicationController extends Controller
             ]);
         }
     }
+
+    public function update(Request $request, string $id)
+    {
+        // dd($request->all());
+
+        // 該当する応募者を取得
+        $application = Application::findOrFail($id);
+
+        // liked カラムを更新（0から1に変更）
+        $application->liked = 1;
+        $application->save();
+
+        // 成功メッセージを返す
+        return redirect()->back()->with('success', 'Liked successfully!');
+    }
 }
