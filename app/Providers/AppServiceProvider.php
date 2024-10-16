@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
             'applicants' => function () {
                 if (Auth::check()) {
                     // ログインユーザーに関連する応募者データを取得
-                    return Application::with('user', 'job')->where('user_id', Auth::id())->get();
+                    return Application::with('user', 'job', 'manager')->where('user_id', Auth::id())->get();
                 }
                 return [];
             },

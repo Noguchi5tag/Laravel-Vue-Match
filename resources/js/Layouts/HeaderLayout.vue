@@ -28,7 +28,8 @@ const isPopupOpen = ref(false);
 const selectedApplicant = ref(null); // 選択された応募者のデータ
 // マッチング情報表示処理
 function matchView(applicant) {
-    selectedApplicant.value = applicant; // 選択された応募者のデータをセット
+    // 選択された応募者のデータをセット
+    selectedApplicant.value = applicant; 
     isPopupOpen.value = true; // ポップアップを表示
 }
 
@@ -96,22 +97,38 @@ const closePopup = () => {
             <div class="w-4/5 bg-white p-2 pt-6 rounded-lg shadow-lg">
                 <div class="flex flex-col justify-center items-center">
                     <p class="text-xs font-bold">{{ selectedApplicant?.company_name }}</p>
-                    <img class="w-16 h-16 mt-2 object-cover rounded-full" :src="`/storage/storages/jobs/${ selectedApplicant?.job.image1 }`" alt="プロフィール画像">
-                    <p class="text-xs font-bold mt-2">{{ selectedApplicant?.job.WantedTitles }}</p>
+                    <img v-if="selectedApplicant.manager.image_manager" class="w-16 h-16 mt-2 object-cover rounded-full" :src="`/storage/storages/manager/${ selectedApplicant?.manager.image_manager }`" alt="プロフィール画像">
+                    <p class="text-xs font-bold mt-2">募集タイトル<br>{{ selectedApplicant?.job.WantedTitles }}</p>
                     <h2 class="mt-4 text-sky-400 font-bold text-2xl">お互いのいいね！</h2>
                     <p class="font-bold text-base">が成立しました。</p>
 
                     <div class="bg-sky-100 mt-4 w-full p-4 rounded-b-lg">
                         <p class="font-bold text-center text-base">マッチングした企業に<br>早速メッセージを送ってみましょう！</p>
-                        <Link href="#" class="rounded-full bg-green-500 flex items-center justify-center mt-4">
-                            <img class="w-10 h-10" src="../../../public/images/logo/LINE_logo.png" alt="LINE">
-                            <p class="text-white text-sm">友達追加してメッセージを送る</p>
-                        </Link>
+                        <template v-if="selectedApplicant.manager.line_url">
+                            <a 
+                                :href=" selectedApplicant.manager.line_url " 
+                                target="_blank"
+                                class="rounded-full bg-green-500 flex items-center justify-center mt-4"
+                            >
+                                <img class="w-10 h-10" src="../../../public/images/logo/LINE_logo.png" alt="LINE">
+                                <p class="text-white text-sm">友達追加してメッセージを送る</p>
+                            </a>
+                        </template>
                         <div class="mt-4 flex flex-col gap-4">
                             <p class="text-xs text-center">- 他の方法で連絡をする -</p>
                             <div class="flex justify-around items-center">
-                                <div class="text-xs rounded-full bg-white py-1 w-24 text-center border-2 border-gary-200">電話をかける</div>
-                                <div class="text-xs rounded-full bg-white py-1 w-24 text-center border-2 border-gary-200">メールを送る</div>
+                                <a 
+                                    v-if="selectedApplicant.manager.tel_manager" 
+                                    :href="`tel:${selectedApplicant.manager.tel_manager}`"
+                                    class="text-xs rounded-full bg-white py-1 w-24 text-center border-2 border-gary-200">
+                                    電話をかける
+                                </a>
+                                <a 
+                                    v-if="selectedApplicant.manager.email"
+                                    :href="`mailto:${selectedApplicant.manager.email}`" 
+                                    class="text-xs rounded-full bg-white py-1 w-24 text-center border-2 border-gary-200">
+                                    メールを送る
+                                </a>
                             </div>
                         </div>
                     </div>

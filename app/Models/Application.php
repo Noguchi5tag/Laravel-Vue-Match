@@ -24,4 +24,11 @@ class Application extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    //managersと連携
+    public function manager()
+    {
+        return $this->belongsTo(Manager::class, 'company_name', 'name');
+    }
+
 }
