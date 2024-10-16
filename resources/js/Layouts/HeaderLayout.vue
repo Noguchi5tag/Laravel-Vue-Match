@@ -13,7 +13,6 @@ const closeMenu = () => {
     isMenuOpen.value = false;
 }
 
-const isRead = ref(true);
 const isReadCount = ref(0);
 const isBellOpen = ref(false);
 
@@ -43,14 +42,17 @@ function formatDate(dateString) {
     return `${year}年${month}月${day}日`;
 }
 
-const isPopupOpen = ref(false);
+const isApplicantPopupOpen = ref(false);
+const isNewsPopupOpen = ref(false);
 const selectedApplicant = ref(null); // 選択された応募者のデータ
+const selectedNews = ref(null); // 選択された応募者のデータ
 
 // マッチング情報表示処理
 function matchView(applicant) {
     // 選択された応募者のデータをセット
     selectedApplicant.value = applicant; 
-    isPopupOpen.value = true; // ポップアップを表示
+    selectedNews.value = null;
+    isApplicantPopupOpen.value = true; // ポップアップを表示
 
     const clickedItem = combinedData.value.find(item => item.id === applicant.id);
     if (clickedItem) {
@@ -59,8 +61,23 @@ function matchView(applicant) {
     }
 }
 
+function newsView(newsItem) {
+    selectedNews.value = newsItem;
+    selectedApplicant.value = null;
+    isNewsPopupOpen.value = true;
+
+    const clickedItem = combinedData.value.find(item => item.id === newsItem.id);
+    if (clickedItem) {
+        clickedItem.isRead = true;
+        isReadCount.value = isReadCount.value + 1;
+    }
+}
+
 const closePopup = () => {
-    isPopupOpen.value = false;
+    isApplicantPopupOpen.value = false;
+    isNewsPopupOpen.value = false;
+    selectedApplicant.value = null;
+    selectedNews.value = null;
 }
 
 // noticed を 0 から 1 にする
@@ -150,8 +167,8 @@ function updateNoticed(applicantId) {
             </div>
         </div>
 
-        <!-- マッチング ポップアップ -->
-        <div v-if="isPopupOpen" class="fixed inset-0 h-screen bg-black bg-opacity-50 z-50 flex  flex-col justify-center items-center">
+        <!-- ポップアップ -->
+        <div v-if="isApplicantPopupOpen" class="fixed inset-0 h-screen bg-black bg-opacity-50 z-50 flex  flex-col justify-center items-center">
             <div class="w-4/5 bg-white p-2 pt-6 rounded-lg shadow-lg">
                 <div class="flex flex-col justify-center items-center">
                     <p class="text-xs font-bold">{{ selectedApplicant?.company_name }}</p>
@@ -192,8 +209,24 @@ function updateNoticed(applicantId) {
                     </div>
                 </div>
             </div>
+
             <div class="flex gap-6 mt-4">
                 <button class="rounded-full border-2 border-white text-center mx-auto px-8 py-2 text-xs text-white" @click="updateNoticed(selectedApplicant.id)">通知から削除</button>
+                <button class="rounded-full border-2 border-white text-center mx-auto px-8 py-2 text-xs text-white" @click="closePopup">閉じる</button>
+            </div>
+        </div>
+
+        <!-- ニュースポップアップ -->
+        <div v-if="isNewsPopupOpen" class="fixed inset-0 h-screen bg-black bg-opacity-50 z-50 flex  flex-col justify-center items-center">
+            <div class="w-4/5 bg-white p-4 pt-4 rounded-lg shadow-lg">
+                <div class="flex flex-col gap-2 justify-center items-center">
+                    <p class="text-base font-bold">{{ selectedNews?.title }}</p>
+                    <p class="text-xs">{{ formatDate(selectedNews?.updated_at) }}</p>
+                    <p class="text-sm">{{ selectedNews?.content }}</p>
+                </div>
+            </div>
+
+            <div class="flex gap-6 mt-4">
                 <button class="rounded-full border-2 border-white text-center mx-auto px-8 py-2 text-xs text-white" @click="closePopup">閉じる</button>
             </div>
         </div>
