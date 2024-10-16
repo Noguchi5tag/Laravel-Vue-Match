@@ -1,12 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { usePage, Link } from '@inertiajs/vue3';
 import { Inertia } from '@inertiajs/inertia';
 import NavLink from '@/Components/NavLink.vue';
 
 const page = usePage();
 const applicants = page.props.applicants;
-console.log(applicants);
+const news = page.props.news;
 
 const isMenuOpen = ref(false);
 const closeMenu = () => {
@@ -14,6 +14,13 @@ const closeMenu = () => {
 }
 
 const isBellOpen = ref(false);
+
+// liked が 1 のものをカウントして通知に表示
+const likedCount = computed(() => {
+    const likedApplicantsCount = applicants.filter(applicant => applicant.liked === 1).length;
+    const newsCount = news.length;
+    return likedApplicantsCount + newsCount;
+});
 
 // 日付フォーマット関数
 function formatDate(dateString) {
@@ -37,6 +44,12 @@ function matchView(applicant) {
 const closePopup = () => {
     isPopupOpen.value = false;
 }
+
+// applicantsとnewsを結合し、updated_atで降順にソート
+const combinedData = computed(() => {
+    const combined = [...applicants, ...news];
+    return combined.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+});
 
 // noticed を 0 から 1 にする
 function updateNoticed(applicantId) {
@@ -64,8 +77,11 @@ function updateNoticed(applicantId) {
                 </div>
             </button>
             <NavLink href="/">JobMatch</NavLink>
-            <div @click="isBellOpen = !isBellOpen" class="w-5 h-5">
+            <div @click="isBellOpen = !isBellOpen" class="relative w-5 h-5 mr-1">
                 <font-awesome-icon :icon="['far', 'bell']" class="w-full h-full" />
+                <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                    {{ likedCount }}
+                </span>
             </div>
         </div>
         <!-- ハンバーガー -->
@@ -88,25 +104,36 @@ function updateNoticed(applicantId) {
             <div class="text-sm text-center font-bold py-4 bg-baseColor shadow-md">お知らせ</div>
             <div class="flex-1 overflow-y-auto">
                 <ul class="text-base space-y-2">
-                    <li v-for="(applicant, index) in applicants" :key="applicant.id" @click="matchView(applicant)" class="p-2 cursor-pointer border-b-2 border-baseColor">
-    
-                        <div v-if="applicant.liked !== 0 && applicant.noticed !== 1" class="flex gap-4 items-center">
-                            <img class="w-16 h-16 object-cover rounded-lg border-2 border-baseColor" :src="`/storage/storages/jobs/${ applicant?.job.image1 }`" alt="求人画像">
-                            <div class="">
-                                <span class="text-xs">{{ formatDate(applicant.updated_at) }}</span>
-                                <p class="text-sm font-bold">{{ applicant.company_name }}とマッチングしました！</p>
-                                <span class="text-xs">求人タイトル：{{ applicant.job.WantedTitles }}</span>
-                            </div>
+                    <li v-for="(item, index) in combinedData" :key="item.id" @click="item.job ? matchView(item) : newsView(item)" class="p-2 cursor-pointer border-b-2 border-baseColor">
+                    <!-- 応募者の場合 -->
+                    <div v-if="item.job && item.liked !== 0 && item.noticed !== 1" class="flex gap-4 items-center">
+                        <img class="w-16 h-16 object-cover rounded-lg border-2 border-baseColor" :src="`/storage/storages/jobs/${ item?.job.image1 }`" alt="求人画像">
+                        <div>
+                        <span class="text-xs">{{ formatDate(item.updated_at) }}</span>
+                        <p class="text-sm font-bold">{{ item.company_name }}とマッチングしました！</p>
+                        <span class="text-xs">求人タイトル：{{ item.job.WantedTitles }}</span>
                         </div>
-                        <div v-else>
-                            <div class="text-sm text-center">新着情報はありません</div>
+                    </div>
+
+                    <!-- ニュースの場合 -->
+                    <div v-else-if="!item.job" class="flex gap-4 items-center">
+                        <div>
+                        <span class="text-xs">{{ formatDate(item.updated_at) }}</span>
+                        <p class="text-sm font-bold">{{ item.title }}</p>
+                        <span class="text-xs">{{ item.content.length > 50 ? item.content.slice(0, 50) + '...' : item.content }}</span>
                         </div>
+                    </div>
+
+                    <!-- 新着情報がない場合の処理 -->
+                    <div v-else>
+                        <div class="text-sm text-center">新着情報はありません</div>
+                    </div>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- ポップアップ -->
+        <!-- マッチング ポップアップ -->
         <div v-if="isPopupOpen" class="fixed inset-0 h-screen bg-black bg-opacity-50 z-50 flex  flex-col justify-center items-center">
             <div class="w-4/5 bg-white p-2 pt-6 rounded-lg shadow-lg">
                 <div class="flex flex-col justify-center items-center">

@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
 use App\Models\InertiaJob;
 use App\Models\Application;
+use App\Models\News;
 use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
@@ -36,6 +37,11 @@ class AppServiceProvider extends ServiceProvider
                     return Application::with('user', 'job', 'manager')->where('user_id', Auth::id())->get();
                 }
                 return [];
+            },
+
+            // 新着ニュース
+            'news' => function () {
+                return News::all(); 
             },
         ]);
     }
