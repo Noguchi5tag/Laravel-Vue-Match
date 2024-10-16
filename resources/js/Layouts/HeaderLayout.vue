@@ -13,13 +13,24 @@ const closeMenu = () => {
     isMenuOpen.value = false;
 }
 
+const isRead = ref(true);
+const isReadCount = ref(0);
 const isBellOpen = ref(false);
 
-// liked が 1 のものをカウントして通知に表示
+// applicantsとnewsを結合し、updated_atで降順にソート
+const combinedData = computed(() => {
+    const combined = [...applicants, ...news].map(item => ({
+        ...item,
+        isRead: false
+    }));
+    return combined.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+});
+
+// 通知数に表示
 const likedCount = computed(() => {
     const likedApplicantsCount = applicants.filter(applicant => applicant.liked === 1).length;
     const newsCount = news.length;
-    return likedApplicantsCount + newsCount;
+    return likedApplicantsCount + newsCount - isReadCount.value;
 });
 
 // 日付フォーマット関数
@@ -34,22 +45,23 @@ function formatDate(dateString) {
 
 const isPopupOpen = ref(false);
 const selectedApplicant = ref(null); // 選択された応募者のデータ
+
 // マッチング情報表示処理
 function matchView(applicant) {
     // 選択された応募者のデータをセット
     selectedApplicant.value = applicant; 
     isPopupOpen.value = true; // ポップアップを表示
+
+    const clickedItem = combinedData.value.find(item => item.id === applicant.id);
+    if (clickedItem) {
+        clickedItem.isRead = true;
+        isReadCount.value = isReadCount.value + 1;
+    }
 }
 
 const closePopup = () => {
     isPopupOpen.value = false;
 }
-
-// applicantsとnewsを結合し、updated_atで降順にソート
-const combinedData = computed(() => {
-    const combined = [...applicants, ...news];
-    return combined.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-});
 
 // noticed を 0 から 1 にする
 function updateNoticed(applicantId) {
@@ -103,8 +115,13 @@ function updateNoticed(applicantId) {
         <div v-if="isBellOpen" class="fixed h-screen top-14 right-0 w-full  bg-white flex flex-col transition-all duration-200">
             <div class="text-sm text-center font-bold py-4 bg-baseColor shadow-md">お知らせ</div>
             <div class="flex-1 overflow-y-auto">
-                <ul class="text-base space-y-2">
-                    <li v-for="(item, index) in combinedData" :key="item.id" @click="item.job ? matchView(item) : newsView(item)" class="p-2 cursor-pointer border-b-2 border-baseColor">
+                <ul class="text-base">
+                    <li 
+                        v-for="(item, index) in combinedData" 
+                        :key="item.id" 
+                        @click="item.job ? matchView(item) : newsView(item)" 
+                        :class="['p-2 cursor-pointer border-b-2 border-baseColor', { 'bg-yellow-50': !item.isRead }]"
+                    >
                     <!-- 応募者の場合 -->
                     <div v-if="item.job && item.liked !== 0 && item.noticed !== 1" class="flex gap-4 items-center">
                         <img class="w-16 h-16 object-cover rounded-lg border-2 border-baseColor" :src="`/storage/storages/jobs/${ item?.job.image1 }`" alt="求人画像">
