@@ -122,11 +122,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     //News
     Route::get('/news', [NewsController::class,'index'])->name('news.index');
-
-    // マッチした画面
-    Route::get('/news-match', function () {
-        return Inertia::render('NewsMatch');
-    });
 });
 
 require __DIR__.'/auth.php';

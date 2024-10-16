@@ -16,6 +16,7 @@ const form = useForm({
     password: '',
     password_confirmation: '',
     manager_url: '',
+    line_url: '',
     tel_manager: '',
     manager_address_number: '',
     manager_address: '',
@@ -129,6 +130,19 @@ const handleImageChange = (event) => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.manager_url" />
+            </div>
+            
+            <div>
+                <InputLabel for="line_url" value="LINE URL" />
+
+                <TextInput
+                    id="line_url"
+                    type="url"
+                    class="mt-1 block w-full"
+                    v-model="form.line_url"
+                />
+
+                <InputError class="mt-2" :message="form.errors.line_url" />
             </div>
 
             <div>

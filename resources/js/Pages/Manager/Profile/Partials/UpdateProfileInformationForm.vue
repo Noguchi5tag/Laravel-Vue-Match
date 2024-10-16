@@ -24,17 +24,21 @@ const form = useForm({
     email: user.email,
     login_name: user.login_name,
     manager_url: user.manager_url || '',
+    line_url: user.line_url || '',
     tel_manager: user.tel_manager || '01012345678',
     manager_address_number: user.manager_address_number || '8551234',
     manager_address: user.manager_address || '',
     business: user.business || '',
     recruit_manager: user.recruit_manager || '',
     other_manager: user.other_manager || '',
-    image_manager: user.image_manager || '',
+    image_manager: '',
 });
 
 const updateFunction = () => {
-    // console.log(form);
+
+    if (!form.image_manager) {
+        form.image_manager = null;
+    }
 
     form.post(route('manager.profile.update', user.id), {
         _method: 'put',
@@ -42,6 +46,7 @@ const updateFunction = () => {
         email: form.email,
         login_name: form.login_name,
         manager_url: form.manager_url,
+        line_url: form.line_url,
         tel_manager: form.tel_manager,
         manager_address_number: form.manager_address_number,
         manager_address: form.manager_address,
@@ -49,7 +54,7 @@ const updateFunction = () => {
         recruit_manager: form.recruit_manager,
         other_manager: form.other_manager,
         image_manager: form.image_manager,
-    })
+    });
 }
 
 // 画像プレビュー用の参照を追加
@@ -115,7 +120,7 @@ const handleImageChange = (event) => {
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <!-- <div v-if="mustVerifyEmail && user.email_verified_at === null">
+            <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p class="text-sm mt-2 text-gray-800">
                     メールアドレスが未認証です。
                     <Link
@@ -134,7 +139,7 @@ const handleImageChange = (event) => {
                 >
                     登録したメールアドレスに新しい認証リンクが送信されました。
                 </div>
-            </div> -->
+            </div>
 
             <div>
                 <InputLabel for="login_name" value="ログインネーム" />
@@ -160,6 +165,19 @@ const handleImageChange = (event) => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.manager_url" />
+            </div>
+
+            <div>
+                <InputLabel for="line_url" value="LINE URL" />
+
+                <TextInput
+                    id="line_url"
+                    type="url"
+                    class="mt-1 block w-full"
+                    v-model="form.line_url"
+                />
+
+                <InputError class="mt-2" :message="form.errors.line_url" />
             </div>
 
             <div>
