@@ -6,14 +6,6 @@ import AuthenticatedLayout from '@/Layouts/ManagerAuthenticatedLayout.vue';
 import { ref, onMounted, computed } from 'vue';
 import InputLabel from '@/Components/InputLabel.vue';
 
-//ログインしているかどうかの処理
-const isManager = ref(false);
-onMounted(() => {
-    const currentUrl = window.location.pathname;
-    isManager.value = currentUrl.includes('/manager/');
-});
-console.log(isManager);
-
 const props = defineProps({
     id: String,
     inertiaJob: Object,
