@@ -61,7 +61,8 @@ const calculatedMonths = computed(() => calculatedYears.value ? calculatedYears.
                     <tr v-for="user in props.users" :key="user.id" class="whitespace-nowrap">
                         <td class="border px-4 py-2">
                             <div class="w-16 h-16">
-                                <img class="w-full h-full object-cover rounded-full" src="/storage/storages/manager/manager4.jpg" alt="">
+                                <img v-if="user.profile_image" class="w-full h-full object-cover rounded-full" :src="`/storage/storages/user/profile/${user.profile_image}`" alt="プロフィール画像">
+                                <div v-else class="test-xs">画像無し</div>
                             </div>
                         </td>
                         <!-- 氏名 -->
