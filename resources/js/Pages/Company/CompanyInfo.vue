@@ -1,6 +1,5 @@
 <script setup>
 import InputLabel from '@/Components/InputLabel.vue';
-import { defineProps } from 'vue';
 
 const props = defineProps({
     managers: Object,
