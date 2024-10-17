@@ -57,7 +57,11 @@ class InertiaJob extends Model
      */
     public function setSearchKeywordsAttribute($value)
     {
-        $this->attributes['search_keywords'] = implode(',', $value); // 配列をカンマ区切りの文字列に変換
+        if (is_array($value) && !empty($value)) {
+            $this->attributes['search_keywords'] = implode(',', $value);
+        } else {
+            $this->attributes['search_keywords'] = 'キーワードなし';
+        }
     }
 
     public function scopeSearchInertiaJobs(

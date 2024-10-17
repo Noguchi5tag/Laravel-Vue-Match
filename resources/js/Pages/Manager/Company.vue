@@ -24,24 +24,20 @@ const imageCount = (job) => {
 }
 
 const relocationStatus = computed(() => {
-    return props.inertiaJob.relocation ? '可' : '不可';
+    return props.inertiaJob.relocation ? '有' : '無';
 });
 </script>
 
 <template>
     <Head title="求人詳細" />
     <AuthenticatedLayout>
-        <!-- フラッシュメッセージ -->
-        <div v-if="$page.props.flash.message" class="bg-blue-300">
-            {{ $page.props.flash.message }}
-        </div>
 
         <div v-if="props.inertiaJob" class=" max-w-screen-md mx-auto">
             <!-- {{ props.inertiaJob.id }} -->
             <section class=" body-font relative">
                 <div class="container px-4 py-24 mx-auto">
                     <div class="flex flex-col text-center w-full mb-12">
-                        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+                        <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
                             {{ props.inertiaJob.companyName }}
                         </h1>
                     </div>
@@ -61,7 +57,7 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="募集タイトル" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
                                         {{ props.inertiaJob.WantedTitles }}
                                     </div>
                                 </div>
@@ -69,8 +65,8 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="職種" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.Occupation }}
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.Occupation }}
                                     </div>
                                 </div>
                             </div>
@@ -78,8 +74,8 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="雇用形態" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.employment_type }}
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.employment_type }}
                                     </div>
                                 </div>
                             </div>
@@ -87,8 +83,8 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="年収または月収" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.salary_type }} {{ props.inertiaJob.salary_amount }}円
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.salary_type }} {{ props.inertiaJob.salary_amount }}円
                                     </div>
                                 </div>
                             </div>
@@ -96,8 +92,8 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="勤務地" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.prefecture }}{{ props.inertiaJob.dutyStation }}
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.prefecture }}{{ props.inertiaJob.dutyStation }}
                                     </div>
                                 </div>
                             </div>
@@ -105,8 +101,8 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="転勤の有無" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ relocationStatus }}
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ relocationStatus }}
                                     </div>
                                 </div>
                             </div>
@@ -114,8 +110,8 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="仕事内容" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.workDescription }}
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.workDescription }}
                                     </div>
                                 </div>
                             </div>
@@ -123,8 +119,8 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="入社時期" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.job_join }}
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.job_join }}
                                     </div>
                                 </div>
                             </div>
@@ -132,17 +128,18 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="交通費 / 月" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.travelExpenses }}円
+                                    <div v-if="props.inertiaJob.travelExpenses" class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.travelExpenses }}円
                                     </div>
+                                    <div v-else class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">未設定</div>
                                 </div>
                             </div>
 
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="勤務時間" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.startWork.split(':').slice(0, 2).join(':') }}～{{ props.inertiaJob.endWork.split(':').slice(0, 2).join(':') }}
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.startWork.split(':').slice(0, 2).join(':') }}～{{ props.inertiaJob.endWork.split(':').slice(0, 2).join(':') }}
                                     </div>
                                 </div>
                             </div>
@@ -150,8 +147,8 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="出勤日" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.workDays }}
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.workDays }}
                                     </div>
                                 </div>
                             </div>
@@ -159,17 +156,17 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="休日" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.freeDays }}
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.freeDays }}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="p-1 w-full">
                                 <div class="relative">
-                                    <InputLabel value="最寄り駅" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.NearestStation }}
+                                    <InputLabel value="最寄り駅" class="leading-7 text-sm" />
+                                    <div class="w-full bg-white rounded border border-gray-300 text-base outline-none py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.NearestStation }}
                                     </div>
                                 </div>
                             </div>
@@ -177,34 +174,37 @@ const relocationStatus = computed(() => {
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="その他" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.workOther }}
+                                    <div v-if="props.inertiaJob.workOther" class="w-full bg-white rounded border border-gray-300 py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.workOther }}
                                     </div>
+                                    <div v-else class="w-full bg-white rounded border border-gray-300 py-1 px-2 leading-8">未設定</div>
                                 </div>
                             </div>
 
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="こだわり条件" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.particular_type }}
+                                    <div v-if="props.inertiaJob.particular_type" class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.particular_type }}
                                     </div>
+                                    <div v-else class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">未設定</div>
                                 </div>
                             </div>
 
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="その他福利厚生" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
-                                    {{ props.inertiaJob.Welfare }}
+                                    <div v-if="props.inertiaJob.Welfare" class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">
+                                        {{ props.inertiaJob.Welfare }}
                                     </div>
+                                    <div v-else class="w-full bg-white rounded border border-gray-300 text-base py-1 px-2 leading-8">未設定</div>
                                 </div>
                             </div>
 
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="検索キーワード" class="leading-7 text-sm " />
-                                    <div class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 px-2 leading-8 transition-colors duration-200 ease-in-out">
+                                    <div v-if="keyWords" class="w-full bg-white rounded border border-gray-300  text-base outline-none py-1 px-2 leading-8">
                                         {{ keyWords }}
                                     </div>
                                 </div>
@@ -214,7 +214,7 @@ const relocationStatus = computed(() => {
                                 <div class="relative">
                                     <InputLabel value="求人の公開状況" class="leading-7 text-sm " />
                                     <div class="">
-                                        <p class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 px-2 leading-8 transition-colors duration-200 ease-in-out"> 
+                                        <p class="w-full bg-white rounded border border-gray-300 text-base outline-none py-1 px-2 leading-8"> 
                                             <span v-if="props.inertiaJob.status === 0">非公開</span>
                                             <span v-else>公開</span>
                                         </p>
@@ -224,12 +224,12 @@ const relocationStatus = computed(() => {
                     
                             <div class="p-2 w-full">
                                 <div class="p-2">
-                                    <Link as="button" :href="route('manager.company.edit', { inertiaJob: props.inertiaJob.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">編集する</Link>
+                                    <Link as="button" :href="route('manager.company.edit', { inertiaJob: props.inertiaJob.id })" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 rounded text-lg">編集する</Link>
                                 </div>
                             </div>
                             
                             <div class="p-2 w-full">
-                                <Link as="button" href="/manager/companylist" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
+                                <Link as="button" href="/manager/companylist" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-5 rounded text-lg">戻る</Link>
                             </div>
                         </div>
                     </div>

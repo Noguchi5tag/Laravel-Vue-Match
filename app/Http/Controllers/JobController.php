@@ -193,11 +193,14 @@ class JobController extends Controller
         // dd($request->all());
 
         // 検索キーワードを配列に変換
-        if ($request->has('search_keywords') && is_string($request->search_keywords)) {
-            $request->merge([
-                'search_keywords' => explode(',', $request->search_keywords),
-            ]);
+        if (!empty($request->input('search_keywords'))) {
+            if ($request->has('search_keywords') && is_string($request->input('search_keywords')))  {
+                $request->merge([
+                    'search_keywords' => explode(',', $request->search_keywords),
+                ]);
+            }
         }
+        
         $request->merge([
             'is_checked' => filter_var($request->input('is_checked'), FILTER_VALIDATE_BOOLEAN),
         ]);
@@ -205,32 +208,32 @@ class JobController extends Controller
         try {
 
             $validatedData = $request->validate([
-                'companyName' => ['nullable', 'string', 'max:100'], // 会社名
-                'WantedTitles' => ['nullable', 'string'],           // 募集タイトル
-                'Occupation' => ['nullable', 'string'],             // 職種
-                'companyAddress' => ['nullable', 'string'],         // 会社の住所
-                'prefecture' => ['nullable', 'string'],             // 勤務地 都道府県
-                'dutyStation' => ['nullable', 'string'],            // 勤務地 市町村
-                'relocation' => ['nullable', 'in:0,1'],            // 転勤の有無
-                'workDescription' => ['nullable', 'string'],        // 仕事内容
-                'employment_type' => ['nullable', 'string'], // 雇用形態
-                'job_join' => ['nullable', 'string'],               // 入社時期
-                'salary_type' => ['nullable', 'string'],            // 月収か年収か
-                'salary_amount' => ['nullable', 'integer'],         // 給与
-                'travelExpenses' => ['nullable', 'integer'],        // 交通費
+                'companyName' => ['string', 'max:100'], // 会社名
+                'WantedTitles' => ['string'],           // 募集タイトル
+                'Occupation' => ['string'],             // 職種
+                'companyAddress' => ['string'],         // 会社の住所
+                'prefecture' => ['string'],             // 勤務地 都道府県
+                'dutyStation' => ['string'],            // 勤務地 市町村
+                'relocation' => ['in:0,1'],            // 転勤の有無
+                'workDescription' => ['string'],        // 仕事内容
+                'employment_type' => ['string'], // 雇用形態
+                'job_join' => ['string'],               // 入社時期
+                'salary_type' => ['string'],            // 月収か年収か
+                'salary_amount' => ['integer'],         // 給与
+                'travelExpenses' => [ 'nullable', 'integer'],        // 交通費
                 'particular_type' => ['nullable', 'string'], // こだわり条件
                 'Welfare' => ['nullable', 'string'],                // 福利厚生
-                'startWork' => ['nullable', 'date_format:H:i'],     // 勤務開始時間
-                'endWork' => ['nullable', 'date_format:H:i'],       // 勤務終了時間
-                'workDays' => ['nullable', 'string'],               // 出勤日
-                'freeDays' => ['nullable', 'string'],               // 休日
-                'NearestStation' => ['nullable', 'string'],         // 最寄り駅
+                'startWork' => ['date_format:H:i'],     // 勤務開始時間
+                'endWork' => ['date_format:H:i'],       // 勤務終了時間
+                'workDays' => ['string'],               // 出勤日
+                'freeDays' => ['string'],               // 休日
+                'NearestStation' => ['string'],         // 最寄り駅
                 'workOther' => ['nullable', 'string'],              // その他
                 'search_keywords' => ['nullable', 'array'],         // 検索キーワード
                 'status' => ['nullable', 'integer'],                // ステータス
                 'registrant' => ['nullable', 'string'],             // 登録者名
                 'is_checked' => ['nullable', 'boolean'],            // 確認フラグ
-                'image1' => ['nullable', 'image', 'max:5120'],      // 画像1
+                'image1' => ['image', 'max:5120'],      // 画像1
                 'image2' => ['nullable', 'image', 'max:5120'],      // 画像2
                 'image3' => ['nullable', 'image', 'max:5120'],      // 画像3
                 'image4' => ['nullable', 'image', 'max:5120'],      // 画像4
@@ -242,8 +245,6 @@ class JobController extends Controller
                 'image4.max' => '画像ファイルのサイズは5MB以下にしてください。',
                 'image5.max' => '画像ファイルのサイズは5MB以下にしてください。',
             ]);
-
-            // dd($validatedData);
     
             $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
             foreach ($images as $image) {

@@ -1,6 +1,7 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/ManagerAuthenticatedLayout.vue';
 import { Head, usePage, useForm } from '@inertiajs/vue3';
+import AuthenticatedLayout from '@/Layouts/ManagerAuthenticatedLayout.vue';
+import FlashMessage from '@/Components/FlashMessage.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 
 const user = usePage().props.auth.user;
@@ -30,6 +31,9 @@ const form = useForm({
         <div v-if="$page.props.flash.message" class="bg-blue-300">
             {{ $page.props.flash.message }}
         </div>
+        <FlashMessage v-if="$page.props.flash.message" >
+            {{ $page.props.flash.message }}
+        </FlashMessage>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

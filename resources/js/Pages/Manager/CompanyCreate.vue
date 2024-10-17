@@ -110,20 +110,26 @@ const submitFunction = () => {
                             <div class="-m-2">
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel value="会社名" for="companyName" class="leading-7 text-sm " />
+                                        <div class="flex items-center">
+                                            <InputLabel value="会社名" for="companyName" class="leading-7 text-sm" />
+                                            <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
+                                        </div>
                                         <TextInput 
                                             type="text" 
                                             name="companyName" 
                                             id="companyName" 
                                             v-model="form.companyName" 
-                                            required 
+                                            required
                                         />
                                     </div>
                                 </div>
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel value="会社の住所" for="companyAddress" class="leading-7 text-sm " />
+                                        <div class="flex items-center">
+                                            <InputLabel value="会社の住所" for="companyAddress" class="leading-7 text-sm " />
+                                            <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
+                                        </div>
                                         <TextInput 
                                             type="text" 
                                             name="companyAddress" 
@@ -136,7 +142,10 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel value="募集タイトル" for="WantedTitles" class="leading-7 text-sm " />
+                                        <div class="flex items-center">
+                                            <InputLabel value="募集タイトル" for="WantedTitles" class="leading-7 text-sm " />
+                                            <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
+                                        </div>
                                         <TextInput 
                                             type="text" 
                                             name="WantedTitles" 
@@ -149,30 +158,49 @@ const submitFunction = () => {
 
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                        <InputLabel value="職種（当てはまるものにチェック）" for="Occupation" class="leading-7 text-sm " />
+                                        <div class="flex items-center">
+                                            <InputLabel value="職種" for="Occupation" class="leading-7 text-sm " />
+                                            <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
+                                            <span class="text-sm text-red-400">（当てはまる項目にチェック）</span>
+                                        </div>
                                         <div class="border-b-2 border-baseColor pb-4">
+
                                             <!-- 各職種カテゴリを繰り返し表示 -->
                                             <div v-for="(category, index) in jobCategories" :key="index" class="mb-4">
                                                 <div @click="toggleCategoryVisible(category.label)" class="bg-white py-2 flex justify-between items-center px-4 cursor-pointer">
                                                     <div class="text-left text-sm">{{ category.label }}</div>
                                                     <font-awesome-icon :icon="['fas', 'chevron-down']" class="w-3 h-3" />
                                                 </div>
+
                                                 <!-- カテゴリが開いている時に職種を表示 -->
                                                 <div v-if="category.visible" class="border-white border-2 py-2 px-4">
                                                     <div class="flex flex-wrap gap-2">
                                                         <div v-for="job in category.requirements" :key="job.value" class="flex items-center space-x-2">
-                                                            <input type="checkbox" :id="job.value" v-model="form.Occupation" :value="job.label" class="bg-white border-none" />
+                                                            <input 
+                                                                type="checkbox" 
+                                                                :id="job.value" 
+                                                                v-model="form.Occupation" 
+                                                                :value="job.label" 
+                                                                class="bg-white border-none"
+                                                            />
                                                             <label :for="job.value" class="text-sm">{{ job.label }}</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <template v-if="form.Occupation.length > 0">
+                                                <InputLabel value="選択した職種" class="leading-7 text-sm " />
+                                                <div class="text-sm">{{ form.Occupation.join(', ') }}</div>
+                                            </template>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div>
-                                    <InputLabel value="雇用形態" />
+                                <div class="p-2 w-full">
+                                    <div class="flex items-center">
+                                        <InputLabel value="雇用形態" />
+                                        <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
+                                    </div>
                                     <div class="mt-2 flex flex-wrap gap-2">
                                         <div v-for="type in employment" :key="type.value" class="flex items-center space-x-2">
                                             <input
@@ -187,8 +215,11 @@ const submitFunction = () => {
                                     </div>
                                 </div>
 
-                                <div>
-                                    <InputLabel value="年収または月収" />
+                                <div class="p-2 w-full">
+                                    <div class="flex items-center">
+                                        <InputLabel value="年収または月収" />
+                                        <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
+                                    </div>
                                     <div class="mt-2 flex items-end gap-2">
                                         <select v-model="form.salary_type" 
                                             class="w-1/3 text-sm border-2 px-2 py-2 rounded-md bg-white border-gray-200"
@@ -209,9 +240,12 @@ const submitFunction = () => {
                                     </div>
                                 </div>
 
-                                <div>
-                                    <InputLabel value="勤務地" />
-                                    <div>
+                                <div class="p-2 w-full">
+                                    <div class="flex items-center">
+                                        <InputLabel value="勤務地" />
+                                        <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
+                                    </div>
+                                    <div class="mt-2">
                                         <select v-model="form.prefecture" class="w-full text-sm border-gray-200 border-2 px-4 py-2 rounded-md bg-white">
                                             <option disabled value="">都道府県</option>
                                             <option v-for="prefecture in prefectures" :key="prefecture" :value="prefecture">
@@ -229,7 +263,7 @@ const submitFunction = () => {
                                     </div>
                                 </div>
 
-                                <div class="flex items-center gap-2 mt-4">
+                                <div class="flex items-center gap-2 p-2 w-full">
                                     <input 
                                         type="checkbox" 
                                         name="relocation" 
@@ -241,21 +275,25 @@ const submitFunction = () => {
                                 </div>
 
                                 <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel value="仕事内容" for="workDescription" class="leading-7 text-sm " />
-                                        <TextInput 
-                                            type="text" 
-                                            name="workDescription" 
-                                            id="workDescription" 
-                                            v-model="form.workDescription" 
-                                            required 
-                                            class="w-full"
-                                        />
+                                    <div class="flex items-center">
+                                        <InputLabel value="仕事内容" class="leading-7 text-sm " />
+                                        <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
                                     </div>
+                                    <TextInput 
+                                        type="text" 
+                                        name="workDescription" 
+                                        id="workDescription" 
+                                        v-model="form.workDescription" 
+                                        required 
+                                        class="w-full"
+                                    />
                                 </div>
 
-                                <div>
-                                    <InputLabel value="入社時期" />
+                                <div class="p-2 w-full">
+                                    <div class="flex items-center">
+                                        <InputLabel value="入社時期" />
+                                        <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
+                                    </div>
                                     <div class="mt-2">
                                         <select v-model="form.job_join" class="w-2/5 text-sm border-2 px-4 py-2 rounded-md bg-white border-gray-200">
                                             <option disabled value="">こだわらない</option>
@@ -267,97 +305,98 @@ const submitFunction = () => {
                                 </div>
 
                                 <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel value="交通費 / 月" for="travelExpenses" class="leading-7 text-sm " />
-                                        <TextInput 
-                                            type="number" 
-                                            name="travelExpenses" 
-                                            id="travelExpenses" 
-                                            v-model="form.travelExpenses" 
-                                            required 
-                                        />円
+                                    <div class="flex items-center">
+                                        <InputLabel value="交通費 / 月" class="leading-7 text-sm " />
                                     </div>
+                                    <TextInput 
+                                        type="number" 
+                                        name="travelExpenses" 
+                                        id="travelExpenses" 
+                                        v-model="form.travelExpenses" 
+                                    />円
                                 </div>
 
                                 <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel value="勤務開始時間" for="startWork" class="leading-7 text-sm " />
-                                        <TextInput 
-                                            type="time" 
-                                            name="startWork" 
-                                            id="startWork" 
-                                            required 
-                                            v-model="form.startWork" 
-                                        />
+                                    <div class="flex items-center">
+                                        <InputLabel value="勤務開始時間" class="leading-7 text-sm " />
+                                        <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
                                     </div>
+                                    <TextInput 
+                                        type="time" 
+                                        name="startWork" 
+                                        id="startWork" 
+                                        required 
+                                        v-model="form.startWork" 
+                                    />
                                 </div>
 
                                 <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel value="勤務終了時間" for="endWork" class="leading-7 text-sm " />
-                                        <TextInput 
-                                            type="time" 
-                                            name="endWork" 
-                                            id="endWork" 
-                                            v-model="form.endWork" 
-                                            required 
-                                        />
+                                    <div class="flex items-center">
+                                        <InputLabel value="勤務終了時間" class="leading-7 text-sm " />
+                                        <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
                                     </div>
+                                    <TextInput 
+                                        type="time" 
+                                        name="endWork" 
+                                        id="endWork" 
+                                        v-model="form.endWork" 
+                                        required 
+                                    />
                                 </div>
 
                                 <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel value="出勤日" for="workDays" class="leading-7 text-sm " />
-                                        <TextInput 
-                                            type="text" 
-                                            name="workDays" 
-                                            id="workDays" 
-                                            v-model="form.workDays" 
-                                            required 
-                                        />
+                                    <div class="flex items-center">
+                                        <InputLabel value="出勤日" class="leading-7 text-sm " />
+                                        <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
                                     </div>
+                                    <TextInput 
+                                        type="text" 
+                                        name="workDays" 
+                                        id="workDays" 
+                                        v-model="form.workDays" 
+                                        required 
+                                    />
                                 </div>
 
                                 <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel value="休日" for="freeDays" class="leading-7 text-sm " />
-                                        <TextInput 
-                                            type="text" 
-                                            name="freeDays" 
-                                            id="freeDays" 
-                                            v-model="form.freeDays" 
-                                            required 
-                                        />
+                                    <div class="flex items-center">
+                                        <InputLabel value="休日" class="leading-7 text-sm " />
+                                        <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
                                     </div>
+                                    <TextInput 
+                                        type="text" 
+                                        name="freeDays" 
+                                        id="freeDays" 
+                                        v-model="form.freeDays" 
+                                        required 
+                                    />
                                 </div>
 
                                 <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel value="最寄り駅" for="NearestStation" class="leading-7 text-sm " />
-                                        <TextInput 
-                                            type="text" 
-                                            name="NearestStation" 
-                                            id="NearestStation" 
-                                            v-model="form.NearestStation" 
-                                            required 
-                                        />
+                                    <div class="flex items-center">
+                                        <InputLabel value="最寄り駅"  class="leading-7 text-sm " />
+                                        <span class="text-[10px] text-white ml-2 p-0.5 rounded-md bg-red-400">必須項目</span>
                                     </div>
+                                    <TextInput 
+                                        type="text" 
+                                        name="NearestStation" 
+                                        id="NearestStation" 
+                                        v-model="form.NearestStation" 
+                                        required 
+                                    />
                                 </div>
 
                                 <div class="p-2 w-full">
-                                    <div class="relative">
-                                        <InputLabel value="その他" for="search_keyword" class="leading-7 text-sm " />
-                                        <textarea 
-                                            name="workOther" 
-                                            id="workOther" 
-                                            v-model="form.workOther" 
-                                            required 
-                                            class="w-full" 
-                                        />
-                                    </div>
+                                    <InputLabel value="その他" for="search_keyword" class="leading-7 text-sm " />
+                                    <textarea 
+                                        name="workOther" 
+                                        id="workOther" 
+                                        v-model="form.workOther" 
+                                        class="w-full" 
+                                    />
                                 </div>
 
-                                <div>
+                                <div class="p-2 w-full">
                                     <InputLabel value="こだわり条件" />
                                     <div class="py-4">
                                         <!-- 各職種カテゴリを繰り返し表示 -->
@@ -399,7 +438,6 @@ const submitFunction = () => {
                                             name="search_keywords" 
                                             id="search_keywords" 
                                             v-model="form.search_keywords" 
-                                            required 
                                             class="w-full" 
                                         />
                                     </div>
@@ -408,27 +446,36 @@ const submitFunction = () => {
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <InputLabel for="image1" class="leading-7 text-sm ">サムネ画像１</InputLabel>
-                                        <input type="file" name="image1" id="image1" @input="form.image1 = $event.target.files[0]" class="w-full rounded border border-gray-300 focus:border-indigo-500 bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input 
+                                            type="file" 
+                                            name="image1" 
+                                            id="image1" 
+                                            @input="form.image1 = $event.target.files[0]" 
+                                            class="w-full rounded border border-gray-300 focus:border-indigo-500 bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
+
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <InputLabel for="image2" class="leading-7 text-sm ">サムネ画像２</InputLabel>
                                         <input type="file" name="image2" id="image2" @input="form.image2 = $event.target.files[0]" class="w-full rounded border border-gray-300 focus:border-indigo-500 bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
+
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <InputLabel for="image3" class="leading-7 text-sm ">サムネ画像３</InputLabel>
                                         <input type="file" name="image3" id="image3" @input="form.image3 = $event.target.files[0]" class="w-full rounded border border-gray-300 focus:border-indigo-500 bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
+
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <InputLabel for="image4" class="leading-7 text-sm ">サムネ画像４</InputLabel>
                                         <input type="file" name="image4" id="image4" @input="form.image4 = $event.target.files[0]" class="w-full rounded border border-gray-300 focus:border-indigo-500 bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
+
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <InputLabel for="image5" class="leading-7 text-sm ">サムネ画像５</InputLabel>

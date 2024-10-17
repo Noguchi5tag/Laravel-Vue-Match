@@ -6,7 +6,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import InputLabel from '@/Components/InputLabel.vue';
 import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
-import FlashMessage from '../Components/FlashMessage.vue';
+import FlashMessage from '@/Components/FlashMessage.vue';
 import 'vue3-carousel/dist/carousel.css'
 
 const page = usePage();
