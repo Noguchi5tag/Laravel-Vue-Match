@@ -4,7 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import TextArea from '@/Components/TextArea.vue';
-import { Link, useForm, usePage, router } from '@inertiajs/vue3';
+import { Link, useForm, usePage, router, useRemember } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 defineProps({
@@ -34,6 +34,13 @@ const form = useForm({
     image_manager: '',
 });
 
+const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        form.image_manager = file;
+    }
+};
+
 const updateFunction = () => {
 
     if (!form.image_manager) {
@@ -57,17 +64,6 @@ const updateFunction = () => {
     });
 }
 
-// 画像プレビュー用の参照を追加
-const imagePreview = ref(user.image_manager || '');
-// 画像が選択されたときの処理
-const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        form.image_manager = file;
-        // プレビューを表示するためのURLを設定
-        imagePreview.value = URL.createObjectURL(file);
-    }
-};
 </script>
 
 <template>
@@ -77,25 +73,31 @@ const handleImageChange = (event) => {
         </header>
 
         <form @submit.prevent="updateFunction(form.id)" enctype="multipart/form-data" class="mt-6 space-y-6">
-            <div>
-                <InputLabel for="name" value="会社名" />
-
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="mt-2" :message="form.errors.name" />
+            <div class="flex items-center gap-4">
+                <div>
+                    <div class="mt-1 flex items-center">
+                        <img v-if="user.image_manager" :src="`/storage/storages/manager/${user.image_manager}`" class="w-16 h-16 rounded-full object-cover mr-2" />
+                    </div>
+                </div>
+                <div>
+                    <InputLabel for="name" value="会社名" />
+                    <TextInput
+                        id="name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.name"
+                        required
+                        autofocus
+                        autocomplete="name"
+                    />
+    
+                    <InputError class="mt-2" :message="form.errors.name" />
+                </div>
             </div>
-            <div>
-                <InputLabel for="image_manager" value="プロフィール画像" />
+
+            <div class="flex items-center gap-4">
+                <InputLabel for="image_manager" value="プロフィール画像を変更する" />
                 <div class="mt-1 flex items-center">
-                    <img v-if="imagePreview" :src="`/storage/storages/manager/${imagePreview}`" class="w-16 h-16 rounded-full object-cover mr-2" />
                     <input
                         id="image_manager"
                         type="file"

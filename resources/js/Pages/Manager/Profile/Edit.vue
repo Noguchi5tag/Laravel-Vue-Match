@@ -1,11 +1,12 @@
 <script setup>
+import { Head, usePage } from '@inertiajs/vue3';
+import { onMounted } from 'vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import LogoutUserForm from './Partials/LogoutUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import NavLink from '@/Components/NavLink.vue';
-import { Head, Link } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/ManagerAuthenticatedLayout.vue';
+import FlashMessage from '@/Components/FlashMessage.vue';
 
 defineProps({
     mustVerifyEmail: {
@@ -14,6 +15,16 @@ defineProps({
     status: {
         type: Boolean,
     },
+});
+
+const page = usePage();
+
+onMounted(() => {
+    if (page.props.flash && page.props.flash.message) {
+        console.log("Flash message:", page.props.flash.message);
+    } else {
+        console.log("No flash message found.");
+    }
 });
 </script>
 
@@ -24,6 +35,10 @@ defineProps({
         <template #header>
             <h2 class="font-semibold text-gray-800 leading-tight">プロフィール</h2>
         </template>
+
+        <FlashMessage v-if="$page.props.flash.message" >
+            {{ $page.props.flash.message }}
+        </FlashMessage>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
