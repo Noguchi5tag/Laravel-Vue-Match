@@ -7,6 +7,7 @@ import NavLink from '@/Components/NavLink.vue';
 const page = usePage();
 const applicants = page.props.applicants;
 const news = page.props.news;
+const user = page.props.auth.user;
 
 const isMenuOpen = ref(false);
 const closeMenu = () => {
@@ -106,11 +107,14 @@ function updateNoticed(applicantId) {
                 </div>
             </button>
             <NavLink href="/">JobMatch</NavLink>
-            <div @click="isBellOpen = !isBellOpen" class="relative w-5 h-5 mr-1">
+            <div v-if="user && user.privacy !== 0" @click="isBellOpen = !isBellOpen" class="relative w-5 h-5 mr-1">
                 <font-awesome-icon :icon="['far', 'bell']" class="w-full h-full" />
                 <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                     {{ likedCount }}
                 </span>
+            </div>
+            <div v-else class="relative w-5 h-5 mr-1">
+                <font-awesome-icon :icon="['far', 'bell']" class="w-full h-full" />
             </div>
         </div>
         <!-- ハンバーガー -->

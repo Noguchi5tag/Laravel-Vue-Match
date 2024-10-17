@@ -23,7 +23,7 @@ const form = useForm({
     postal: user.postal,
     prefectures: user.prefectures,
     city: user.city,
-    profile_image: user.profile_image,
+    profile_image: null,
 });
 
 // 日付を yyyy-MM-dd 形式に変換する関数
@@ -35,27 +35,40 @@ function formatDate(dateString) {
     return `${year}-${month}-${day}`;
 }
 
+const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        form.profile_image = file;
+    }
+};
+
 // 保存処理
 const profileUpdate = () => {
-    form.put(route('profile.update'));
+    form.post(route('profile.update', user.id), {
+        _method: 'put',
+        id: form.id,
+        name: form.name,
+        kana: form.kana,
+        email: form.email,
+        tel: form.tel,
+        sex: form.sex,
+        birth: form.birth,
+        postal: form.postal,
+        prefectures: form.prefectures,
+        city: form.city,
+        privacy: form.privacy,
+        profile_image: form.profile_image,
+
+        onError: (errors) => {
+            console.log(errors);
+        },
+    });
 };
 
 //inputのスタイル
 const inputClasses = computed(() => {
     return "mt-2 block w-full bg-gray-50 border-1 border-gray-200 text-sm rounded-md";
 });
-
-// 画像プレビュー用の参照を追加
-const imagePreview = ref(user.profile_image || '');
-// 画像が選択されたときの処理
-const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        form.profile_image = file;
-        // プレビューを表示するためのURLを設定
-        imagePreview.value = URL.createObjectURL(file);
-    }
-};
 </script>
 
 <template>
@@ -246,14 +259,17 @@ const handleImageChange = (event) => {
 
                 <div>
                     <InputLabel for="profile_image" value="プロフィール画像" />
+                    <p class="text-red-500 text-sm mt-1">5MB以下で登録すること</p>
                     <div class="mt-1 flex items-center">
-                        <img v-if="imagePreview" :src="`/storage/storages/user/profile/${imagePreview}`" class="w-16 h-16 rounded-full object-cover mr-2" />
                         <input
                             id="profile_image"
                             type="file"
                             accept="image/*"
                             @change="handleImageChange"
                         />
+                    </div>
+                    <div v-if="form.errors.profile_image" class="text-red-500 text-sm mt-1">
+                        {{ form.errors.profile_image }}
                     </div>
                     <p class="mt-1 text-xs opacity-50 leading-normal tracking-wider">後からでも登録可能</p>
                 </div>

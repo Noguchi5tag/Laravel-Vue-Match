@@ -228,7 +228,7 @@ const pay_type = [
                             class="w-1/4"
                             v-model="form.company_pay_type"
                         >
-                            <option value="" disabled selected>月を入力</option>
+                            <option value="" disabled selected>月給もしくは年収</option>
                             <option v-for="item in pay_type" :key="item" :value="item">
                                 {{ item }}
                             </option>

@@ -82,7 +82,7 @@ const publicLabel = computed(() => {
             例：2000年生まれであれば2024年現在は 20代 と表示。
         </div>
         <div class="flex items-center gap-4 py-4 border-b-2 border-baseColor">
-            <div class="w-14 h-14 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
+            <div v-if="user.profile_image" class="w-14 h-14 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
                 <img class="w-full h-full object-cover" :src="`/storage/storages/user/profile/${user.profile_image}`" alt="プロフィール画像">
             </div>
 

@@ -54,7 +54,7 @@ class ProfileController extends Controller
         // バリデーションされたデータを取得
         $validatedData = $request->validated();
 
-        // dd($validatedData);
+        $referer = $request->header('referer');
     
         // ファイルがアップロードされた場合の処理
         if ($request->hasFile('profile_image')) {
@@ -87,6 +87,10 @@ class ProfileController extends Controller
     
         // ユーザー情報を保存
         $user->save();
+
+        if (Str::contains($referer, '/personal/create')) {
+            return to_route('academic.create');
+        }
     
         return to_route('profile.edit')->with('message', '更新しました');
     }
