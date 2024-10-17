@@ -42,13 +42,14 @@ class ManagerProfileController extends Controller
                 'business' => ['required', 'string'],
                 'recruit_manager' => ['required', 'string', 'max:255'],
                 'other_manager' => ['nullable', 'string'],
-                'image_manager' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:5120'],
+                'image_manager' => ['nullable', 'image', 'max:5120'],
             ]);
             
             $user = $request->user('manager');
     
             if ($request->hasFile('image_manager')) {
                 $image = 'image_manager';
+                // 画像のオリジナル名を取得し、ストレージと公開ディレクトリに保存
                 $originalName = $request->file($image)->getClientOriginalName();
     
                 // 古い画像が存在する場合は削除
@@ -56,8 +57,6 @@ class ManagerProfileController extends Controller
                     Storage::delete('public/storages/manager/' . $originalName);
                 }
     
-                // 画像のオリジナル名を取得し、ストレージと公開ディレクトリに保存
-                $originalName = $request->file($image)->getClientOriginalName();
                 // 画像を保存し、パスを取得
                 $path = $request->file($image)->storeAs('public/storages/manager', $originalName);
                 $validatedData[$image] = basename($path); // データベースに保存するパスを設定

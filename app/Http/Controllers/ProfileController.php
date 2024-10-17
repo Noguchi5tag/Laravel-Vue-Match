@@ -51,45 +51,46 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        // dd($request->all());
+        // バリデーションされたデータを取得
+        $validatedData = $request->validated();
 
-        $user = $request->user();
-        $user->fill($request->validated());
-
-        $referer = $request->header('referer');
-
-        $image = 'profile_image';
-
-        if ($request->hasFile($image)) {
-            $originalName = $request->file($image)->getClientOriginalName();
-
-            // 古い画像が存在する場合は削除
-            if ($user->{$image}) {
-                Storage::delete('public/storages/user/profile/' . $originalName);
-            }
-
+        // dd($validatedData);
+    
+        // ファイルがアップロードされた場合の処理
+        if ($request->hasFile('profile_image')) {
+            $image = 'profile_image';
             // 画像のオリジナル名を取得し、ストレージと公開ディレクトリに保存
             $originalName = $request->file($image)->getClientOriginalName();
-            // 画像を保存し、パスを取得
+
+            $oldImage = $request->user()->profile_image;
+    
+            // 古い画像が存在する場合は削除
+            if ($oldImage && Storage::exists('public/storages/user/profile/' . $oldImage)) {
+                Storage::delete('public/storages/user/profile/' . $oldImage);
+            }
+    
+            // 新しい画像を保存し、保存パスを取得
             $path = $request->file($image)->storeAs('public/storages/user/profile/', $originalName);
-            $validatedData[$image] = basename($path); // データベースに保存するパスを設定
+            $validatedData['profile_image'] = basename($path); // データベースに保存するパスを設定
         } else {
-            // 既存の画像パスを保持
-            $validatedData[$image] = $user->{$image};
+            unset($validatedData['profile_image']);
         }
     
+        // ユーザー情報の更新
+        $user = $request->user();
+        $user->fill($validatedData);
+    
+        // メールアドレスが変更された場合は認証をリセット
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
     
+        // ユーザー情報を保存
         $user->save();
-
-        if (Str::contains($referer, '/personal/create')) {
-            return to_route('academic.create');
-        }
-
+    
         return to_route('profile.edit')->with('message', '更新しました');
     }
+    
 
     /**
      * Delete the user's account.

@@ -59,10 +59,6 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function skills()
-    {
-        return $this->hasMany(Skill::class, 'user_id');
-    }
     public function academic_bg()
     {
         return $this->hasOne(Academic_Bg::class, 'user_id');

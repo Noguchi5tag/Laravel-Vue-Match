@@ -30,4 +30,11 @@ class ProfileUpdateRequest extends FormRequest
             'profile_image' => ['nullable', 'image', 'max:5120'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'profile_image.max' => '画像のサイズは5MB以下でなければなりません。',
+        ];
+    }
 }

@@ -37,7 +37,7 @@ const publicLabel = computed(() => {
     <div v-if="form.user_id" class="my-20">
         <div class="flex items-center justify-between">
             <div class="text-base font-bold mb-2">こだわり条件</div>
-            <Link as:button :href="route('requirements.edit', form.id)" class="border-2 border-black rounded-full text-sm py-1 px-4">修正する</Link>
+            <Link as:button :href="route('requirements.edit', form.id)" class="border-2 border-black rounded-full text-sm py-1 px-4">更新する</Link>
         </div>
 
         <div class="mt-4">

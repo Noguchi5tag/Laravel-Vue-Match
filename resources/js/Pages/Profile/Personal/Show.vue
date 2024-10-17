@@ -18,6 +18,7 @@ const form = useForm({
     prefectures: user.prefectures,
     city: user.city,
     privacy: user.privacy,
+    profile_image: null,
 });
 
 // 日付を yyyy-MM-dd 形式に変換する関数
@@ -29,9 +30,34 @@ function formatDate(dateString) {
     return `${year}-${month}-${day}`;
 }
 
+const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        form.profile_image = file;
+    }
+};
+
 // 保存処理
 const profileUpdate = () => {
-    form.put(route('profile.update'));
+    form.post(route('profile.update', user.id), {
+        _method: 'put',
+        id: form.id,
+        name: form.name,
+        kana: form.kana,
+        email: form.email,
+        tel: form.tel,
+        sex: form.sex,
+        birth: form.birth,
+        postal: form.postal,
+        prefectures: form.prefectures,
+        city: form.city,
+        privacy: form.privacy,
+        profile_image: form.profile_image,
+
+        onError: (errors) => {
+            console.log(errors);
+        },
+    });
 };
 
 //inputのスタイル
@@ -45,20 +71,21 @@ const publicLabel = computed(() => {
 </script>
 
 <template>
-    <div>
+    <form @submit.prevent="profileUpdate" enctype="multipart/form-data">
         <div class="flex items-center justify-between">
             <div class="text-base font-bold mb-2">個人情報</div>
-            <button @click="profileUpdate" class="border-2 border-black rounded-full text-sm py-1 px-4">修正する</button>
+            <button class="border-2 border-black rounded-full text-sm py-1 px-4">更新する</button>
         </div>
         <div class="text-xs leading-normal tracking-wider border-b-2 border-baseColor py-4">
             <span :class="publicLabel">公開</span>の表示は企業側が求職者検索をした際に公開する項目です。<br>
             生年月日は年齢表記となります。<br>
             例：2000年生まれであれば2024年現在は 20代 と表示。
         </div>
-        <div class="flex items-center gap-4 py-4 border-b-2 border-baseColor pb-4">
+        <div class="flex items-center gap-4 py-4 border-b-2 border-baseColor">
             <div class="w-14 h-14 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
-                <img class="w-full h-full object-cover" :src="`/storage/storages/testAAAA.jpg`" alt="プロフィール画像">
+                <img class="w-full h-full object-cover" :src="`/storage/storages/user/profile/${user.profile_image}`" alt="プロフィール画像">
             </div>
+
             <div class="flex flex-col justify-center w-full">
                 <div>
                     <InputLabel value="氏名" />
@@ -72,6 +99,20 @@ const publicLabel = computed(() => {
                         autocomplete="username"
                     />
                 </div>
+            </div>
+        </div>
+        <div class="py-4 border-b-2 border-baseColor">
+            <InputLabel value="プロフィール画像の変更" />
+            <div class="mt-1 flex items-center">
+                <input
+                    id="image_manager"
+                    type="file"
+                    accept="image/*"
+                    @change="handleImageChange"
+                />
+            </div>
+            <div v-if="form.errors.profile_image" class="text-red-500 text-sm mt-1">
+                {{ form.errors.profile_image }}
             </div>
         </div>
     
@@ -195,5 +236,5 @@ const publicLabel = computed(() => {
                 autocomplete="address-level2"
             />
         </div>
-    </div>
+    </form>
 </template>

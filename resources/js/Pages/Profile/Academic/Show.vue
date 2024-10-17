@@ -29,7 +29,7 @@ const publicLabel = computed(() => {
     <div v-if="form.academic_id" class="mt-20">
         <div class="flex items-center justify-between">
             <div class="text-base font-bold mb-2">学歴</div>
-            <Link as:button :href="route('academic.edit', form.academic_id)" class="border-2 border-black rounded-full text-sm py-1 px-4">修正する</Link>
+            <Link as:button :href="route('academic.edit', form.academic_id)" class="border-2 border-black rounded-full text-sm py-1 px-4">更新する</Link>
         </div>
 
         <div class="my-2 border-b-2 border-baseColor pb-4">
