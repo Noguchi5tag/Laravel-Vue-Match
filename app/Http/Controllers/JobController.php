@@ -149,6 +149,10 @@ class JobController extends Controller
                     }
                 });
             })
+            // こだわり条件がない場合は全ての求人を更新日時順で表示
+            ->when(empty($allRequirements), function ($query) {
+                $query->orderBy('updated_at', 'desc');
+            })
             ->withCount('bookmarkedByUsers')
             ->orderBy('updated_at', 'desc')
             ->paginate(3);
