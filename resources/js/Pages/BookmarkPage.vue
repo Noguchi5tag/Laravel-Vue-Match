@@ -127,7 +127,7 @@ const relocationStatus = computed(() => {
                                 </div>
                             </slide>
                             <template #addons>
-                            <pagination />
+                                <pagination />
                             </template>
                         </carousel>
 
@@ -182,7 +182,7 @@ const relocationStatus = computed(() => {
                                     <p class="text-xs leading-loose">{{ job.job_join }}</p>
                                 </div>
                                 
-                                <div>
+                                <div v-if="job.travelExpenses">
                                     <InputLabel value="交通費 / 月" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.travelExpenses }}円</p>
                                 </div>
@@ -207,17 +207,17 @@ const relocationStatus = computed(() => {
                                     <p class="text-xs leading-loose">{{ job.NearestStation }}</p>
                                 </div>
                                 
-                                <div>
+                                <div v-if="job.particular_type">
                                     <InputLabel value="こだわり条件" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.particular_type }}</p>
                                 </div>
                                 
-                                <div>
+                                <div v-if="job.Welfare">
                                     <InputLabel value="その他福利厚生" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.Welfare }}</p>
                                 </div>
                                 
-                                <div>
+                                <div v-if="job.workOther">
                                     <InputLabel value="その他" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.workOther }}</p>
                                 </div>
@@ -227,16 +227,11 @@ const relocationStatus = computed(() => {
                                     <CompanyInfo :managers="managers" />
                                 </template>
                                 
-                                <div class="flex justify-around mt-4">
+                                <div class="flex justify-center mt-4">
                                     <div class="bg-sky-400 py-2 px-10 rounded-full shadow-lg border-1 border-white">
                                         <Link :href="`/job-contact?job_id=${job.id}&companyName=${job.companyName}`" class="text-white flex justify-center items-center">
                                             <span class="text-sm font-bold text-white">企業にいいね</span><font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" /><span class="text-sm font-bold text-white">を送る</span>
                                         </Link>
-                                    </div>
-                                    <div class="pt-2 px-2 pb-1 flex items-center">
-                                        <button @click="bookmarkJob(job.id)">
-                                            <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
-                                        </button>
                                     </div>
                                 </div>
                             </div>

@@ -168,7 +168,7 @@ const relocationStatus = computed(() => {
                                     <p class="text-xs leading-loose">{{ job.job_join }}</p>
                                 </div>
                                 
-                                <div>
+                                <div v-if="job.travelExpenses">
                                     <InputLabel value="交通費 / 月" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.travelExpenses }}円</p>
                                 </div>
@@ -193,17 +193,17 @@ const relocationStatus = computed(() => {
                                     <p class="text-xs leading-loose">{{ job.NearestStation }}</p>
                                 </div>
                                 
-                                <div>
+                                <div v-if="job.particular_type">
                                     <InputLabel value="こだわり条件" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.particular_type }}</p>
                                 </div>
                                 
-                                <div>
+                                <div v-if="job.Welfare">
                                     <InputLabel value="その他福利厚生" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.Welfare }}</p>
                                 </div>
                                 
-                                <div>
+                                <div v-if="job.workOther">
                                     <InputLabel value="その他" class="leading-7 text-sm " />
                                     <p class="text-xs leading-loose">{{ job.workOther }}</p>
                                 </div>
