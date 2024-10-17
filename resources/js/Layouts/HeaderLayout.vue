@@ -139,29 +139,24 @@ function updateNoticed(applicantId) {
                         @click="item.job ? matchView(item) : newsView(item)" 
                         :class="['p-2 cursor-pointer border-b-2 border-baseColor', { 'bg-yellow-50': !item.isRead }]"
                     >
-                    <!-- 応募者の場合 -->
-                    <div v-if="item.job && item.liked !== 0 && item.noticed !== 1" class="flex gap-4 items-center">
-                        <img class="w-16 h-16 object-cover rounded-lg border-2 border-baseColor" :src="`/storage/storages/jobs/${ item?.job.image1 }`" alt="求人画像">
-                        <div>
-                        <span class="text-xs">{{ formatDate(item.updated_at) }}</span>
-                        <p class="text-sm font-bold">{{ item.company_name }}とマッチングしました！</p>
-                        <span class="text-xs">求人タイトル：{{ item.job.WantedTitles }}</span>
+                        <!-- 応募者の場合 -->
+                        <div v-if="item.job && item.liked !== 0 && item.noticed !== 1" class="flex gap-4 items-center">
+                            <img class="w-16 h-16 object-cover rounded-lg border-2 border-baseColor" :src="`/storage/storages/jobs/${ item?.job.image1 }`" alt="求人画像">
+                            <div>
+                            <span class="text-xs">{{ formatDate(item.updated_at) }}</span>
+                            <p class="text-sm font-bold">{{ item.company_name }}とマッチングしました！</p>
+                            <span class="text-xs">求人タイトル：{{ item.job.WantedTitles }}</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- ニュースの場合 -->
-                    <div v-else-if="!item.job" class="flex gap-4 items-center">
-                        <div>
-                        <span class="text-xs">{{ formatDate(item.updated_at) }}</span>
-                        <p class="text-sm font-bold">{{ item.title }}</p>
-                        <span class="text-xs">{{ item.content.length > 50 ? item.content.slice(0, 50) + '...' : item.content }}</span>
+                        <!-- ニュースの場合 -->
+                        <div v-else-if="!item.job" class="flex gap-4 items-center">
+                            <div>
+                            <span class="text-xs">{{ formatDate(item.updated_at) }}</span>
+                            <p class="text-sm font-bold">{{ item.title }}</p>
+                            <span class="text-xs">{{ item.content.length > 50 ? item.content.slice(0, 50) + '...' : item.content }}</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- 新着情報がない場合の処理 -->
-                    <div v-else>
-                        <div class="text-sm text-center">新着情報はありません</div>
-                    </div>
                     </li>
                 </ul>
             </div>
