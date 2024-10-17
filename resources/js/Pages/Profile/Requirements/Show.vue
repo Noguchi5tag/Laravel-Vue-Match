@@ -4,9 +4,7 @@ import { useForm, usePage, Link } from '@inertiajs/vue3';
 import { ref, computed, onMounted  } from 'vue';
 
 const props = defineProps({
-    job_requirements: {
-        type : Array,
-    },
+    job_requirements: Array
 });
 
 const form = useForm({
@@ -27,10 +25,6 @@ const form = useForm({
 const relocationStatus = computed(() => {
     return form.relocation ? '可' : '不可';
 });
-
-const publicLabel = computed(() => {
-    return "text-red-500 font-bold bg-red-200 py-0.5 px-2 rounded-lg text-xs";
-})
 </script>
 
 <template>
@@ -43,12 +37,13 @@ const publicLabel = computed(() => {
         <div class="mt-4">
             <div class="mt-4 border-b-2 border-baseColor pb-4">
                 <InputLabel value="希望職種" />
-                <div class="text-xs">{{ form.job_category }}</div>
+                <div class="text-xs">{{ form.job_category ? form.job_category : '未設定' }}</div>
             </div>
 
             <div class="my-4 border-b-2 border-baseColor pb-4">
                 <InputLabel value="希望勤務地" />
-                <div class="text-xs">{{ form.prefecture }}{{ form.dutyStation }}</div>
+                <div v-if="form.prefecture || form.dutyStation" class="text-xs">{{ form.prefecture }}{{ form.dutyStation }}</div>
+                <div v-else class="text-xs">未設定</div>
             </div>
 
             <div class="my-4 border-b-2 border-baseColor pb-4">
@@ -61,19 +56,20 @@ const publicLabel = computed(() => {
             </div>
             <div class="my-4 border-b-2 border-baseColor pb-4">
                 <InputLabel value="希望入社時期" />
-                <div class="text-xs">{{ form.job_join }}</div>
+                <div class="text-xs">{{ form.job_join ? form.job_join : '未設定' }}</div>
             </div>
             <div class="my-4 border-b-2 border-baseColor pb-4">
                 <InputLabel value="希望雇用形態" />
-                <div class="text-xs">{{ form.employment_type }}</div>
+                <div class="text-xs">{{ form.employment_type ? form.employment_type : '未設定' }}</div>
             </div>
             <div class="my-4 border-b-2 border-baseColor pb-4">
                 <InputLabel value="希望年収または月収" />
-                <div class="text-xs">{{ form.salary_type }}：{{ form.salary_amount }}円</div>
+                <div v-if="form.salary_type && form.salary_amount" class="text-xs">{{ form.salary_type }}：{{ form.salary_amount }}円</div>
+                <div class="text-xs">未設定</div>
             </div>
             <div class="my-4">
                 <InputLabel value="こだわり条件" />
-                <div class="text-xs">{{ form.particular_type }}</div>
+                <div class="text-xs">{{ form.particular_type ? form.particular_type : '未設定' }}</div>
             </div>
         </div>
     </div>
