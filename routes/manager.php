@@ -20,11 +20,11 @@ use Inertia\Inertia;
 Route::middleware('guest:manager')->group(function () {
     
     Route::get('register', [RegisteredUserController::class, 'create'])
-                ->middleware('guest:manager');
-
-    Route::post('register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest:manager')
                 ->name('register');
+
+    Route::post('register', [RegisteredUserController::class, 'store'])
+                ->middleware('guest:manager');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest:manager')
