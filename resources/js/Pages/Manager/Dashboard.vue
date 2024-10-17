@@ -27,10 +27,6 @@ const form = useForm({
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ form.name }}</h2>
         </template>
 
-        <!-- フラッシュメッセージ -->
-        <div v-if="$page.props.flash.message" class="bg-blue-300">
-            {{ $page.props.flash.message }}
-        </div>
         <FlashMessage v-if="$page.props.flash.message" >
             {{ $page.props.flash.message }}
         </FlashMessage>

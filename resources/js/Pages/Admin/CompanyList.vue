@@ -53,12 +53,12 @@ const imageCount = (job) => {
     <Head title="求人一覧" />
     <AdminAuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">求人一覧
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 <template v-if="totalJobs > 0">
-                    {{ totalJobs }}社
+                    {{ totalJobs }}つの求人
                 </template>
                 <template v-else>
-                    データがありません
+                    求人がありません
                 </template>
             </h2>
         </template>
@@ -147,17 +147,19 @@ const imageCount = (job) => {
                                     </h1>
                                 </div>
     
-                                <carousel :items-to-show="1.5">
-                                    <slide v-for="slide in imageCount(job)" :key="slide">
-                                        <div v-if="job[`image${slide}`]" class="carousel__item">
-                                            <img :src="`/storage/storages/jobs/${job[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
-                                        </div>
-                                    </slide>
-                                    <template #addons>
-                                    <navigation />
-                                    <pagination />
-                                    </template>
-                                </carousel>
+                                <div class="w-1/2 mx-auto">
+                                    <carousel :items-to-show="1">
+                                        <slide v-for="slide in imageCount(job)" :key="slide">
+                                            <div v-if="job[`image${slide}`]" class="carousel__item">
+                                                <img :src="`/storage/storages/jobs/${job[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
+                                            </div>
+                                        </slide>
+                                        <template #addons>
+                                        <navigation />
+                                        <pagination />
+                                        </template>
+                                    </carousel>
+                                </div>
     
                                 <div class="p-2 w-full">
                                     <div class="relative">

@@ -1,12 +1,13 @@
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
-import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { ref, onMounted } from 'vue'
 import { Inertia } from '@inertiajs/inertia';
+import 'vue3-carousel/dist/carousel.css'
+import AuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
+import FlashMessage from '@/Components/FlashMessage.vue';
 
 const props = defineProps({
     inertiaJobs: Object,
@@ -44,12 +45,12 @@ const totalNewJobs = pageProps.totalNewJobs || 0;
     <Head title="新着求人" />
     <AuthenticatedLayout>
         <template #header>
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">新着求人：{{ totalNewJobs }}件</h2>
-    </template>
-    <!-- フラッシュメッセージ -->
-    <div v-if="$page.props.flash.message" class="bg-blue-300">
-        {{ $page.props.flash.message }}
-    </div>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">新着求人：{{ totalNewJobs }}件</h2>
+        </template>
+
+        <FlashMessage v-if="$page.props.flash.message" >
+            {{ $page.props.flash.message }}
+        </FlashMessage>
 
         <section class=" body-font relative max-w-screen-md mx-auto">
             <div class="container px-4 py-10 mx-auto">

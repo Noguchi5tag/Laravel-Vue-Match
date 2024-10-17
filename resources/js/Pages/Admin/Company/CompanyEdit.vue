@@ -267,7 +267,7 @@ const updateFunction = () => {
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                         <InputLabel value="仕事内容" for="workDescription" class="leading-7 text-sm " />
-                                        <input type="text" name="workDescription" id="workDescription" v-model="form.workDescription" class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <input type="text" name="workDescription" id="workDescription" v-model="form.workDescription" class="w-full rounded border border-gray-300 text-base py-1 px-3 leading-8">
                                     </div>
                                 </div>
 
@@ -291,7 +291,6 @@ const updateFunction = () => {
                                             name="travelExpenses" 
                                             id="travelExpenses" 
                                             v-model="form.travelExpenses" 
-                                            required 
                                         />円
                                     </div>
                                 </div>
@@ -368,7 +367,6 @@ const updateFunction = () => {
                                             name="workOther" 
                                             id="workOther" 
                                             v-model="form.workOther" 
-                                            required 
                                             class="w-full" 
                                         />
                                     </div>
@@ -416,7 +414,6 @@ const updateFunction = () => {
                                             name="search_keywords" 
                                             id="search_keywords" 
                                             v-model="form.search_keywords" 
-                                            required 
                                             class="w-full" 
                                         />
                                     </div>
@@ -467,7 +464,7 @@ const updateFunction = () => {
                                             :name="`image${index}`" 
                                             :id="`image${index}`" 
                                             @input="form[`image${index}`] = $event.target.files[0]" 
-                                            class="w-full rounded border border-gray-300 focus:border-indigo-500 bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            class="w-full rounded border border-gray-300 text-base py-1 px-3 leading-8">
                                     </div>
                                 </div>
                                 
@@ -475,7 +472,7 @@ const updateFunction = () => {
                                     <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
                                 </div>
                                 <div class="p-2 w-full">
-                                    <Link as="button" href="/admin/companylist" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">戻る</Link>
+                                    <Link as="button" href="/admin/companylist" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 rounded text-lg">戻る</Link>
                                 </div>
                             </div>
                         </div>

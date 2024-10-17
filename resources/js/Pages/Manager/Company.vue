@@ -33,25 +33,29 @@ const relocationStatus = computed(() => {
     <AuthenticatedLayout>
 
         <div v-if="props.inertiaJob" class=" max-w-screen-md mx-auto">
-            <!-- {{ props.inertiaJob.id }} -->
             <section class=" body-font relative">
+
                 <div class="container px-4 py-24 mx-auto">
                     <div class="flex flex-col text-center w-full mb-12">
                         <h1 class="text-3xl font-medium title-font mb-4 text-gray-900">
                             {{ props.inertiaJob.companyName }}
                         </h1>
                     </div>
-                    <carousel :items-to-show="1.5">
-                        <slide v-for="slide in imageCount(props.inertiaJob)" :key="slide">
-                            <div v-if="props.inertiaJob[`image${slide}`]" class="carousel__item">
-                                <img :src="`/storage/storages/jobs/${props.inertiaJob[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
-                            </div>
-                        </slide>
-                        <template #addons>
-                            <navigation />
-                            <pagination />
-                        </template>
-                    </carousel>
+
+                    <div class="w-1/2 mx-auto">
+                        <carousel :items-to-show="1">
+                            <slide v-for="slide in imageCount(props.inertiaJob)" :key="slide">
+                                <div v-if="props.inertiaJob[`image${slide}`]" class="carousel__item">
+                                    <img :src="`/storage/storages/jobs/${props.inertiaJob[`image${slide}`]}`" alt="" class="w-full h-full object-cover">
+                                </div>
+                            </slide>
+                            <template #addons>
+                                <navigation />
+                                <pagination />
+                            </template>
+                        </carousel>
+                    </div>
+
                     <div class="mx-auto">
                         <div class="flex flex-wrap -m-2">
                             <div class="p-1 w-full">
@@ -62,6 +66,7 @@ const relocationStatus = computed(() => {
                                     </div>
                                 </div>
                             </div>
+
                             <div class="p-1 w-full">
                                 <div class="relative">
                                     <InputLabel value="職種" class="leading-7 text-sm " />
