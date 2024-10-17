@@ -237,7 +237,7 @@ const submitFunction = () => {
                                         v-model="form.relocation"
                                         class="rounded bg-white border-gray-200"
                                     >
-                                    <p class="text-xs leading-normal tracking-wider">転勤有でも可</p>
+                                    <p class="text-xs leading-normal tracking-wider">転勤の有無</p>
                                 </div>
 
                                 <div class="p-2 w-full">
