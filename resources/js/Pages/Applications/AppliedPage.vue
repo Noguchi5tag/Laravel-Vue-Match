@@ -97,7 +97,7 @@ function likeApplicant(applicantId) {
                             </td>
 
                             <!-- 年齢 -->
-                            <td class="border border-gray-300 px-4 py-2">満{{ calculateAge(applicant.user.birth) }}歳</td>
+                            <td class="border border-gray-300 px-4 py-2">{{ calculateAge(applicant.user.birth) }}歳</td>
 
                             <!-- 学歴（学校名） -->
                             <td class="border border-gray-300 px-4 py-2">{{ applicant.user.academic_bg.school_name }}</td>
