@@ -33,6 +33,11 @@ const toggleDetails = (job) => {
     job.showDetails = !job.showDetails;
 };
 
+const bookmarkFunction = ref(false);
+const bookmarkButton = () => {
+    bookmarkFunction.value = true;
+}
+
 const deleteBookmarkJob = (jobId) => {
     Inertia.delete(`/bookmark/${jobId}`, {});
 };
@@ -97,7 +102,7 @@ const relocationStatus = computed(() => {
                                     >
                                     <!-- 右上にブックマークボタンを配置 -->
                                     <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center shadow-lg">
-                                        <button @click="deleteBookmarkJob(job.id)">
+                                        <button @click="bookmarkButton">
                                             <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5" />
                                         </button>
                                     </div>
@@ -259,6 +264,14 @@ const relocationStatus = computed(() => {
                                 </template>
                             </div>
                             <button @click="closeLikeButton" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
+                        </div>
+                        <!-- ブックマークしたとき -->
+                        <div v-if="bookmarkFunction" class="fixed inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center z-40">
+                            <div class="bg-white rounded-lg w-2/3 py-6 px-2 flex flex-col items-center">
+                                <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5" />
+                                <p class="text-xs mt-4 font-bold">ブックマークを解除しました</p>
+                            </div>
+                            <button @click="deleteBookmarkJob(job.id)" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
                         </div>
                     </div>
                 </template>
