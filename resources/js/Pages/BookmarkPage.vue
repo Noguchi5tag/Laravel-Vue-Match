@@ -87,10 +87,6 @@ const relocationStatus = computed(() => {
         <section class="relative">
             <SiteTitle>ブックマークした求人</SiteTitle>
 
-            <FlashMessage v-if="$page.props.flash.message" >
-                {{ $page.props.flash.message }}
-            </FlashMessage>
-
             <div v-if="bookmarkedJobs.length === 0">
                 <p class="text-center my-10">ブックマークされた求人はありません。</p>
             </div>

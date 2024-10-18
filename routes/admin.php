@@ -53,10 +53,6 @@ Route::middleware('guest:admin')->group(function () {
 
 Route::middleware('auth:admin')->group(function () {
 
-    Route::get('/', function () {
-        return Inertia::render('TopPage');
-    })->name('top');
-
     Route::get('/dashboard', function () {
         return Inertia::render('Admin/Dashboard');
     })->name('dashboard');

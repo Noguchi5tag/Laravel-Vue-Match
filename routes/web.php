@@ -4,9 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Middleware\CheckAgreement;
+use App\Http\Middleware\RedirectConfirmation;
 use App\Http\Controllers\JobController;
-use App\Http\Controllers\NewsController;
-use App\Http\Controllers\SkillController;
 use App\Http\Controllers\AcademicBgController;
 use App\Http\Controllers\JobBgController;
 use App\Http\Controllers\BookmarkController;
@@ -19,17 +19,14 @@ Route::get('/test', function () {
 })->name('top');
 
 
-
-
 //ダッシュボード
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+})->middleware(['auth', 'verified', RedirectConfirmation::class])->name('dashboard');
 
 // ハンバーガーメニュー //
 
-//このサイトについて
+//サイトについて
 Route::get('/site-details', function () {
     return Inertia::render('JobMatch');
 })->name('site-details');
@@ -81,7 +78,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // 登録処理ここまで //
     
     //プロフィール
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
@@ -90,36 +86,37 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //職務履歴
     Route::resource('jobbg', JobBgController::class);
 
-    //検索ページ
-    Route::get('/search', [JobController::class,'index'])->name('search');
-    Route::get('/jobs-choose', function () {
-        return Inertia::render('Search/Jobs');
-    })->name('jobs.choose');
-    Route::get('/area-choose', function () {
-        return Inertia::render('Search/Area');
-    })->name('area.choose');
+    //個人情報の取扱いの同意を促す
+    Route::get('/agreement-notice', function () {
+        Inertia::render('AgreePrivacy');
+    })->name('agreement.notice');
+    
+    
+    
+    //privacy承認済みのみ閲覧可能
+    Route::middleware([CheckAgreement::class])->group(function () {
+        //ホーム
+        Route::get('/', [JobController::class,'index'])->name('company.index');
+        //検索
+        Route::get('/search', [JobController::class,'index'])->name('search');
 
-    //ホーム
-    Route::get('/', [JobController::class,'index'])->name('company.index');
-    //求人詳細
-    Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show');
-
-    //求人応募の登録処理
-    Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('job.apply');
-    //求人登録したリスト
-    Route::get('/applied-list', [ApplicationController::class,'show'])->name('apply.list');
-    //マッチした求人の通知削除
-    Route::post('/applicants/{id}/noticed', [ApplicationController::class,'noticedUpdate']);
-
-    //ブックマークページ
-    Route::get('/bookmarked', [BookmarkController::class, 'show'])->name('bookmarked.jobs');
-    //bookmarks登録
-    Route::post('/bookmark/{id}', [BookmarkController::class, 'store'])->name('bookmark.store');
-    //bookmarks削除
-    Route::delete('/bookmark/{jobId}', [BookmarkController::class, 'destroy'])->name('bookmark.destroy');
-
-    //News
-    Route::get('/news', [NewsController::class,'index'])->name('news.index');
+        //求人詳細
+        Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show');
+    
+        //いいね！の登録処理
+        Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('job.apply');
+        //いいね！リスト
+        Route::get('/applied-list', [ApplicationController::class,'show'])->name('apply.list');
+        //マッチした求人情報を通知から削除
+        Route::post('/applicants/{id}/noticed', [ApplicationController::class,'noticedUpdate']);
+        
+        //ブックマークページ
+        Route::get('/bookmarked', [BookmarkController::class, 'show'])->name('bookmarked.jobs');
+        //bookmarks登録
+        Route::post('/bookmark/{id}', [BookmarkController::class, 'store'])->name('bookmark.store');
+        //bookmarks削除
+        Route::delete('/bookmark/{jobId}', [BookmarkController::class, 'destroy'])->name('bookmark.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -53,10 +53,6 @@ Route::middleware('guest:manager')->group(function () {
 
 Route::middleware('auth:manager')->group(function () {
 
-    Route::get('/', function () {
-        return Inertia::render('TopPage');
-    })->middleware(['auth:manager', 'verified'])->name('top');
-
     Route::get('/dashboard', function () {
         return Inertia::render('Manager/Dashboard');
     })->middleware(['auth:manager', 'verified'])->name('dashboard');
