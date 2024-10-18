@@ -15,6 +15,7 @@ use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Inertia\Inertia;
+use App\Models\Manager;
 
 Route::middleware('guest:admin')->group(function () {
     
@@ -54,7 +55,10 @@ Route::middleware('guest:admin')->group(function () {
 Route::middleware('auth:admin')->group(function () {
 
     Route::get('/dashboard', function () {
-        return Inertia::render('Admin/Dashboard');
+        $managers = Manager::all();
+        return Inertia::render('Admin/Dashboard', [
+            'managers' => $managers,
+        ]);
     })->name('dashboard');
 
     Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
@@ -64,8 +68,6 @@ Route::middleware('auth:admin')->group(function () {
     //Company
     Route::get('/companylist', [JobController::class,'index'])->name('companylist.index');
     Route::get('/new/companylist', [JobController::class,'index'])->name('new.companylist.index');
-    Route::get('/company/create', [JobController::class,'create'])->name('company.create');
-    Route::post('/company/job', [JobController::class,'store'])->name('company.store'); //登録
     Route::get('/jobs/{inertiaJob}/edit', [JobController::class,'edit'])->name('company.edit');
     Route::get('/jobs/{inertiaJob}', [JobController::class,'show'])->name('company.show');
     Route::put('/company/update/{inertiaJob}', [JobController::class, 'update'])->name('company.update');

@@ -1,7 +1,8 @@
 <script setup>
+import { Inertia } from '@inertiajs/inertia';
 import AdminAuthenticatedLayout from '@/Layouts/AdminAuthenticatedLayout.vue';
 import DangerButton from '@/Components/DangerButton.vue';
-import { Inertia } from '@inertiajs/inertia';
+import FlashMessage from '@/Components/FlashMessage.vue';
 
 const props = defineProps({
     news: Array
@@ -21,9 +22,9 @@ const deleteNews = (id) => {
     </template>
 
     <!-- フラッシュメッセージ -->
-    <div v-if="$page.props.flash.message" class="bg-blue-300">
+    <FlashMessage v-if="$page.props.flash.message" >
         {{ $page.props.flash.message }}
-    </div>
+    </FlashMessage>
     
     <div class="max-w-xl mx-auto">
         <div class="py-10">
@@ -31,7 +32,7 @@ const deleteNews = (id) => {
                 <div v-for="item in news" :key="item.id" class="mb-4 p-4 border rounded">
                     <div class="flex justify-between">
                         <h2 class="text-xl font-semibold">{{ item.title }}</h2>
-                        <DangerButton v-if="index !== 1" @click="deleteNews(item.id)">削 除</DangerButton>
+                        <DangerButton @click="deleteNews(item.id)">削 除</DangerButton>
                     </div>
                     <p>{{ item.content }}</p>
                 </div>

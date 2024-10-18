@@ -37,11 +37,6 @@ const totalNewJobs = props.totalNewJobs || 0;
                                 </NavLink>
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('admin.company.create')" :active="route().current('admin.company.create')">
-                                    求人登録
-                                </NavLink>
-                            </div>
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('admin.companylist.index')" :active="route().current('admin.companylist.index')">
                                     求人一覧
                                 </NavLink>
@@ -147,11 +142,6 @@ const totalNewJobs = props.totalNewJobs || 0;
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
                             ホーム
-                        </ResponsiveNavLink>
-                    </div>
-                    <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('admin.company.create')" :active="route().current('admin.company.create')">
-                            求人登録
                         </ResponsiveNavLink>
                     </div>
                     <div class="pt-2 pb-3 space-y-1">
