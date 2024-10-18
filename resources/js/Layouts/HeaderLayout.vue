@@ -141,10 +141,10 @@ function updateNoticed(applicantId) {
                         v-for="(item, index) in combinedData" 
                         :key="item.id" 
                         @click="item.job ? matchView(item) : newsView(item)" 
-                        :class="['p-2 cursor-pointer border-b-2 border-baseColor', { 'bg-yellow-50': !item.isRead }]"
+                        
                     >
                         <!-- 応募者の場合 -->
-                        <div v-if="item.job" class="flex gap-4 items-center">
+                        <div v-if="item.job && item.liked !== 0" :class="['flex gap-4 items-center p-2 cursor-pointer border-b-2 border-baseColor', { 'bg-yellow-50': !item.isRead }]">
                             <img class="w-16 h-16 object-cover rounded-lg border-2 border-baseColor" :src="`/storage/storages/jobs/${ item?.job.image1 }`" alt="求人画像">
                             <div>
                             <span class="text-xs">{{ formatDate(item.updated_at) }}</span>
@@ -154,7 +154,7 @@ function updateNoticed(applicantId) {
                         </div>
 
                         <!-- ニュースの場合 -->
-                        <div v-else-if="!item.job" class="flex gap-4 items-center">
+                        <div v-else-if="!item.job" :class="['flex gap-4 items-center p-2 cursor-pointer border-b-2 border-baseColor', { 'bg-yellow-50': !item.isRead }]">
                             <div>
                             <span class="text-xs">{{ formatDate(item.updated_at) }}</span>
                             <p class="text-sm font-bold">{{ item.title }}</p>
