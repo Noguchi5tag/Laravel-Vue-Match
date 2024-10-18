@@ -108,7 +108,7 @@ function updateNoticed(applicantId) {
             </button>
             <NavLink href="/">JobMatch</NavLink>
             <div v-if="user && user.privacy !== 0" @click="isBellOpen = !isBellOpen" class="relative w-5 h-5 mr-1">
-                <font-awesome-icon :icon="['far', 'bell']" class="w-full h-full" />
+                <font-awesome-icon :icon="['far', 'bell']" class="w-full h-full cursor-pointer" />
                 <span class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                     {{ likedCount }}
                 </span>

@@ -103,11 +103,8 @@ const relocationStatus = computed(() => {
                                     </template>
                                 </div>
                                 
-                                <div id="job-contact" class="absolute bottom-4 right-4 bg-sky-400 p-2 rounded-full shadow-lg border-1 border-white">
-                                    <div class="flex flex-col justify-center items-center text-white">
-                                        <font-awesome-icon :icon="['fas', 'thumbs-up']" class="px-2 py-1" />
-                                        <span class="text-[6px] text-white">いいね済</span>
-                                    </div>
+                                <div id="job-contact" class="absolute top-0 left-0 bg-sky-400 border-white w-[50px] aspect-[1] bg-gradient-to-br [clip-path:polygon(0_0,100%_0,0_100%)]">
+                                    <font-awesome-icon :icon="['fas', 'thumbs-up']" class="absolute top-2 left-2 text-white" />
                                 </div>
                             </div>
                         </slide>
