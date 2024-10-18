@@ -73,13 +73,13 @@ const relocationStatus = computed(() => {
             <div v-if="applications.length === 0">
                 <p class="text-center my-10">応募した求人はまだありません</p>
             </div>
-            <div v-else class="my-2">
+            <div v-else class="mb-2">
                 <template v-for="application in applications" :key="application.id">
                     <carousel :items-to-show="1">
                         <slide v-for="slide in imageCount(application.job)" :key="slide">
                             <div 
                                 v-if="application.job[`image${slide}`]" 
-                                class="w-full aspect-w-1 aspect-h-1 relative overflow-hidden"
+                                class="w-full aspect-square"
                             >
                                 <img 
                                     :src="`/storage/storages/jobs/${application.job[`image${slide}`]}`" 

@@ -33,15 +33,8 @@ const toggleDetails = (job) => {
     job.showDetails = !job.showDetails;
 };
 
-//ブックマーク解除のウェインドゥ
-const bookmarkBtn = ref(false);
-const closeBookmark = () => {
-    bookmarkBtn.value = true;
-}
-//ブックマーク解除 サーバへ
 const deleteBookmarkJob = (jobId) => {
     Inertia.delete(`/bookmark/${jobId}`, {});
-    bookmarkBtn.value = false;
 };
 
 const likeFunction = ref(false);
@@ -80,8 +73,8 @@ const relocationStatus = computed(() => {
 
 <template>
     <Head title="ブックマーク" />
-    <BaseLayouts class="relative">
-        <section>
+    <BaseLayouts>
+        <section class="relative">
             <SiteTitle>ブックマークした求人</SiteTitle>
 
             <FlashMessage v-if="$page.props.flash.message" >
@@ -104,7 +97,7 @@ const relocationStatus = computed(() => {
                                     >
                                     <!-- 右上にブックマークボタンを配置 -->
                                     <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center shadow-lg">
-                                        <button @click="closeBookmark">
+                                        <button @click="deleteBookmarkJob(job.id)">
                                             <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5" />
                                         </button>
                                     </div>
@@ -239,15 +232,6 @@ const relocationStatus = computed(() => {
                         </div>
                         <div class="text-center mt-4">
                             <button v-if="job.showDetails" @click="toggleDetails(job)" class="text-xs">閉じる</button>
-                        </div>
-
-                        <!-- ブックマーク解除 -->
-                        <div v-if="bookmarkBtn" class="absolute top-0 left-0 inset-0 z-50 bg-black bg-opacity-50 h-screen flex flex-col items-center justify-center">
-                            <div class="bg-white rounded-lg py-6 px-6 flex flex-col justify-center items-center">
-                                <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5" />
-                                <p class="text-xs mt-4 font-bold">ブックマークを解除しました</p>
-                            </div>
-                            <button @click="deleteBookmarkJob(job.id)" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-6 py-2 text-xs text-white">画面を閉じる</button>
                         </div>
 
                         <!-- いいねしたとき -->
