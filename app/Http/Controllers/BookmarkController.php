@@ -14,18 +14,9 @@ class BookmarkController extends Controller
 {
     public function store($jobId, Request $request)
     {
+        // dd($request->all());
         $user = $request->user();
 
-        // dd([
-        //     'path' => $request->path(),
-        //     'fullUrl' => $request->fullUrl(),
-        //     'is_search' => $request->is('applied-list'),
-        //     'is_api_search' => $request->is('api/search'),
-        //     'jobId' => $jobId,
-        //     'method' => $request->method(),
-        //     'all' => $request->all(),
-        //     'headers' => $request->headers->all(),
-        // ]);
 
         // 既にブックマークされているか確認
         if (!$user->bookmarks()->where('inertia_job_id', $jobId)->exists()) {

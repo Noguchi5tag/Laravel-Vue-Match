@@ -35,36 +35,30 @@ const isBookmarked = (jobId) => {
     return props.bookmarkedJobs.some(job => job.id === jobId);
 };
 
+const deleteBookmarkedJobId = ref(null);
 const deleteBookmarkFunction = ref(false);
-const deleteBookmarkButton = () => {
+const deleteBookmarkButton = (jobId) => {
+    deleteBookmarkedJobId.value = jobId;
     deleteBookmarkFunction.value = true;
 }
+
+const bookmarkedJobId = ref(null);
 const bookmarkFunction = ref(false);
-const bookmarkButton = () => {
+const bookmarkButton = (jobId) => {
+    bookmarkedJobId.value = jobId;
     bookmarkFunction.value = true;
 }
 
-const bookmarkJob = (jobId) => {
-    Inertia.post(`/bookmark/${jobId}?applied`, {}, {
-        onSuccess: () => {
-            alert(page.props.flash.message);
-        },
-        onError: () => {
-            alert(error.response.data.message || 'エラーが発生しました');
-        }
-    });
+const bookmarkJob = () => {
+    if (bookmarkedJobId.value) {
+        Inertia.post(`/bookmark/${bookmarkedJobId.value}?applied`);
+    }
 };
 
-const deleteBookmarkJob = (jobId) => {
-    Inertia.delete(`/bookmark/${jobId}`, {}, {
-        onSuccess: () => {
-            alert(page.props.flash.message);
-            window.location.reload();
-        },
-        onError: () => {
-            alert(error.response.data.message || 'エラーが発生しました');
-        }
-    });
+const deleteBookmarkJob = () => {
+    if (deleteBookmarkedJobId.value) {
+        Inertia.delete(`/bookmark/${deleteBookmarkedJobId.value}`);
+    }
 };
 
 const relocationStatus = computed(() => {
@@ -98,12 +92,12 @@ const relocationStatus = computed(() => {
                                 <!-- 右上にブックマークボタンを配置 -->
                                 <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center shadow-lg">
                                     <template v-if="isBookmarked(application.job.id)">
-                                        <button @click="deleteBookmarkButton">
+                                        <button @click="deleteBookmarkButton(application.job.id)">
                                             <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5" />
                                         </button>
                                     </template>
                                     <template v-else>
-                                        <button @click="bookmarkButton">
+                                        <button @click="bookmarkButton(application.job.id)">
                                             <font-awesome-icon :icon="['far', 'bookmark']" class="w-5 h-5" />
                                         </button>
                                     </template>
@@ -241,14 +235,14 @@ const relocationStatus = computed(() => {
                                 <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5" />
                                 <p class="text-xs mt-4 font-bold">ブックマークを解除しました</p>
                             </div>
-                            <button @click="deleteBookmarkJob(application.job.id)" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
+                            <button @click="deleteBookmarkJob" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
                         </div>
                         <div v-if="bookmarkFunction" class="fixed inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center z-40">
                             <div class="bg-white rounded-lg w-2/3 py-6 px-2 flex flex-col items-center">
                                 <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5" />
                                 <p class="text-xs mt-4 font-bold">ブックマークしました</p>
                             </div>
-                            <button @click="bookmarkJob(application.job.id)" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
+                            <button @click="bookmarkJob" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
                         </div>
                     </div>
                 </template>

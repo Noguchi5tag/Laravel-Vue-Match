@@ -33,14 +33,13 @@ const toggleDetails = (job) => {
     job.showDetails = !job.showDetails;
 };
 
+const bookmarkedJobId = ref(null); // ブックマークする求人のIDを保持
+
 const bookmarkFunction = ref(false);
-const bookmarkButton = () => {
+const bookmarkButton = (jobId) => {
+    bookmarkedJobId.value = jobId;
     bookmarkFunction.value = true;
 }
-
-const deleteBookmarkJob = (jobId) => {
-    Inertia.delete(`/bookmark/${jobId}`, {});
-};
 
 const likeFunction = ref(false);
 const jobIdToSend = ref(null);
@@ -69,6 +68,12 @@ const closeLikeButton = () => {
         });
     }
 }
+
+const deleteBookmarkJob = () => {
+    if (bookmarkedJobId.value) {
+        Inertia.delete(`/bookmark/${bookmarkedJobId.value}`, {});
+    }
+};
 
 const relocationStatus = computed(() => {
     return props.bookmarkedJobs.relocation ? 'あり' : 'なし';
@@ -102,7 +107,7 @@ const relocationStatus = computed(() => {
                                     >
                                     <!-- 右上にブックマークボタンを配置 -->
                                     <div id="bookmark" class="absolute top-4 right-4 bg-white pt-2 px-2 pb-1 rounded-full flex items-center shadow-lg">
-                                        <button @click="bookmarkButton">
+                                        <button @click="bookmarkButton(job.id)">
                                             <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5" />
                                         </button>
                                     </div>
@@ -271,7 +276,7 @@ const relocationStatus = computed(() => {
                                 <font-awesome-icon :icon="['fas', 'bookmark']" class="w-5 h-5" />
                                 <p class="text-xs mt-4 font-bold">ブックマークを解除しました</p>
                             </div>
-                            <button @click="deleteBookmarkJob(job.id)" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
+                            <button @click="deleteBookmarkJob" class="block rounded-full border-2 border-white text-center mx-auto mt-4 px-8 py-2 text-xs text-white">画面を閉じる</button>
                         </div>
                     </div>
                 </template>

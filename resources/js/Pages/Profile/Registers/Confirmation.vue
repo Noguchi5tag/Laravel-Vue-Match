@@ -40,7 +40,7 @@ const privacyChecked = ref(false);
 
 const handleRegistration = () => {
     form.privacy = 1;
-    form.put(route('profile.update'), {
+    form.post(route('profile.update'), {
         onSuccess: () => {
             alert('登録が完了しました。');
             router.visit(route('company.index'));
