@@ -52,9 +52,10 @@ class ManagerProfileController extends Controller
                 // 画像のオリジナル名を取得し、ストレージと公開ディレクトリに保存
                 $originalName = $request->file($image)->getClientOriginalName();
     
+                $oldImage = $request->user()->image_manager;
                 // 古い画像が存在する場合は削除
-                if ($user->{$image}) {
-                    Storage::delete('public/storages/manager/' . $originalName);
+                if ($oldImage && Storage::exists('public/storages/manager/' . $oldImage)) {
+                    Storage::delete('public/storages/manager/' . $oldImage);
                 }
     
                 // 画像を保存し、パスを取得

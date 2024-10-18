@@ -71,6 +71,8 @@ class JobController extends Controller
         } elseif ($request->is('search')) {
             // 検索結果の処理 //
 
+            // dd($request->all());
+
             $inertiaJobs = InertiaJob::where([
                 ['status', '=', 1],
                 ['is_checked', '=', 1], 
@@ -250,6 +252,7 @@ class JobController extends Controller
             foreach ($images as $image) {
                 if ($request->hasFile($image)) {
                     $originalName = $request->file($image)->getClientOriginalName();
+                    // 新しい画像を保存し、パスを設定
                     $path = $request->file($image)->storeAs('public/storages/jobs', $originalName);
                     $validatedData[$image] = basename($path); // データベースに保存するパスを設定
                 }
@@ -391,12 +394,15 @@ class JobController extends Controller
             ]);
         
             $images = ['image1', 'image2', 'image3', 'image4', 'image5'];
-            $imageDeleted = false; // 画像が削除されたかどうかを追跡するフラグ
+            // 画像が削除されたかどうかを追跡するフラグ
+            $imageDeleted = false; 
+            
             foreach ($images as $image) {
                 // 画像が削除フラグされているかチェック
                 if ($request->input("imageDeleteFlag.$image") === true) {
+                    
                     // 古い画像が存在する場合は削除
-                    if ($inertiaJob->{$image}) {
+                    if ($inertiaJob->{$image} && Storage::exists('public/storages/jobs/' . $inertiaJob->{$image})) {
                         Storage::delete('public/storages/jobs/' . $inertiaJob->{$image});
                     }
                     // データベースからも画像パスを削除
@@ -406,15 +412,12 @@ class JobController extends Controller
     
                 } elseif ($request->hasFile($image)) {
                     // 古い画像が存在する場合は削除
-                    if ($inertiaJob->{$image}) {
-                        Storage::delete('public/storages/jobs/' . $inertiaJob->{$image});
-                        // 公開ディレクトリからも削除
-                        if (file_exists(public_path('images/' . $inertiaJob->{$image}))) {
-                            unlink(public_path('images/' . $inertiaJob->{$image}));
-                        }
+                    $oldImage = $inertiaJob->{$image};
+                    // dd($oldImage);
+                    if ($oldImage && Storage::exists('public/storages/jobs/' . $oldImage)) {
+                        Storage::delete('public/storages/jobs/' . $oldImage);
                     }
-    
-                    // 画像の名前を取得ししのまま保存
+
                     $originalName = $request->file($image)->getClientOriginalName();
                     // 画像を保存し、パスを取得
                     $path = $request->file($image)->storeAs('public/storages/jobs', $originalName);

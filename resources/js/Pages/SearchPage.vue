@@ -36,7 +36,11 @@ const imageCount = (job) => {
     return count;
 }
 
+const showSearchOptions = ref(true);
+
 const selectedCategories = ref([]);
+const salaryType = ref('');
+const selectedAmount = ref('0');
 const dutyStation = ref('');
 const prefecture = ref('');
 const selectedParticulars = ref([]);
@@ -58,25 +62,19 @@ const toggleCategoryVisible = (categoryLabel) => {
     }
 };
 
-// 選択された給与タイプ
-const salaryType = ref('');
-// 選択された金額
-const selectedAmount = ref('');
-// 2つ目のセレクトボックスの選択肢を動的に管理する
+// 金額セレクトボックスの選択肢を動的に管理
 const salaryOptions = computed(() => {
     if (salaryType.value === '月給') {
-        // 月給を選択した場合の金額（20〜50の範囲で10単位）
         return Array.from({ length: 4 }, (_, i) => (20 + i * 10));
     } else if (salaryType.value === '年収') {
-        // 年収を選択した場合の金額（250〜1000の範囲で100単位）
         return Array.from({ length: 8 }, (_, i) => (300 + i * 100));
     } else {
         return [];
     }
 });
-// 給与タイプが変更された際に金額の選択をリセットする
+// 給与タイプが変更された際に金額の選択をリセット
 watch(salaryType, () => {
-    selectedAmount.value = '';
+    selectedAmount.value = '0';
 });
 
 const particularsCategories = ref([
@@ -92,10 +90,43 @@ const toggleParticularsVisible = (particularsLabel) => {
     }
 };
 
-const showSearchOptions = ref(true);
+// 検索条件が設定されているかをチェック
+const hasSearchConditions = () => {
+    return (
+        selectedCategories.value.length > 0 ||
+        salaryType.value !== '' ||
+        selectedAmount.value !== '0' ||
+        prefecture.value !== '' ||
+        dutyStation.value !== ''||
+        search.value !== '' ||
+        selectedParticulars.value.length > 0
+    );
+};
 
-//クエリパラメータを取得
+//検索項目をControllerに送信
+const searchCustomers = () => {
+
+    if (!hasSearchConditions()) {
+        alert('少なくとも1つの検索条件を入力してください。');
+        return;
+    } else {
+        showSearchOptions.value = false;
+        localStorage.setItem('showSearchOptions', JSON.stringify(false));
+
+        Inertia.get(route('search'), {
+            Occupation: selectedCategories.value, //職種
+            dutyStation: dutyStation.value,
+            prefecture: prefecture.value,
+            search: search.value,
+            salaryType: salaryType.value,
+            selectedAmount: selectedAmount.value,
+            particulars: selectedParticulars.value, //こだわり
+        });
+    }
+}
+
 onMounted(() => {
+    //クエリパラメータを取得
     const params = new URLSearchParams(window.location.search);
 
     const occupationParams = [];
@@ -114,13 +145,16 @@ onMounted(() => {
     if (params.has('prefecture')) {
         prefecture.value = params.get('prefecture');
     }
+    // if (params.has('salaryType')) {
+    //     salaryType.value = params.get('salaryType');
+    // }
+    if (params.has('selectedAmount')) {
+        selectedAmount.value = params.get('selectedAmount');
+    }
     if (params.has('search')) {
         search.value = params.get('search');
     }
-    if (params.has('salaryType')) {
-        salaryType.value = params.get('salaryType');
-    }
-
+    
     const particularsParams = [];
     let p_index = 0;
     while (params.has(`particulars[${p_index}]`)) {
@@ -131,48 +165,14 @@ onMounted(() => {
         selectedParticulars.value = particularsParams;
     }
 
-    const storedAmount = localStorage.getItem('selectedAmount');
-    if (storedAmount) {
-        selectedAmount.value = JSON.parse(storedAmount); // ローカルストレージから取得
+    // ローカルストレージからshowSearchOptionsの状態を取得
+    const storedShowSearchOptions = localStorage.getItem('showSearchOptions');
+    if (storedShowSearchOptions !== null) {
+        showSearchOptions.value = JSON.parse(storedShowSearchOptions);
+    } else {
+        showSearchOptions.value = true;
     }
 });
-
-// 検索条件が設定されているかをチェック
-const hasSearchConditions = () => {
-    return (
-        selectedCategories.value.length > 0 ||
-        salaryType.value !== '' ||
-        selectedAmount.value !== '' ||
-        prefecture.value !== '' ||
-        dutyStation.value !== ''||
-        search.value !== '' ||
-        selectedParticulars.value.length > 0
-    );
-};
-
-//検索項目をControllerに送信
-const searchCustomers = () => {
-
-    if (!hasSearchConditions()) {
-        alert('少なくとも1つの検索条件を入力してください。');
-        return;
-    } else {
-        showSearchOptions.value = false;
-        localStorage.setItem('showSearchOptions', JSON.stringify(false));
-        //金額だけローカルストレージから
-        localStorage.setItem('selectedAmount', JSON.stringify(selectedAmount.value));
-
-        Inertia.get(route('search'), {
-            Occupation: selectedCategories.value, //職種
-            dutyStation: dutyStation.value,
-            prefecture: prefecture.value,
-            search: search.value,
-            salaryType: salaryType.value,
-            selectedAmount: selectedAmount.value,
-            particulars: selectedParticulars.value, //こだわり
-        });
-    }
-}
 
 //検索条件クリア
 const clearFilters = () => {
@@ -180,16 +180,14 @@ const clearFilters = () => {
     dutyStation.value = '';
     prefecture.value = '';
     salaryType.value = '';
-    selectedAmount.value = '';
+    selectedAmount.value = '0';
     search.value = '';
     selectedParticulars.value = [];
-
-    localStorage.setItem('selectedAmount', JSON.stringify('0'));
 };
 
 // 検索条件表示ボタンのクリック時に表示を切り替え
 const showSearchOptionsSection = () => {
-    showSearchOptions.value = false;
+    showSearchOptions.value = true;
     localStorage.setItem('showSearchOptions', JSON.stringify(true));
 };
 
@@ -214,7 +212,6 @@ const bookmarkJob = (jobId) => {
 const relocationStatus = computed(() => {
     return props.inertiaJobs.relocation ? '有' : '無';
 });
-
 </script>
 
 <template>
@@ -223,7 +220,7 @@ const relocationStatus = computed(() => {
         <SiteTitle>求人を探す</SiteTitle>
         <section class="relative pb-6 mx-auto">
 
-            <template v-if="!showSearchOptions">
+            <template v-if="showSearchOptions">
                 <transition name="fade-slide" mode="out-in">
                     <section class="flex flex-col justify-center gap-4 p-4">
                         <div>
@@ -320,9 +317,9 @@ const relocationStatus = computed(() => {
 
                                 <PrimaryButton 
                                     v-if=" selectedCategories.length > 0 ||
+                                    selectedAmount !== '0' ||
                                     dutyStation !== '' || 
                                     prefecture !== '' ||
-                                    selectedAmount !== '' ||
                                     selectedParticulars.length > 0 ||
                                     search !== '' "
                                     @click="searchCustomers"
@@ -355,10 +352,11 @@ const relocationStatus = computed(() => {
                             <td class="opacity-50 text-xs">{{ prefecture }} {{ dutyStation }}</td>
                         </tr>
                         
-                        <!-- <tr v-if="salaryType || selectedAmount ">
-                            <th class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">{{ salaryType }}</th>
-                            <td class="opacity-50 text-xs">{{ selectedAmount }}円</td>
-                        </tr> -->
+                        <tr v-if="selectedAmount ">
+                            <th v-if="selectedAmount < 100" class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">月給</th>
+                            <th v-else class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">年収</th>
+                            <td class="opacity-50 text-xs">{{ selectedAmount }}万円</td>
+                        </tr>
 
                         <tr v-if="selectedParticulars.length > 0">
                             <th class="inline-flex items-center px-6 py-1 text-sky-400 border border-sky-400 border-transparent rounded-full font-semibold text-xs uppercase tracking-widest transition ease-in-out duration-150">こだわり条件</th>
@@ -402,7 +400,6 @@ const relocationStatus = computed(() => {
                                     </div>
                                 </slide>
                                 <template #addons>
-                                    <navigation />
                                     <pagination />
                                 </template>
                             </carousel>

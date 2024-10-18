@@ -292,7 +292,6 @@ const status = form.status;
                                             name="travelExpenses" 
                                             id="travelExpenses" 
                                             v-model="form.travelExpenses" 
-                                            required 
                                         />円
                                     </div>
                                 </div>
@@ -369,7 +368,6 @@ const status = form.status;
                                             name="workOther" 
                                             id="workOther" 
                                             v-model="form.workOther" 
-                                            required 
                                             class="w-full" 
                                         />
                                     </div>
@@ -417,7 +415,6 @@ const status = form.status;
                                             name="search_keywords" 
                                             id="search_keywords" 
                                             v-model="form.search_keywords" 
-                                            required 
                                             class="w-full" 
                                         />
                                     </div>
