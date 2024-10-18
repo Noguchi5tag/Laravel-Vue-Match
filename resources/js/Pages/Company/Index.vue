@@ -89,10 +89,10 @@ const relocationStatus = computed(() => {
 
                         <carousel :items-to-show="1">
                             <slide v-for="slide in imageCount(job)" :key="slide">
-                                <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 relative overflow-hidden">
+                                <div v-if="job[`image${slide}`]" class="w-full aspect-square">
                                     <img 
                                         :src="`/storage/storages/jobs/${job[`image${slide}`]}`" 
-                                        alt="" 
+                                        alt="求人画像" 
                                         class="object-cover w-full h-full"
                                     >
 

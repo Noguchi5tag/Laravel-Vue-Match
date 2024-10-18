@@ -7,6 +7,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import BaseLayouts from '../Layouts/BaseLayouts.vue';
 import SiteTitle from '../Components/SiteTitle.vue';
 import FlashMessage from '@/Components/FlashMessage.vue';
+import CompanyInfo from './Company/CompanyInfo.vue';
 import 'vue3-carousel/dist/carousel.css'
 
 const page = usePage();
@@ -90,12 +91,12 @@ const relocationStatus = computed(() => {
             <div v-if="bookmarkedJobs.length === 0">
                 <p class="text-center my-10">ブックマークされた求人はありません。</p>
             </div>
-            <div v-else class="bookmark-lists my-2">
+            <div v-else class="bookmark-lists mb-2">
                 <template v-for="job in bookmarkedJobs" :key="job.id">
                     <div class="mb-6 pb-4" v-if="job.status === 1">
                         <carousel :items-to-show="1">
                             <slide v-for="slide in imageCount(job)" :key="slide">
-                                <div v-if="job[`image${slide}`]" class="w-full aspect-w-1 aspect-h-1 relative overflow-hidden">
+                                <div v-if="job[`image${slide}`]" class="w-full aspect-square">
                                     <img 
                                         :src="`/storage/storages/jobs/${job[`image${slide}`]}`" 
                                         alt="" 
